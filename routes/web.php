@@ -1,0 +1,61 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SSOController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PreferensiController;
+use App\Http\Controllers\PermohonanAkunController;
+use App\Http\Controllers\VerifikasiAkunController;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/pkb-simpan-login', [SSOController::class, 'view'])->name('sso');
+Route::post('/testing', [SSOController::class, 'login'])->name('login.sso');
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/prototype', function(){
+    return view('auth.form-jenis-penyelenggara.pemerintah');
+});
+
+Route::get('/permohonan-akun', [PermohonanAkunController::class, 'index'])->name('permohonan.akun');
+Route::get('/permohonan-akun/detail', [PermohonanAkunController::class, 'form'])->name('form.akun');
+Route::post('/permohonan-akun/save', [PermohonanAkunController::class, 'store'])->name('form.akun.save');
+Route::get('/permohonan-akun/perbaikan/{uuid}', [PermohonanAkunController::class, 'edit'])->name('form.perbaikan');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    });
+    Route::resource('roles', RoleController::class)->except('show');
+    Route::resource('users', UserController::class)->only(['index']);
+    Route::get('/list-permohonan', [VerifikasiAkunController::class, 'list'])->name('list.permohonan');
+    Route::get('/detail-permohonan/{uuid}', [VerifikasiAkunController::class, 'detailPermohonan'])->name('detail.permohonan');
+    Route::post('/permohonan-tolak/{uuid}', [VerifikasiAkunController::class, 'tolakPermohonan'])->name('permohonan.tolak');
+    Route::post('/permohonan-perbaikan/{uuid}', [VerifikasiAkunController::class, 'perbaikanPermohonan'])->name('permohonan.perbaikan');
+    Route::get('/permohonan-approve/{uuid}', [VerifikasiAkunController::class, 'approvePermohonan'])->name('permohonan.approve');
+});
+
+
+Route::get('/kab-kota', [PreferensiController::class, 'getKabKota']);
+Route::get('/detail-asosiasi-profesi', [PreferensiController::class, 'getAsosiasiProfesi']);
+Route::get('/detail-asosiasi-bu', [PreferensiController::class, 'getAsosiasiBU']);
+Route::get('/detail-instansi/{id}', [PreferensiController::class, 'showInstansi']);
+
+require __DIR__.'/auth.php';

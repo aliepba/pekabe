@@ -1,0 +1,40 @@
+@extends('layouts.apps')
+
+@section('content')
+<div class="container">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <a href="{{route('roles.create')}}" class="btn btn-sm btn-primary">
+            <i class="flaticon-plus"></i>
+            Add Role
+          </a>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ($users as $item)
+                <tr>
+                    <td>{{$loop->iteration}}</td>
+                    <td>{{$item->name}}</td>
+                    <td>{{$item->email}}</td>
+                    <td>@foreach ($item->roles as $role)
+                        {{$role->name}}
+                    @endforeach</td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+</div>
+@endsection
