@@ -14,7 +14,9 @@ use App\Enums\PermohonanStatus;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+// use Illuminate\Notifications\Notification;
 use App\Notifications\ApproveNotification;
+use App\Notifications\PermohonanAkunNotification;
 use App\Notifications\TolakPermohonanNotification;
 use App\Notifications\PerbaikanPermohonanNotification;
 
@@ -22,6 +24,7 @@ class PermohonanAkunService
 {
     public function store(Request $request){
         DB::transaction(function () use($request){
+            $user = User::where('roles', 'admin')->get();
             $detail = DetailInstansi::query()->create([
                         'uuid' => Uuid::uuid4()->toString(),
                         'jenis' => $request->jenis,
@@ -46,6 +49,39 @@ class PermohonanAkunService
                 'password' => $request->password,
                 'upload_persyaratan' => $request->hasFile('upload_persyaratan') ? $request->file('upload_persyaratan')->store('file/sk_penunjukan', 'public') : null,
                 'id_detail_instansi' => $detail->uuid
+            ]);
+
+            Notification::send($user, new PermohonanAkunNotification($detail));
+        });
+    }
+
+    public function update(Request $request, $uuid){
+        $detail = DetailInstansi::where('uuid', $uuid)->first();
+        $penanggungjawab = PenanggungJawab::where('id_detail_instansi', $uuid)->first();
+
+        DB::transaction(function () use ($request, $detail, $penanggungjawab){
+            $detail->update([
+                'jenis' => $request->jenis,
+                'penyelenggara' => $request->jenis_penyelenggara,
+                'nama_instansi' => $request->nama_instansi,
+                'email_instansi' => $request->email_instansi,
+                'alamat' => $request->alamat,
+                'telepon' => $request->telepon,
+                'propinsi' => $request->provinsi,
+                'kab_kota' => $request->kab_kota,
+                'file1' => $request->hasFile('file1') ? $request->file('file1')->store('file/file1', 'public') : $detail->file1,
+                'file2' => $request->hasFile('file2') ? $request->file('file2')->store('file/file2', 'public') : $detail->file2,
+                'file3' => $request->hasFile('file3') ? $request->file('file3')->store('file/file3', 'public') : $detail->file3,
+            ]);
+
+            $penanggungjawab->update([
+                'nama_penanggung_jawab' => $request->nama_penanggung_jawab,
+                'nik' => $request->nik,
+                'jabatan' => $request->npwp,
+                'email' => $request->email_penanggung_jawab,
+                'npwp' => $request->npwp,
+                'password' => $request->password,
+                'upload_persyaratan' => $request->hasFile('upload_persyaratan') ? $request->file('upload_persyaratan')->store('file/sk_penunjukan', 'public') : $detail->upload_persyaratan,
             ]);
         });
     }
@@ -104,6 +140,7 @@ class PermohonanAkunService
                 'name' => $permohonan->penanggungjawab->nama_penanggung_jawab,
                 'email' => $permohonan->penanggungjawab->email,
                 'email_verified_at' => Carbon::now(),
+                'roles' => 'user',
                 'password' => Hash::make($permohonan->penanggungjawab->password)
             ]);
 

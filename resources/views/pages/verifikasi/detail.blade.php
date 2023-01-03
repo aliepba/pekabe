@@ -52,9 +52,9 @@
                                 <i class="flaticon2-placeholder mr-2 font-size-lg"></i>{{$data->provinsi->Nama. ' , '. $data->kabKota->nama_kabupaten_dagri. ' , ' .$data->alamat}}</a>
                             </div>
                             <div class="row">
-                            <a href="" class="btn btn-sm btn-primary rounded-lg col-md-2"><i class="flaticon-file"></i>Persyaratan</a>
-                            <a href="" class="btn btn-sm btn-primary rounded-lg col-md-2 ml-2"><i class="flaticon-file"></i>Persyaratan</a>
-                            <a href="" class="btn btn-sm btn-primary rounded-lg col-md-2 ml-2"><i class="flaticon-file"></i>Persyaratan</a>
+                            <a href="" class="btn btn-sm btn-primary rounded-lg col-md-3" target="_blank"><i class="flaticon-file"></i>{{$file1 != null ? $file1 : 'upload persyaratan'}}</a>
+                            <a href="" class="btn btn-sm btn-primary rounded-lg col-md-3 ml-2" target="_blank"><i class="flaticon-file"></i>{{$file2 != null ? $file2 : 'upload persyaratan'}}</a>
+                            <a href="" class="btn btn-sm btn-primary rounded-lg col-md-3 ml-2" target="_blank"><i class="flaticon-file"></i>{{$file2 != null ? $file2 : 'upload persyaratan'}}</a>
                             </div>
                         </div>
                     </div>

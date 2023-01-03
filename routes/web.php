@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SSOController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\IndexController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PreferensiController;
 use App\Http\Controllers\PermohonanAkunController;
 use App\Http\Controllers\VerifikasiAkunController;
@@ -22,9 +24,7 @@ use App\Http\Controllers\VerifikasiAkunController;
 Route::get('/pkb-simpan-login', [SSOController::class, 'view'])->name('sso');
 Route::post('/testing', [SSOController::class, 'login'])->name('login.sso');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [IndexController::class, 'index']);
 
 Route::get('/prototype', function(){
     return view('auth.form-jenis-penyelenggara.pemerintah');
@@ -35,14 +35,8 @@ Route::get('/permohonan-akun/detail', [PermohonanAkunController::class, 'form'])
 Route::post('/permohonan-akun/save', [PermohonanAkunController::class, 'store'])->name('form.akun.save');
 Route::get('/permohonan-akun/perbaikan/{uuid}', [PermohonanAkunController::class, 'edit'])->name('form.perbaikan');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    });
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('roles', RoleController::class)->except('show');
     Route::resource('users', UserController::class)->only(['index']);
     Route::get('/list-permohonan', [VerifikasiAkunController::class, 'list'])->name('list.permohonan');

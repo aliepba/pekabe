@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\DetailInstansi;
 use App\Models\MtPenyelenggara;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\PermohonanAkunRequest;
 use App\Services\PermohonanAkun\PermohonanAkunService;
 
 class PermohonanAkunController extends Controller
@@ -78,7 +79,7 @@ class PermohonanAkunController extends Controller
     }
 
 
-    public function store(Request $request){
+    public function store(PermohonanAkunRequest $request){
         $this->permohonanAkunService->store($request);
         return redirect()->route('permohonan.akun')->with('success', 'Permohonan Berhasil di Ajukan');
     }

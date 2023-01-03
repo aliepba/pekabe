@@ -15,6 +15,7 @@
         <div class="form-group">
             <label class="text-sm font-weight-bolder text-dark">Berkas SK Penunjukan <span class="text-danger">*</span></label>
             <input type="file" class="form-control" name="upload_persyaratan" required/>
+            <span class="text-muted">Accepted formats: pdf Max file size 1Mb</span>
         </div>
     </div>
     <div class="col-md-6">
