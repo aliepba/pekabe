@@ -14,7 +14,6 @@ use App\Enums\PermohonanStatus;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-// use Illuminate\Notifications\Notification;
 use App\Notifications\ApproveNotification;
 use App\Notifications\PermohonanAkunNotification;
 use App\Notifications\TolakPermohonanNotification;
