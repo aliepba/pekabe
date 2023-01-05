@@ -4,6 +4,7 @@ namespace App\Enums;
 
 class PermohonanStatus
 {
+    const OPEN = 'OPEN';
     const SUBMIT = 'SUBMIT';
     const APPROVE = 'APPROVE';
     const TOLAK = 'TOLAK';

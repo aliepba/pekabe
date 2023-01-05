@@ -5,6 +5,7 @@ use App\Http\Controllers\SSOController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PreferensiController;
 use App\Http\Controllers\PermohonanAkunController;
@@ -37,16 +38,17 @@ Route::get('/permohonan-akun/perbaikan/{uuid}', [PermohonanAkunController::class
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('roles', RoleController::class)->except('show');
-    Route::resource('users', UserController::class)->only(['index']);
     Route::get('/list-permohonan', [VerifikasiAkunController::class, 'list'])->name('list.permohonan');
     Route::get('/detail-permohonan/{uuid}', [VerifikasiAkunController::class, 'detailPermohonan'])->name('detail.permohonan');
     Route::post('/permohonan-tolak/{uuid}', [VerifikasiAkunController::class, 'tolakPermohonan'])->name('permohonan.tolak');
     Route::post('/permohonan-perbaikan/{uuid}', [VerifikasiAkunController::class, 'perbaikanPermohonan'])->name('permohonan.perbaikan');
     Route::get('/permohonan-approve/{uuid}', [VerifikasiAkunController::class, 'approvePermohonan'])->name('permohonan.approve');
+    Route::resource('roles', RoleController::class)->except('show');
+    Route::resource('users', UserController::class)->only(['index']);
 });
 
 
+Route::resource('kegiatan-penyelenggara', KegiatanController::class);
 Route::get('/kab-kota', [PreferensiController::class, 'getKabKota']);
 Route::get('/detail-asosiasi-profesi', [PreferensiController::class, 'getAsosiasiProfesi']);
 Route::get('/detail-asosiasi-bu', [PreferensiController::class, 'getAsosiasiBU']);
