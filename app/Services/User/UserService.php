@@ -27,7 +27,7 @@ class UserService {
                 'name' => $data->name,
                 'email' => $data->email,
                 'password' => Hash::Make($data->password),
-                'roles' => 'user'
+                'roles' => 'sub-user'
             ]);
 
             $user->assignRole('user');

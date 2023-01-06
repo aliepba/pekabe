@@ -1,0 +1,74 @@
+<?php
+
+namespace App\Services\SubPenyelenggara;
+
+use Carbon\Carbon;
+use App\Models\User;
+use Illuminate\Http\Request;
+use App\Models\SubPenyelenggara;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
+
+class SubPenyelenggaraService {
+    public function store(Request $request){
+        DB::transaction(function () use($request) {
+            $data = SubPenyelenggara::query()->create([
+                'nama' => $request->nama,
+                'alamat' => $request->alamat,
+                'telepon' => $request->telepon,
+                'email' => $request->email,
+                'password' => $request->password,
+                'is_active' => 1,
+                'user_id' => Auth::user()->id
+            ]);
+
+            $user = User::query()->create([
+                'name' => $data->nama,
+                'email' => $data->email,
+                'password' => Hash::make($data->password),
+                'roles' => 'sub-user'
+            ]);
+
+            $user->assignRole('sub-user');
+        });
+    }
+
+    public function update(Request $request, SubPenyelenggara $subPenyelenggara){
+        $user = User::where('email', $subPenyelenggara->email)->first();
+        DB::transaction(function () use($request, $user, $subPenyelenggara){
+            $subPenyelenggara->update([
+                'nama' => $request->nama,
+                'alamat' => $request->alamat,
+                'telepon' => $request->telepon,
+                'email' => $request->email,
+            ]);
+
+            $user->update([
+                'name' => $request->nama,
+                'email' => $request->email,
+            ]);
+        });
+    }
+
+    public function changeStatus(SubPenyelenggara $subPenyelenggara){
+        $user = DB::table('users')->where('email', $subPenyelenggara->email)->first();
+
+        if($subPenyelenggara->is_active == 1){
+            $subPenyelenggara->update(['is_active' => 0]);
+
+            $user->update([
+                'deleted_at' => Carbon::now()
+            ]);
+        }
+
+        if($subPenyelenggara->is_active == 0){
+            $subPenyelenggara->update(['is_active' => 1]);
+
+            $user->update([
+                'deleted_at' => null
+            ]);
+        }
+    }
+}
