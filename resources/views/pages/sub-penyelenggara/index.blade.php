@@ -10,7 +10,7 @@
           </a>
         </div>
         <div class="card-body">
-          <div class="table-responsive">
+          <div class="table">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>
                 <tr>
@@ -30,14 +30,19 @@
                         <td>{{$item->alamat}}</td>
                         <td>{{$item->email}}</td>
                         <td><span class="badge badge-{{$item->is_active == 1 ? "success" : "danger"}}">{{$item->is_active == 1 ? "Active" : "Deactive"}}</td>
-                        <td>
+                        <td class="text-center">
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Action
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a href="{{route('sub-penyelenggara.edit', $item->id)}}" class="btn btn-sm btn-primary"><i class="flaticon-edit"></i></a>
-                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <a href="{{route('sub-penyelenggara.edit', $item->id)}}" class="dropdown-item"> Edit</a>
+                                    @if ($item->is_active == 1)
+                                    <a href="{{route('change.status', $item->id)}}" class="dropdown-item">Deactive</a>
+                                    @endif
+                                    @if ($item->is_active == 0)
+                                    <a href="{{route('change.status', $item->id)}}" class="dropdown-item">Active</a>
+                                    @endif
                                     <a class="dropdown-item" href="#">Something else here</a>
                                 </div>
                             </div>

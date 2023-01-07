@@ -25,7 +25,7 @@ class SubPenyelenggaraController extends Controller
     {
         return view('pages.sub-penyelenggara.index', [
             'data' => new SubPenyelenggaraCollection(
-                SubPenyelenggara::query()->where('is_active', 1)->paginate(10)
+                SubPenyelenggara::query()->paginate(10)
             )
         ]);
     }
@@ -95,8 +95,15 @@ class SubPenyelenggaraController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(SubPenyelenggara $subPenyelenggara)
     {
-        //
+        $this->subPenyelenggaraService->destroy($subPenyelenggara);
+        return redirect(route('sub-penyelenggara.index'))->with('success', 'yey berhasil');
+    }
+
+    public function change($id)
+    {
+        $this->subPenyelenggaraService->changeStatus($id);
+        return redirect(route('sub-penyelenggara.index'))->with('success', 'yey berhasil');
     }
 }

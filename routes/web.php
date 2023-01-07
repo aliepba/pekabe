@@ -45,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/permohonan-perbaikan/{uuid}', [VerifikasiAkunController::class, 'perbaikanPermohonan'])->name('permohonan.perbaikan');
     Route::get('/permohonan-approve/{uuid}', [VerifikasiAkunController::class, 'approvePermohonan'])->name('permohonan.approve');
     Route::resource('/sub-penyelenggara', SubPenyelenggaraController::class)->except('show');
+    Route::get('/sub-penyelenggara/change-status/{id}', [SubPenyelenggaraController::class, 'change'])->name('change.status');
     Route::resource('roles', RoleController::class)->except('show');
     Route::resource('users', UserController::class)->only(['index']);
 });

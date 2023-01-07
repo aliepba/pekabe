@@ -52,23 +52,30 @@ class SubPenyelenggaraService {
         });
     }
 
-    public function changeStatus(SubPenyelenggara $subPenyelenggara){
-        $user = DB::table('users')->where('email', $subPenyelenggara->email)->first();
+    public function destroy(SubPenyelenggara $subPenyelenggara)
+    {
+        $user = User::where('email', $subPenyelenggara->email)->first();
+        $user->forceDelete();
+        $subPenyelenggara->forceDelete();
+    }
 
-        if($subPenyelenggara->is_active == 1){
-            $subPenyelenggara->update(['is_active' => 0]);
+    public function changeStatus($id){
+        $subPenyelenggara = SubPenyelenggara::find($id);
+        $user = User::where('email', $subPenyelenggara->email)->first();
+        DB::transaction(function () use($subPenyelenggara, $user) {
+            if($subPenyelenggara->is_active == 1){
+                $subPenyelenggara->update(['is_active' => 0]);
 
-            $user->update([
-                'deleted_at' => Carbon::now()
-            ]);
-        }
+                $user->update([
+                    'deleted_at' => Carbon::now()
+                ]);
+            }else{
+                $subPenyelenggara->update(['is_active' => 1]);
 
-        if($subPenyelenggara->is_active == 0){
-            $subPenyelenggara->update(['is_active' => 1]);
-
-            $user->update([
-                'deleted_at' => null
-            ]);
-        }
+                $user->update([
+                    'deleted_at' => null
+                ]);
+            }
+        });
     }
 }
