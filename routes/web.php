@@ -53,7 +53,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('kegiatan-penyelenggara', KegiatanController::class);
     Route::get('/list-verifikasi', [VerifikasiKegiatanController::class, 'list'])->name('list.kegiatan');
     Route::get('/detail-verifikasi/{uuid}', [VerifikasiKegiatanController::class, 'detail'])->name('verifikasi.kegiatan');
-    Route::get('/peserta-kegiatan/create', [PesertaKegiatanController::class])->name('peserta.create');
+    Route::get('/peserta-kegiatan/create/{uuid}', [PesertaKegiatanController::class, 'create'])->name('peserta.create');
+    Route::post('/peserta', [PesertaKegiatanController::class, 'store'])->name('peserta.store');
 });
 
 

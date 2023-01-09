@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Peserta\PesertaService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,5 +20,9 @@ class Kegiatan extends Model
 
     public function timeline(){
         return $this->hasMany(LogKegiatan::class, 'id_kegiatan' , 'uuid');
+    }
+
+    public function peserta(){
+        return $this->hasMany(PesertaKegiatan::class, 'id_kegiatan', 'uuid');
     }
 }

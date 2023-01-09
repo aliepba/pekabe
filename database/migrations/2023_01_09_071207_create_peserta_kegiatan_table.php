@@ -14,11 +14,12 @@ class CreatePesertaKegiatanTable extends Migration
     public function up()
     {
         Schema::create('peserta_kegiatan', function (Blueprint $table) {
-            $table->uuid('id');
-            $table->foreignId('id_kegiatan');
+            $table->id();
+            $table->string('uuid');
+            $table->string('id_kegiatan');
             $table->string('nik_peserta');
-            $table->string('unsur_kegiatan');
-            $table->string('metode_kegiatan');
+            $table->string('unsur_peserta');
+            $table->string('metode_peserta');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
             $table->softDeletes();

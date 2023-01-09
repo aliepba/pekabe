@@ -1,8 +1,8 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-          <a href="{{route('roles.create')}}" class="btn btn-sm btn-primary">
+          <a href="{{route('peserta.create', $data->uuid)}}" class="btn btn-sm btn-primary">
             <i class="flaticon-plus"></i>
-            Add Role
+            Tambah Peserta
           </a>
         </div>
         <div class="card-body">
@@ -11,17 +11,20 @@
               <thead>
                 <tr>
                     <th>No</th>
-                    <th>Kegiatan</th>
-                    <th>Status</th>
-                    <th>Tanggal Pengajuan</th>
-                    <th>Tanggal Kegiatan</th>
-                    <th>Subklasifikasi Tenaga Ahli</th>
-                    <th>Penilai</th>
-                    <th>Action</th>
+                    <th>NIK</th>
+                    <th>Unsur</th>
+                    <th>Metode</th>
                   </tr>
               </thead>
               <tbody>
-              </tbody>
+                @foreach ($data->peserta as $item)
+                <tr>
+                    <td>{{$loop->iteration}}</td>
+                    <td>{{$item->nik_peserta}}</td>
+                    <td>{{$item->unsur_peserta}}</td>
+                    <td>{{$item->metode_peserta}}</td>
+                </tr>
+                @endforeach
               </tbody>
             </table>
           </div>

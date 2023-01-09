@@ -68,7 +68,7 @@ class KegiatanController extends Controller
     public function show($uuid)
     {
         return view('pages.kegiatan.show', [
-            'data' => Kegiatan::with(['validator', 'timeline'])->where('uuid', $uuid)->first()
+            'data' => Kegiatan::with(['validator', 'timeline', 'peserta'])->where('uuid', $uuid)->first()
         ]);
     }
 

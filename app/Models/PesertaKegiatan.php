@@ -10,4 +10,6 @@ class PesertaKegiatan extends Model
     use HasFactory;
 
     protected $table = 'peserta_kegiatan';
+
+    protected $guarded = [];
 }
