@@ -47,11 +47,29 @@ class KegiatanService {
         });
      }
 
-     public function update(Request $request, $uuid){
-        $data = Kegiatan::where('uuid', $uuid)->first();
+     public function update(Request $request, $id){
+        $data = Kegiatan::find($id);
         DB::transaction(function() use($request, $data){
             $data->update([
-
+                'penyelenggara_lain' => $request->penyelenggara_lain,
+                'subklasifikasi' => implode("," ,$request->subklas),
+                'penilai' => $request->penilai,
+                'unsur_kegiatan' => $request->unsur_kegiatan,
+                'metode_kegiatan' => implode(",",$request->metode_kegiatan),
+                'tingkat_kegiatan' => $request->tingkat_kegiatan,
+                'nama_kegiatan' => $request->nama_kegiatan,
+                'tempat_kegiatan' => $request->tempat_kegiatan,
+                'start_kegiatan' => $request->start_kegiatan,
+                'end_kegiatan' => $request->end_kegiatan,
+                'surat_permohonan' => $request->hasFile('surat_permohonan') ? $request->file('surat_permohonan')->store('file/surat_permohonan', 'public') : $data->surat_permohonan,
+                'tor_kak' => $request->hasFile('tor_kak') ? $request->file('tor_kak')->store('file/tor_kak', 'public') : $data->tor_kak,
+                'sk_panitia' => $request->hasFile('sk_panitia') ? $request->file('sk_panitia')->store('file/sk_panitia', 'public') : $data->sk_panitia,
+                'cv' => $request->hasFile('cv') ? $request->file('cv')->store('file/cv', 'public') : $data->cv,
+                'persyaratan_lain' => $request->hasFile('persyaratan_lain') ? $request->file('persyaratan_lain')->store('file/persyaratan_lain', 'public') : $data->persyaratan_lain,
+                'persyaratan_lain_lain' => $request->hasFile('persyaratan_lain_lain') ? $request->file('persyaratan_lain_lain')->store('file/persyaratan_lain_lain', 'public') : $data->persyaratan_lain_lain,
+                'status_permohonan_kegiatan' => PermohonanStatus::OPEN,
+                'status_permohonan_penyelenggara' => $request->id_penyelenggara == null ? PermohonanStatus::SUBMIT : PermohonanStatus::OPEN,
+                'id_penyelenggara' => $request->id_penyelenggara,
             ]);
         });
      }

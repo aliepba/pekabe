@@ -48,10 +48,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/sub-penyelenggara/change-status/{id}', [SubPenyelenggaraController::class, 'change'])->name('change.status');
     Route::resource('roles', RoleController::class)->except('show');
     Route::resource('users', UserController::class)->only(['index']);
+    Route::resource('kegiatan-penyelenggara', KegiatanController::class);
 });
 
 
-Route::resource('kegiatan-penyelenggara', KegiatanController::class);
 Route::get('/kab-kota', [PreferensiController::class, 'getKabKota']);
 Route::get('/detail-asosiasi-profesi', [PreferensiController::class, 'getAsosiasiProfesi']);
 Route::get('/detail-asosiasi-bu', [PreferensiController::class, 'getAsosiasiBU']);
