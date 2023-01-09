@@ -72,156 +72,34 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-6 col-xxl-4">
-            <!--begin::List Widget 9-->
-            <div class="card card-custom card-stretch gutter-b">
-                <!--begin::Header-->
-                <div class="card-header align-items-center border-0 mt-4">
-                    <h3 class="card-title align-items-start flex-column">
-                        <span class="font-weight-bolder text-dark">Timeline Kegiatan</span>
-                        <span class="text-muted mt-3 font-weight-bold font-size-sm"></span>
-                    </h3>
-                </div>
-                <!--end::Header-->
-                <!--begin::Body-->
-                <div class="card-body pt-4">
-                    <!--begin::Timeline-->
-                    @foreach ($data->timeline as $item)
-                    <div class="timeline timeline-6 mt-3">
-                        <!--begin::Item-->
-                        <div class="timeline-item align-items-start">
-                            <!--begin::Label-->
-                            <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg">{{$item->status_permohonan}}</div>
-                            <!--end::Label-->
-                            <!--begin::Badge-->
-                            <div class="timeline-badge ml-5">
-                                <i class="fa fa-genderless text-warning icon-xl"></i>
-                            </div>
-                            <!--end::Badge-->
-                            <!--begin::Text-->
-                            <div class="font-weight-mormal font-size-lg timeline-content text-muted pl-3">{{$item->created_at}}</div>
-                            <!--end::Text-->
-                        </div>
-                        <!--end::Item-->
-                    </div>
-                    @endforeach
-                    <!--end::Timeline-->
-                </div>
-                <!--end: Card Body-->
-            </div>
-            <!--end: List Widget 9-->
+    <div class="card shadow mb-4">
+        <ul class="nav nav-pills" id="myTab1" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="home-tab-1" data-toggle="tab" href="#home-1">
+                    <span class="nav-icon">
+                        <i class="flaticon2-chat-1"></i>
+                    </span>
+                    <span class="nav-text">Detail</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="profile-tab-1" data-toggle="tab" href="#profile-1" aria-controls="profile">
+                    <span class="nav-icon">
+                        <i class="flaticon2-layers-1"></i>
+                    </span>
+                    <span class="nav-text">Peserta Kegiatan</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content mt-5" id="myTabContent1">
+        <div class="tab-pane fade show active" id="home-1" role="tabpanel" aria-labelledby="home-tab-1">
+            @include('pages.kegiatan.detail')
         </div>
-        <div class="col-lg-6 col-xxl-4">
-            <!--begin::List Widget 9-->
-            <div class="card card-custom card-stretch gutter-b">
-                <!--begin::Header-->
-                <div class="card-header align-items-center border-0 mt-4">
-                    <h3 class="card-title align-items-start flex-column">
-                        <span class="font-weight-bolder text-dark">Detail Kegiatan</span>
-                        <span class="text-muted mt-3 font-weight-bold font-size-sm"></span>
-                    </h3>
-                </div>
-                <!--end::Header-->
-                <!--begin::Body-->
-                <div class="card-body pt-4">
-                    <!--begin::detail kegiatan-->
-                    <div class="d-flex align-items-center mb-10">
-                        <!--begin::Symbol-->
-                        <div class="symbol symbol-40 symbol-light-success mr-5">
-                            <span class="symbol-label">
-                                <img src="assets/media/svg/avatars/009-boy-4.svg" class="h-75 align-self-end" alt="" />
-                            </span>
-                        </div>
-                        <!--end::Symbol-->
-                        <!--begin::Text-->
-                        <div class="d-flex flex-column flex-grow-1 font-weight-bold">
-                            <span class="text-muted">Nama Kegiatan</span>
-                            <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">{{$data->nama_kegiatan}}</a>
-                        </div>
-                        <!--end::Text-->
-                    </div>
-                    <div class="d-flex align-items-center mb-10">
-                        <!--begin::Symbol-->
-                        <div class="symbol symbol-40 symbol-light-success mr-5">
-                            <span class="symbol-label">
-                                <img src="assets/media/svg/avatars/009-boy-4.svg" class="h-75 align-self-end" alt="" />
-                            </span>
-                        </div>
-                        <!--end::Symbol-->
-                        <!--begin::Text-->
-                        <div class="d-flex flex-column flex-grow-1 font-weight-bold">
-                            <span class="text-muted">Subklasifikasi</span>
-                            <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">{{$data->subklasifikasi}}</a>
-                        </div>
-                        <!--end::Text-->
-                    </div>
-                    <div class="d-flex align-items-center mb-10">
-                        <!--begin::Symbol-->
-                        <div class="symbol symbol-40 symbol-light-success mr-5">
-                            <span class="symbol-label">
-                                <img src="assets/media/svg/avatars/009-boy-4.svg" class="h-75 align-self-end" alt="" />
-                            </span>
-                        </div>
-                        <!--end::Symbol-->
-                        <!--begin::Text-->
-                        <div class="d-flex flex-column flex-grow-1 font-weight-bold">
-                            <span class="text-muted">Penilai</span>
-                            <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">{{$data->validator->Nama}}</a>
-                        </div>
-                        <!--end::Text-->
-                    </div>
-                    <div class="d-flex align-items-center mb-10">
-                        <!--begin::Symbol-->
-                        <div class="symbol symbol-40 symbol-light-success mr-5">
-                            <span class="symbol-label">
-                                <img src="assets/media/svg/avatars/009-boy-4.svg" class="h-75 align-self-end" alt="" />
-                            </span>
-                        </div>
-                        <!--end::Symbol-->
-                        <!--begin::Text-->
-                        <div class="d-flex flex-column flex-grow-1 font-weight-bold">
-                            <span class="text-muted">Tingkat Kegiatan</span>
-                            <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">{{$data->tingkat_kegiatan}}</a>
-                        </div>
-                        <!--end::Text-->
-                    </div>
-                    <div class="d-flex align-items-center mb-10">
-                        <!--begin::Symbol-->
-                        <div class="symbol symbol-40 symbol-light-success mr-5">
-                            <span class="symbol-label">
-                                <img src="assets/media/svg/avatars/009-boy-4.svg" class="h-75 align-self-end" alt="" />
-                            </span>
-                        </div>
-                        <!--end::Symbol-->
-                        <!--begin::Text-->
-                        <div class="d-flex flex-column flex-grow-1 font-weight-bold">
-                            <span class="text-muted">Metode Kegiatan</span>
-                            <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">{{$data->metode_kegiatan}}</a>
-                        </div>
-                        <!--end::Text-->
-                    </div>
-                    <div class="d-flex align-items-center mb-10">
-                        <!--begin::Symbol-->
-                        <div class="symbol symbol-40 symbol-light-success mr-5">
-                            <span class="symbol-label">
-                                <img src="assets/media/svg/avatars/009-boy-4.svg" class="h-75 align-self-end" alt="" />
-                            </span>
-                        </div>
-                        <!--end::Symbol-->
-                        <!--begin::Text-->
-                        <div class="d-flex flex-column flex-grow-1 font-weight-bold">
-                            <span class="text-muted">Tempat Kegiatan</span>
-                            <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">{{$data->tempat_kegiatan}}</a>
-                        </div>
-                        <!--end::Text-->
-                    </div>
-                    <!--end::detail kegiatan-->
-                </div>
-                <!--end: Card Body-->
-            </div>
-            <!--end: List Widget 9-->
+        <div class="tab-pane fade" id="profile-1" role="tabpanel" aria-labelledby="profile-tab-1">
+            @include('pages.kegiatan.table-peserta')
         </div>
     </div>
+
 </div>
 @endsection
