@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Kegiatan;
 use Illuminate\Http\Request;
 use App\Services\Peserta\PesertaService;
-
+use App\Http\Resources\Peserta\PesertaResource;
+use App\Http\Resources\Peserta\PesertaCollection;
+use App\Models\PesertaKegiatan;
 
 class PesertaKegiatanController extends Controller
 {
@@ -69,7 +71,9 @@ class PesertaKegiatanController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('pages.peserta.edit', [
+            'data' => PesertaKegiatan::find($id)
+        ]);
     }
 
     /**
@@ -81,7 +85,8 @@ class PesertaKegiatanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->pesertaService->update($request, $id);
+        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'yey berhasil!');
     }
 
     /**

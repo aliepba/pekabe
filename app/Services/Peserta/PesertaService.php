@@ -23,4 +23,16 @@ class PesertaService
             ]);
         });
     }
+
+    public function update(Request $request, $id)
+    {
+        $peserta = PesertaKegiatan::find($id);
+        DB::transaction(function () use($peserta, $request){
+            $peserta->update([
+                'nik_peserta' => $request->nik,
+                'unsur_peserta' => $request->unsur,
+                'metode_peserta' => $request->metode
+            ]);
+        });
+    }
 }

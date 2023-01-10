@@ -7,13 +7,14 @@
         </div>
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="peserta" width="100%" cellspacing="0">
               <thead>
                 <tr>
                     <th>No</th>
                     <th>NIK</th>
                     <th>Unsur</th>
                     <th>Metode</th>
+                    <th>Action</th>
                   </tr>
               </thead>
               <tbody>
@@ -23,6 +24,9 @@
                     <td>{{$item->nik_peserta}}</td>
                     <td>{{$item->unsur_peserta}}</td>
                     <td>{{$item->metode_peserta}}</td>
+                    <td>
+                        <a href="{{route('peserta.edit', $item->id)}}" class="btn btn-sm btn-primary">Edit</a>
+                    </td>
                 </tr>
                 @endforeach
               </tbody>

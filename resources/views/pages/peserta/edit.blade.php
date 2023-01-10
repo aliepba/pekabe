@@ -7,29 +7,34 @@
             <h4 class="h4">Form Kegiatan</h4>
         </div>
         <div class="card-body">
-            <form action="{{route('peserta.store')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('peserta.update', $data->id)}}" method="POST" enctype="multipart/form-data">
+                @method('PUT')
                 @csrf
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>NIK</label>
-                            <input type="number" class="form-control" name="nik" maxlength="16" placeholder="nik" required>
+                            <input type="number" class="form-control" name="nik" maxlength="16" placeholder="nik" value="{{$data->nik_peserta}}" required>
                             <input type="text" name="id_kegiatan" value="{{$data->uuid}}" hidden/>
                         </div>
                         <div class="form-group">
                             <label>Unsur Kegiatan</label>
-                            <input type="text" class="form-control" name="unsur" value="{{$data->unsur_kegiatan}}" readonly>
+                            <input type="text" class="form-control" name="unsur" value="{{$data->unsur_peserta}}" readonly>
                         </div>
                         <div class="form-group">
                             <label>Metode Kegiatan</label>
                             <div class="radio-inline">
                                 <label class="radio">
-                                    <input type="radio" name="metode" value="Tatap Muka"/>
+                                    <input type="radio" name="metode" value="Tatap Muka" @if($data->metode_peserta == 'Tatap Muka')
+                                    checked
+                                    @endif />
                                     <span></span>
                                     Tatap Muka
                                 </label>
                                 <label class="radio">
-                                    <input type="radio" name="metode" value="Daring"/>
+                                    <input type="radio" name="metode" value="Daring" @if ($data->metode_peserta == 'Daring')
+                                    checked
+                                    @endif/>
                                     <span></span>
                                     Daring
                                 </label>

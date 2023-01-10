@@ -29,7 +29,7 @@ class KegiatanController extends Controller
     {
         return view('pages.kegiatan.index', [
             'kegiatan' => new KegiatanCollection(
-                Kegiatan::query()->where('status_permohonan_kegiatan', 'OPEN')->paginate(5)
+                Kegiatan::query()->where('status_permohonan_kegiatan', 'OPEN')->get()
             )
         ]);
     }
@@ -117,8 +117,9 @@ class KegiatanController extends Controller
         //
     }
 
-    public function submit($id)
+    public function submit($uuid)
     {
-
+        $this->kegiatanService->submit($uuid);
+        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'yey berhasil!');
     }
 }

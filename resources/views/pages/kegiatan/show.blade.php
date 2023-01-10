@@ -31,7 +31,7 @@
                                     Action
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="{{route('permohonan.approve', $data->uuid)}}">Submit</a>
+                                    <a class="dropdown-item" href="{{route('submit.kegiatan', $data->uuid)}}">Submit</a>
                                     <a href="{{route('kegiatan-penyelenggara.edit', $data->id)}}" class="dropdown-item">Edit</a>
                                 </div>
                             </div>
@@ -97,9 +97,17 @@
             @include('pages.kegiatan.detail')
         </div>
         <div class="tab-pane fade" id="profile-1" role="tabpanel" aria-labelledby="profile-tab-1">
-            @include('pages.kegiatan.table-peserta')
+            @include('pages.peserta.table-peserta')
         </div>
     </div>
 
 </div>
 @endsection
+
+@push('addon-script')
+    <script>
+        $(document).ready(function () {
+            $('#peserta').DataTable();
+        });
+    </script>
+@endpush

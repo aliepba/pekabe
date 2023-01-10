@@ -2,12 +2,17 @@
 
 @section('content')
 <div class="container">
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-          <a href="{{route('sub-penyelenggara.create')}}" class="btn btn-sm btn-primary">
-            <i class="flaticon-plus"></i>
-            Tambah Penanggung Jawab
-          </a>
+    <div class="card card-custom shadow mb-4">
+        <div class="card-header flex-wrap py-3">
+            <div class="card-title">
+                <h4 class="h4">List Penanggung Jawab</h4>
+            </div>
+            <div class="card-toolbar">
+                <a href="{{route('sub-penyelenggara.create')}}" class="btn btn-sm btn-primary">
+                    <i class="flaticon-plus"></i>
+                    Tambah Penanggung Jawab
+                  </a>
+            </div>
         </div>
         <div class="card-body">
           <div class="table">
