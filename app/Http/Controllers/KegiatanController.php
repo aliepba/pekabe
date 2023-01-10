@@ -6,6 +6,7 @@ use App\Models\Kegiatan;
 use Illuminate\Http\Request;
 use App\Models\MtSubklasifikasi;
 use App\Models\MtAsosiasiProfesi;
+use Illuminate\Support\Facades\Auth;
 use App\Services\Kegiatan\KegiatanService;
 use App\Http\Resources\Kegiatan\KegiatanResource;
 use App\Http\Resources\Kegiatan\KegiatanCollection;
@@ -29,7 +30,7 @@ class KegiatanController extends Controller
     {
         return view('pages.kegiatan.index', [
             'kegiatan' => new KegiatanCollection(
-                Kegiatan::query()->where('status_permohonan_kegiatan', 'OPEN')->get()
+                Kegiatan::query()->where('user_id', Auth::user()->id)->get()
             )
         ]);
     }
@@ -68,7 +69,7 @@ class KegiatanController extends Controller
     public function show($uuid)
     {
         return view('pages.kegiatan.show', [
-            'data' => Kegiatan::with(['validator', 'timeline', 'peserta'])->where('uuid', $uuid)->first()
+            'data' => Kegiatan::with(['validator', 'timeline', 'peserta', 'laporan'])->where('uuid', $uuid)->first()
         ]);
     }
 
@@ -121,5 +122,23 @@ class KegiatanController extends Controller
     {
         $this->kegiatanService->submit($uuid);
         return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'yey berhasil!');
+    }
+
+    public function setuju()
+    {
+        return view('pages.kegiatan.setuju', [
+            'kegiatan' => new KegiatanCollection(
+                Kegiatan::query()->where('status_permohonan_kegiatan', 'APPROVE')->where('user_id', Auth::user()->id)->get()
+            )
+        ]);
+    }
+
+    public function tolak()
+    {
+        return view('pages.kegiatan.setuju', [
+            'kegiatan' => new KegiatanCollection(
+                Kegiatan::query()->where('status_permohonan_kegiatan', 'TOLAK')->where('user_id', Auth::user()->id)->get()
+            )
+        ]);
     }
 }

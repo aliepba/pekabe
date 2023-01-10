@@ -26,6 +26,9 @@
                             </a>
                         </div>
                         <div class="my-lg-0 my-3">
+                            @if ($data->status_permohonan_kegiatan == 'SUBMIT')
+                            <span class="badge badge-primary">SUBMITTED</span>
+                            @else
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Action
@@ -35,6 +38,7 @@
                                     <a href="{{route('kegiatan-penyelenggara.edit', $data->id)}}" class="dropdown-item">Edit</a>
                                 </div>
                             </div>
+                            @endif
                         </div>
                     </div>
                     <!--end::Title-->
@@ -75,7 +79,7 @@
     <div class="card shadow mb-4">
         <ul class="nav nav-pills" id="myTab1" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="home-tab-1" data-toggle="tab" href="#home-1">
+                <a class="nav-link active" id="home-tab-1" data-toggle="tab" href="#detail">
                     <span class="nav-icon">
                         <i class="flaticon2-chat-1"></i>
                     </span>
@@ -83,21 +87,32 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="profile-tab-1" data-toggle="tab" href="#profile-1" aria-controls="profile">
+                <a class="nav-link" id="profile-tab-1" data-toggle="tab" href="#tab-peserta" aria-controls="profile">
                     <span class="nav-icon">
                         <i class="flaticon2-layers-1"></i>
                     </span>
                     <span class="nav-text">Peserta Kegiatan</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" id="profile-tab-1" data-toggle="tab" href="#tab-pelaporan" aria-controls="profile">
+                    <span class="nav-icon">
+                        <i class="flaticon2-layers-1"></i>
+                    </span>
+                    <span class="nav-text">Berkas Laporan Kegiatan</span>
+                </a>
+            </li>
         </ul>
     </div>
     <div class="tab-content mt-5" id="myTabContent1">
-        <div class="tab-pane fade show active" id="home-1" role="tabpanel" aria-labelledby="home-tab-1">
+        <div class="tab-pane fade show active" id="detail" role="tabpanel" aria-labelledby="home-tab-1">
             @include('pages.kegiatan.detail')
         </div>
-        <div class="tab-pane fade" id="profile-1" role="tabpanel" aria-labelledby="profile-tab-1">
+        <div class="tab-pane fade" id="tab-peserta" role="tabpanel" aria-labelledby="profile-tab-1">
             @include('pages.peserta.table-peserta')
+        </div>
+        <div class="tab-pane fade" id="tab-pelaporan" role="tabpanel" aria-labelledby="profile-tab-1">
+            @include('pages.kegiatan.pelaporan.create')
         </div>
     </div>
 

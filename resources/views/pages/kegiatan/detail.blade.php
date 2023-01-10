@@ -26,7 +26,7 @@
                         </div>
                         <!--end::Badge-->
                         <!--begin::Text-->
-                        <div class="font-weight-mormal font-size-lg timeline-content text-muted pl-3">{{$item->created_at}}</div>
+                        <div class="font-weight-mormal font-size-lg timeline-content text-muted pl-3">{{$item->created_at}}, {{$item->keterangan    }}</div>
                         <!--end::Text-->
                     </div>
                     <!--end::Item-->

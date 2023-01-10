@@ -25,4 +25,8 @@ class Kegiatan extends Model
     public function peserta(){
         return $this->hasMany(PesertaKegiatan::class, 'id_kegiatan', 'uuid');
     }
+
+    public function laporan(){
+        return $this->hasOne(PelaporanKegiatan::class, 'id_kegiatan', 'uuid');
+    }
 }

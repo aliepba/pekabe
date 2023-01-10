@@ -7,6 +7,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PelaporanController;
 use App\Http\Controllers\PreferensiController;
 use App\Http\Controllers\PermohonanAkunController;
 use App\Http\Controllers\VerifikasiAkunController;
@@ -60,6 +61,12 @@ Route::middleware(['auth'])->group(function () {
     //user
     Route::resource('kegiatan-penyelenggara', KegiatanController::class);
     Route::get('/kegiatan/submit/{uuid}', [KegiatanController::class, 'submit'])->name('submit.kegiatan');
+    Route::get('/kegiatan/terverifikasi', [KegiatanController::class, 'setuju'])->name('kegiatan.setuju');
+    Route::get('/kegiatan/tolak', [KegiatanController::class, 'tolak'])->name('kegiatan.tolak');
+
+    Route::resource('/pelaporan', PelaporanController::class)->only(['store', 'edit', 'update']);
+    Route::get('/pelaporan/submit/{id}', [PelaporanController::class, 'submit'])->name('pelaporan.submit');
+
     Route::resource('/sub-penyelenggara', SubPenyelenggaraController::class)->except('show');
     Route::get('/sub-penyelenggara/change-status/{id}', [SubPenyelenggaraController::class, 'change'])->name('change.status');
     Route::get('/peserta-kegiatan/create/{uuid}', [PesertaKegiatanController::class, 'create'])->name('peserta.create');
