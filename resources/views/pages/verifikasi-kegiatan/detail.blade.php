@@ -176,81 +176,165 @@
                 <div class="card-body pt-4">
                     <!--begin::Timeline-->
                     <div class="row">
-                        <div class="col-lg-4">
-                            <a href="" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>Surat Permohonan</a><span class="text-danger">*</span>
+                        <div class="col-lg-2">
+                            <a href="" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>Surat Permohonan *</a>
                         </div>
+						<div class="col-lg-2">
+							<span class="switch switch-icon">
+								<label>
+								<input type="checkbox" name="select" id="checkSurat"/>
+								<span></span>
+								</label>
+							</span>
+						</div>
                         <div class="col-lg-8">
+                            <form id="suratPermohonan">
+                                @csrf
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Keterangan Perbaikan" id="surat_permohonan"/>
+                                <input type="text" class="form-control" placeholder="Keterangan Perbaikan" name="keterangan_surat" id="keterangan_surat" disabled/>
+                                <input type="hidden" value="{{$data->uuid}}" name="id_kegiatan"/>
+                                <input type="hidden" value="edit.surat" name="linkSurat"/>
+                                <input type="hidden" value="{{$data->user_id}}" name="user_id_surat"/>
                                 <div class="input-group-append">
-                                    <button class="btn btn-secondary" type="button">Kirim!</button>
+                                    <button class="btn btn-secondary" type="submit">Kirim!</button>
                                 </div>
                             </div>
+                            </form>
                         </div>
                     </div>
                     <div class="row mt-2">
-                        <div class="col-lg-4">
+                        <div class="col-lg-2">
                             <a href="" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>TOR / KAK</a><span class="text-danger">*</span>
                         </div>
+                        <div class="col-lg-2">
+							<span class="switch switch-icon">
+								<label>
+								<input type="checkbox" name="select" id="checkTor"/>
+								<span></span>
+								</label>
+							</span>
+						</div>
                         <div class="col-lg-8">
+                            <form id="torKAK">
+                                @csrf
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Keterangan Perbaikan" id="tor_kak"/>
+                                <input type="text" class="form-control" placeholder="Keterangan Perbaikan" name="tor_kak" id="tor_kak" disabled/>
+                                <input type="hidden" value="{{$data->uuid}}" name="id_kegiatan"/>
+                                <input type="hidden" value="edit.tor" name="linkTor"/>
+                                <input type="hidden" value="{{$data->user_id}}" name="user_id_surat"/>
                                 <div class="input-group-append">
-                                    <button class="btn btn-secondary" type="button">Kirim!</button>
+                                    <button class="btn btn-secondary" type="submit">Kirim!</button>
                                 </div>
                             </div>
+                            </form>
                         </div>
                     </div>
                     <div class="row mt-2">
-                        <div class="col-lg-4">
+                        <div class="col-lg-2">
                             <a href="" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>CV</a>
                         </div>
+                        <div class="col-lg-2">
+							<span class="switch switch-icon">
+								<label>
+								<input type="checkbox" name="select" id="checkCV"/>
+								<span></span>
+								</label>
+							</span>
+						</div>
                         <div class="col-lg-8">
+                            <form id="cvForm">
+                                @csrf
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Keterangan Perbaikan" id="cv"/>
+                                <input type="text" class="form-control" placeholder="Keterangan Perbaikan" name="cv" id="cv" disabled/>
+                                <input type="hidden" value="{{$data->uuid}}" name="id_kegiatan"/>
+                                <input type="hidden" value="edit.cv" name="linkCV"/>
+                                <input type="hidden" value="{{$data->user_id}}" name="user_id_surat"/>
                                 <div class="input-group-append">
-                                    <button class="btn btn-secondary" type="button">Kirim!</button>
+                                    <button class="btn btn-secondary" type="submit">Kirim!</button>
                                 </div>
                             </div>
+                            </form>
                         </div>
                     </div>
                     <div class="row mt-2">
-                        <div class="col-lg-4">
+                        <div class="col-lg-2">
                             <a href="" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>SK Panitia</a>
                         </div>
+                        <div class="col-lg-2">
+							<span class="switch switch-icon">
+								<label>
+								<input type="checkbox" name="select" id="checkSK"/>
+								<span></span>
+								</label>
+							</span>
+						</div>
                         <div class="col-lg-8">
+                            <form id="skForm">
+                                @csrf
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Keterangan Perbaikan" id="sk_panitia"/>
+                                <input type="text" class="form-control" placeholder="Keterangan Perbaikan" name="sk" id="sk_panitia" disabled/>
+                                <input type="hidden" value="{{$data->uuid}}" name="id_kegiatan"/>
+                                <input type="hidden" value="edit.sk" name="linkSK"/>
+                                <input type="hidden" value="{{$data->user_id}}" name="user_id_surat"/>
                                 <div class="input-group-append">
-                                    <button class="btn btn-secondary" type="button">Kirim!</button>
+                                    <button class="btn btn-secondary" type="submit">Kirim!</button>
                                 </div>
                             </div>
+                            </form>
                         </div>
                     </div>
                     <div class="row mt-2">
-                        <div class="col-lg-4">
+                        <div class="col-lg-2">
                             <a href="" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>Persyaratan Lain</a>
                         </div>
+                        <div class="col-lg-2">
+							<span class="switch switch-icon">
+								<label>
+								<input type="checkbox" name="select" id="checklain1"/>
+								<span></span>
+								</label>
+							</span>
+						</div>
                         <div class="col-lg-8">
+                            <form id="lain1Form">
+                                @csrf
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Keterangan Perbaikan" id="persyaratan_lain"/>
+                                <input type="text" class="form-control" placeholder="Keterangan Perbaikan" name="lain1" id="persyaratan_lain" disabled/>
+                                <input type="hidden" value="{{$data->uuid}}" name="id_kegiatan"/>
+                                <input type="hidden" value="edit.lain1" name="linkLain1"/>
+                                <input type="hidden" value="{{$data->user_id}}" name="user_id_surat"/>
                                 <div class="input-group-append">
-                                    <button class="btn btn-secondary" type="button">Kirim!</button>
+                                    <button class="btn btn-secondary" type="submit">Kirim!</button>
                                 </div>
                             </div>
+                            </form>
                         </div>
                     </div>
                     <div class="row mt-2">
-                        <div class="col-lg-4">
+                        <div class="col-lg-2">
                             <a href="" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>Lainnya</a>
                         </div>
+                        <div class="col-lg-2">
+							<span class="switch switch-icon">
+								<label>
+								<input type="checkbox" name="select" id="checklain2"/>
+								<span></span>
+								</label>
+							</span>
+						</div>
                         <div class="col-lg-8">
+                            <form id="lain2Form">
+                                @csrf
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Keterangan Perbaikan" id="lainnya"/>
+                                <input type="text" class="form-control" placeholder="Keterangan Perbaikan" name="lain2" id="lainnya" disabled/>
+                                <input type="hidden" value="{{$data->uuid}}" name="id_kegiatan"/>
+                                <input type="hidden" value="edit.lain2" name="linkLain2"/>
+                                <input type="hidden" value="{{$data->user_id}}" name="user_id_surat"/>
                                 <div class="input-group-append">
-                                    <button class="btn btn-secondary" type="button">Kirim!</button>
+                                    <button class="btn btn-secondary" type="submit">Kirim!</button>
                                 </div>
                             </div>
+                            </form>
                         </div>
                     </div>
                     <!--end::Timeline-->
@@ -262,3 +346,188 @@
     </div>
 </div>
 @endsection
+
+@push('addon-script')
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+
+        document.getElementById('checkSurat').onchange = function() {
+            document.getElementById('keterangan_surat').disabled = !this.checked;
+        };
+
+        document.getElementById('checkTor').onchange = function() {
+            document.getElementById('tor_kak').disabled = !this.checked;
+        };
+
+        document.getElementById('checkCV').onchange = function() {
+            document.getElementById('cv').disabled = !this.checked;
+        };
+
+
+        document.getElementById('checkSK').onchange = function() {
+            document.getElementById('sk_panitia').disabled = !this.checked;
+        };
+
+
+        document.getElementById('checklain1').onchange = function() {
+            document.getElementById('persyaratan_lain').disabled = !this.checked;
+        };
+
+
+        document.getElementById('checklain2').onchange = function() {
+            document.getElementById('lainnya').disabled = !this.checked;
+        };
+
+
+        $('#suratPermohonan').submit(function(e){
+            e.preventDefault();
+            var idKegiatan = $("input[name=id_kegiatan]").val();
+            var linkSurat = $("input[name=linkSurat]").val();
+            var komen = $("input[name=keterangan_surat]").val();
+            var user_id = $("input[name=user_id_surat]").val();
+            var _token = $("input[name=_token]").val();
+
+            $.ajax({
+                url : "{{route('add.komen')}}",
+                type : "POST",
+                data : {
+                    id_kegiatan : idKegiatan,
+                    link : linkSurat,
+                    keterangan : komen,
+                    user_id : user_id,
+                    _token : _token
+                },
+                success:function(response){
+                    swal("Done!","Deskripsi Perbaikan Dikirim","success");
+                    document.getElementById('keterangan_surat').value = '';
+                }
+            });
+        })
+
+        $('#torKAK').submit(function(e){
+            e.preventDefault();
+            var idKegiatan = $("input[name=id_kegiatan]").val();
+            var linkSurat = $("input[name=linkTor]").val();
+            var komen = $("input[name=tor_kak]").val();
+            var user_id = $("input[name=user_id_surat]").val();
+            var _token = $("input[name=_token]").val();
+
+            $.ajax({
+                url : "{{route('add.komen')}}",
+                type : "POST",
+                data : {
+                    id_kegiatan : idKegiatan,
+                    link : linkSurat,
+                    keterangan : komen,
+                    user_id : user_id,
+                    _token : _token
+                },
+                success:function(response){
+                    swal("Done!","Deskripsi Perbaikan Dikirim","success");
+                    document.getElementById('tor_kak').value = '';
+                }
+            });
+        })
+
+        $('#cvForm').submit(function(e){
+            e.preventDefault();
+            var idKegiatan = $("input[name=id_kegiatan]").val();
+            var linkSurat = $("input[name=linkCV]").val();
+            var komen = $("input[name=cv]").val();
+            var user_id = $("input[name=user_id_surat]").val();
+            var _token = $("input[name=_token]").val();
+
+            $.ajax({
+                url : "{{route('add.komen')}}",
+                type : "POST",
+                data : {
+                    id_kegiatan : idKegiatan,
+                    link : linkSurat,
+                    keterangan : komen,
+                    user_id : user_id,
+                    _token : _token
+                },
+                success:function(response){
+                    swal("Done!","Deskripsi Perbaikan Dikirim","success");
+                    document.getElementById('cv').value = '';
+                }
+            });
+        })
+
+        $('#skForm').submit(function(e){
+            e.preventDefault();
+            var idKegiatan = $("input[name=id_kegiatan]").val();
+            var linkSurat = $("input[name=linkSK]").val();
+            var komen = $("input[name=sk]").val();
+            var user_id = $("input[name=user_id_surat]").val();
+            var _token = $("input[name=_token]").val();
+
+            $.ajax({
+                url : "{{route('add.komen')}}",
+                type : "POST",
+                data : {
+                    id_kegiatan : idKegiatan,
+                    link : linkSurat,
+                    keterangan : komen,
+                    user_id : user_id,
+                    _token : _token
+                },
+                success:function(response){
+                    swal("Done!","Deskripsi Perbaikan Dikirim","success");
+                    document.getElementById('sk_panitia').value = '';
+                }
+            });
+        })
+
+        $('#lain1Form').submit(function(e){
+            e.preventDefault();
+            var idKegiatan = $("input[name=id_kegiatan]").val();
+            var linkSurat = $("input[name=linkLain1]").val();
+            var komen = $("input[name=lain1]").val();
+            var user_id = $("input[name=user_id_surat]").val();
+            var _token = $("input[name=_token]").val();
+
+            $.ajax({
+                url : "{{route('add.komen')}}",
+                type : "POST",
+                data : {
+                    id_kegiatan : idKegiatan,
+                    link : linkSurat,
+                    keterangan : komen,
+                    user_id : user_id,
+                    _token : _token
+                },
+                success:function(response){
+                    swal("Done!","Deskripsi Perbaikan Dikirim","success");
+                    document.getElementById('persyaratan_lain').value = '';
+                }
+            });
+        })
+
+        $('#lain2Form').submit(function(e){
+            e.preventDefault();
+            var idKegiatan = $("input[name=id_kegiatan]").val();
+            var linkSurat = $("input[name=linkLain2]").val();
+            var komen = $("input[name=lain2]").val();
+            var user_id = $("input[name=user_id_surat]").val();
+            var _token = $("input[name=_token]").val();
+
+            $.ajax({
+                url : "{{route('add.komen')}}",
+                type : "POST",
+                data : {
+                    id_kegiatan : idKegiatan,
+                    link : linkSurat,
+                    keterangan : komen,
+                    user_id : user_id,
+                    _token : _token
+                },
+                success:function(response){
+                    swal("Done!","Deskripsi Perbaikan Dikirim","success");
+                    document.getElementById('lainnya').value = '';
+                }
+            });
+        })
+
+    </script>
+@endpush

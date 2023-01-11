@@ -108,7 +108,7 @@
                             <input type="file" name="sk_panitia" class="form-control" />
                         </div>
                         <div class="form-group">
-                            <label>Daftar Riwayat</label>
+                            <label>CV</label>
                             <input type="file" name="cv" class="form-control" />
                         </div>
                         <div class="form-group">

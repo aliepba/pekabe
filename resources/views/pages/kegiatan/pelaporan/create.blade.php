@@ -4,7 +4,9 @@
         </div>
         <div class="card-body">
             @if ($data->laporan != null)
-            <div class="table">
+            <span class="badge badge-success">Informasi
+                Silahkan cek kembali data tenaga ahli yang terlibat dan laporan kegiatan. Setelah klik tombol LAPORKAN, maka berkas sudah final dan tidak dapat diubah.</span>
+            <div class="table mt-5">
                 <table class="table table-bordered" id="kegiatan" width="100%" cellspacing="0">
                   <thead>
                     <tr>

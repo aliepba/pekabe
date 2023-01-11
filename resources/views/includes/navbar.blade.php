@@ -47,10 +47,10 @@
                                 <!--begin::Tabs-->
                                 <ul class="nav nav-bold nav-tabs nav-tabs-line nav-tabs-line-3x nav-tabs-line-transparent-white nav-tabs-line-active-border-success mt-3 px-8" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active show" data-toggle="tab" href="#topbar_notifications_notifications">Alerts</a>
+                                        <a class="nav-link active show" data-toggle="tab" href="#topbar_notifications_notifications">Kegiatan</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#topbar_notifications_events">Events</a>
+                                        <a class="nav-link" data-toggle="tab" href="#topbar_notifications_events">Perbaikan</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" data-toggle="tab" href="#topbar_notifications_logs">Logs</a>
@@ -267,61 +267,10 @@
                                 </div>
                                 <!--end::Tabpane-->
                                 <!--begin::Tabpane-->
-                                <div class="tab-pane" id="topbar_notifications_events" role="tabpanel">
+                                <div class="tab-pane p-8" id="topbar_notifications_events" role="tabpanel">
                                     <!--begin::Nav-->
-                                    <div class="navi navi-hover scroll my-4" data-scroll="true" data-height="300" data-mobile-height="200">
-                                        <!--begin::Item-->
-                                        <a href="#" class="navi-item">
-                                            <div class="navi-link">
-                                                <div class="navi-icon mr-2">
-                                                    <i class="flaticon2-line-chart text-success"></i>
-                                                </div>
-                                                <div class="navi-text">
-                                                    <div class="font-weight-bold">New report has been received</div>
-                                                    <div class="text-muted">23 hrs ago</div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <a href="#" class="navi-item">
-                                            <div class="navi-link">
-                                                <div class="navi-icon mr-2">
-                                                    <i class="flaticon2-paper-plane text-danger"></i>
-                                                </div>
-                                                <div class="navi-text">
-                                                    <div class="font-weight-bold">Finance report has been generated</div>
-                                                    <div class="text-muted">25 hrs ago</div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <a href="#" class="navi-item">
-                                            <div class="navi-link">
-                                                <div class="navi-icon mr-2">
-                                                    <i class="flaticon2-user flaticon2-line- text-success"></i>
-                                                </div>
-                                                <div class="navi-text">
-                                                    <div class="font-weight-bold">New order has been received</div>
-                                                    <div class="text-muted">2 hrs ago</div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <a href="#" class="navi-item">
-                                            <div class="navi-link">
-                                                <div class="navi-icon mr-2">
-                                                    <i class="flaticon2-pin text-primary"></i>
-                                                </div>
-                                                <div class="navi-text">
-                                                    <div class="font-weight-bold">New customer is registered</div>
-                                                    <div class="text-muted">3 hrs ago</div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <!--end::Item-->
+                                    {{-- <div class="navi navi-hover scroll my-4" data-scroll="true" data-height="300" data-mobile-height="200">
+                                        @forelse(auth()->user()->unreadNotifications as $notification)
                                         <!--begin::Item-->
                                         <a href="#" class="navi-item">
                                             <div class="navi-link">
@@ -329,128 +278,51 @@
                                                     <i class="flaticon2-sms text-danger"></i>
                                                 </div>
                                                 <div class="navi-text">
-                                                    <div class="font-weight-bold">Application has been approved</div>
-                                                    <div class="text-muted">3 hrs ago</div>
+                                                    <div class="font-weight-bold">{{$notification->data['message']}}</div>
+                                                    <p class="text-sm">{{$notification->data['keterangan']}}</p>
+                                                    <div class="text-muted">{{$notification->created_at}}</div>
                                                 </div>
                                             </div>
                                         </a>
                                         <!--end::Item-->
+                                        @empty
+                                        <div class="d-flex flex-center text-center text-muted min-h-200px">All caught up!
+                                            <br />No new notifications.</div>
+                                        @endforelse
+                                    </div> --}}
+                                    <div class="scroll pr-7 mr-n7" data-scroll="true" data-height="300" data-mobile-height="200">
+                                        @forelse(auth()->user()->unreadNotifications as $notification)
                                         <!--begin::Item-->
-                                        <a href="#" class="navi-item">
-                                            <div class="navi-link">
-                                                <div class="navi-icon mr-2">
-                                                    <i class="flaticon2-pie-chart-3 text-warning"></i>
-                                                </div>
-                                                <div class="navinavinavi-text">
-                                                    <div class="font-weight-bold">New file has been uploaded</div>
-                                                    <div class="text-muted">5 hrs ago</div>
-                                                </div>
+                                        <div class="d-flex align-items-center mb-6">
+                                            <!--begin::Symbol-->
+                                            <div class="symbol symbol-40 symbol-light-warning mr-5">
+                                                <span class="symbol-label">
+                                                    <a href="" class="svg-icon svg-icon-lg svg-icon-warning">
+                                                        <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Write.svg-->
+                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                <rect x="0" y="0" width="24" height="24"/>
+                                                                <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10"/>
+                                                                <path d="M12.0355339,10.6213203 L14.863961,7.79289322 C15.2544853,7.40236893 15.8876503,7.40236893 16.2781746,7.79289322 C16.6686989,8.18341751 16.6686989,8.81658249 16.2781746,9.20710678 L13.4497475,12.0355339 L16.2781746,14.863961 C16.6686989,15.2544853 16.6686989,15.8876503 16.2781746,16.2781746 C15.8876503,16.6686989 15.2544853,16.6686989 14.863961,16.2781746 L12.0355339,13.4497475 L9.20710678,16.2781746 C8.81658249,16.6686989 8.18341751,16.6686989 7.79289322,16.2781746 C7.40236893,15.8876503 7.40236893,15.2544853 7.79289322,14.863961 L10.6213203,12.0355339 L7.79289322,9.20710678 C7.40236893,8.81658249 7.40236893,8.18341751 7.79289322,7.79289322 C8.18341751,7.40236893 8.81658249,7.40236893 9.20710678,7.79289322 L12.0355339,10.6213203 Z" fill="#000000"/>
+                                                            </g>
+                                                        </svg>
+                                                        <!--end::Svg Icon-->
+                                                    </a>
+                                                </span>
                                             </div>
-                                        </a>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <a href="#" class="navi-item">
-                                            <div class="navi-link">
-                                                <div class="navi-icon mr-2">
-                                                    <i class="flaticon-pie-chart-1 text-info"></i>
-                                                </div>
-                                                <div class="navi-text">
-                                                    <div class="font-weight-bold">New user feedback received</div>
-                                                    <div class="text-muted">8 hrs ago</div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <a href="#" class="navi-item">
-                                            <div class="navi-link">
-                                                <div class="navi-icon mr-2">
-                                                    <i class="flaticon2-settings text-success"></i>
-                                                </div>
-                                                <div class="navi-text">
-                                                    <div class="font-weight-bold">System reboot has been successfully completed</div>
-                                                    <div class="text-muted">12 hrs ago</div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <a href="#" class="navi-item">
-                                            <div class="navi-link">
-                                                <div class="navi-icon mr-2">
-                                                    <i class="flaticon-safe-shield-protection text-primary"></i>
-                                                </div>
-                                                <div class="navi-text">
-                                                    <div class="font-weight-bold">New order has been placed</div>
-                                                    <div class="text-muted">15 hrs ago</div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <a href="#" class="navi-item">
-                                            <div class="navi-link">
-                                                <div class="navi-icon mr-2">
-                                                    <i class="flaticon2-notification text-primary"></i>
-                                                </div>
-                                                <div class="navi-text">
-                                                    <div class="font-weight-bold">Company meeting canceled</div>
-                                                    <div class="text-muted">19 hrs ago</div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <a href="#" class="navi-item">
-                                            <div class="navi-link">
-                                                <div class="navi-icon mr-2">
-                                                    <i class="flaticon2-fax text-success"></i>
-                                                </div>
-                                                <div class="navi-text">
-                                                    <div class="font-weight-bold">New report has been received</div>
-                                                    <div class="text-muted">23 hrs ago</div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <a href="#" class="navi-item">
-                                            <div class="navi-link">
-                                                <div class="navi-icon mr-2">
-                                                    <i class="flaticon-download-1 text-danger"></i>
-                                                </div>
-                                                <div class="navi-text">
-                                                    <div class="font-weight-bold">Finance report has been generated</div>
-                                                    <div class="text-muted">25 hrs ago</div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <a href="#" class="navi-item">
-                                            <div class="navi-link">
-                                                <div class="navi-icon mr-2">
-                                                    <i class="flaticon-security text-warning"></i>
-                                                </div>
-                                                <div class="navi-text">
-                                                    <div class="font-weight-bold">New customer comment recieved</div>
-                                                    <div class="text-muted">2 days ago</div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <a href="#" class="navi-item">
-                                            <div class="navi-link">
-                                                <div class="navi-icon mr-2">
-                                                    <i class="flaticon2-analytics-1 text-success"></i>
-                                                </div>
-                                                <div class="navi-text">
-                                                    <div class="font-weight-bold">New customer is registered</div>
-                                                    <div class="text-muted">3 days ago</div>
-                                                </div>
-                                            </div>
-                                        </a>
+                                            <!--end::Symbol-->
+                                            <!--begin::Text-->
+                                            <a href="{{route($notification->data['link'], $notification->data['items']['id_kegiatan'])}}" class="d-flex flex-column font-weight-bold">
+                                                <div class="text-dark-75 text-hover-primary mb-1 font-size-sm" style="cursor: pointer;">{{$notification->data['message']}}</div>
+                                                <span class="text-muted">{{$notification->data['keterangan']}}</span>
+                                                <span class="text-muted">{{$notification->created_at}}</span>
+                                            </a>
+                                            <!--end::Text-->
+                                        </div>
+                                        @empty
+                                        <div class="d-flex flex-center text-center text-muted min-h-200px">All caught up!
+                                            <br />No new notifications.</div>
+                                        @endforelse
                                         <!--end::Item-->
                                     </div>
                                     <!--end::Nav-->

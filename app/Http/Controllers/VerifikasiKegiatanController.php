@@ -4,9 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Kegiatan;
 use Illuminate\Http\Request;
+use App\Models\PerbaikanPersyaratan;
+use App\SErvices\Perbaikan\PerbaikanService;
 
 class VerifikasiKegiatanController extends Controller
 {
+
+    private $perbaikanService;
+
+    public function __construct(PerbaikanService $perbaikanService)
+    {
+        $this->perbaikanService = $perbaikanService;
+    }
+
     public function list()
     {
         return view('pages.verifikasi-kegiatan.list', [
@@ -21,8 +31,8 @@ class VerifikasiKegiatanController extends Controller
         ]);
     }
 
-    public function komenSurat(Request $request)
+    public function addKomen(Request $request)
     {
-
+        $this->perbaikanService->addKomen($request);
     }
 }

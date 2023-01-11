@@ -8,6 +8,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PelaporanController;
+use App\Http\Controllers\PerbaikanController;
 use App\Http\Controllers\PreferensiController;
 use App\Http\Controllers\PermohonanAkunController;
 use App\Http\Controllers\VerifikasiAkunController;
@@ -57,12 +58,27 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/permohonan-approve/{uuid}', [VerifikasiAkunController::class, 'approvePermohonan'])->name('permohonan.approve');
     Route::get('/list-verifikasi', [VerifikasiKegiatanController::class, 'list'])->name('list.kegiatan');
     Route::get('/detail-verifikasi/{uuid}', [VerifikasiKegiatanController::class, 'detail'])->name('verifikasi.kegiatan');
+    Route::post('/add-komen', [VerifikasiKegiatanController::class, 'addKomen'])->name('add.komen');
 
     //user
     Route::resource('kegiatan-penyelenggara', KegiatanController::class);
     Route::get('/kegiatan/submit/{uuid}', [KegiatanController::class, 'submit'])->name('submit.kegiatan');
     Route::get('/kegiatan/terverifikasi', [KegiatanController::class, 'setuju'])->name('kegiatan.setuju');
     Route::get('/kegiatan/tolak', [KegiatanController::class, 'tolak'])->name('kegiatan.tolak');
+
+    Route::get('/surat/{uuid}', [PerbaikanController::class, 'surat'])->name('edit.surat');
+    Route::get('/tor-kak/{uuid}', [PerbaikanController::class, 'tor'])->name('edit.tor');
+    Route::get('/cv/{uuid}', [PerbaikanController::class, 'cv'])->name('edit.cv');
+    Route::get('/sk-panitia/{uuid}', [PerbaikanController::class, 'sk'])->name('edit.sk');
+    Route::get('/persyaratan-lain/{uuid}', [PerbaikanController::class, 'lain1'])->name('edit.lain1');
+    Route::get('/lainnya/{uuid}', [PerbaikanController::class, 'lain2'])->name('edit.lain2');
+
+    Route::put('/surat-update/{id}', [PerbaikanController::class, 'updateSurat'])->name('update.surat');
+    Route::put('/tor-update/{id}', [PerbaikanController::class, 'updateTor'])->name('update.tor');
+    Route::put('/cv-update/{id}', [PerbaikanController::class, 'updateCV'])->name('update.cv');
+    Route::put('/sk-update/{id}', [PerbaikanController::class, 'updateSK'])->name('update.sk');
+    Route::put('/lain1-update/{id}', [PerbaikanController::class, 'updateLain1'])->name('update.lain1');
+    Route::put('/lain2-update/{id}', [PerbaikanController::class, 'updateLain2'])->name('update.lain2');
 
     Route::resource('/pelaporan', PelaporanController::class)->only(['store', 'edit', 'update']);
     Route::get('/pelaporan/submit/{id}', [PelaporanController::class, 'submit'])->name('pelaporan.submit');
