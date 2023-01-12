@@ -58,6 +58,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/permohonan-approve/{uuid}', [VerifikasiAkunController::class, 'approvePermohonan'])->name('permohonan.approve');
     Route::get('/list-verifikasi', [VerifikasiKegiatanController::class, 'list'])->name('list.kegiatan');
     Route::get('/detail-verifikasi/{uuid}', [VerifikasiKegiatanController::class, 'detail'])->name('verifikasi.kegiatan');
+    Route::get('/detail/{id}', [VerifikasiKegiatanController::class, 'detailKegiatan']);
+    Route::put('/kegiatan/hasil', [VerifikasiKegiatanController::class, 'updateStatus'])->name('verifikasi.status');
     Route::post('/add-komen', [VerifikasiKegiatanController::class, 'addKomen'])->name('add.komen');
 
     //user
@@ -65,6 +67,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/kegiatan/submit/{uuid}', [KegiatanController::class, 'submit'])->name('submit.kegiatan');
     Route::get('/kegiatan/terverifikasi', [KegiatanController::class, 'setuju'])->name('kegiatan.setuju');
     Route::get('/kegiatan/tolak', [KegiatanController::class, 'tolak'])->name('kegiatan.tolak');
+
+
 
     Route::get('/surat/{uuid}', [PerbaikanController::class, 'surat'])->name('edit.surat');
     Route::get('/tor-kak/{uuid}', [PerbaikanController::class, 'tor'])->name('edit.tor');
@@ -88,6 +92,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/peserta-kegiatan/create/{uuid}', [PesertaKegiatanController::class, 'create'])->name('peserta.create');
     Route::post('/peserta-kegiatan', [PesertaKegiatanController::class, 'store'])->name('peserta.store');
     Route::resource('/peserta', PesertaKegiatanController::class)->only(['edit', 'update']);
+    // Route::post('/mark-as-read', [PreferensiController::class, 'markNotif'])->name('markNotification');
 });
 
 //referensi

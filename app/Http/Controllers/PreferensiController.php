@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\DetailInstansi;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class PreferensiController extends Controller
 {
@@ -35,5 +38,17 @@ class PreferensiController extends Controller
     public function showInstansi($id){
         $data = DetailInstansi::with(['penanggungjawab', 'provinsi', 'kabKota'])->find($id);
         return response()->json($data);
+    }
+
+    public function markNotif(Request $request)
+    {
+        auth()->user()
+            ->unreadNotifications
+            ->when($request->input('id'), function ($query) use ($request){
+                return $query->where('id', $request->input('id'));
+            })
+            ->markAsRead();
+
+        return response()->noContent();
     }
 }

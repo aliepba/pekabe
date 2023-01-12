@@ -2,7 +2,6 @@
 
 namespace App\Services\Kegiatan;
 
-use Auth;
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
 use App\Models\Kegiatan;
@@ -10,6 +9,7 @@ use App\Models\LogKegiatan;
 use Illuminate\Http\Request;
 use App\Enums\PermohonanStatus;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class KegiatanService {
      public function store(Request $request){
@@ -90,6 +90,23 @@ class KegiatanService {
                 'user' => Auth::user()->id
             ]);
         });
+     }
 
+     public function verifikasi(Request $request){
+        $data = Kegiatan::find($request->id);
+        DB::transaction(function () use($request, $data){
+            $data->update([
+                'status_permohonan_kegiatan' => $request->status_permohonan,
+                'status_permohonan_penyelenggara' => $request->status_permohonan,
+                'keterangan' => $request->keterangan
+            ]);
+
+            LogKegiatan::query()->create([
+                'id_kegiatan' => $data->uuid,
+                'status_permohonan' => $request->status_permohonan,
+                'keterangan' => $request->status_permohonan,
+                'user' => Auth::user()->id
+            ]);
+        });
      }
 }

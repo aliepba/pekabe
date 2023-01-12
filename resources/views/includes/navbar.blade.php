@@ -268,28 +268,6 @@
                                 <!--end::Tabpane-->
                                 <!--begin::Tabpane-->
                                 <div class="tab-pane p-8" id="topbar_notifications_events" role="tabpanel">
-                                    <!--begin::Nav-->
-                                    {{-- <div class="navi navi-hover scroll my-4" data-scroll="true" data-height="300" data-mobile-height="200">
-                                        @forelse(auth()->user()->unreadNotifications as $notification)
-                                        <!--begin::Item-->
-                                        <a href="#" class="navi-item">
-                                            <div class="navi-link">
-                                                <div class="navi-icon mr-2">
-                                                    <i class="flaticon2-sms text-danger"></i>
-                                                </div>
-                                                <div class="navi-text">
-                                                    <div class="font-weight-bold">{{$notification->data['message']}}</div>
-                                                    <p class="text-sm">{{$notification->data['keterangan']}}</p>
-                                                    <div class="text-muted">{{$notification->created_at}}</div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <!--end::Item-->
-                                        @empty
-                                        <div class="d-flex flex-center text-center text-muted min-h-200px">All caught up!
-                                            <br />No new notifications.</div>
-                                        @endforelse
-                                    </div> --}}
                                     <div class="scroll pr-7 mr-n7" data-scroll="true" data-height="300" data-mobile-height="200">
                                         @forelse(auth()->user()->unreadNotifications as $notification)
                                         <!--begin::Item-->
@@ -297,7 +275,7 @@
                                             <!--begin::Symbol-->
                                             <div class="symbol symbol-40 symbol-light-warning mr-5">
                                                 <span class="symbol-label">
-                                                    <a href="" class="svg-icon svg-icon-lg svg-icon-warning">
+                                                    <a href="#" class="svg-icon svg-icon-lg svg-icon-warning">
                                                         <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Write.svg-->
                                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -312,16 +290,18 @@
                                             </div>
                                             <!--end::Symbol-->
                                             <!--begin::Text-->
-                                            <a href="{{route($notification->data['link'], $notification->data['items']['id_kegiatan'])}}" class="d-flex flex-column font-weight-bold">
+                                            <div class="d-flex flex-column font-weight-bold">
                                                 <div class="text-dark-75 text-hover-primary mb-1 font-size-sm" style="cursor: pointer;">{{$notification->data['message']}}</div>
                                                 <span class="text-muted">{{$notification->data['keterangan']}}</span>
                                                 <span class="text-muted">{{$notification->created_at}}</span>
-                                            </a>
+                                                <a href="{{route($notification->data['link'], $notification->data['items']['id_kegiatan'])}}" class="btn btn-sm btn-primary">Proses</a>
+                                            </div>
                                             <!--end::Text-->
                                         </div>
                                         @empty
                                         <div class="d-flex flex-center text-center text-muted min-h-200px">All caught up!
-                                            <br />No new notifications.</div>
+                                            <br />No new notifications.
+                                        </div>
                                         @endforelse
                                         <!--end::Item-->
                                     </div>

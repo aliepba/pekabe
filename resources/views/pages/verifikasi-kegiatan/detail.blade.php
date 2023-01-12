@@ -26,15 +26,15 @@
                             </a>
                         </div>
                         <div class="my-lg-0 my-3">
-                            <div class="dropdown">
+                            <a href="javascript:void(0)" onclick="updateKeabsahan({{$data->id}})" class="btn btn-sm btn-info"><i class="icon-x text-white-50 flaticon-eye"></i>Action</a>
+                            {{-- <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Action
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item" href="{{route('permohonan.approve', $data->uuid)}}">Submit</a>
-                                    <a href="{{route('kegiatan-penyelenggara.edit', $data->id)}}" class="dropdown-item">Edit</a>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     <!--end::Title-->
@@ -348,8 +348,52 @@
 @endsection
 
 @push('addon-script')
+<div class="modal fade" id="keabsahan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Approve / Tolak Kegiatan</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{route('verifikasi.status')}}" method="POST" id="perbaikanForm">
+                    @method('PUT')
+                    @csrf
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select class="form-control" name="status_permohonan">
+                            <option value="APPROVE">APPROVE</option>
+                            <option value="TOLAK">TOLAK</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Keterangan Perbaikan</label>
+                        <textarea class="form-control" name="keterangan" id="keterangan" rows="5"></textarea>
+                        <input type="text" class="form-control" name="id" id="id" hidden/>
+                        <input type="text" class="form-control" name="uuid" id="uuid" Hidden/>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success">Save changes</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
+
+        function updateKeabsahan(id){
+            $.get('/detail/'+id, function(data){
+                $("#id").val(data.id);
+                $("#uuid").val(data.uuid);
+                $("#keabsahan").modal("toggle");
+            })
+        }
 
         document.getElementById('checkSurat').onchange = function() {
             document.getElementById('keterangan_surat').disabled = !this.checked;

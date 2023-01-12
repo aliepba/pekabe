@@ -37,6 +37,7 @@ class CreateKegiatanPenyelenggaraTable extends Migration
             $table->enum('status_permohonan_penyelenggara', ['APPROVE', 'PERBAIKAN', 'TOLAK', 'SUBMIT', 'OPEN'])->default('OPEN');
             $table->string('id_penyelenggara')->nullable();
             $table->string('user_id');
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }

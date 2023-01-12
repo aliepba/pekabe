@@ -7,8 +7,8 @@ use App\Models\LogKegiatan;
 use Illuminate\Http\Request;
 use App\Enums\PermohonanStatus;
 use App\Models\PelaporanKegiatan;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class PelaporanService{
     public function store(Request $request)
