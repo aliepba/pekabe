@@ -8,6 +8,7 @@ use App\Models\Kegiatan;
 use App\Models\LogKegiatan;
 use Illuminate\Http\Request;
 use App\Enums\PermohonanStatus;
+use App\Models\KegiatanUnverified;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -107,6 +108,32 @@ class KegiatanService {
                 'keterangan' => $request->status_permohonan,
                 'user' => Auth::user()->id
             ]);
+        });
+     }
+
+     public function unverified(Request $request){
+        DB::transaction(function () use($request){
+            $kegiatan = KegiatanUnverified::create([
+                'uuid' => Uuid::uuid4()->toString(),
+                'nama_kegiatan' => $request->nama_kegiatan,
+                'id_unsur_kegiatan' => $request->id_unsur_kegiatan,
+                'nama_penyelenggara' => $request->nama_penyelenggara,
+                'tempat_kegiatan' => $request->tempat_kegiatan,
+                'start_kegiatan' => $request->start_kegiatan,
+                'end_kegiatan' => $request->end_kegiatan,
+                'id_klasifikasi' => $request->klasifikasi,
+                'tingkat_kegiatan' => $request->tingkat_kegiatan,
+                'upload_persyaratan' => $request->file('upload_persyaratan')->store('file/bukti-kegiatan', 'public'),
+                'user_id' => Auth::user()->id
+            ]);
+
+            LogKegiatan::query()->create([
+                'id_kegiatan' => $kegiatan->uuid,
+                'status_permohonan' => PermohonanStatus::SUBMIT,
+                'keterangan' => 'created',
+                'user' => Auth::user()->id
+            ]);
+
         });
      }
 }
