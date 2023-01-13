@@ -65,6 +65,78 @@
                         </div>
                 </div>
                 <div class="form-group">
+                        <label>Permohonan Akun Permissions</label>
+                        <div class="checkbox-inline">
+                            @foreach ($permohonanAkunPermissions as $item)
+                            <label class="checkbox">
+                                <input type="checkbox" name="permissions[]" value="{{$item->name}}"/>
+                                <span></span>
+                                {{$item->name}}
+                            </label>
+                            @endforeach
+                        </div>
+                </div>
+                <div class="form-group">
+                    <label>Verifikasi Kegiatan Permissions</label>
+                    <div class="checkbox-inline">
+                        @foreach ($verifikasiKegiatanPermissions as $item)
+                        <label class="checkbox">
+                            <input type="checkbox" name="permissions[]" value="{{$item->name}}"/>
+                            <span></span>
+                            {{$item->name}}
+                        </label>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Permohonan Kegiatan Permissions</label>
+                    <div class="checkbox-inline">
+                        @foreach ($permohonanKegiatanPermissions as $item)
+                        <label class="checkbox">
+                            <input type="checkbox" name="permissions[]" value="{{$item->name}}"/>
+                            <span></span>
+                            {{$item->name}}
+                        </label>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Penanggung Jawab Permissions</label>
+                    <div class="checkbox-inline">
+                        @foreach ($subPenyelenggaraPermissions as $item)
+                        <label class="checkbox">
+                            <input type="checkbox" name="permissions[]" value="{{$item->name}}"/>
+                            <span></span>
+                            {{$item->name}}
+                        </label>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Peserta Permissions</label>
+                    <div class="checkbox-inline">
+                        @foreach ($pesertaPermissions as $item)
+                        <label class="checkbox">
+                            <input type="checkbox" name="permissions[]" value="{{$item->name}}"/>
+                            <span></span>
+                            {{$item->name}}
+                        </label>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>LogBook Permissions</label>
+                    <div class="checkbox-inline">
+                        @foreach ($logbookPermissions as $item)
+                        <label class="checkbox">
+                            <input type="checkbox" name="permissions[]" value="{{$item->name}}"/>
+                            <span></span>
+                            {{$item->name}}
+                        </label>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="form-group">
                     <button type="submit" class="btn btn-sm btn-primary">Submit</button>
                 </div>
             </form>

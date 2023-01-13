@@ -70,7 +70,6 @@ class RoleController extends Controller
     public function edit(Role $role)
     {
         $role = ['role' => new RoleResource($role)];
-        dd($role);
         return view('pages.roles.edit', array_merge($role, ListPermission::run()));
     }
 
@@ -81,9 +80,10 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Role $role)
     {
-        //
+        $this->roleService->update($request, $role);
+        return redirect()->route('roles.index')->with('success', 'Role update successfully');
     }
 
     /**

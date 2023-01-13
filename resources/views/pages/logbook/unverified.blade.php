@@ -12,18 +12,18 @@
                 <div class="form-group row">
                     <label  class="col-2 col-form-label">Nama Kegiatan <span class="text-danger">*</span></label>
                     <div class="col-10">
-                        <textarea class="form-control" name="nama_kegiatan" rows="3"></textarea>
+                        <textarea class="form-control" name="nama_kegiatan" rows="3" required></textarea>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label  class="col-2 col-form-label">Unsur Kegiatan <span class="text-danger">*</span></label>
                     <div class="col-10">
-                        <select class="form-control" name="unsur_kegiatan">
+                        <select class="form-control" name="unsur_kegiatan" required>
                         </select>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label  class="col-2 col-form-label">Penyelenggara Kegiatan <span class="text-danger">*</span></label>
+                    <label  class="col-2 col-form-label">Penyelenggara Kegiatan<span class="text-danger">*</span></label>
                     <div class="col-10">
                         <input type="text" class="form-control" name="nama_penyelenggara">
                     </div>
@@ -31,44 +31,50 @@
                 <div class="form-group row">
                     <label  class="col-2 col-form-label">Lokasi Kegiatan  <span class="text-danger">*</span></label>
                     <div class="col-10">
-                        <input type="text" class="form-control" name="tempat_kegiatan">
+                        <input type="text" class="form-control" name="tempat_kegiatan" required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label  class="col-2 col-form-label">Waktu Kegiatan  <span class="text-danger">*</span></label>
                     <div class="col-5">
-                        <input type="date" class="form-control" name="start_kegiatan">
+                        <input type="date" class="form-control" name="start_kegiatan" required>
                     </div>
                     <div class="col-5">
-                        <input type="date" class="form-control" name="end_kegiatan">
+                        <input type="date" class="form-control" name="end_kegiatan" required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label  class="col-2 col-form-label">Klasifikasi <span class="text-danger">*</span></label>
                     <div class="col-10">
-                        <select class="form-control" name="id_klasifikasi">
+                        <select class="form-control" name="id_klasifikasi" required>
+                            <option value="">Pilih Klasifikasi</option>
+                            @foreach ($klas as $item)
+                                <option value="{{$item->id_klasifikasi}}">{{$item->klasifikasi}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-2 col-form-label">Metode Kegiatan <span class="text-danger">*</span></label>
-                    <div class="radio-inline">
-                        <label class="radio">
-                            <input type="radio" name="metode" value="Tatap Muka"/>
-                            <span></span>
-                            Tatap Muka
-                        </label>
-                        <label class="radio">
-                            <input type="radio" name="metode" value="Daring"/>
-                            <span></span>
-                            Daring
-                        </label>
+                    <div class="col-10">
+                        <div class="radio-inline">
+                            <label class="radio">
+                                <input type="radio" name="metode" value="Tatap Muka"/>
+                                <span></span>
+                                Tatap Muka
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="metode" value="Daring"/>
+                                <span></span>
+                                Daring
+                            </label>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label  class="col-2 col-form-label">Tingkat <span class="text-danger">*</span></label>
                     <div class="col-10">
-                        <select class="form-control" name="tingkat_kegiatan">
+                        <select class="form-control" name="tingkat_kegiatan" required>
                         </select>
                     </div>
                 </div>

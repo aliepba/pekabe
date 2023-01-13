@@ -15,7 +15,6 @@ class RoleService {
         });
     }
 
-
     public function update(Request $request, Role $role){
         DB::transaction(function() use ($request, $role){
             $role->update($request->only('name', 'guard_name'));

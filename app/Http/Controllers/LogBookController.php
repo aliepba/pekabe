@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\MtKlasifikasi;
 use App\Services\Kegiatan\KegiatanService;
 
 class LogBookController extends Controller
@@ -22,7 +23,9 @@ class LogBookController extends Controller
 
     public function unverified()
     {
-        return view('pages.logbook.unverified');
+        return view('pages.logbook.unverified', [
+            'klas' => MtKlasifikasi::all()
+        ]);
     }
 
     public function store(Request $request)

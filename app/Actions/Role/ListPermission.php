@@ -27,6 +27,24 @@ class ListPermission
             'userPermissions' => Permission::query()
                 ->whereIn('name', config('permission-list.user_permissions'))
                 ->get('name'),
+            'permohonanAkunPermissions' => Permission::query()
+                ->whereIn('name', config('permission-list.permohonan_akun_permissions'))
+                ->get('name'),
+            'verifikasiKegiatanPermissions' => Permission::query()
+                ->whereIn('name', config('permission-list.verifikasi_kegiatan_permission'))
+                ->get('name'),
+            'permohonanKegiatanPermissions' => Permission::query()
+                ->whereIn('name', config('permission-list.permohonan_kegiatan_permissions'))
+                ->get('name'),
+            'subPenyelenggaraPermissions' => Permission::query()
+                ->whereIn('name', config('permission-list.sub_penyelenggara_permissions'))
+                ->get('name'),
+            'pesertaPermissions' => Permission::query()
+                ->whereIn('name', config('permission-list.peserta_permissions'))
+                ->get('name'),
+            'logbookPermissions' => Permission::query()
+                ->whereIn('name', config('permission-list.logbook_permissions'))
+                ->get('name'),
         ];
     }
 }
