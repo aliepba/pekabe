@@ -10,7 +10,7 @@
         </a>
         <!--end::Aside header-->
         <!--begin::Aside Title-->
-        <h3 class="font-weight-bolder text-center font-size-h4 text-dark-50 line-height-xl">Login dengan Akun Simpan</h3>
+        <h3 class="font-weight-bolder text-center font-size-h4 text-dark-50 line-height-xl">Login dengan SIKI Client</h3>
         <!--end::Aside Title-->
     </div>
     <!--end::Aside Top-->
