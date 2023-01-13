@@ -23,7 +23,7 @@ class PermohonanAkunService
 {
     public function store(Request $request){
         DB::transaction(function () use($request){
-            $user = User::where('roles', 'admin')->get();
+            $user = User::where('role', 'admin')->get();
             $detail = DetailInstansi::query()->create([
                         'uuid' => Uuid::uuid4()->toString(),
                         'jenis' => $request->jenis,
@@ -139,7 +139,7 @@ class PermohonanAkunService
                 'name' => $permohonan->penanggungjawab->nama_penanggung_jawab,
                 'email' => $permohonan->penanggungjawab->email,
                 'email_verified_at' => Carbon::now(),
-                'roles' => 'user',
+                'role' => 'user',
                 'password' => Hash::make($permohonan->penanggungjawab->password)
             ]);
 
