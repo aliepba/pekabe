@@ -7,7 +7,7 @@
             <h4 class="h4">Form Kegiatan</h4>
         </div>
         <div class="card-body">
-            <form action="{{route('kegiatan-penyelenggara.store')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('unverified.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group row">
                     <label  class="col-2 col-form-label">Nama Kegiatan <span class="text-danger">*</span></label>
@@ -18,7 +18,8 @@
                 <div class="form-group row">
                     <label  class="col-2 col-form-label">Unsur Kegiatan <span class="text-danger">*</span></label>
                     <div class="col-10">
-                        <select class="form-control" name="unsur_kegiatan" required>
+                        <select class="form-control" name="id_unsur_kegiatan" required>
+                            <option value="1">haduh</option>
                         </select>
                     </div>
                 </div>
@@ -75,6 +76,7 @@
                     <label  class="col-2 col-form-label">Tingkat <span class="text-danger">*</span></label>
                     <div class="col-10">
                         <select class="form-control" name="tingkat_kegiatan" required>
+                            <option value="haduh">haduh</option>
                         </select>
                     </div>
                 </div>

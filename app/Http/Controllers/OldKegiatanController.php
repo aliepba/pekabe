@@ -2,10 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MtProvinsi;
 use Illuminate\Http\Request;
+use App\Services\Kegiatan\OldKegiatanService;
 
 class OldKegiatanController extends Controller
 {
+    private $oldKegiatanService;
+
+    public function __construct(OldKegiatanService $oldKegiatanService)
+    {
+        $this->OldKegiatanService = $oldKegiatanService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +22,7 @@ class OldKegiatanController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -23,7 +32,9 @@ class OldKegiatanController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.logbook.old-kegiatan.create', [
+            'provinsi' => MtProvinsi::all()
+        ]);
     }
 
     /**
@@ -34,7 +45,8 @@ class OldKegiatanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->oldKegiatanService->store($request);
+        return redirect(route('kegiatan.unverified'))->with('success', 'yey berhasil!');
     }
 
     /**

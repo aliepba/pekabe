@@ -11,6 +11,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PelaporanController;
 use App\Http\Controllers\PerbaikanController;
 use App\Http\Controllers\PreferensiController;
+use App\Http\Controllers\OldKegiatanController;
 use App\Http\Controllers\PermohonanAkunController;
 use App\Http\Controllers\VerifikasiAkunController;
 use App\Http\controllers\PesertaKegiatanController;
@@ -96,7 +97,10 @@ Route::middleware(['auth'])->group(function () {
     // Route::post('/mark-as-read', [PreferensiController::class, 'markNotif'])->name('markNotification');
 
     //tenaga ahli
+    Route::get('/daftar-kegiatan', [LogBookController::class, 'index'])->name('logbook.index');
     Route::get('/kegiatan-tidak-terverifikasi', [LogBookController::class, 'unverified'])->name('kegiatan.unverified');
+    Route::post('/unverified', [LogBookController::class, 'store'])->name('unverified.store');
+    Route::resource('/kegiatan-terdaftar', OldKegiatanController::class)->only(['create', 'store']);
 });
 
 //referensi

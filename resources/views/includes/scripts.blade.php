@@ -19,3 +19,4 @@
 <!--begin::Page Scripts(used by this page)-->
 {{-- <script src="{{asset('assets/js/pages/crud/datatables/basic/headers.js')}}"></script> --}}
 <script src="{{asset('assets/js/pages/crud/datatables/basic/paginations.js')}}"></script>
+<script src="{{asset('js/custom.js')}}"></script>

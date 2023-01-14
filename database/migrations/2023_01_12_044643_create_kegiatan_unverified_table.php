@@ -17,13 +17,14 @@ class CreateKegiatanUnverifiedTable extends Migration
             $table->id();
             $table->string('uuid');
             $table->text('nama_kegiatan');
-            $table->foreign('id_unsur_kegiatan');
+            $table->unsignedBigInteger('id_unsur_kegiatan');
             $table->text('nama_penyelenggara');
             $table->string('tempat_Kegiatan');
             $table->date('start_kegiatan');
             $table->date('end_kegiatan');
             $table->integer('jumlah_jam')->nullable();
-            $table->foreignId('id_klasifikasi');
+            $table->string('id_klasifikasi', 5);
+            $table->string('metode_kegiatan');
             $table->string('tingkat_kegiatan');
             $table->text('upload_persyaratan');
             $table->enum('status_permohonan_kegiatan', ['APPROVE', 'PERBAIKAN', 'TOLAK', 'SUBMIT', 'OPEN'])->default('SUBMIT');

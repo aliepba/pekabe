@@ -27,7 +27,7 @@ class RoleSeeder extends Seeder
         $this->call(PermissionSeeder::class);
 
         $role = Role::where('name', 'Super Admin')->firstOrCreate([
-            'name' => 'Super Admin'
+            'name' => 'root'
         ]);
 
         if ($role && $user = User::where('name', 'Admin')->first()) {

@@ -121,7 +121,8 @@ class KegiatanService {
                 'tempat_kegiatan' => $request->tempat_kegiatan,
                 'start_kegiatan' => $request->start_kegiatan,
                 'end_kegiatan' => $request->end_kegiatan,
-                'id_klasifikasi' => $request->klasifikasi,
+                'id_klasifikasi' => $request->id_klasifikasi,
+                'metode_kegiatan' => $request->metode,
                 'tingkat_kegiatan' => $request->tingkat_kegiatan,
                 'upload_persyaratan' => $request->file('upload_persyaratan')->store('file/bukti-kegiatan', 'public'),
                 'user_id' => Auth::user()->id
