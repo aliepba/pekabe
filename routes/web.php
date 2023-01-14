@@ -30,8 +30,10 @@ use App\Http\Controllers\VerifikasiKegiatanController;
 
 
 //sso
-Route::get('/pkb-simpan-login', [SSOController::class, 'view'])->name('sso');
-Route::post('/testing', [SSOController::class, 'login'])->name('login.sso');
+Route::get('/pkb-siki-login', [SSOController::class, 'view'])->name('ska');
+Route::post('/login-siki', [SSOController::class, 'login'])->name('login.sso');
+Route::get('/pkb-simpan-login', [SSOController::class, 'loginSKK'])->name('skk');
+Route::post('/login-simpan', [SSOController::class, 'skk'])->name('login.skk');
 
 //index
 Route::get('/', [IndexController::class, 'index']);

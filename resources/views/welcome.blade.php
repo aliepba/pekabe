@@ -25,7 +25,7 @@
     <nav id="header" class="fixed w-full z-30 top-0 text-white">
       <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
         <div class="pl-4 flex items-center">
-          <a class="toggleColour text-white no-underline hover:no-underline font-bold text-lg lg:text-lg" href="#">
+          <a class="toggleColour text-amber-400 no-underline hover:no-underline font-bold text-lg lg:text-lg" href="#">
             <!--Icon from: http://www.potlabicons.com/ -->
             {{-- <svg class="h-8 fill-current inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.005 512.005">
               <rect fill="#2a2a31" x="16.539" y="425.626" width="479.767" height="50.502" transform="matrix(1,0,0,1,0,0)" />
@@ -51,11 +51,11 @@
               <a class="inline-block py-2 px-4 text-black font-bold no-underline" href="#">Panduan</a>
             </li>
             <li class="mr-3">
-                <a class="inline-block py-2 px-4 text-black font-bold no-underline" href="{{route('sso')}}">SKA</a>
+                <a class="inline-block py-2 px-4 text-black font-bold no-underline" href="{{route('ska')}}">SKA</a>
             </li>
-            {{-- <li class="mr-3">
-              <a class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4" href="#">link</a>
-            </li> --}}
+            <li class="mr-3">
+                <a class="inline-block py-2 px-4 text-black font-bold no-underline" href="{{route('skk')}}">SKK</a>
+            </li>
           </ul>
           {{-- <a href="{{route('login')}}"
             id="navAction"
@@ -71,7 +71,7 @@
       <div class="container px-5 mx-auto flex flex-wrap flex-col md:flex-row items-center">
         <!--Left Col-->
         <div class="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
-          <p class="uppercase tracking-loose w-full">LPJK</p>
+          <p class="uppercase tracking-loose w-full"></p>
           <h1 class="my-4 text-5xl font-bold leading-tight">
             Pengembangan Keprofesian Berkelanjutan
           </h1>
