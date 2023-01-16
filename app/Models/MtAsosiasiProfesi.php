@@ -10,4 +10,6 @@ class MtAsosiasiProfesi extends Model
     use HasFactory;
 
     protected $table = 'personal_profesi_ta_detail';
+
+    protected $guarded = [];
 }

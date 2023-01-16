@@ -23,7 +23,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $this->authorize('view-roles', Role::class);
+        $this->authorize('view-role', Role::class);
         return view('pages.roles.index', [
             'roles' => Role::with('permissions')->orderByDesc('id')->paginate(5)
         ]);
@@ -36,7 +36,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $this->authorize('create-roles', Role::class);
+        $this->authorize('create-role', Role::class);
         return view('pages.roles.create', ListPermission::run());
     }
 
@@ -48,7 +48,7 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create-roles', Role::class);
+        $this->authorize('create-role', Role::class);
         $this->roleService->store($request);
         return redirect()->route('roles.index')->with('success', 'Role created successfully');
     }
@@ -72,7 +72,7 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        $this->authorize('edit-roles', Role::class);
+        $this->authorize('edit-role', Role::class);
         $role = ['role' => new RoleResource($role)];
         return view('pages.roles.edit', array_merge($role, ListPermission::run()));
     }
@@ -98,7 +98,7 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        $this->authorize('delete-roles', Role::class);
+        $this->authorize('delete-role', Role::class);
         $this->roleService->delete($role);
         return redirect()->route('roles.index')->with('success', 'Role has been deleted.');
     }

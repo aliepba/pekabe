@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\DetailInstansi;
 use App\Models\MtPenyelenggara;
+use App\Actions\Asosiasi\AptList;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\PermohonanAkunRequest;
 use App\Services\PermohonanAkun\PermohonanAkunService;
@@ -37,6 +38,7 @@ class PermohonanAkunController extends Controller
             return view('pages.form-jenis-penyelenggara.asosiasi-profesi', [
                 'propinsi' => DB::table('propinsi_dagri')->get(),
                 'asosiasi' => DB::table('personal_profesi_ta_detail')->get(),
+                AptList::run(),
             ]);
         }
 

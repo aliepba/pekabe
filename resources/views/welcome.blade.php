@@ -56,6 +56,9 @@
             <li class="mr-3">
                 <a class="inline-block py-2 px-4 text-black font-bold no-underline" href="{{route('skk')}}">SKK</a>
             </li>
+            <li class="mr-3">
+                <a class="inline-block py-2 px-4 text-black font-bold no-underline" href="{{route('login')}}">Penyelenggara</a>
+            </li>
           </ul>
           {{-- <a href="{{route('login')}}"
             id="navAction"
@@ -78,8 +81,8 @@
           {{-- <p class="leading-normal text-2xl mb-8">
             Sub-hero message, not too long and not too short. Make it just right!
           </p> --}}
-          <a href="{{route('login')}}" class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-            Login
+          <a href="{{route('permohonan.akun')}}" class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+            Registrasi
           </a>
         </div>
         <!--Right Col-->

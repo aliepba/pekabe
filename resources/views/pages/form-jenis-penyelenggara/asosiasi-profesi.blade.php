@@ -7,7 +7,7 @@
     <div class="d-flex flex-column-auto flex-column pt-15 px-30">
         <!--begin::Aside header-->
         <a href="#" class="login-logo py-6">
-            <img src="assets/media/logos/logo-1.png" class="max-h-70px" alt="" />
+            lpjk
         </a>
         <!--end::Aside header-->
         <!--begin: Wizard Nav-->
@@ -59,7 +59,7 @@
                                     <select name="jenis_penyelenggara" id="jenis_penyelenggara" class="form-control selectpicker">
                                         <option>Pilih Penyelenggara</option>
                                         @foreach ($asosiasi as $item)
-                                        <option value="{{$item->ID_Asosiasi_Profesi}}">{{$item->Nama_Lengkap. " (".$item->Nama. ")"}}
+                                            <option value="{{$item->ID_Asosiasi_Profesi}}">{{$item->Nama_Lengkap. " (".$item->Nama. ")"}}</option>
                                         @endforeach
                                     </select>
                                 </div>

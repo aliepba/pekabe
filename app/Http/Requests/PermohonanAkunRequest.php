@@ -24,12 +24,12 @@ class PermohonanAkunRequest extends FormRequest
     public function rules()
     {
         return [
-            'penyelenggara' => 'required',
+            'jenis_penyelenggara' => 'required',
             'nama_instansi' => 'required',
             'email_instansi' => ['required', 'string', 'email'],
             'alamat' => 'required',
             'telepon' => 'required',
-            'propinsi' => 'required',
+            'provinsi' => 'required',
             'kab_kota' => 'required',
             'file1' => 'max:2000|mimes:pdf',
             'file2' => 'max:2000|mimes:pdf',
@@ -37,7 +37,7 @@ class PermohonanAkunRequest extends FormRequest
             'nama_penanggung_jawab' => 'required',
             'nik' => 'required',
             'jabatan' => 'required',
-            'email' => 'required',
+            'email_penanggung_jawab' => 'required',
             'npwp' => 'required',
             'upload_persyaratan' => 'max:2000|mimes:pdf'
         ];

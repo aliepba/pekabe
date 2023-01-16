@@ -1,7 +1,7 @@
 <div class="form-group has-feedback">
     <div class="form-group">
     <label id="term">Term : </label>
-    <textarea class="form-control" rows="5" id="term" style="resize:none; nowrap; text-align: justify; white-space: normal;" readonly>
+    <textarea class="form-control" rows="10" id="term" style="resize:none; nowrap; text-align: justify; white-space: normal;" readonly>
         Dengan ini saya menyatakan bahwa seluruh data yang saya masukkan dalam aplikasi ini adalah benar, valid, terkini termasuk identitas
         yang saya gunakan untuk login ke Aplikasi ini dan saya lakukan dengan
         penuh kesadaran (tanpa paksaan).
