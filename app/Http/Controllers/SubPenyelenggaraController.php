@@ -23,6 +23,7 @@ class SubPenyelenggaraController extends Controller
      */
     public function index()
     {
+        $this->authorize('view-sub-penyelenggara', SubPenyelenggara::class);
         return view('pages.sub-penyelenggara.index', [
             'data' => new SubPenyelenggaraCollection(
                 SubPenyelenggara::query()->paginate(10)
@@ -37,6 +38,7 @@ class SubPenyelenggaraController extends Controller
      */
     public function create()
     {
+        $this->authorize('create-sub-penyelenggara', SubPenyelenggara::class);
         return view('pages.sub-penyelenggara.create');
     }
 
@@ -48,6 +50,7 @@ class SubPenyelenggaraController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create-sub-penyelenggara', SubPenyelenggara::class);
         $this->subPenyelenggaraService->store($request);
         return redirect(route('sub-penyelenggara.index'))->with('success', 'yey berhasil');
     }
@@ -71,6 +74,7 @@ class SubPenyelenggaraController extends Controller
      */
     public function edit(SubPenyelenggara $subPenyelenggara)
     {
+        $this->authorize('edit-sub-penyelenggara', SubPenyelenggara::class);
         return view('pages.sub-penyelenggara.edit', [
             'data' => new SubPenyelenggaraResource($subPenyelenggara)
         ]);
@@ -85,6 +89,7 @@ class SubPenyelenggaraController extends Controller
      */
     public function update(Request $request, SubPenyelenggara $subPenyelenggara)
     {
+        $this->authorize('update-sub-penyelenggara', SubPenyelenggara::class);
         $this->subPenyelenggaraService->update($request, $subPenyelenggara);
         return redirect(route('sub-penyelenggara.index'))->with('success', 'yey berhasil');
     }
@@ -103,6 +108,7 @@ class SubPenyelenggaraController extends Controller
 
     public function change($id)
     {
+        $this->authorize('change-status-sub-penyelenggara', SubPenyelenggara::class);
         $this->subPenyelenggaraService->changeStatus($id);
         return redirect(route('sub-penyelenggara.index'))->with('success', 'yey berhasil');
     }

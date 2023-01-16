@@ -18,11 +18,13 @@ class LogBookController extends Controller
 
     public function index()
     {
+        $this->authorize('list-kegiatan');
         return view('pages.logbook.index');
     }
 
     public function unverified()
     {
+        $this->authorize('kegiatan-unverified');
         return view('pages.logbook.unverified', [
             'klas' => MtKlasifikasi::all()
         ]);

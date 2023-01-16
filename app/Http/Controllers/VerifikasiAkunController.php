@@ -16,12 +16,14 @@ class VerifikasiAkunController extends Controller
     }
 
     public function list(){
+        $this->authorize('list-akun', DetailInstansi::class);
         return view('pages.verifikasi.list', [
             'list' => DetailInstansi::with(['penanggungjawab'])->where('status_permohonan', 'SUBMIT')->get()
         ]);
     }
 
     public function detailPermohonan($uuid){
+        $this->authorize('detail-akun', DetailInstansi::class);
         $data = DetailInstansi::with(['penanggungjawab', 'provinsi', 'kabKota'])->where('uuid', $uuid)->first();
 
         if($data->jenis == 1){
@@ -98,16 +100,19 @@ class VerifikasiAkunController extends Controller
     }
 
     public function tolakPermohonan(Request $request, $uuid){
+        $this->authorize('tolak-akun', DetailInstansi::class);
         $this->permohonanAkunService->tolak($request, $uuid);
         return redirect()->route('list.permohonan')->with('success', 'Permohonan berhasil di tolak');
     }
 
     public function perbaikanPermohonan(Request $request, $uuid){
+        $this->authorize('perbaikan-akun', DetailInstansi::class);
         $this->permohonanAkunService->perbaikan($request, $uuid);
         return redirect()->route('list.permohonan')->with('success', 'Permohonan berhasil di minta perbaikan');
     }
 
     public function approvePermohonan($uuid){
+        $this->authorize('approve-akun', DetailInstansi::class);
         $this->permohonanAkunService->approve($uuid);
         return redirect()->route('list.permohonan')->with('success', 'Permohonan berhasil di approve');
     }

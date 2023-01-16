@@ -35,6 +35,7 @@ class PesertaKegiatanController extends Controller
      */
     public function create($uuid)
     {
+        $this->authorize('create-peserta', PesertaKegiatan::class);
         return view('pages.peserta.create', [
             'data' => Kegiatan::where('uuid', $uuid)->first()
         ]);
@@ -48,6 +49,7 @@ class PesertaKegiatanController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create-peserta', PesertaKegiatan::class);
         $this->pesertaService->store($request);
         return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'yey berhasil!');
     }
@@ -71,6 +73,7 @@ class PesertaKegiatanController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('edit-peserta', PesertaKegiatan::class);
         return view('pages.peserta.edit', [
             'data' => PesertaKegiatan::find($id)
         ]);
@@ -85,6 +88,7 @@ class PesertaKegiatanController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('update-peserta', PesertaKegiatan::class);
         $this->pesertaService->update($request, $id);
         return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'yey berhasil!');
     }

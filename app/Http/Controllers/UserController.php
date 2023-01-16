@@ -19,7 +19,7 @@ class UserController extends Controller
     public function index()
     {
         // dd(Auth::user()->roles->first()->name);
-        // dd(Auth::user()->roles->name);
+        $this->authorize('view-users', User::class);
         return view('pages.users.index', [
             'users' => new UserCollection(User::query()->with(['roles'])->paginate(10))
         ]);

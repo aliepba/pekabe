@@ -28,6 +28,7 @@ class KegiatanController extends Controller
      */
     public function index()
     {
+         $this->authorize('view-kegiatan', Kegiatan::class);
         return view('pages.kegiatan.index', [
             'kegiatan' => new KegiatanCollection(
                 Kegiatan::query()->where('user_id', Auth::user()->id)->get()
@@ -42,6 +43,7 @@ class KegiatanController extends Controller
      */
     public function create()
     {
+        $this->authorize('create-kegiatan', Kegiatan::class);
         return view('pages.kegiatan.create', [
             'subklas' => MtSubklasifikasi::all(),
             'profesi' => MtAsosiasiProfesi::all()
@@ -56,6 +58,7 @@ class KegiatanController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create-kegiatan', Kegiatan::class);
         $this->kegiatanService->store($request);
         return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'yey berhasil!');
     }
@@ -68,6 +71,7 @@ class KegiatanController extends Controller
      */
     public function show($uuid)
     {
+        $this->authorize('submit-kegiatan', Kegiatan::class);
         return view('pages.kegiatan.show', [
             'data' => Kegiatan::with(['validator', 'timeline', 'peserta', 'laporan'])->where('uuid', $uuid)->first()
         ]);
@@ -81,6 +85,7 @@ class KegiatanController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('edit-kegiatan', Kegiatan::class);
         $data = Kegiatan::with(['validator'])->find($id);
         $subklas = explode(',', $data->subklasifikasi);
         $metode = explode(',', $data->metode_kegiatan);
@@ -103,6 +108,7 @@ class KegiatanController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('update-kegiatan', Kegiatan::class);
         $this->kegiatanService->update($request, $id);
         return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'yey berhasil!');
     }
@@ -120,12 +126,14 @@ class KegiatanController extends Controller
 
     public function submit($uuid)
     {
+        $this->authorize('submit-kegiatan', Kegiatan::class);
         $this->kegiatanService->submit($uuid);
         return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'yey berhasil!');
     }
 
     public function setuju()
     {
+        $this->authorize('list-setuju', Kegiatan::class);
         return view('pages.kegiatan.setuju', [
             'kegiatan' => new KegiatanCollection(
                 Kegiatan::query()->where('status_permohonan_kegiatan', 'APPROVE')->where('user_id', Auth::user()->id)->get()
@@ -135,6 +143,7 @@ class KegiatanController extends Controller
 
     public function tolak()
     {
+        $this->authorize('list-tolak', Kegiatan::class);
         return view('pages.kegiatan.setuju', [
             'kegiatan' => new KegiatanCollection(
                 Kegiatan::query()->where('status_permohonan_kegiatan', 'TOLAK')->where('user_id', Auth::user()->id)->get()

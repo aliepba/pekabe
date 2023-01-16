@@ -32,6 +32,7 @@ class OldKegiatanController extends Controller
      */
     public function create()
     {
+        $this->authorize('all-kegiatan');
         return view('pages.logbook.old-kegiatan.create', [
             'provinsi' => MtProvinsi::all()
         ]);

@@ -44,6 +44,7 @@ class PelaporanController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('pelaporan', PelaporanKegiatan::class);
         $this->pelaporanService->store($request);
         return redirect(route('kegiatan-penyelenggara.show', $request->id_kegiatan))->with('success', 'yey berhasil!');
     }
@@ -81,6 +82,7 @@ class PelaporanController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('pelaporan', PelaporanKegiatan::class);
         $this->pelaporanService->update($request, $id);
         return redirect(route('kegiatan-penyelenggara.show', $request->id_kegiatan))->with('success', 'yey berhasil!');
     }
@@ -98,6 +100,7 @@ class PelaporanController extends Controller
 
     public function submit($id)
     {
+        $this->authorize('submit_pelaporan', PelaporanKegiatan::class);
         $this->pelaporanService->submit($id);
         return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'yey berhasil!');
     }
