@@ -12,6 +12,7 @@ use App\Http\Controllers\PelaporanController;
 use App\Http\Controllers\PerbaikanController;
 use App\Http\Controllers\PreferensiController;
 use App\Http\Controllers\OldKegiatanController;
+use App\Http\Controllers\UnsurKegiatanController;
 use App\Http\Controllers\PermohonanAkunController;
 use App\Http\Controllers\VerifikasiAkunController;
 use App\Http\controllers\PesertaKegiatanController;
@@ -54,6 +55,7 @@ Route::middleware(['auth'])->group(function () {
     //admin
     Route::resource('roles', RoleController::class)->except('show');
     Route::resource('users', UserController::class)->only(['index']);
+    Route::resource('unsur-kegiatan', UnsurKegiatanController::class);
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/list-permohonan', [VerifikasiAkunController::class, 'list'])->name('list.permohonan');
     Route::get('/detail-permohonan/{uuid}', [VerifikasiAkunController::class, 'detailPermohonan'])->name('detail.permohonan');
