@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\DetailInstansi;
 use App\Models\MtPenyelenggara;
-use App\Actions\Asosiasi\AptList;
+use App\Actions\Asosiasi\AsosiasiList;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\PermohonanAkunRequest;
 use App\Services\PermohonanAkun\PermohonanAkunService;
@@ -37,16 +37,13 @@ class PermohonanAkunController extends Controller
         if($jenis == 2){
             return view('pages.form-jenis-penyelenggara.asosiasi-profesi', [
                 'propinsi' => DB::table('propinsi_dagri')->get(),
-                'asosiasi' => DB::table('personal_profesi_ta_detail')->get(),
-                AptList::run(),
-            ]);
+            ], AsosiasiList::run());
         }
 
         if($jenis == 3){
             return view('pages.form-jenis-penyelenggara.asosiasi-badan-usaha', [
                 'propinsi' => DB::table('propinsi_dagri')->get(),
-                'asosiasi' => DB::table('bu_asosiasi_detail')->get(),
-            ]);
+            ], AsosiasiList::run());
         }
 
         if($jenis == 4){

@@ -58,7 +58,7 @@
                                     <label class="text-sm font-weight-bolder text-dark">Jenis Penyelenggara <span class="text-danger">*</span></label>
                                     <select name="jenis_penyelenggara" id="jenis_penyelenggara" class="form-control selectpicker">
                                         <option>Pilih Penyelenggara</option>
-                                        @foreach ($asosiasi as $item)
+                                        @foreach ($profesi as $item)
                                             <option value="{{$item->ID_Asosiasi_Profesi}}">{{$item->Nama_Lengkap. " (".$item->Nama. ")"}}</option>
                                         @endforeach
                                     </select>

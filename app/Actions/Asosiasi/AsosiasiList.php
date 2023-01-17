@@ -7,7 +7,7 @@ use App\Models\MtAsosiasiProfesi;
 use App\Models\MtAsosiasiBadanUsaha;
 use Lorisleiva\Actions\Concerns\AsAction;
 
-class AptList
+class AsosiasiList
 {
     use AsAction;
 
@@ -15,10 +15,10 @@ class AptList
     {
         return [
             'profesi' => MtAsosiasiProfesi::query()
-                    ->whereNotIn('ID_Asosiasi_Profesi',DetailInstansi::all())
+                    ->whereNotIn('ID_Asosiasi_Profesi',DetailInstansi::where('jenis', 2)->get())
                     ->get(),
-            'badan-usaha' => MtAsosiasiBadanUsaha::query()
-                    ->whereNotIn('ID_Asosiasi_BU',DetailInstansi::all())
+            'badanUsaha' => MtAsosiasiBadanUsaha::query()
+                    ->whereNotIn('ID_Asosiasi_BU',DetailInstansi::where('jenis', 3)->get())
                     ->get(),
             ];
     }

@@ -23,7 +23,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $this->authorize('view-role', Role::class);
+        $this->authorize('view-roles', Role::class);
         return view('pages.roles.index', [
             'roles' => Role::with('permissions')->orderByDesc('id')->paginate(5)
         ]);
