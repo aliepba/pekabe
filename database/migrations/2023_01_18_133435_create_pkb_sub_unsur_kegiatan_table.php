@@ -15,7 +15,12 @@ class CreatePkbSubUnsurKegiatanTable extends Migration
     {
         Schema::create('pkb_sub_unsur_kegiatan', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_unsur_kegiatan');
+            $table->foreignId('id_bobot_penilaian');
+            $table->string('nama_sub_unsur');
+            $table->integer('nilai_skpk');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

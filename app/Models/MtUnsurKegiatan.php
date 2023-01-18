@@ -12,4 +12,8 @@ class MtUnsurKegiatan extends Model
     protected $table = 'master_unsur_kegiatan';
 
     protected $guarded = [];
+
+    public function subUnsur(){
+        return $this->hasMany(MtSubUnsurKegiatan::class, 'id_unsur_kegiatan', 'id');
+    }
 }

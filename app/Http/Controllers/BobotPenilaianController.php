@@ -3,19 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\MtUnsurKegiatan;
 use App\Models\MtBobotPenilaian;
-use App\Models\MtSubUnsurKegiatan;
-use App\Services\UnsurKegiatan\SubUnsurKegiatan;
+use App\Services\UnsurKegiatan\BobotPenilaianService;
 
-class SubUnsurKegiatanController extends Controller
+class BobotPenilaianController extends Controller
 {
 
-    private $subUnsurService;
+    private $bobotPenilaianService;
 
-    public function __construct(SubUnsurKegiatan $subUnsurService)
+    public function __construct(BobotPenilaianService $bobotPenilaianService)
     {
-        $this->subUnsurService = $subUnsurService;
+        $this->bobotPenilaianService = $bobotPenilaianService;
     }
     /**
      * Display a listing of the resource.
@@ -24,8 +22,8 @@ class SubUnsurKegiatanController extends Controller
      */
     public function index()
     {
-        return view('pages.sub-unsur-kegiatan.index', [
-            'data' => MtSubUnsurKegiatan::with(['jenisKegiatan'])->get()
+        return view('pages.bobot-penilaian.index', [
+            'data' => MtBobotPenilaian::all()
         ]);
     }
 
@@ -36,10 +34,7 @@ class SubUnsurKegiatanController extends Controller
      */
     public function create()
     {
-        return view('pages.sub-unsur-kegiatan.create',[
-            'unsur' => MtUnsurKegiatan::all(),
-            'bobot' => MtBobotPenilaian::all()
-        ]);
+        return view('pages.bobot-penilaian.create');
     }
 
     /**
@@ -50,8 +45,8 @@ class SubUnsurKegiatanController extends Controller
      */
     public function store(Request $request)
     {
-        $this->subUnsurService->store($request);
-        return redirect()->route('sub-unsur-kegiatan.index')->with(['success', 'yey berhasil']);
+        $this->bobotPenilaianService->store($request);
+        return redirect()->route('bobot-penilaian.index')->with(['success', 'yey berhasil']);
     }
 
     /**
@@ -73,11 +68,7 @@ class SubUnsurKegiatanController extends Controller
      */
     public function edit($id)
     {
-        return view('pages.sub-unsur-kegiatan.edit', [
-            'data' => MtSubUnsurKegiatan::find($id),
-            'unsur' => MtUnsurKegiatan::all(),
-            'bobot' => MtBobotPenilaian::all()
-        ]);
+        //
     }
 
     /**
@@ -89,8 +80,8 @@ class SubUnsurKegiatanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->subUnsurService->update($request, $id);
-        return redirect()->route('sub-unsur-kegiatan.index')->with(['success', 'yey berhasil']);
+        $this->bobotPenilaianService->update($request, $id);
+        return redirect()->route('bobot-penilaian.index')->with(['success', 'yey berhasil']);
     }
 
     /**
