@@ -2,20 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PelaporanKegiatan;
 use Illuminate\Http\Request;
-use App\Services\Pelaporan\PelaporanService;
 
-class PelaporanController extends Controller
+class SubUnsurKegiatanController extends Controller
 {
-
-    private $pelaporanService;
-
-    public function __construct(PelaporanService $pelaporanService)
-    {
-        $this->pelaporanService = $pelaporanService;
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -44,9 +34,7 @@ class PelaporanController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->authorize('pelaporan', PelaporanKegiatan::class);
-        $this->pelaporanService->store($request);
-        return redirect(route('kegiatan-penyelenggara.show', $request->id_kegiatan))->with('success', 'yey berhasil!');
+        //
     }
 
     /**
@@ -68,9 +56,7 @@ class PelaporanController extends Controller
      */
     public function edit($id)
     {
-        return view('pages.kegiatan.pelaporan.edit', [
-            'item' => PelaporanKegiatan::find($id)
-        ]);
+        //
     }
 
     /**
@@ -82,9 +68,7 @@ class PelaporanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $this->authorize('pelaporan', PelaporanKegiatan::class);
-        $this->pelaporanService->update($request, $id);
-        return redirect(route('kegiatan-penyelenggara.show', $request->id_kegiatan))->with('success', 'yey berhasil!');
+        //
     }
 
     /**
@@ -96,12 +80,5 @@ class PelaporanController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function submit($id)
-    {
-        // $this->authorize('submit_pelaporan', PelaporanKegiatan::class);
-        $this->pelaporanService->submit($id);
-        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'yey berhasil!');
     }
 }

@@ -10,6 +10,7 @@ class UnsurKegiatanService{
     public function store(Request $request){
         DB::transaction(function () use($request){
             MtUnsurKegiatan::query()->create([
+                'jenis' => $request->jenis,
                 'unsur_kegiatan' => $request->unsur_kegiatan
             ]);
         });
@@ -19,6 +20,7 @@ class UnsurKegiatanService{
         $mtUnsurKegiatan = MtUnsurKegiatan::find($id);
         DB::transaction(function () use ($request, $mtUnsurKegiatan){
             $mtUnsurKegiatan->update([
+                'jenis' => $request->jenis,
                 'unsur_kegiatan' => $request->unsur_kegiatan
             ]);
         });

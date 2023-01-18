@@ -81,12 +81,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/persyaratan-lain/{uuid}', [PerbaikanController::class, 'lain1'])->name('edit.lain1');
     Route::get('/lainnya/{uuid}', [PerbaikanController::class, 'lain2'])->name('edit.lain2');
 
-    Route::put('/surat-update/{id}', [PerbaikanController::class, 'updateSurat'])->name('update.surat');
-    Route::put('/tor-update/{id}', [PerbaikanController::class, 'updateTor'])->name('update.tor');
-    Route::put('/cv-update/{id}', [PerbaikanController::class, 'updateCV'])->name('update.cv');
-    Route::put('/sk-update/{id}', [PerbaikanController::class, 'updateSK'])->name('update.sk');
-    Route::put('/lain1-update/{id}', [PerbaikanController::class, 'updateLain1'])->name('update.lain1');
-    Route::put('/lain2-update/{id}', [PerbaikanController::class, 'updateLain2'])->name('update.lain2');
+    Route::put('/surat-update/{id}', [PerbaikanController::class, 'updateSurat'])->name('surat.update');
+    Route::put('/tor-update/{id}', [PerbaikanController::class, 'updateTor'])->name('tor.update');
+    Route::put('/cv-update/{id}', [PerbaikanController::class, 'updateCV'])->name('cv.update');
+    Route::put('/sk-update/{id}', [PerbaikanController::class, 'updateSK'])->name('sk.update');
+    Route::put('/lain1-update/{id}', [PerbaikanController::class, 'updateLain1'])->name('lain1.update');
+    Route::put('/lain2-update/{id}', [PerbaikanController::class, 'updateLain2'])->name('lain2.update');
 
     Route::resource('/pelaporan', PelaporanController::class)->only(['store', 'edit', 'update']);
     Route::get('/pelaporan/submit/{id}', [PelaporanController::class, 'submit'])->name('pelaporan.submit');

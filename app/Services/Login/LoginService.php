@@ -38,7 +38,7 @@ class LoginService{
         $dataDecoded = json_decode($response);
 
         if($dataDecoded->status == 'errors'){
-            return redirect(route('sso'))->with(['error' => 'Password dan username salah']);
+            return redirect(route('skk'))->with(['error' => 'Password dan username salah']);
         }
 
         $data = array(
@@ -68,7 +68,7 @@ class LoginService{
         $dataDecoded = json_decode($response);
 
         if($dataDecoded->status == 'errors'){
-            return redirect(route('sso'))->with(['error' => 'Password dan username salah']);
+            return redirect(route('skk'))->with(['error' => 'Password dan username salah']);
         }
 
         $data = array(

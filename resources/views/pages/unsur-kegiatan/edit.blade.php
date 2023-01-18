@@ -11,6 +11,10 @@
                 @method('PUT')
                 @csrf
                 <div class="form-group">
+                    <label class="control-label">Jenis Kegiatan</label>
+                    <input type="text" class="form-control" name="jenis" value="{{$data->jenis}}" required/>
+                </div>
+                <div class="form-group">
                     <label class="control-label">Nama Unsur Kegiatan</label>
                     <input type="text" class="form-control" name="unsur_kegiatan" value="{{$data->unsur_kegiatan}}" required/>
                 </div>

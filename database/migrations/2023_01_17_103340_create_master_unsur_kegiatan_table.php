@@ -15,6 +15,7 @@ class CreateMasterUnsurKegiatanTable extends Migration
     {
         Schema::create('master_unsur_kegiatan', function (Blueprint $table) {
             $table->id();
+            $table->string('jenis');
             $table->string('unsur_kegiatan');
             $table->timestamps();
             $table->softDeletes();

@@ -15,7 +15,8 @@
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>Name</th>
+                  <th>Jenis</th>
+                  <th>Nama</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -23,6 +24,7 @@
                 @foreach ($data as $item)
                     <tr>
                         <td>{{$loop->iteration}}</td>
+                        <td>{{$item->jenis}}</td>
                         <td>{{$item->unsur_kegiatan}}</td>
                         <td>
                             <a href="{{route('unsur-kegiatan.edit', $item->id)}}" class="btn btn-sm btn-primary">

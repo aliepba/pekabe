@@ -10,6 +10,10 @@
             <form action="{{route('unsur-kegiatan.store')}}" method="POST">
                 @csrf
                 <div class="form-group">
+                    <label class="control-label">Jenis Kegiatan</label>
+                    <input type="text" class="form-control" name="jenis" placeholder="Nama Unsur Kegiatan" required/>
+                </div>
+                <div class="form-group">
                     <label class="control-label">Nama Unsur Kegiatan</label>
                     <input type="text" class="form-control" name="unsur_kegiatan" placeholder="Nama Unsur Kegiatan" required/>
                 </div>
