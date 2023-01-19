@@ -11,7 +11,7 @@
         </div>
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="subUnsur" width="100%" cellspacing="0">
               <thead>
                 <tr>
                   <th>No</th>
@@ -28,6 +28,9 @@
                         <td>{{$item->jenisKegiatan->unsur_kegiatan}}</td>
                         <td>{{$item->nama_sub_unsur}}</td>
                         <td>{{$item->nilai_skpk}}</td>
+                        <td>
+                            <a href="{{route('sub-unsur-kegiatan.edit', $item->id)}}" class="btn btn-sm btn-primary">Edit</a>
+                        </td>
                     </tr>
                 @endforeach
               </tbody>
@@ -37,3 +40,11 @@
       </div>
 </div>
 @endsection
+
+@push('addon-script')
+    <script>
+        $(document).ready(function () {
+            $('#subUnsur').DataTable();
+        });
+    </script>
+@endpush

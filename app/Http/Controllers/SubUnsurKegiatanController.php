@@ -74,7 +74,7 @@ class SubUnsurKegiatanController extends Controller
     public function edit($id)
     {
         return view('pages.sub-unsur-kegiatan.edit', [
-            'data' => MtSubUnsurKegiatan::find($id),
+            'item' => MtSubUnsurKegiatan::findOrFail($id),
             'unsur' => MtUnsurKegiatan::all(),
             'bobot' => MtBobotPenilaian::all()
         ]);

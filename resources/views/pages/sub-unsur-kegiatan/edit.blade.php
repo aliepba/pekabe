@@ -4,19 +4,37 @@
 <div class="container">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h5 class="font-weight">Form Unsur Kegiatan</h5>
+            <h5 class="font-weight">Sub Unsur Kegiatan</h5>
         </div>
         <div class="card-body">
-            <form action="{{route('sub-unsur-kegiatan.update', $data->id)}}" method="POST">
+            <form action="{{route('sub-unsur-kegiatan.update', $item->id)}}" method="POST">
                 @method('PUT')
                 @csrf
                 <div class="form-group">
-                    <label class="control-label">Jenis Kegiatan</label>
-                    <input type="text" class="form-control" name="jenis" value="{{$data->jenis}}" required/>
+                    <label class="control-label">Unsur Kegiatan</label>
+                    <select class="form-control" name="id_unsur_kegiatan" required>
+                        <option value="{{$item->id_unsur_kegiatan}}">{{$item->id_unsur_kegiatan}}</option>
+                        @foreach ($unsur as $item)
+                            <option value="{{$item->id}}">{{$item->unsur_kegiatan}}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">Nama Unsur Kegiatan</label>
-                    <input type="text" class="form-control" name="unsur_kegiatan" value="{{$data->unsur_kegiatan}}" required/>
+                    <label class="control-label">Nama Sub Kegiatan</label>
+                    <input class="form-control" name="nama_sub_unsur" value="{{$item->nama_sub_unsur}}" required/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Nilai SKPK</label>
+                    <input class="form-control" name="nilai_skpk" value="{{$item->nilai_skpk}}" required/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Bobot Penilaian</label>
+                    <select class="form-control" name="id_bobot_penilaian">
+                        <option value="{{$item->id_bobot_penilaian}}">{{$item->id_bobot_penilaian}}</option>
+                        @foreach ($bobot as $item)
+                            <option value="{{$item->id}}">{{$item->nama_unsur}}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-sm btn-primary">Submit</button>
