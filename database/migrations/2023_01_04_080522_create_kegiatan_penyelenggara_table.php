@@ -19,6 +19,7 @@ class CreateKegiatanPenyelenggaraTable extends Migration
             $table->string('penyelenggara_lain')->nullable();
             $table->text('subklasifikasi');
             $table->string('penilai');
+            $table->string('jenis_kegiatan');
             $table->string('unsur_kegiatan');
             $table->string('metode_kegiatan');
             $table->string('tingkat_kegiatan');

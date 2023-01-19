@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\DetailInstansi;
+use App\Models\MtSubUnsurKegiatan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -38,6 +39,12 @@ class PreferensiController extends Controller
     public function showInstansi($id){
         $data = DetailInstansi::with(['penanggungjawab', 'provinsi', 'kabKota'])->find($id);
         return response()->json($data);
+    }
+
+    public function unsurKegiatan(Request $request){
+        $unsur = MtSubUnsurKegiatan::where('id_unsur_kegiatan', $request->id)->pluck('id','nama_sub_unsur');
+
+        return response()->json($unsur);
     }
 
     public function markNotif(Request $request)

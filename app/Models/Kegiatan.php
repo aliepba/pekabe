@@ -29,4 +29,12 @@ class Kegiatan extends Model
     public function laporan(){
         return $this->hasOne(PelaporanKegiatan::class, 'id_kegiatan', 'uuid');
     }
+
+    public function jenis(){
+        return $this->belongsTo(MtUnsurKegiatan::class, 'jenis_kegiatan', 'id');
+    }
+
+    public function unsur(){
+        return $this->belongsTo(MtSubUnsurKegiatan::class, 'unsur_kegiatan', 'id');
+    }
 }

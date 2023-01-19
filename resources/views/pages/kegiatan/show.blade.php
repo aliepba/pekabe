@@ -86,6 +86,7 @@
                     <span class="nav-text">Detail</span>
                 </a>
             </li>
+            @if ($data->status_permohonan_kegiatan == 'APPROVE')
             <li class="nav-item">
                 <a class="nav-link" id="profile-tab-1" data-toggle="tab" href="#tab-peserta" aria-controls="profile">
                     <span class="nav-icon">
@@ -102,6 +103,7 @@
                     <span class="nav-text">Berkas Laporan Kegiatan</span>
                 </a>
             </li>
+            @endif
         </ul>
     </div>
     <div class="tab-content mt-5" id="myTabContent1">

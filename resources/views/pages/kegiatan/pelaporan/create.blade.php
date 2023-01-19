@@ -46,7 +46,7 @@
                         <div class="form-group">
                             <label>Upload Berkas Pelaporan</label>
                             <input type="file" class="form-control" name="upload_persyaratan" required />
-                            <input type="text" name="id_kegiatan" value="{{$data->uuid}}" />
+                            <input type="hidden" name="id_kegiatan" value="{{$data->uuid}}" />
                         </div>
                     </div>
                     <div class="col-md-6">
