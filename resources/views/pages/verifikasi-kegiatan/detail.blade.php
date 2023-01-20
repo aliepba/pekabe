@@ -177,7 +177,7 @@
                     <!--begin::Timeline-->
                     <div class="row">
                         <div class="col-lg-2">
-                            <a href="" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>Surat Permohonan *</a>
+                            <a href="{{asset('storage/'. $data->surat_permohonan)}}" target="_blank" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>Surat Permohonan *</a>
                         </div>
 						<div class="col-lg-2">
 							<span class="switch switch-icon">
@@ -204,7 +204,7 @@
                     </div>
                     <div class="row mt-2">
                         <div class="col-lg-2">
-                            <a href="" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>TOR / KAK</a><span class="text-danger">*</span>
+                            <a href="{{asset('storage/'. $data->tor_kak)}}" target="_blank" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>TOR / KAK</a><span class="text-danger">*</span>
                         </div>
                         <div class="col-lg-2">
 							<span class="switch switch-icon">
@@ -231,7 +231,7 @@
                     </div>
                     <div class="row mt-2">
                         <div class="col-lg-2">
-                            <a href="" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>CV</a>
+                            <a href="{{asset('storage/'. $data->cv)}}" target="_blank" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>CV</a>
                         </div>
                         <div class="col-lg-2">
 							<span class="switch switch-icon">
@@ -258,7 +258,7 @@
                     </div>
                     <div class="row mt-2">
                         <div class="col-lg-2">
-                            <a href="" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>SK Panitia</a>
+                            <a href="{{asset('storage/'. $data->sk_panitia)}}" target="_blank" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>SK Panitia</a>
                         </div>
                         <div class="col-lg-2">
 							<span class="switch switch-icon">
@@ -285,7 +285,7 @@
                     </div>
                     <div class="row mt-2">
                         <div class="col-lg-2">
-                            <a href="" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>Persyaratan Lain</a>
+                            <a href="{{asset('storage/'. $data->persyaratan_lain)}}" target="_blank" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>Persyaratan Lain</a>
                         </div>
                         <div class="col-lg-2">
 							<span class="switch switch-icon">
@@ -312,7 +312,7 @@
                     </div>
                     <div class="row mt-2">
                         <div class="col-lg-2">
-                            <a href="" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>Lainnya</a>
+                            <a href="{{asset('storage/'. $data->persyaratan_lain_lain)}}" target="_blank" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>Lainnya</a>
                         </div>
                         <div class="col-lg-2">
 							<span class="switch switch-icon">

@@ -52,9 +52,9 @@
                                 <i class="flaticon2-placeholder mr-2 font-size-lg"></i>{{$data->provinsi->Nama. ' , '. $data->kabKota->nama_kabupaten_dagri. ' , ' .$data->alamat}}</a>
                             </div>
                             <div class="row">
-                            <a href="" class="btn btn-sm btn-primary rounded-lg col-md-3" target="_blank"><i class="flaticon-file"></i>{{$file1 != null ? $file1 : 'upload persyaratan'}}</a>
-                            <a href="" class="btn btn-sm btn-primary rounded-lg col-md-3 ml-2" target="_blank"><i class="flaticon-file"></i>{{$file2 != null ? $file2 : 'upload persyaratan'}}</a>
-                            <a href="" class="btn btn-sm btn-primary rounded-lg col-md-3 ml-2" target="_blank"><i class="flaticon-file"></i>{{$file2 != null ? $file2 : 'upload persyaratan'}}</a>
+                            <a href="{{asset('storage/'. $data->file1)}}" class="btn btn-sm btn-primary rounded-lg col-md-3" target="_blank"><i class="flaticon-file"></i>{{$file1 != null ? $file1 : 'upload persyaratan'}}</a>
+                            <a href="{{asset('storage/'. $data->file2)}}" class="btn btn-sm btn-primary rounded-lg col-md-3 ml-2" target="_blank"><i class="flaticon-file"></i>{{$file2 != null ? $file2 : 'upload persyaratan'}}</a>
+                            <a href="{{asset('storage/'. $data->file3)}}" class="btn btn-sm btn-primary rounded-lg col-md-3 ml-2" target="_blank"><i class="flaticon-file"></i>{{$file2 != null ? $file2 : 'upload persyaratan'}}</a>
                             </div>
                         </div>
                     </div>
@@ -121,7 +121,7 @@
                 </div>
             </div>
             <h6 class="h6 mt-5 ml-2">SK Pengangkatan</h6>
-            <a href="" class="btn btn-sm btn-primary rounded-lg col-md-2 ml-2"><i class="flaticon-file"></i>Persyaratan</a>
+            <a href="{{asset('storage/'. $data->penanggungjawab->upload_persyaratan)}}" class="btn btn-sm btn-primary rounded-lg col-md-2 ml-2" target="_blank"><i class="flaticon-file"></i>Persyaratan</a>
             <!--begin::Items-->
         </div>
       </div>

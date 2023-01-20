@@ -67,12 +67,12 @@
                 <!--end::Info-->
             </div>
             <div class="row">
-                <a href="" class="btn btn-sm btn-primary rounded-lg ml-2"><i class="flaticon-file"></i>Surat Permohonan</a>
-                <a href="" class="btn btn-sm btn-primary rounded-lg ml-2"><i class="flaticon-file"></i>TOR / KAK</a>
-                <a href="" class="btn btn-sm btn-primary rounded-lg ml-2"><i class="flaticon-file"></i>CV</a>
-                <a href="" class="btn btn-sm btn-primary rounded-lg ml-2"><i class="flaticon-file"></i>SK Panitia</a>
-                <a href="" class="btn btn-sm btn-primary rounded-lg ml-2"><i class="flaticon-file"></i>Persyaratan Lain</a>
-                <a href="" class="btn btn-sm btn-primary rounded-lg ml-2"><i class="flaticon-file"></i>Lainnya</a>
+                <a href="{{asset('storage/'. $data->surat_permohonan)}}" class="btn btn-sm btn-primary rounded-lg ml-2" target="_blank"><i class="flaticon-file"></i>Surat Permohonan</a>
+                <a href="{{asset('storage/'. $data->tor_kak)}}" class="btn btn-sm btn-primary rounded-lg ml-2" target="_blank"><i class="flaticon-file"></i>TOR / KAK</a>
+                <a href="{{asset('storage/'. $data->cv)}}" class="btn btn-sm btn-primary rounded-lg ml-2" target="_blank"><i class="flaticon-file"></i>CV</a>
+                <a href="{{asset('storage/'. $data->sk_panitia)}}" class="btn btn-sm btn-primary rounded-lg ml-2" target="_blank"><i class="flaticon-file"></i>SK Panitia</a>
+                <a href="{{asset('storage/'. $data->persyaratan_lain)}}" class="btn btn-sm btn-primary rounded-lg ml-2" target="_blank"><i class="flaticon-file"></i>Persyaratan Lain</a>
+                <a href="{{asset('storage/'. $data->persyaratan_lain_lain)}}" class="btn btn-sm btn-primary rounded-lg ml-2" target="_blank"><i class="flaticon-file"></i>Lainnya</a>
             </div>
         </div>
     </div>
