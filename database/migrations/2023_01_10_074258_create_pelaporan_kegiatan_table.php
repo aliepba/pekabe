@@ -16,7 +16,9 @@ class CreatePelaporanKegiatanTable extends Migration
         Schema::create('pelaporan_kegiatan', function (Blueprint $table) {
             $table->id();
             $table->string('id_kegiatan');
-            $table->text('upload_persyaratan');
+            $table->text('upload_persyaratan')->nullable();
+            $table->text('materi_kegiatan');
+            $table->text('dokumentasi_kegiatan');
             $table->enum('status_laporan', ['APPROVE', 'PERBAIKAN', 'TOLAK', 'SUBMIT', 'OPEN'])->default('OPEN');
             $table->unsignedBigInteger('user_id');
             $table->dateTime('approve_at')->nullable();

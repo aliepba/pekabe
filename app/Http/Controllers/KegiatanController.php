@@ -33,7 +33,7 @@ class KegiatanController extends Controller
         return view('pages.kegiatan.index', [
             'kegiatan' => new KegiatanCollection(
                 Kegiatan::query()->where('user_id', Auth::user()->id)->get()
-            )
+            ),
         ]);
     }
 

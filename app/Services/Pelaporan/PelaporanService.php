@@ -17,6 +17,8 @@ class PelaporanService{
             PelaporanKegiatan::query()->create([
                 'id_kegiatan' => $request->id_kegiatan,
                 'upload_persyaratan' => $request->file('upload_persyaratan')->store('file/pelaporan', 'public'),
+                'materi_kegiatan' => $request->file('materi_kegiatan')->store('file/pelaporan/materi-kegiatan', 'public'),
+                'dokumentasi_kegiatan' => $request->file('dokumentasi_kegiatan')->store('file/pelaporan/materi-dokumentasi_kegiatan', 'public'),
                 'user_id' => Auth::user()->id
             ]);
         });

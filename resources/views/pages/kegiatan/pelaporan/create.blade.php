@@ -12,6 +12,8 @@
                     <tr>
                       <th>No</th>
                       <th>File</th>
+                      <th>Materi Kegiatan</th>
+                      <th>Dokumentasi Kegiatan</th>
                       <th>Status Laporan</th>
                       <th>Action</th>
                     </tr>
@@ -20,7 +22,13 @@
                     <tr>
                         <td>1</td>
                         <td>
-                            <a href="" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>Laporan</a>
+                            <a href="" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>Laporan Kegiatan</a>
+                        </td>
+                        <td>
+                            <a href="" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>Materi Kegiatan</a>
+                        </td>
+                        <td>
+                            <a href="" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>Dokumentasi Kegiatan</a>
                         </td>
                         <td>{{$data->laporan->status_laporan}}</td>
                         <td>
@@ -44,9 +52,17 @@
                     <div class="col-md-6">
                         <h5 class="h5">Pelaporan</h5>
                         <div class="form-group">
-                            <label>Upload Berkas Pelaporan</label>
+                            <label>Upload Laporan Kegiatan</label>
                             <input type="file" class="form-control" name="upload_persyaratan" required />
                             <input type="hidden" name="id_kegiatan" value="{{$data->uuid}}" />
+                        </div>
+                        <div class="form-group">
+                            <label>Upload Materi Kegiatan</label>
+                            <input type="file" class="form-control" name="materi_kegiatan" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Upload Dokumentasi Kegiatan</label>
+                            <input type="file" class="form-control" name="dokumentasi_kegiatan" required />
                         </div>
                     </div>
                     <div class="col-md-6">

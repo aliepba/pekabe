@@ -18,6 +18,14 @@
                             <input type="file" class="form-control" name="upload_persyaratan" required/>
                             <input type="text" name="id_kegiatan" value="{{$item->id_kegiatan}}" hidden/>
                         </div>
+                        <div class="form-group">
+                            <label>Upload Materi Kegiatan</label>
+                            <input type="file" class="form-control" name="materi_kegiatan" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Upload Dokumentasi Kegiatan</label>
+                            <input type="file" class="form-control" name="dokumentasi_kegiatan" required />
+                        </div>
                     </div>
                 </div>
                 <div class="row">
