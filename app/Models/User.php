@@ -14,6 +14,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes;
 
+    protected $table = 'pkb_users';
+
     /**
      * The attributes that are mass assignable.
      *

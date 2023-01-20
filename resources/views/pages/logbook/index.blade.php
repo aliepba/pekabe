@@ -31,13 +31,7 @@
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>Kegiatan</th>
-                  <th>Status</th>
-                  <th>Tanggal Pengajuan</th>
-                  <th>Tanggal Kegiatan</th>
-                  <th>Subklasifikasi Tenaga Ahli</th>
-                  <th>Penilai</th>
-                  <th>Action</th>
+                  <th>Subklasifikasi</th>
                 </tr>
               </thead>
               <tbody>

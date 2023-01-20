@@ -9,7 +9,7 @@ class PerbaikanPersyaratan extends Model
 {
     use HasFactory;
 
-    protected $table = 'perbaikan_persyaratan_kegiatan';
+    protected $table = 'pkb_perbaikan_persyaratan_kegiatan';
 
     protected $guarded = [];
 }

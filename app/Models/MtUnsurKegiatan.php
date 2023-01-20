@@ -9,7 +9,7 @@ class MtUnsurKegiatan extends Model
 {
     use HasFactory;
 
-    protected $table = 'master_unsur_kegiatan';
+    protected $table = 'pkb_master_unsur_kegiatan';
 
     protected $guarded = [];
 

@@ -9,5 +9,5 @@ class MtPenyelenggara extends Model
 {
     use HasFactory;
 
-    protected $table = 'master_penyelenggara';
+    protected $table = 'pkb_master_penyelenggara';
 }

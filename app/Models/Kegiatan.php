@@ -10,7 +10,7 @@ class Kegiatan extends Model
 {
     use HasFactory;
 
-    protected $table= 'kegiatan_penyelenggara';
+    protected $table= 'pkb_kegiatan_penyelenggara';
 
     protected $guarded = [];
 

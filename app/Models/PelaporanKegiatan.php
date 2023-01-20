@@ -9,7 +9,7 @@ class PelaporanKegiatan extends Model
 {
     use HasFactory;
 
-    protected $table = 'pelaporan_kegiatan';
+    protected $table = 'pkb_pelaporan_kegiatan';
 
     protected $guarded = [];
 }

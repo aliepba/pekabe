@@ -9,7 +9,7 @@ class DetailInstansi extends Model
 {
     use HasFactory;
 
-    protected $table = 'detail_instansi';
+    protected $table = 'pkb_detail_instansi';
 
     protected $guarded = [];
 

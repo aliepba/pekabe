@@ -9,7 +9,7 @@ class SubPenyelenggara extends Model
 {
     use HasFactory;
 
-    protected $table = 'sub_penyelenggara';
+    protected $table = 'pkb_sub_penyelenggara';
 
     protected $guarded = [];
 }

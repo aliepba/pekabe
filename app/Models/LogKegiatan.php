@@ -9,7 +9,7 @@ class LogKegiatan extends Model
 {
     use HasFactory;
 
-    protected $table= 'log_kegiatan';
+    protected $table= 'pkb_log_kegiatan';
 
     protected $guarded = [];
 }

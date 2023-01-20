@@ -9,7 +9,7 @@ class KegiatanUnverified extends Model
 {
     use HasFactory;
 
-    protected $table = 'kegiatan_unverified';
+    protected $table = 'pkb_kegiatan_unverified';
 
     protected $guarded = [];
 }
