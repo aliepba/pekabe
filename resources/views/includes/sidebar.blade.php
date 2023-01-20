@@ -9,6 +9,12 @@
     @if(Auth::user()->role == 'root')
     @include('includes.menu.root')
     @endif
+    @if(Auth::user()->role == 'sub-user')
+    @include('includes.menu.sub-user')
+    @endif
+    @if(Auth::user()->role == 'skk-ska')
+    @include('includes.menu.skk')
+    @endif
     <!--end::Menu Nav-->
 </div>
 5

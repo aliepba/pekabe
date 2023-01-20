@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Services\Kegiatan\KegiatanService;
 use App\Http\Resources\Kegiatan\KegiatanResource;
 use App\Http\Resources\Kegiatan\KegiatanCollection;
+use App\Models\SubPenyelenggara;
 use App\Models\MtUnsurKegiatan;
 
 class KegiatanController extends Controller
@@ -29,12 +30,19 @@ class KegiatanController extends Controller
      */
     public function index()
     {
-         $this->authorize('view-kegiatan', Kegiatan::class);
-        return view('pages.kegiatan.index', [
-            'kegiatan' => new KegiatanCollection(
-                Kegiatan::query()->where('user_id', Auth::user()->id)->get()
-            ),
-        ]);
+        $this->authorize('view-kegiatan', Kegiatan::class);
+        if(Auth::user()->role == 'sub-user'){
+            return view('pages.kegiatan.index', [
+                'kegiatan' => new KegiatanCollection(
+                    Kegiatan::query()->where('user_id', Auth::user()->id)->get()
+                ),
+            ]);
+        }else{
+            $data = new KegiatanCollection(Kegiatan::query()->where('user_id', Auth::user()->id)->get());
+            return view('pages.kegiatan.index', [
+                'kegiatan' => $data
+            ]);
+        }
     }
 
     /**

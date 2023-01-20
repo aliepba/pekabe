@@ -9,4 +9,6 @@ class PermohonanStatus
     const APPROVE = 'APPROVE';
     const TOLAK = 'TOLAK';
     const PERBAIKAN = 'PERBAIKAN';
+    const TERVERIFIKASI = 'TERVERIFIKASI';
+    CONST UNVERIFIED = 'UNVERIFIED';
 }

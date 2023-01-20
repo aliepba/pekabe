@@ -22,7 +22,7 @@ class SSOController extends Controller
     public function login(Request $request)
     {
         $this->loginService->ska($request);
-        return redirect(route('dashboard'));
+        return redirect(route('dashboard.user'));
     }
 
     public function loginSKK(){
@@ -32,6 +32,6 @@ class SSOController extends Controller
     public function skk(Request $request)
     {
         $this->loginService->skk($request);
-        return redirect(route('dashboard'));
+        return redirect(route('dashboard.user'));
     }
 }

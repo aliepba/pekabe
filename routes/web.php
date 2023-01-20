@@ -73,6 +73,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/add-komen', [VerifikasiKegiatanController::class, 'addKomen'])->name('add.komen');
 
     //penyelenggara
+    Route::get('/dashboard-user', [DashboardController::class, 'dashboardUser'])->name('dashboard.user');
     Route::resource('kegiatan-penyelenggara', KegiatanController::class);
     Route::get('/kegiatan/submit/{uuid}', [KegiatanController::class, 'submit'])->name('submit.kegiatan');
     Route::get('/kegiatan/terverifikasi', [KegiatanController::class, 'setuju'])->name('kegiatan.setuju');
