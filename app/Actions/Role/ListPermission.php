@@ -27,6 +27,9 @@ class ListPermission
             'userPermissions' => Permission::query()
                 ->whereIn('name', config('permission-list.user_permissions'))
                 ->get('name'),
+            'unsurPermissions' => Permission::query()
+                ->whereIn('name', config('permission-list.master_unsur_kegiatan'))
+                ->get('name'),
             'permohonanAkunPermissions' => Permission::query()
                 ->whereIn('name', config('permission-list.permohonan_akun_permissions'))
                 ->get('name'),

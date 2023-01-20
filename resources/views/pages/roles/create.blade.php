@@ -65,6 +65,18 @@
                         </div>
                 </div>
                 <div class="form-group">
+                    <label>Master Unsur Kegiatan Permissions</label>
+                    <div class="checkbox-inline">
+                        @foreach ($unsurPermissions as $item)
+                        <label class="checkbox">
+                            <input type="checkbox" name="permissions[]" value="{{$item->name}}"/>
+                            <span></span>
+                            {{$item->name}}
+                        </label>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="form-group">
                         <label>Permohonan Akun Permissions</label>
                         <div class="checkbox-inline">
                             @foreach ($permohonanAkunPermissions as $item)

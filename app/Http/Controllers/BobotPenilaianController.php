@@ -22,6 +22,7 @@ class BobotPenilaianController extends Controller
      */
     public function index()
     {
+        $this->authorize('view-bobot');
         return view('pages.bobot-penilaian.index', [
             'data' => MtBobotPenilaian::all()
         ]);
@@ -34,6 +35,7 @@ class BobotPenilaianController extends Controller
      */
     public function create()
     {
+        $this->authorize('create-bobot');
         return view('pages.bobot-penilaian.create');
     }
 
@@ -45,6 +47,7 @@ class BobotPenilaianController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create-bobot');
         $this->bobotPenilaianService->store($request);
         return redirect()->route('bobot-penilaian.index')->with(['success', 'yey berhasil']);
     }
@@ -68,7 +71,7 @@ class BobotPenilaianController extends Controller
      */
     public function edit($id)
     {
-        //
+        $this->authorize('edit-bobot');
     }
 
     /**
@@ -80,6 +83,7 @@ class BobotPenilaianController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('edit-bobot');
         $this->bobotPenilaianService->update($request, $id);
         return redirect()->route('bobot-penilaian.index')->with(['success', 'yey berhasil']);
     }
@@ -92,6 +96,6 @@ class BobotPenilaianController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->authorize('delete-bobot');
     }
 }

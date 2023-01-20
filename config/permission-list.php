@@ -22,6 +22,20 @@ return [
         'delete-user',
         'restore-user',
     ],
+    'master_unsur_kegiatan' => [
+        'view-unsur',
+        'create-unsur',
+        'edit-unsur',
+        'delete-unsur',
+        'view-sub-unsur',
+        'create-sub-unsur',
+        'edit-sub-unsur',
+        'delete-sub-unsur',
+        'view-bobot',
+        'create-bobot',
+        'edit-bobot',
+        'delete-bobot'
+    ],
     'permohonan_akun_permissions' => [
         'list-akun',
         'detail-akun',

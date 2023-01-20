@@ -86,6 +86,23 @@
                         </div>
                 </div>
                 <div class="form-group">
+                    <label>Master Unsur Kegiatan Permissions</label>
+                    <div class="checkbox-inline">
+                        @foreach ($unsurPermissions as $item)
+                        <label class="checkbox">
+                            <input type="checkbox" name="permissions[]" value="{{$item->name}}"
+                            @foreach ($role->permissions as $permission)
+                        @if ($permission->name == $item->name)
+                        checked
+                        @endif
+                        @endforeach/>
+                            <span></span>
+                            {{$item->name}}
+                        </label>
+                        @endforeach
+                    </div>
+            </div>
+                <div class="form-group">
                         <label>Verifikasi Akun Permissions</label>
                         <div class="checkbox-inline">
                             @foreach ($verifikasiKegiatanPermissions as $item)

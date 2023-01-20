@@ -25,6 +25,7 @@ class UnsurKegiatanController extends Controller
      */
     public function index()
     {
+        $this->authorize('view-unsur');
         return view('pages.unsur-kegiatan.index', [
             'data' => new UnsurKegiatanCollection(
                 MtUnsurKegiatan::all()
@@ -39,6 +40,7 @@ class UnsurKegiatanController extends Controller
      */
     public function create()
     {
+        $this->authorize('view-unsur');
         return view('pages.unsur-kegiatan.create');
     }
 
@@ -50,6 +52,7 @@ class UnsurKegiatanController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create-unsur');
         $this->UnsurKegiatanService->store($request);
         return redirect()->route('unsur-kegiatan.index')->with(['success', 'yey berhasil']);
     }
@@ -73,6 +76,7 @@ class UnsurKegiatanController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('edit-unsur');
         return view('pages.unsur-kegiatan.edit', [
             'data' => MtUnsurKegiatan::find($id)
         ]);
@@ -87,6 +91,7 @@ class UnsurKegiatanController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('edit-unsur');
         $this->UnsurKegiatanService->update($request, $id);
         return redirect()->route('unsur-kegiatan.index')->with(['success', 'yey berhasil']);
     }
@@ -99,6 +104,6 @@ class UnsurKegiatanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->authorize('view-unsur');
     }
 }
