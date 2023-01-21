@@ -39,6 +39,8 @@ class CreateKegiatanPenyelenggaraTable extends Migration
             $table->string('id_penyelenggara')->nullable();
             $table->string('user_id');
             $table->text('keterangan')->nullable();
+            $table->boolean('is_verifikasi')->nullable();
+            $table->date('tgl_proses')->nullable();
             $table->timestamps();
         });
     }

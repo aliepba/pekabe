@@ -28,6 +28,8 @@
                         <div class="my-lg-0 my-3">
                             @if ($data->status_permohonan_kegiatan == 'SUBMIT')
                             <span class="badge badge-primary">SUBMITTED</span>
+                            @elseif ($data->status_permohonan_kegiatan == 'APPROVE')
+                            <span class="badge badge-danger">Submit Pelaporan</span>
                             @else
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -51,14 +53,17 @@
                                 <a href="#" class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
                                 <i class="flaticon-map-location mr-2 font-size-lg"></i>{{$data->tempat_kegiatan}}</a>
                                 <a href="#" class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
-                                <i class="flaticon-earth-globe mr-2 font-size-lg"></i>{{$data->tingkat_kegiatan}}</a>
+                                <i class="flaticon-earth-globe mr-2 font-size-lg"></i>
+                                @if ($data->tingkat_kegiatan == 1)
+                                    Nasional
+                                @elseif ($data->tingkat_kegiatan == 2)
+                                    Internasion Dalam Negeri
+                                @else
+                                    Internasion Luar Negeri
+                                @endif
+                                </a>
                                 <a href="#" class="text-dark-50 text-hover-primary font-weight-bold">
                                 <i class="flaticon-calendar-with-a-clock-time-tools mr-2 font-size-lg"></i>{{$data->start_kegiatan}} s/d {{$data->end_kegiatan}}</a>
-                            </div>
-                            <div class="row">
-                            {{-- <a href="" class="btn btn-sm btn-primary rounded-lg col-md-3" target="_blank"><i class="flaticon-file"></i>{{$file1 != null ? $file1 : 'upload persyaratan'}}</a>
-                            <a href="" class="btn btn-sm btn-primary rounded-lg col-md-3 ml-2" target="_blank"><i class="flaticon-file"></i>{{$file2 != null ? $file2 : 'upload persyaratan'}}</a>
-                            <a href="" class="btn btn-sm btn-primary rounded-lg col-md-3 ml-2" target="_blank"><i class="flaticon-file"></i>{{$file2 != null ? $file2 : 'upload persyaratan'}}</a> --}}
                             </div>
                         </div>
                     </div>

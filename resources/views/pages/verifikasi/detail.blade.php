@@ -122,6 +122,7 @@
             </div>
             <h6 class="h6 mt-5 ml-2">SK Pengangkatan</h6>
             <a href="{{asset('storage/'. $data->penanggungjawab->upload_persyaratan)}}" class="btn btn-sm btn-primary rounded-lg col-md-2 ml-2" target="_blank"><i class="flaticon-file"></i>Persyaratan</a>
+            <a href="{{Storage::url($data->penanggungjawab->upload_persyaratan)}}" class="btn btn-sm btn-primary rounded-lg col-md-2 ml-2" target="_blank"><i class="flaticon-file"></i>Persyaratan</a>
             <!--begin::Items-->
         </div>
       </div>

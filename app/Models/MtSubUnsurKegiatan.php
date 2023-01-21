@@ -17,4 +17,8 @@ class MtSubUnsurKegiatan extends Model
     public function jenisKegiatan(){
         return $this->belongsTo(MtUnsurKegiatan::class, 'id_unsur_kegiatan' , 'id');
     }
+
+    public function bobot(){
+        return $this->hasOne(MtBobotPenilaian::class, 'id',  'id_bobot_penilaian');
+    }
 }
