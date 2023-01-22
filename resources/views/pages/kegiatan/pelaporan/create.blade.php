@@ -22,13 +22,13 @@
                     <tr>
                         <td>1</td>
                         <td>
-                            <a href="{{asset('storage/'. $data->upload_persyaratan)}}" class="btn btn-sm btn-primary rounded-lg" target="_blank"><i class="flaticon-file"></i>Laporan Kegiatan</a>
+                            <a href="{{asset('storage/'. $data->laporan->upload_persyaratan)}}" class="btn btn-sm btn-primary rounded-lg" target="_blank"><i class="flaticon-file"></i>Laporan Kegiatan</a>
                         </td>
                         <td>
-                            <a href="{{asset('storage/'. $data->materi_kegiatan)}}" class="btn btn-sm btn-primary rounded-lg" target="_blank"><i class="flaticon-file"></i>Materi Kegiatan</a>
+                            <a href="{{asset('storage/'. $data->laporan->materi_kegiatan)}}" class="btn btn-sm btn-primary rounded-lg" target="_blank"><i class="flaticon-file"></i>Materi Kegiatan</a>
                         </td>
                         <td>
-                            <a href="{{asset('storage/'. $data->dokumentasi_kegiatan)}}" class="btn btn-sm btn-primary rounded-lg" target="_blank"><i class="flaticon-file"></i>Dokumentasi Kegiatan</a>
+                            <a href="{{asset('storage/'. $data->laporan->dokumentasi_kegiatan)}}" class="btn btn-sm btn-primary rounded-lg" target="_blank"><i class="flaticon-file"></i>Dokumentasi Kegiatan</a>
                         </td>
                         <td>{{$data->laporan->status_laporan}}</td>
                         <td>

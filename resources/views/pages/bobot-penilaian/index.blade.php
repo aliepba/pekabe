@@ -6,7 +6,7 @@
         <div class="card-header py-3">
             <a href="{{route('bobot-penilaian.create')}}" class="btn btn-sm btn-primary">
                 <i class="flaticon-plus"></i>
-                Tambah Sub Unsur Kegiatan
+                Tambah Bobot Penilaian SKPK
             </a>
         </div>
         <div class="card-body">

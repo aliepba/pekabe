@@ -42,11 +42,9 @@ class isVerifikasi implements ShouldQueue
 
         foreach ($kegiatan as $item) {
             $DeferenceInDays = \Carbon\Carbon::parse(\Carbon\Carbon::now())->diffInDays($item->tgl_proses);
-            if($DeferenceInDays >= 14 && $item->pelaporan == null){
+            if($DeferenceInDays >= 14 && empty($item->laporan)){
                 $this->unverified($item->uuid);
-            }
-
-            if($DeferenceInDays <= 14 && $item->pelaporan != null){
+            }else{
                 $this->verifikasi($item->uuid);
             }
         }
@@ -62,6 +60,7 @@ class isVerifikasi implements ShouldQueue
 
             $tingkat = 0;
             $metode = $kegiatan->metode_kegiatan == 'Tatap Muka' ? $unsurKegiatan->bobot->tatap_muka : $unsurKegiatan->bobot->daring;
+            $jenis = $unsurKegiatan->bobot->verif != null ? $unsurKegiatan->bobot->verif : $unsurKegiatan->bobot->mandiri;
 
             if($kegiatan->tingkat_kegiatan == 1){
                 $tingkat = $unsurKegiatan->bobot->nasional;
@@ -74,11 +73,11 @@ class isVerifikasi implements ShouldQueue
             PenilaianKegiatan::query()->create([
                 'uuid' => $kegiatan->uuid,
                 'nilai_skpk' => $unsurKegiatan->nilai_skpk,
-                'is_jenis' => 1,
+                'is_jenis' => $jenis,
                 'is_sifat' => $unsurKegiatan->bobot->khusus,
                 'is_metode' => $metode,
                 'is_tingkat' => $tingkat,
-                'angka_kredit' => $unsurKegiatan->nilai_skpk * 1 * 1 * $metode * $tingkat
+                'angka_kredit' => $unsurKegiatan->nilai_skpk * $jenis * 1 * $metode * $tingkat
             ]);
 
             LogKegiatan::query()->create([
@@ -102,6 +101,7 @@ class isVerifikasi implements ShouldQueue
 
             $tingkat = 0;
             $metode = $kegiatan->metode_kegiatan == 'Tatap Muka' ? $unsurKegiatan->bobot->tatap_muka : $unsurKegiatan->bobot->daring;
+            $jenis = $unsurKegiatan->bobot->not_verif_penyelenggara != null ? $unsurKegiatan->bobot->not_verif_penyelenggara : $unsurKegiatan->bobot->mandiri;
 
             if($kegiatan->tingkat_kegiatan == 1){
                 $tingkat = $unsurKegiatan->bobot->nasional;
@@ -114,11 +114,11 @@ class isVerifikasi implements ShouldQueue
             PenilaianKegiatan::query()->create([
                 'uuid' => $kegiatan->uuid,
                 'nilai_skpk' => $unsurKegiatan->nilai_skpk,
-                'is_jenis' => $unsurKegiatan->bobot->not_verif_penyelenggara,
+                'is_jenis' => $jenis,
                 'is_sifat' => $unsurKegiatan->bobot->khusus,
                 'is_metode' => $metode,
                 'is_tingkat' => $tingkat,
-                'angka_kredit' => $unsurKegiatan->nilai_skpk * $unsurKegiatan->bobot->not_verif_penyelenggara  * 1 * $metode * $tingkat
+                'angka_kredit' => $unsurKegiatan->nilai_skpk * $jenis * 1 * $metode * $tingkat
             ]);
 
             LogKegiatan::query()->create([
