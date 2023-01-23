@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LogBook;
 use Illuminate\Http\Request;
 use App\Models\MtKlasifikasi;
+use Illuminate\Support\Facades\Auth;
 use App\Services\Kegiatan\KegiatanService;
 
 class LogBookController extends Controller
@@ -19,7 +21,9 @@ class LogBookController extends Controller
     public function index()
     {
         $this->authorize('list-kegiatan');
-        return view('pages.logbook.index');
+        return view('pages.logbook.index',[
+            'data' => LogBook::subklasTenaga(Auth::user()->nik)
+        ]);
     }
 
     public function unverified()

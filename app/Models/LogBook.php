@@ -11,9 +11,7 @@ class LogBook extends Model
 {
     use HasFactory;
 
-
-
-    public function subklasTenaga($nik)
+    public static function subklasTenaga($nik)
     {
         DB::raw("SELECT
         nik,
@@ -50,7 +48,7 @@ class LogBook extends Model
             AND b.`id_sub_bidang` = f.`ID_Sub_Bidang_Keahlian`
             AND b.`id_status` = '4'
             AND b.`id_Kualifikasi_profesi` = e.`ID_Kualifikasi_Profesi`
-            AND a.`id_personal` IN($nik)
+            AND a.`id_personal` IN('3521182107740001')
           GROUP BY
             b.`ID_Personal`,
             b.`id_sub_bidang`
