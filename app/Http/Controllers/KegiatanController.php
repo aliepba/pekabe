@@ -34,7 +34,7 @@ class KegiatanController extends Controller
         if(Auth::user()->role == 'sub-user'){
             return view('pages.kegiatan.index', [
                 'kegiatan' => new KegiatanCollection(
-                    Kegiatan::query()->where('user_id', Auth::user()->id)->get()
+                    Kegiatan::where('status_permohonan_kegiatan', 'OPEN')->where('user_id', Auth::user()->id)->get()
                 ),
             ]);
         }else{
