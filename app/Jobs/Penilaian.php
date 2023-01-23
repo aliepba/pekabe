@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\Models\Kegiatan;
 use App\Models\LogKegiatan;
 use App\Models\PenilaianKegiatan;
+use App\Models\PelaporanKegiatan;
 use App\Models\MtSubUnsurKegiatan;
 use Illuminate\Support\Facades\DB;
 use App\Enums\PermohonanStatus;
@@ -15,18 +16,19 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class isVerifikasi implements ShouldQueue
+class Penilaian implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+    protected $id;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-
-    public function __construct()
+    public function __construct($id)
     {
-
+        $this->id = $id;
     }
 
     /**
@@ -34,31 +36,23 @@ class isVerifikasi implements ShouldQueue
      *
      * @return void
      */
-    public function handle(){
-        $kegiatan = Kegiatan::with(['laporan'])
-                    ->where('status_permohonan_kegiatan', 'APPROVE')
-                    ->whereNull('is_verifikasi')
-                    ->get();
-
-        foreach ($kegiatan as $item) {
-            $DeferenceInDays = \Carbon\Carbon::parse(\Carbon\Carbon::now())->diffInDays($item->tgl_proses);
-            if($DeferenceInDays >= 14 && empty($item->laporan)){
-                $this->unverified($item->uuid);
-            }
-        }
+    public function handle()
+    {
+       $this->verifikasi($this->id);
     }
 
-    public function unverified($uuid){
-        $kegiatan = Kegiatan::where('uuid', $uuid)->first();
+    public function verifikasi($id){
+        $pelaporan = PelaporanKegiatan::findOrFail($id);
+        $kegiatan = Kegiatan::where('uuid',$pelaporan->id_kegiatan)->first();
         $unsurKegiatan = MtSubUnsurKegiatan::with(['bobot'])->find($kegiatan->unsur_kegiatan);
         DB::transaction(function () use($kegiatan, $unsurKegiatan){
             $kegiatan->update([
-                'is_verifikasi' => 0
+                'is_verifikasi' => 1
             ]);
 
             $tingkat = 0;
             $metode = $kegiatan->metode_kegiatan == 'Tatap Muka' ? $unsurKegiatan->bobot->tatap_muka : $unsurKegiatan->bobot->daring;
-            $jenis = $unsurKegiatan->bobot->not_verif_penyelenggara != null ? $unsurKegiatan->bobot->not_verif_penyelenggara : $unsurKegiatan->bobot->mandiri;
+            $jenis = $unsurKegiatan->bobot->verif != null ? $unsurKegiatan->bobot->verif : $unsurKegiatan->bobot->mandiri;
 
             if($kegiatan->tingkat_kegiatan == 1){
                 $tingkat = $unsurKegiatan->bobot->nasional;
@@ -80,11 +74,10 @@ class isVerifikasi implements ShouldQueue
 
             LogKegiatan::query()->create([
                 'id_kegiatan' => $kegiatan->uuid,
-                'status_permohonan' => PermohonanStatus::UNVERIFIED,
-                'keterangan' => 'kegiatan tidak terverifikasi',
+                'status_permohonan' => PermohonanStatus::TERVERIFIKASI,
+                'keterangan' => 'kegiatan terverifikasi',
                 'user' => 1
             ]);
-
 
 
         });

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kegiatan;
 use App\Models\PelaporanKegiatan;
 use Illuminate\Http\Request;
 use App\Services\Pelaporan\PelaporanService;
 use App\Jobs\isVerifikasi;
+use App\Jobs\Penilaian;
 
 class PelaporanController extends Controller
 {
@@ -103,7 +105,8 @@ class PelaporanController extends Controller
     {
         // $this->authorize('submit_pelaporan', PelaporanKegiatan::class);
         $this->pelaporanService->submit($id);
-        dispatch(new isVerifikasi());
+        // dispatch(new isVerifikasi());
+        dispatch(new Penilaian($id));
         return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'yey berhasil!');
     }
 }
