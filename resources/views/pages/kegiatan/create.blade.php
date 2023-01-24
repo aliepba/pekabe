@@ -22,7 +22,7 @@
                         <h5 class="h5">Sasaran Utama Tenaga Ahli</h5>
                         <div class="form-group">
                             <label>Sub Klasifikasi <span class="text-danger">*</span></label>
-                            <select class="form-control select2" id="kt_select2_3" name="subklas[]" multiple="multiple">
+                            <select class="form-control select2 multiplee" id="kt_select2_3" name="subklas[]" multiple="multiple">
                                 @foreach ($subklas as $item)
                                     <option value="{{$item->subklasifikasi}}">{{$item->subklasifikasi}}</option>
                                 @endforeach
@@ -30,10 +30,7 @@
                         </div>
                         <div class="form-group">
                             <label>Verifikator/validator dan penilai <span class="text-danger">*</span></label>
-                            <select class="form-control" name="penilai">
-                                @foreach ($profesi as $item)
-                                    <option value="{{$item->ID_Asosiasi_Profesi}}">{{$item->Nama_Lengkap}} ({{$item->Nama}})</option>
-                                @endforeach
+                            <select class="form-control" name="penilai" id="validator">
                             </select>
                         </div>
                     </div>
@@ -208,6 +205,29 @@
       }else{
         $('#unsur_kegiatan').empty();
       }
+    })
+
+    $('.multiplee').change(function(){
+        var subklas = $(this).val();
+        if(subklas){
+            $.ajax({
+                type : "GET",
+                url : "/get-validator?subklas="+subklas,
+                dataType : 'JSON',
+                success:function(res){
+                    console.log(res)
+                    if(res){
+                    $('#validator').empty();
+                    $("#validator").append('<option>---Pilih Validator---</option>');
+                    $.each(res,function(Nama_Lengkap,Nama,ID_Asosiasi_Profesi){
+                            $("#validator").append('<option value="'+ID_Asosiasi_Profesi+'">'+Nama_Lengkap+'</option>');
+                    });
+                    }else{
+                    $('#validator').empty();
+                    }
+                }
+            })
+        }
     })
 
     </script>

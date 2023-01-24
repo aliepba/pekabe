@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\DetailInstansi;
 use App\Models\MtSubUnsurKegiatan;
+use App\Models\MtAsosasiProfesiDetail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -45,6 +46,34 @@ class PreferensiController extends Controller
         $unsur = MtSubUnsurKegiatan::where('id_unsur_kegiatan', $request->id)->pluck('id','nama_sub_unsur');
 
         return response()->json($unsur);
+    }
+
+    public function validator(Request $request){
+        $subklas = explode(',', $request->subklas);
+        $arraySub = array();
+        $arrayKlas = array();
+        $sub = DB::table('lsp_subklasifikasi')
+                    ->whereIn('subklasifikasi', $subklas)
+                    ->get();
+
+        foreach($sub as $item){
+            array_push($arraySub, $item->id_klasifikasi);
+        }
+
+        $klas = DB::table('lsp_klasifikasi')
+                    ->whereIn('id_klasifikasi', $arraySub)
+                    ->get();
+
+        foreach($klas as $data){
+            array_push($arrayKlas, $data->klasifikasi);
+        }
+
+        $apt = DB::table('pkb_personal_profesi_ta_detail')
+                    ->where('Terakreditasi', '=' , '1')
+                    ->whereIn('klasifikasi', $arrayKlas)
+                    ->pluck('ID_Asosiasi_Profesi', 'Nama_Lengkap', 'Nama');
+
+        return response()->json($apt);
     }
 
     public function markNotif(Request $request)

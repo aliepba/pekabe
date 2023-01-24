@@ -116,5 +116,6 @@ Route::get('/detail-asosiasi-profesi', [PreferensiController::class, 'getAsosias
 Route::get('/detail-asosiasi-bu', [PreferensiController::class, 'getAsosiasiBU']);
 Route::get('/detail-instansi/{id}', [PreferensiController::class, 'showInstansi']);
 Route::get('/get-unsur-kegiatan', [PreferensiController::class, 'unsurKegiatan']);
+Route::get('/get-validator', [PreferensiController::class, 'validator']);
 
 require __DIR__.'/auth.php';

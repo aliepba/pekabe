@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class MtAsosasiProfesiDetail extends Model
 {
     use HasFactory;
+
+    protected $table = 'pkb_personal_profesi_ta_detail';
 }
