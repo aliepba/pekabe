@@ -13,7 +13,7 @@ class CreateMasterPenyelenggaraTable extends Migration
      */
     public function up()
     {
-        Schema::create('master_penyelenggara', function (Blueprint $table) {
+        Schema::create('pkb_master_penyelenggara', function (Blueprint $table) {
             $table->id();
             $table->string('slug');
             $table->text('jenis_penyelenggara');

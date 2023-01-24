@@ -13,7 +13,7 @@ class CreateLogPermohonanTable extends Migration
      */
     public function up()
     {
-        Schema::create('log_permohonan', function (Blueprint $table) {
+        Schema::create('pkb_log_permohonan', function (Blueprint $table) {
             $table->id();
             $table->string('id_detail_instansi')->constrained('detail_instansi');
             $table->enum('status_permohonan', ['APPROVE', 'PERBAIKAN', 'TOLAK', 'SUBMIT']);

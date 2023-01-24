@@ -13,7 +13,7 @@ class CreateMasterUnsurKegiatanTable extends Migration
      */
     public function up()
     {
-        Schema::create('master_unsur_kegiatan', function (Blueprint $table) {
+        Schema::create('pkb_master_unsur_kegiatan', function (Blueprint $table) {
             $table->id();
             $table->string('jenis');
             $table->string('unsur_kegiatan');

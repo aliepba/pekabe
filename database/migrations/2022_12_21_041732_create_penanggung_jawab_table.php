@@ -13,7 +13,7 @@ class CreatePenanggungJawabTable extends Migration
      */
     public function up()
     {
-        Schema::create('penanggung_jawab_pkb', function (Blueprint $table) {
+        Schema::create('pkb_penanggung_jawab_pkb', function (Blueprint $table) {
             $table->id();
             $table->string('nama_penanggung_jawab');
             $table->string('nik');

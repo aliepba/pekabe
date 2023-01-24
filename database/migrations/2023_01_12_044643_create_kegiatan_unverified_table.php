@@ -13,7 +13,7 @@ class CreateKegiatanUnverifiedTable extends Migration
      */
     public function up()
     {
-        Schema::create('kegiatan_unverified', function (Blueprint $table) {
+        Schema::create('pkb_kegiatan_unverified', function (Blueprint $table) {
             $table->id();
             $table->string('uuid');
             $table->text('nama_kegiatan');

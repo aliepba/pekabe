@@ -13,7 +13,7 @@ class CreateSubPenyelenggaraTable extends Migration
      */
     public function up()
     {
-        Schema::create('sub_penyelenggara', function (Blueprint $table) {
+        Schema::create('pkb_sub_penyelenggara', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
             $table->text('alamat');

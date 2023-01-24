@@ -13,7 +13,7 @@ class CreatePerbaikanPersyaratanKegiatanTable extends Migration
      */
     public function up()
     {
-        Schema::create('perbaikan_persyaratan_kegiatan', function (Blueprint $table) {
+        Schema::create('pkb_perbaikan_persyaratan_kegiatan', function (Blueprint $table) {
             $table->id();
             $table->string('id_kegiatan');
             $table->string('link');

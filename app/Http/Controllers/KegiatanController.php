@@ -4,14 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Kegiatan;
 use Illuminate\Http\Request;
+use App\Models\MtUnsurKegiatan;
 use App\Models\MtSubklasifikasi;
+use App\Models\SubPenyelenggara;
 use App\Models\MtAsosiasiProfesi;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Kegiatan\KegiatanService;
 use App\Http\Resources\Kegiatan\KegiatanResource;
+use App\Http\Requests\PermohonanKegiatanRequest;
 use App\Http\Resources\Kegiatan\KegiatanCollection;
-use App\Models\SubPenyelenggara;
-use App\Models\MtUnsurKegiatan;
 
 class KegiatanController extends Controller
 {
@@ -66,7 +67,7 @@ class KegiatanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PermohonanKegiatanRequest $request)
     {
         $this->authorize('create-kegiatan', Kegiatan::class);
         $this->kegiatanService->store($request);

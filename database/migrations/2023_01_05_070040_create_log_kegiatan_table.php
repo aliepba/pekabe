@@ -13,7 +13,7 @@ class CreateLogKegiatanTable extends Migration
      */
     public function up()
     {
-        Schema::create('log_kegiatan', function (Blueprint $table) {
+        Schema::create('pkb_log_kegiatan', function (Blueprint $table) {
             $table->id();
             $table->string('id_kegiatan')->constrained('kegiatan_penyelenggara');
             $table->enum('status_permohonan', ['APPROVE', 'PERBAIKAN', 'TOLAK', 'SUBMIT', 'OPEN', 'TERVERIFIKASI' ,'UNVERIFIED' ]);

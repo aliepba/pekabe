@@ -13,7 +13,7 @@ class CreateOldKegiatanTable extends Migration
      */
     public function up()
     {
-        Schema::create('old_kegiatan', function (Blueprint $table) {
+        Schema::create('pkb_old_kegiatan', function (Blueprint $table) {
             $table->id();
             $table->string('uuid');
             $table->string('id_subklas');

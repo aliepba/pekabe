@@ -13,7 +13,7 @@ class CreatePesertaKegiatanTable extends Migration
      */
     public function up()
     {
-        Schema::create('peserta_kegiatan', function (Blueprint $table) {
+        Schema::create('pkb_peserta_kegiatan', function (Blueprint $table) {
             $table->id();
             $table->string('uuid');
             $table->string('id_kegiatan');

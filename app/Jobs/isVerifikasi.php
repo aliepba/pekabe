@@ -42,7 +42,7 @@ class isVerifikasi implements ShouldQueue
 
         foreach ($kegiatan as $item) {
             $DeferenceInDays = \Carbon\Carbon::parse(\Carbon\Carbon::now())->diffInDays($item->tgl_proses);
-            if($DeferenceInDays >= 14 && empty($item->laporan)){
+            if($DeferenceInDays >= 15 && empty($item->laporan)){
                 $this->unverified($item->uuid);
             }
         }

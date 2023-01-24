@@ -43,6 +43,15 @@
                     </div>
                     <input class="form-control h-auto py-7 px-6 rounded-lg border-0" type="password" name="password" autocomplete="off" />
                 </div>
+                <div class="form-group">
+                    {!! NoCaptcha::display() !!}
+                    {!! NoCaptcha::renderJs() !!}
+                    @error('g-recaptcha-response')
+                    <span class="text-danger" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+            </div>
                 <!--end::Form group-->
                 <!--begin::Action-->
                 <div class="pb-lg-0 pb-5">

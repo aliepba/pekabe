@@ -17,14 +17,17 @@
                             <label>Upload Berkas Pelaporan</label>
                             <input type="file" class="form-control" name="upload_persyaratan" required/>
                             <input type="text" name="id_kegiatan" value="{{$item->id_kegiatan}}" hidden/>
+                            <span class="text-muted">Accepted formats: pdf Max file size 1Mb</span>
                         </div>
                         <div class="form-group">
                             <label>Upload Materi Kegiatan</label>
                             <input type="file" class="form-control" name="materi_kegiatan" required />
+                            <span class="text-muted">Accepted formats: pdf Max file size 1Mb</span>
                         </div>
                         <div class="form-group">
                             <label>Upload Dokumentasi Kegiatan</label>
                             <input type="file" class="form-control" name="dokumentasi_kegiatan" required />
+                            <span class="text-muted">Accepted formats: pdf Max file size 1Mb</span>
                         </div>
                     </div>
                 </div>

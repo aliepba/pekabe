@@ -13,7 +13,7 @@ class CreateKegiatanPenyelenggaraTable extends Migration
      */
     public function up()
     {
-        Schema::create('kegiatan_penyelenggara', function (Blueprint $table) {
+        Schema::create('pkb_kegiatan_penyelenggara', function (Blueprint $table) {
             $table->id();
             $table->string('uuid');
             $table->string('penyelenggara_lain')->nullable();

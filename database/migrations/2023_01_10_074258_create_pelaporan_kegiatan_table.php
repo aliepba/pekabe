@@ -13,7 +13,7 @@ class CreatePelaporanKegiatanTable extends Migration
      */
     public function up()
     {
-        Schema::create('pelaporan_kegiatan', function (Blueprint $table) {
+        Schema::create('pkb_pelaporan_kegiatan', function (Blueprint $table) {
             $table->id();
             $table->string('id_kegiatan');
             $table->text('upload_persyaratan')->nullable();

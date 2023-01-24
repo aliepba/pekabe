@@ -125,14 +125,17 @@
                         <div class="form-group">
                             <label>Surat Permohonan <span class="text-danger">*</span></label>
                             <input type="file" name="surat_permohonan" class="form-control"/>
+                            <span class="text-muted">Accepted formats: pdf Max file size 1Mb</span>
                         </div>
                         <div class="form-group">
                             <label>TOR/KAK <span class="text-danger">*</span></label>
                             <input type="file" name="tor_kak" class="form-control"/>
+                            <span class="text-muted">Accepted formats: pdf Max file size 1Mb</span>
                         </div>
                         <div class="form-group">
                             <label>SK Panitia</label>
                             <input type="file" name="sk_panitia" class="form-control" />
+                            <span class="text-muted">Accepted formats: pdf Max file size 1Mb</span>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -140,14 +143,17 @@
                         <div class="form-group">
                             <label>CV</label>
                             <input type="file" name="cv" class="form-control" />
+                            <span class="text-muted">Accepted formats: pdf Max file size 1Mb</span>
                         </div>
                         <div class="form-group">
                             <label>Persyaratan Lain</label>
                             <input type="file" name="persyaratan_lain" class="form-control" />
+                            <span class="text-muted">Accepted formats: pdf Max file size 1Mb</span>
                         </div>
                         <div class="form-group">
                             <label>Lainnya</label>
                             <input type="file" name="persyaratan_lain_lain" class="form-control" />
+                            <span class="text-muted">Accepted formats: pdf Max file size 1Mb</span>
                         </div>
                     </div>
                 </div>

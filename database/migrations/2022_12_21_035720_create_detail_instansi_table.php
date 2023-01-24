@@ -13,7 +13,7 @@ class CreateDetailInstansiTable extends Migration
      */
     public function up()
     {
-        Schema::create('detail_instansi', function (Blueprint $table) {
+        Schema::create('pkb_detail_instansi', function (Blueprint $table) {
             $table->id();
             $table->string('uuid');
             $table->string('jenis')->nullable();
