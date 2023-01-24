@@ -68,6 +68,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/permohonan-approve/{uuid}', [VerifikasiAkunController::class, 'approvePermohonan'])->name('permohonan.approve');
     Route::get('/list-verifikasi', [VerifikasiKegiatanController::class, 'list'])->name('list.kegiatan');
     Route::get('/detail-verifikasi/{uuid}', [VerifikasiKegiatanController::class, 'detail'])->name('verifikasi.kegiatan');
+    Route::get('/list-verifikasi-apt', [VerifikasiKegiatanController::class, 'apt'])->name('verifikasi.apt');
     Route::get('/detail/{id}', [VerifikasiKegiatanController::class, 'detailKegiatan']);
     Route::put('/kegiatan/hasil', [VerifikasiKegiatanController::class, 'updateStatus'])->name('verifikasi.status');
     Route::post('/add-komen', [VerifikasiKegiatanController::class, 'addKomen'])->name('add.komen');

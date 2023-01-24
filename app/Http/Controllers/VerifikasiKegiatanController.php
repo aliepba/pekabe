@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kegiatan;
+use App\Models\DetailInstansi;
 use Illuminate\Http\Request;
 use App\Models\PerbaikanPersyaratan;
 use App\Services\Kegiatan\KegiatanService;
@@ -17,13 +18,14 @@ class VerifikasiKegiatanController extends Controller
     {
         $this->perbaikanService = $perbaikanService;
         $this->kegiatanService = $kegiatanService;
+        $this->middleware('IsLPJK')->only('list');
     }
 
     public function list()
     {
         $this->authorize('list-permohonan-kegiatan', Kegiatan::class);
         return view('pages.verifikasi-kegiatan.list', [
-            'data' => Kegiatan::with(['validator'])->where('penilai', 000)->where('status_permohonan_kegiatan', 'SUBMIT')->get()
+            'data' => Kegiatan::with(['validator'])->where('status_permohonan_kegiatan', 'SUBMIT')->get()
         ]);
     }
 
@@ -32,6 +34,13 @@ class VerifikasiKegiatanController extends Controller
         $this->authorize('detail-permohonan-kegiatan', Kegiatan::class);
         return view('pages.verifikasi-kegiatan.detail', [
             'data' => Kegiatan::with(['validator'])->where('uuid', $uuid)->first()
+        ]);
+    }
+
+    public function apt(){
+        $this->authorize('list-permohonan-kegiatan', Kegiatan::class);
+        return view('pages.verifikasi-kegiatan.list', [
+            'data' => Kegiatan::with(['validator'])->where('status_permohonan_kegiatan', 'SUBMIT')->get()
         ]);
     }
 
