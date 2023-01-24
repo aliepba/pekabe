@@ -13,7 +13,8 @@ class LogBook extends Model
 
     public static function subklasTenaga($nik)
     {
-        DB::raw("SELECT
+
+        $data = DB::select("SELECT
         nik,
         nama,
         id_sub_bidang,
@@ -22,7 +23,7 @@ class LogBook extends Model
         tanggal_cetak,
         asosiasi,
         provinsi_registrasi
-      FROM
+        FROM
         (
           SELECT
             '1' AS aktif,
@@ -48,7 +49,7 @@ class LogBook extends Model
             AND b.`id_sub_bidang` = f.`ID_Sub_Bidang_Keahlian`
             AND b.`id_status` = '4'
             AND b.`id_Kualifikasi_profesi` = e.`ID_Kualifikasi_Profesi`
-            AND a.`id_personal` IN('3521182107740001')
+            AND a.`id_personal` IN('$nik')
           GROUP BY
             b.`ID_Personal`,
             b.`id_sub_bidang`
@@ -85,7 +86,7 @@ class LogBook extends Model
                     tk_registrasi_history_hapus
                   WHERE
                     id_status = '4'
-                    AND id_personal = '1371101106670002'
+                    AND id_personal = '$nik'
                   GROUP BY
                     id_sub_bidang
                 )
@@ -106,7 +107,8 @@ class LogBook extends Model
         ) q
       GROUP BY
         nik,
-        id_sub_bidang
-        ;");
+        id_sub_bidang");
+
+        return $data;
     }
 }

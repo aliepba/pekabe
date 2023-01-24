@@ -31,11 +31,24 @@
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>Subklasifikasi</th>
+                  <th>Sub Bidang</th>
+                  <th>Subklas</th>
+                  <th>Kualifikasi</th>
+                  <th>Tanggal Cetak</th>
+                  <th>Asosiasi</th>
                 </tr>
               </thead>
               <tbody>
-
+                @foreach ($data as $item)
+                    <tr>
+                        <td>{{$loop->iteration}}</td>
+                        <td>{{$item->id_sub_bidang}}</td>
+                        <td>{{$item->des_sub_klas}}</td>
+                        <td>{{$item->kualifikasi}}</td>
+                        <td>{{$item->tanggal_cetak}}</td>
+                        <td>{{$item->asosiasi}}</td>
+                    </tr>
+                @endforeach
               </tbody>
             </table>
           </div>

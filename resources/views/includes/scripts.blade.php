@@ -20,3 +20,15 @@
 {{-- <script src="{{asset('assets/js/pages/crud/datatables/basic/headers.js')}}"></script> --}}
 <script src="{{asset('assets/js/pages/crud/datatables/basic/paginations.js')}}"></script>
 <script src="{{asset('js/custom.js')}}"></script>
+
+<script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+<script>
+ $('#npwp').inputmask({
+            mask: '**.***.***.*-***.***',
+            definitions: {
+                A: {
+                    validator: "[A-Za-z0-9 ]"
+                },
+            },
+        });
+</script>

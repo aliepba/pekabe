@@ -10,7 +10,7 @@
         </div>
         <div class="form-group">
             <label class="text-sm font-weight-bolder text-dark">NPWP <span class="text-danger">*</span></label>
-            <input type="number" class="form-control" placeholder="NPWP" name="npwp" required/>
+            <input type="text" class="form-control" placeholder="00.000.000.0-000.000" name="npwp" id="npwp" required/>
         </div>
         <div class="form-group">
             <label class="text-sm font-weight-bolder text-dark">Berkas SK Penunjukan <span class="text-danger">*</span></label>
