@@ -7,11 +7,12 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ApproveNotification extends Notification
+class PendaftaranNotification extends Notification
 {
     use Queueable;
 
     private $data;
+
     /**
      * Create a new notification instance.
      *
@@ -43,12 +44,8 @@ class ApproveNotification extends Notification
     {
         return (new MailMessage)
                     ->line('Yth. ' . $this->data['nama_instansi'])
-                    ->line('Sesuai dengan permohonan pendaftaran akun
-                    sebagai penyelenggara kegiatan Pengembangan Keprofesian
-                    berkelanjutan (PKB) di LPJK PUPR, dapat kami sampaikan bahwa permohonanya sudah kami proses dengan
-                    status :')
-                    ->line('Disetujui')
-                    ->action('Login', url('/login'))
+                    ->line('Terima kasih sudah melakukan permohonan pendaftaran sebagai penyelenggara kegiatan Pengembangan Keprofesian berkelanjutan (PKB) di LPJK PUPR, dapat kami sampaikan saat ini permohonan akun penyelenggraa kegiatan
+                    dalam proses verifikasi oleh Pengelola PKB, Mohon ditunggu dalam waktu 4x24 Jam untuk diproses.')
                     ->line('Terima Kaih,')
                     ->line('Pengelola PKB')
                     ->line('LPJK PUPR')

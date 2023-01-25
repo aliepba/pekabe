@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\ApproveNotification;
+use App\Notifications\PendaftaranNotification;
 use App\Notifications\PermohonanAkunNotification;
 use App\Notifications\TolakPermohonanNotification;
 use App\Notifications\PerbaikanPermohonanNotification;
@@ -23,7 +24,6 @@ class PermohonanAkunService
 {
     public function store(Request $request){
         DB::transaction(function () use($request){
-            $user = User::where('role', 'admin')->get();
             $detail = DetailInstansi::query()->create([
                         'uuid' => Uuid::uuid4()->toString(),
                         'jenis' => $request->jenis,
@@ -39,7 +39,7 @@ class PermohonanAkunService
                         'file3' => $request->hasFile('file3') ? $request->file('file3')->store('file/file3', 'public') : null,
             ]);
 
-            PenanggungJawab::query()->create([
+            $data = PenanggungJawab::query()->create([
                 'nama_penanggung_jawab' => $request->nama_penanggung_jawab,
                 'nik' => $request->nik,
                 'jabatan' => $request->npwp,
@@ -50,7 +50,7 @@ class PermohonanAkunService
                 'id_detail_instansi' => $detail->uuid
             ]);
 
-            Notification::send($user, new PermohonanAkunNotification($detail));
+            Notification::send($data, new PendaftaranNotification($detail));
         });
     }
 
@@ -128,7 +128,7 @@ class PermohonanAkunService
                 'status_permohonan' => PermohonanStatus::APPROVE,
             ]);
 
-            $log = LogPermohonan::query()->create([
+            LogPermohonan::query()->create([
                 'id_detail_instansi' => $permohonan->uuid,
                 'status_permohonan' => PermohonanStatus::APPROVE,
                 'keterangan' => 'akun approved',
@@ -145,7 +145,7 @@ class PermohonanAkunService
 
             $user->syncRoles('user');
 
-            Notification::route('mail', $permohonan->penanggungjawab->email)->notify(new ApproveNotification($log));
+            Notification::route('mail', $permohonan->penanggungjawab->email)->notify(new ApproveNotification($permohonan));
         });
     }
 }
