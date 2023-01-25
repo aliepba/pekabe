@@ -102,7 +102,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/peserta-kegiatan/create/{uuid}', [PesertaKegiatanController::class, 'create'])->name('peserta.create');
     Route::post('/peserta-kegiatan', [PesertaKegiatanController::class, 'store'])->name('peserta.store');
     Route::resource('/peserta', PesertaKegiatanController::class)->only(['edit', 'update']);
-    // Route::post('/mark-as-read', [PreferensiController::class, 'markNotif'])->name('markNotification');
+    Route::post('/mark-as-read', [PreferensiController::class, 'markNotif'])->name('markNotification');
 
     //tenaga ahli
     Route::get('/daftar-kegiatan', [LogBookController::class, 'index'])->name('logbook.index');

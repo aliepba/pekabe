@@ -24,11 +24,27 @@
 <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
 <script>
  $('#npwp').inputmask({
-            mask: '**.***.***.*-***.***',
-            definitions: {
-                A: {
-                    validator: "[A-Za-z0-9 ]"
-                },
+        mask: '**.***.***.*-***.***',
+        definitions: {
+            A: {
+                validator: "[A-Za-z0-9 ]"
             },
-        });
+        },
+    });
+
+    function markRead(){
+        var id = $('#idNotif').val()
+
+        $.ajax({
+            url : "{{route('markNotification')}}",
+            type : 'POST',
+            data : {
+                id : id,
+                _token : "{{csrf_token()}}"
+            },
+            success:function(response){
+                swal("Done!","Notification Perbaikan sudah dibaca","success");
+            }
+        })
+    }
 </script>

@@ -29,7 +29,7 @@ class KegiatanNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail', 'database'];
     }
 
     /**
@@ -41,9 +41,9 @@ class KegiatanNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->line('Kegiatan anda di setujui mohon segera submit pelaporan kegiatan sebelum 14 hari')
+                    ->action('Login', url('/login'))
+                    ->line('Terima Kasih telah menggunakan Aplikasi ini.');
     }
 
     /**
@@ -55,7 +55,7 @@ class KegiatanNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'message' => 'Permohonan Kegiatan sudah disetujui'
         ];
     }
 }

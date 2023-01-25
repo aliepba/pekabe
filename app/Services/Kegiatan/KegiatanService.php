@@ -2,7 +2,9 @@
 
 namespace App\Services\Kegiatan;
 
+use Notification;
 use Carbon\Carbon;
+use App\Models\User;
 use Ramsey\Uuid\Uuid;
 use App\Models\Kegiatan;
 use App\Models\LogKegiatan;
@@ -11,6 +13,7 @@ use App\Enums\PermohonanStatus;
 use App\Models\KegiatanUnverified;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\KegiatanNotification;
 
 class KegiatanService {
      public function store(Request $request){
@@ -97,7 +100,8 @@ class KegiatanService {
 
      public function verifikasi(Request $request){
         $data = Kegiatan::find($request->id);
-        DB::transaction(function () use($request, $data){
+        $user = User::find($data->user_id);
+        DB::transaction(function () use($request, $data, $user){
             $data->update([
                 'status_permohonan_kegiatan' => $request->status_permohonan,
                 'status_permohonan_penyelenggara' => $request->status_permohonan,
@@ -110,6 +114,11 @@ class KegiatanService {
                 'keterangan' => $request->status_permohonan,
                 'user' => Auth::user()->id
             ]);
+
+            if($data->status_permohonan_kegiatan == 'APPROVE'){
+                Notification::send($user, new KegiatanNotification());
+            }
+
         });
      }
 

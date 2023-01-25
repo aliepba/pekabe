@@ -91,7 +91,7 @@
                     <span class="nav-text">Detail</span>
                 </a>
             </li>
-            @if ($data->status_permohonan_kegiatan == 'APPROVE')
+            @if ($data->status_permohonan_kegiatan == 'APPROVE' && \Carbon\Carbon::parse(\Carbon\Carbon::now())->diffInDays($data->tgl_proses) <= 14)
             <li class="nav-item">
                 <a class="nav-link" id="profile-tab-1" data-toggle="tab" href="#tab-peserta" aria-controls="profile">
                     <span class="nav-icon">
