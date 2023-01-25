@@ -118,6 +118,7 @@ class KegiatanService {
             $kegiatan = KegiatanUnverified::create([
                 'uuid' => Uuid::uuid4()->toString(),
                 'nama_kegiatan' => $request->nama_kegiatan,
+                'jenis_kegiatan' => $request->jenis_kegiatan,
                 'id_unsur_kegiatan' => $request->id_unsur_kegiatan,
                 'nama_penyelenggara' => $request->nama_penyelenggara,
                 'tempat_kegiatan' => $request->tempat_kegiatan,

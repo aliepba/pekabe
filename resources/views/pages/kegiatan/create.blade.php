@@ -219,7 +219,7 @@
                     if(res){
                     $('#validator').empty();
                     $("#validator").append('<option>---Pilih Validator---</option>');
-                    $.each(res,function(Nama_Lengkap,Nama,ID_Asosiasi_Profesi){
+                    $.each(res,function(Nama_Lengkap,ID_Asosiasi_Profesi){
                             $("#validator").append('<option value="'+ID_Asosiasi_Profesi+'">'+Nama_Lengkap+'</option>');
                     });
                     }else{

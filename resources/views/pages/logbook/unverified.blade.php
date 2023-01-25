@@ -16,10 +16,20 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label class="col-2 col-form-label">Jenis Kegiatan <span class="text-danger">*</span></label>
+                    <div class="col-10">
+                        <select class="form-control" name="jenis_kegiatan" id="jenis_kegiatan">
+                            <option value="">Pilih Jenis Kegiatan</option>
+                            @foreach ($jenis as $item)
+                            <option value="{{$item->id}}">{{$item->unsur_kegiatan}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label  class="col-2 col-form-label">Unsur Kegiatan <span class="text-danger">*</span></label>
                     <div class="col-10">
-                        <select class="form-control" name="id_unsur_kegiatan" required>
-                            <option value="1">haduh</option>
+                        <select class="form-control" name="id_unsur_kegiatan" id="unsur_kegiatan" required>
                         </select>
                     </div>
                 </div>
@@ -76,7 +86,10 @@
                     <label  class="col-2 col-form-label">Tingkat <span class="text-danger">*</span></label>
                     <div class="col-10">
                         <select class="form-control" name="tingkat_kegiatan" required>
-                            <option value="haduh">haduh</option>
+                            <option value="hehe">pilih tingkat</option>
+                            <option value="1">Nasional</option>
+                            <option value="2">Internasional Dalam Negeri</option>
+                            <option value="3">Internasional Luar Negeri</option>
                         </select>
                     </div>
                 </div>
@@ -96,3 +109,33 @@
       </div>
 </div>
 @endsection
+
+@push('addon-script')
+    <script>
+    $('#jenis_kegiatan').change(function(){
+      var id = $(this).val();
+      console.log(id)
+      if(id){
+        $.ajax({
+          type : "GET",
+          url : "/get-unsur-kegiatan?id="+id,
+          dataType : 'JSON',
+          success:function(res){
+            console.log(res)
+            if(res){
+              $('#unsur_kegiatan').empty();
+              $("#unsur_kegiatan").append('<option>---Pilih Unsur Kegiatan---</option>');
+              $.each(res,function(nama_sub_unsur,id){
+                    $("#unsur_kegiatan").append('<option value="'+id+'">'+nama_sub_unsur+'</option>');
+              });
+            }else{
+              $('#unsur_kegiatan').empty();
+            }
+          }
+        })
+      }else{
+        $('#unsur_kegiatan').empty();
+      }
+    })
+    </script>
+@endpush

@@ -17,6 +17,7 @@ class CreateKegiatanUnverifiedTable extends Migration
             $table->id();
             $table->string('uuid');
             $table->text('nama_kegiatan');
+            $table->integer('jenis_kegiatan');
             $table->unsignedBigInteger('id_unsur_kegiatan');
             $table->text('nama_penyelenggara');
             $table->string('tempat_Kegiatan');
