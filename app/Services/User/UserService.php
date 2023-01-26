@@ -30,11 +30,37 @@ class UserService {
             $user = User::query()->create([
                 'name' => $data->name,
                 'email' => $data->email,
-                'password' => Hash::Make($data->password),
+                'password' => Hash::make($data->password),
                 'role' => 'sub-user'
             ]);
 
             $user->assignRole('sub-user');
+        });
+    }
+
+    public function save(Request $request){
+        DB::transaction(function () use($request){
+            $user = User::query()
+                        ->create([
+                            'name' => $request->input('name'),
+                            'email' => $request->input('email'),
+                            'password' => Hash::make($request->input('password')),
+                            'role' => $request->input('role')
+                        ]);
+
+            $user->syncRoles($request->role);
+        });
+    }
+
+    public function update(Request $request, User $user){
+        DB::transaction(function() use ($request, $user){
+            $user->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'role' => $request->input('role')
+            ]);
+
+            $user->syncRoles($request->role);
         });
     }
 }

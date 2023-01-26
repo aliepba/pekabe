@@ -56,7 +56,7 @@ Route::get('/permohonan-akun/perbaikan/{uuid}', [PermohonanAkunController::class
 Route::middleware(['auth'])->group(function () {
     //admin
     Route::resource('roles', RoleController::class)->except('show');
-    Route::resource('users', UserController::class)->only(['index']);
+    Route::resource('users', UserController::class)->except('show');
     Route::resource('unsur-kegiatan', UnsurKegiatanController::class);
     Route::resource('bobot-penilaian', BobotPenilaianController::class);
     Route::resource('sub-unsur-kegiatan', SubUnsurKegiatanController::class);
@@ -69,6 +69,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/list-verifikasi', [VerifikasiKegiatanController::class, 'list'])->name('list.kegiatan');
     Route::get('/detail-verifikasi/{uuid}', [VerifikasiKegiatanController::class, 'detail'])->name('verifikasi.kegiatan');
     Route::get('/list-verifikasi-apt', [VerifikasiKegiatanController::class, 'apt'])->name('verifikasi.apt');
+    Route::get('/kegiatan-setuju', [VerifikasiKegiatanController::class, 'setuju'])->name('setuju.kegiatan');
+    Route::get('/kegiatan-tolak', [VerifikasiKegiatanController::class, 'tolak'])->name('tolak.kegiatan');
     Route::get('/detail/{id}', [VerifikasiKegiatanController::class, 'detailKegiatan']);
     Route::put('/kegiatan/hasil', [VerifikasiKegiatanController::class, 'updateStatus'])->name('verifikasi.status');
     Route::post('/add-komen', [VerifikasiKegiatanController::class, 'addKomen'])->name('add.komen');
@@ -77,7 +79,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard-user', [DashboardController::class, 'dashboardUser'])->name('dashboard.user');
     Route::resource('kegiatan-penyelenggara', KegiatanController::class);
     Route::get('/kegiatan/submit/{uuid}', [KegiatanController::class, 'submit'])->name('submit.kegiatan');
-    Route::get('/kegiatan/terverifikasi', [KegiatanController::class, 'setuju'])->name('kegiatan.setuju');
+    Route::get('/kegiatan/setujui', [KegiatanController::class, 'setuju'])->name('kegiatan.setuju');
     Route::get('/kegiatan/tolak', [KegiatanController::class, 'tolak'])->name('kegiatan.tolak');
 
     Route::get('/surat/{uuid}', [PerbaikanController::class, 'surat'])->name('edit.surat');

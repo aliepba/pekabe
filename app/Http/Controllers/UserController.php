@@ -5,12 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use App\Services\User\UserService;
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\User\UserCollection;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+
+    private $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -32,7 +40,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.users.create', [
+            'roles' => Role::all()
+        ]);
     }
 
     /**
@@ -43,7 +53,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->userService->save($request);
+        return redirect()->route('users.index')->with(['success', 'user berhasil ditambahkan']);
     }
 
     /**
