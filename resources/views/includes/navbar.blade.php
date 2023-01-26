@@ -40,21 +40,21 @@
                             <div class="d-flex flex-column pt-12 bgi-size-cover bgi-no-repeat rounded-top" style="background-image: url({{asset('assets/media/misc/bg-1.jpg')}})">
                                 <!--begin::Title-->
                                 <h4 class="d-flex flex-center rounded-top">
-                                    <span class="text-white">User Notifications</span>
-                                    <span class="btn btn-text btn-success btn-sm font-weight-bold btn-font-md ml-2">23 new</span>
+                                    <span class="text-white">Pemberitahuan</span>
+                                    <span class="btn btn-text btn-success btn-sm font-weight-bold btn-font-md ml-2">{{count(auth()->user()->unreadNotifications)}}</span>
                                 </h4>
                                 <!--end::Title-->
                                 <!--begin::Tabs-->
                                 <ul class="nav nav-bold nav-tabs nav-tabs-line nav-tabs-line-3x nav-tabs-line-transparent-white nav-tabs-line-active-border-success mt-3 px-8" role="tablist">
-                                    <li class="nav-item">
+                                    {{-- <li class="nav-item">
                                         <a class="nav-link active show" data-toggle="tab" href="#topbar_notifications_notifications">Kegiatan</a>
-                                    </li>
+                                    </li> --}}
                                     <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#topbar_notifications_events">Perbaikan</a>
+                                        <a class="nav-link" data-toggle="tab" href="#topbar_notifications_events">Pemberitahuan</a>
                                     </li>
-                                    <li class="nav-item">
+                                    {{-- <li class="nav-item">
                                         <a class="nav-link" data-toggle="tab" href="#topbar_notifications_logs">Logs</a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                                 <!--end::Tabs-->
                             </div>
@@ -62,7 +62,7 @@
                             <!--begin::Content-->
                             <div class="tab-content">
                                 <!--begin::Tabpane-->
-                                <div class="tab-pane active show p-8" id="topbar_notifications_notifications" role="tabpanel">
+                                {{-- <div class="tab-pane active show p-8" id="topbar_notifications_notifications" role="tabpanel">
                                     <!--begin::Scroll-->
                                     <div class="scroll pr-7 mr-n7" data-scroll="true" data-height="300" data-mobile-height="200">
                                         <!--begin::Item-->
@@ -264,10 +264,10 @@
                                         <a href="#" class="btn btn-light-primary font-weight-bold text-center">See All</a>
                                     </div>
                                     <!--end::Action-->
-                                </div>
+                                </div> --}}
                                 <!--end::Tabpane-->
                                 <!--begin::Tabpane-->
-                                <div class="tab-pane p-8" id="topbar_notifications_events" role="tabpanel">
+                                <div class="tab-pane p-8 active show" id="topbar_notifications_events" role="tabpanel">
                                     <div class="scroll pr-7 mr-n7" data-scroll="true" data-height="300" data-mobile-height="200">
                                         @forelse(auth()->user()->unreadNotifications as $notification)
                                         <!--begin::Item-->
@@ -310,12 +310,12 @@
                                 </div>
                                 <!--end::Tabpane-->
                                 <!--begin::Tabpane-->
-                                <div class="tab-pane" id="topbar_notifications_logs" role="tabpanel">
+                                {{-- <div class="tab-pane" id="topbar_notifications_logs" role="tabpanel">
                                     <!--begin::Nav-->
                                     <div class="d-flex flex-center text-center text-muted min-h-200px">All caught up!
                                     <br />No new notifications.</div>
                                     <!--end::Nav-->
-                                </div>
+                                </div> --}}
                                 <!--end::Tabpane-->
                             </div>
                             <!--end::Content-->

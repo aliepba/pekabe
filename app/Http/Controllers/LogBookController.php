@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Logbook\KegiatanTenagaAhli;
 use App\Models\LogBook;
 use Illuminate\Http\Request;
 use App\Models\MtKlasifikasi;
@@ -23,7 +24,7 @@ class LogBookController extends Controller
     public function index()
     {
         $this->authorize('list-kegiatan');
-        return view('pages.logbook.index', TenagaAhli::run(Auth::user()->nik));
+        return view('pages.logbook.index', KegiatanTenagaAhli::run(Auth::user()->nik, Auth::user()->id));
     }
 
     public function unverified()

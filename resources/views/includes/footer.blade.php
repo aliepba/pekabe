@@ -22,7 +22,7 @@
     <!--begin::Header-->
     <div class="offcanvas-header d-flex align-items-center justify-content-between pb-5">
         <h3 class="font-weight-bold m-0">User Profile
-        <small class="text-muted font-size-sm ml-2">12 messages</small></h3>
+        <small class="text-muted font-size-sm ml-2">22 notif</small></h3>
         <a href="#" class="btn btn-xs btn-icon btn-light btn-hover-primary" id="kt_quick_user_close">
             <i class="ki ki-close icon-xs text-muted"></i>
         </a>
@@ -38,7 +38,7 @@
             </div>
             <div class="d-flex flex-column">
                 <a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{Auth::user()->name}}</a>
-                <div class="text-muted mt-1">Application Developer</div>
+                <div class="text-muted mt-1">{{Auth::user()->roles->first()->name}}</div>
                 <div class="navi mt-2">
                     <a href="#" class="navi-item">
                         <span class="navi-link p-0 pb-2">
@@ -55,7 +55,7 @@
                                     <!--end::Svg Icon-->
                                 </span>
                             </span>
-                            <span class="navi-text text-muted text-hover-primary">jm@softplus.com</span>
+                            <span class="navi-text text-muted text-hover-primary">{{Auth::user()->email}}</span>
                         </span>
                     </a>
                     <form method="POST" action="{{ route('logout') }}">

@@ -77,6 +77,7 @@ Route::middleware(['auth'])->group(function () {
 
     //penyelenggara
     Route::get('/dashboard-user', [DashboardController::class, 'dashboardUser'])->name('dashboard.user');
+    Route::get('/dashboard-tenaga-ahli', [DashboardController::class, 'dashboardTenagaAhli'])->name('dashboard.tenaga.ahli');
     Route::resource('kegiatan-penyelenggara', KegiatanController::class);
     Route::get('/kegiatan/submit/{uuid}', [KegiatanController::class, 'submit'])->name('submit.kegiatan');
     Route::get('/kegiatan/setujui', [KegiatanController::class, 'setuju'])->name('kegiatan.setuju');

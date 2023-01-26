@@ -20,6 +20,7 @@ class CreateOldKegiatanTable extends Migration
             $table->foreignId('id_propinsi');
             $table->string('tahun', 10);
             $table->string('bulan');
+            $table->string('nama_kegiatan');
             $table->unsignedBigInteger('id_kegiatan');
             $table->string('jenis_kegiatan')->nullable();
             $table->string('sub_kegiatan')->nullable();

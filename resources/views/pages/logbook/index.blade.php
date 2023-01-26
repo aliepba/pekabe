@@ -31,22 +31,34 @@
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>Sub Bidang</th>
-                  <th>Subklas</th>
-                  <th>Kualifikasi</th>
-                  <th>Tanggal Cetak</th>
-                  <th>Asosiasi</th>
+                  <th>Nama Kegiatan</th>
+                  <th>Tanggal Mulai</th>
+                  <th>Tanggal Selesai</th>
+                  <th>Jenis Kegiatan</th>
+                  <th>Unsur Kegiatan</th>
+                  <th>Metode Kegiatan</th>
+                  <th>Tingkat Kegiatan</th>
                 </tr>
               </thead>
               <tbody>
                 @foreach ($data as $item)
                     <tr>
                         <td>{{$loop->iteration}}</td>
-                        <td>{{$item->id_sub_bidang}}</td>
-                        <td>{{$item->des_sub_klas}}</td>
-                        <td>{{$item->kualifikasi}}</td>
-                        <td>{{$item->tanggal_cetak}}</td>
-                        <td>{{$item->asosiasi}}</td>
+                        <td>{{$item->nama_kegiatan}}</td>
+                        <td>{{$item->start_kegiatan}}</td>
+                        <td>{{$item->end_kegiatan}}</td>
+                        <td>{{$item->jenis_kegiatan}}</td>
+                        <td>{{$item->unsur_kegiatan}}</td>
+                        <td>{{$item->metode_kegiatan}}</td>
+                        <td>
+                            @if ($item->tingkat_kegiatan == 1)
+                                    Nasional
+                                @elseif ($item->tingkat_kegiatan == 2)
+                                    Internasion Dalam Negeri
+                                @else
+                                    Internasion Luar Negeri
+                                @endif
+                        </td>
                     </tr>
                 @endforeach
               </tbody>
