@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Logbook\TenagaAhli;
 use App\Models\MtProvinsi;
 use Illuminate\Http\Request;
 use App\Services\Kegiatan\OldKegiatanService;
+use Illuminate\Support\Facades\Auth;
 
 class OldKegiatanController extends Controller
 {
@@ -35,7 +37,7 @@ class OldKegiatanController extends Controller
         $this->authorize('all-kegiatan');
         return view('pages.logbook.old-kegiatan.create', [
             'provinsi' => MtProvinsi::all()
-        ]);
+        ], TenagaAhli::run(Auth::user()->nik));
     }
 
     /**

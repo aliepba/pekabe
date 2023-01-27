@@ -13,7 +13,9 @@
                     <label  class="col-3 col-form-label">Subklasifikasi Tenaga Ahli <span class="text-danger">*</span></label>
                     <div class="col-9">
                         <select class="form-control" name="id_subklas">
-
+                            @foreach ($subklas as $item)
+                                <option value="{{$item->id_sub_bidang}}">{{$item->des_sub_klas}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>

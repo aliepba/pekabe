@@ -6,8 +6,11 @@ use Notification;
 use Carbon\Carbon;
 use App\Models\User;
 use Ramsey\Uuid\Uuid;
+use App\Jobs\Penilaian;
 use App\Models\Kegiatan;
 use App\Models\LogKegiatan;
+use App\Models\PenilaianKegiatan;
+use App\Models\MtSubUnsurKegiatan;
 use Illuminate\Http\Request;
 use App\Enums\PermohonanStatus;
 use App\Models\KegiatanUnverified;
@@ -145,6 +148,28 @@ class KegiatanService {
                 'status_permohonan' => PermohonanStatus::SUBMIT,
                 'keterangan' => 'created',
                 'user' => Auth::user()->id
+            ]);
+
+            $unsurKegiatan = MtSubUnsurKegiatan::with(['bobot'])->find($kegiatan->id_unsur_kegiatan);
+            $tingkat = 0;
+            $metode = $kegiatan->metode_kegiatan == 'Tatap Muka' ? $unsurKegiatan->bobot->tatap_muka : $unsurKegiatan->bobot->daring;
+            $jenis = $unsurKegiatan->bobot->not_verif_penyelenggara != null ? $unsurKegiatan->bobot->not_verif_penyelenggara : $unsurKegiatan->bobot->mandiri;
+
+            if($kegiatan->tingkat_kegiatan == 1){
+                $tingkat = $unsurKegiatan->bobot->nasional;
+            }elseif($kegiatan->tingkat_kegiatan == 2){
+                $tingkat = $unsurKegiatan->bobot->internasional_dalam_negeri;
+            }else{
+                $tingkat = $unsurKegiatan->bobot->internasional_luar_negeri;
+            }
+            PenilaianKegiatan::query()->create([
+                'uuid' => $kegiatan->uuid,
+                'nilai_skpk' => $unsurKegiatan->nilai_skpk,
+                'is_jenis' => $jenis,
+                'is_sifat' => $unsurKegiatan->bobot->khusus,
+                'is_metode' => $metode,
+                'is_tingkat' => $tingkat,
+                'angka_kredit' => $unsurKegiatan->nilai_skpk * $jenis * 1 * $metode * $tingkat
             ]);
 
         });

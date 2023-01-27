@@ -86,7 +86,6 @@
                     <label  class="col-2 col-form-label">Tingkat <span class="text-danger">*</span></label>
                     <div class="col-10">
                         <select class="form-control" name="tingkat_kegiatan" required>
-                            <option value="hehe">pilih tingkat</option>
                             <option value="1">Nasional</option>
                             <option value="2">Internasional Dalam Negeri</option>
                             <option value="3">Internasional Luar Negeri</option>
