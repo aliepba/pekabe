@@ -30,28 +30,28 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ($kegiatan as $item)
-                    <?php
-                    $subklas = explode(",",$item->subklasifikasi);
-                    $metode = explode(",", $item->metode_kegiatan);
-                    ?>
-                    <tr>
-                        <td>{{$loop->iteration}}</td>
-                        <td>{{$item->nama_kegiatan}}</td>
-                        <td>{{$item->status_permohonan_kegiatan}} - (Masa Pelaporan Kegiatan {{$DeferenceInDays = \Carbon\Carbon::parse(\Carbon\Carbon::now())->diffInDays($item->tgl_proses)}} / Hari)</td>
-                        <td>{{$item->tgl_pengajuan}}</td>
-                        <td>{{$item->start_kegiatan}} <br/> {{$item->end_kegiatan}}</td>
-                        <td>
-                            @for ($i = 0; $i < count($subklas); $i++)
-                                <span class="badge badge-success mt-1">{{$subklas[$i]}}</span>
-                            @endfor
-                        </td>
-                        <td>{{$item->validator->Nama}}</td>
-                        <td>
-                            <a href="{{route('kegiatan-penyelenggara.show', $item->uuid)}}" class="btn btn-sm btn-primary">Detail</a>
-                        </td>
-                    </tr>
-                @endforeach
+                    @foreach ($setuju as $item)
+                        <?php
+                        $subklas = explode(",",$item->subklasifikasi);
+                        $metode = explode(",", $item->metode_kegiatan);
+                        ?>
+                        <tr>
+                            <td>{{$loop->iteration}}</td>
+                            <td>{{$item->nama_kegiatan}}</td>
+                            <td>{{$item->status_permohonan_kegiatan}} - (Masa Pelaporan Kegiatan {{$DeferenceInDays = \Carbon\Carbon::parse(\Carbon\Carbon::now())->diffInDays($item->tgl_proses)}} / Hari)</td>
+                            <td>{{$item->tgl_pengajuan}}</td>
+                            <td>{{$item->start_kegiatan}} <br/> {{$item->end_kegiatan}}</td>
+                            <td>
+                                @for ($i = 0; $i < count($subklas); $i++)
+                                    <span class="badge badge-success mt-1">{{$subklas[$i]}}</span>
+                                @endfor
+                            </td>
+                            <td>{{$item->validator->Nama}}</td>
+                            <td>
+                                <a href="{{route('kegiatan-penyelenggara.show', $item->uuid)}}" class="btn btn-sm btn-primary">Detail</a>
+                            </td>
+                        </tr>
+                    @endforeach
               </tbody>
             </table>
           </div>

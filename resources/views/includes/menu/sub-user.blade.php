@@ -45,7 +45,7 @@
                     </g>
                 </svg><!--end::Svg Icon-->
             </span>
-            <span class="menu-text">Kegiatan di Verifikasi</span>
+            <span class="menu-text">Kegiatan di Setujui</span>
         </a>
     </li>
     <li class="menu-item menu-item" aria-haspopup="true">

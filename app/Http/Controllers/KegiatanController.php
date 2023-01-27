@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Kegiatan\GetKegiatan;
 use App\Models\Kegiatan;
 use Illuminate\Http\Request;
 use App\Models\MtUnsurKegiatan;
@@ -146,20 +147,12 @@ class KegiatanController extends Controller
     public function setuju()
     {
         $this->authorize('list-setuju', Kegiatan::class);
-        return view('pages.kegiatan.setuju', [
-            'kegiatan' => new KegiatanCollection(
-                Kegiatan::query()->where('status_permohonan_kegiatan', 'APPROVE')->where('user_id', Auth::user()->id)->get()
-            )
-        ]);
+        return view('pages.kegiatan.setuju', GetKegiatan::run());
     }
 
     public function tolak()
     {
         $this->authorize('list-tolak', Kegiatan::class);
-        return view('pages.kegiatan.setuju', [
-            'kegiatan' => new KegiatanCollection(
-                Kegiatan::query()->where('status_permohonan_kegiatan', 'TOLAK')->where('user_id', Auth::user()->id)->get()
-            )
-        ]);
+        return view('pages.kegiatan.setuju', GetKegiatan::run());
     }
 }

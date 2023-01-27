@@ -29,7 +29,7 @@ class KegiatanNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail', 'database'];
+        return ['mail'];
     }
 
     /**
@@ -52,10 +52,10 @@ class KegiatanNotification extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
-    {
-        return [
-            'message' => 'Permohonan Kegiatan sudah disetujui'
-        ];
-    }
+    // public function toArray($notifiable)
+    // {
+    //     return [
+    //         'message' => 'Permohonan Kegiatan sudah disetujui'
+    //     ];
+    // }
 }

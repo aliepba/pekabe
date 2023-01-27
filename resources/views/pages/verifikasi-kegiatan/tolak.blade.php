@@ -30,7 +30,7 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ($kegiatan as $item)
+                @foreach ($tolak as $item)
                     <?php
                     $subklas = explode(",",$item->subklasifikasi);
                     $metode = explode(",", $item->metode_kegiatan);

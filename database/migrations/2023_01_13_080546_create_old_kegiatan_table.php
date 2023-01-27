@@ -29,6 +29,7 @@ class CreateOldKegiatanTable extends Migration
             $table->date('end_kegiatan')->nullable();
             $table->string('jumlah_jam')->nullable();
             $table->string('nilai_skpk')->nullable();
+            $table->string('metode_kegiatan')->nullable();
             $table->string('tingkat_kegiatan')->nullable();
             $table->text('upload_persyaratan');
             $table->unsignedBigInteger('user_id');

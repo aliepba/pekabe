@@ -22,6 +22,12 @@ class VerifikasiAkunController extends Controller
         ]);
     }
 
+    public function setuju(){
+        return view('pages.verifikasi.setuju', [
+            'list' => DetailInstansi::where('status_permohonan', 'APPROVE')->get()
+        ]);
+    }
+
     public function detailPermohonan($uuid){
         $this->authorize('detail-akun', DetailInstansi::class);
         $data = DetailInstansi::with(['penanggungjawab', 'provinsi', 'kabKota'])->where('uuid', $uuid)->first();

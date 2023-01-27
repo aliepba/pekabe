@@ -6,6 +6,7 @@ use App\Models\Kegiatan;
 use App\Models\DetailInstansi;
 use Illuminate\Http\Request;
 use App\Models\PerbaikanPersyaratan;
+use App\Actions\Kegiatan\GetKegiatan;
 use App\Services\Kegiatan\KegiatanService;
 use App\Services\Perbaikan\PerbaikanService;
 use App\Http\Resources\Kegiatan\KegiatanCollection;
@@ -57,19 +58,11 @@ class VerifikasiKegiatanController extends Controller
     }
 
     public function setuju(){
-        return view('pages.verifikasi-kegiatan.setuju', [
-            'kegiatan' => new KegiatanCollection(
-                Kegiatan::where('status_permohonan_kegiatan', 'APPROVE')->get()
-            )
-        ]);
+        return view('pages.verifikasi-kegiatan.setuju', GetKegiatan::run());
     }
 
     public function tolak(){
-        return view('pages.verifikasi-kegiatan.tolak', [
-            'kegiatan' => new KegiatanCollection(
-                Kegiatan::where('status_permohonan_kegiatan', 'TOLAK')->get()
-            )
-        ]);
+        return view('pages.verifikasi-kegiatan.tolak', GetKegiatan::run());
     }
 
     public function addKomen(Request $request)
