@@ -52,10 +52,10 @@
               <a class="inline-block py-2 px-4 text-black font-bold no-underline" href="#">Panduan</a>
             </li>
             <li class="mr-3">
-                <a class="inline-block py-2 px-4 text-black font-bold no-underline" href="{{route('ska')}}">SKA</a>
+                <a class="inline-block py-2 px-4 text-black font-bold no-underline" href="{{route('ska')}}">Tenaga Ahli - SKA</a>
             </li>
             <li class="mr-3">
-                <a class="inline-block py-2 px-4 text-black font-bold no-underline" href="{{route('skk')}}">SKK</a>
+                <a class="inline-block py-2 px-4 text-black font-bold no-underline" href="{{route('skk')}}">Tenaga Ahli - SKK</a>
             </li>
             <li class="mr-3">
                 <a class="inline-block py-2 px-4 text-black font-bold no-underline" href="{{route('login')}}">Penyelenggara</a>
