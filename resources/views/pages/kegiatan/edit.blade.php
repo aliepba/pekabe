@@ -221,5 +221,29 @@
       }
     })
 
+    $('.multiplee').change(function(){
+        var subklas = $(this).val();
+        if(subklas){
+            $.ajax({
+                type : "GET",
+                url : "/get-validator?subklas="+subklas,
+                dataType : 'JSON',
+                success:function(res){
+                    console.log(res)
+                    if(res){
+                    res.forEach(item => {
+                        let option = document.createElement("option");
+                        option.text = item.Nama_Lengkap;
+                        option.value = item.ID_Asosiasi_Profesi;
+                        document.getElementById("validator").appendChild(option);
+                    });
+                    }else{
+                    $('#validator').empty();
+                    }
+                }
+            })
+        }
+    })
+
     </script>
 @endpush

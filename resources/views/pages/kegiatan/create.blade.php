@@ -31,6 +31,7 @@
                         <div class="form-group">
                             <label>Verifikator/validator dan penilai <span class="text-danger">*</span></label>
                             <select class="form-control" name="penilai" id="validator">
+
                             </select>
                         </div>
                     </div>
@@ -217,10 +218,11 @@
                 success:function(res){
                     console.log(res)
                     if(res){
-                    $('#validator').empty();
-                    $("#validator").append('<option>---Pilih Validator---</option>');
-                    $.each(res,function(Nama_Lengkap,ID_Asosiasi_Profesi){
-                            $("#validator").append('<option value="'+ID_Asosiasi_Profesi+'">'+Nama_Lengkap+'</option>');
+                    res.forEach(item => {
+                        let option = document.createElement("option");
+                        option.text = item.Nama_Lengkap;
+                        option.value = item.ID_Asosiasi_Profesi;
+                        document.getElementById("validator").appendChild(option);
                     });
                     }else{
                     $('#validator').empty();

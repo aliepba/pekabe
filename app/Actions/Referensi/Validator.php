@@ -9,31 +9,17 @@ class Validator
 {
     use AsAction;
 
-    public function handle($subklas)
+    public function handle($sub)
     {
-        $subklas = explode(',', $subklas);
-        $arraySub = array();
-        $arrayKlas = array();
-        $sub = DB::table('lsp_subklasifikasi')
-                    ->whereIn('subklasifikasi', $subklas)
-                    ->get();
-
-        foreach($sub as $item){
-            array_push($arraySub, $item->id_klasifikasi);
-        }
-
-        $klas = DB::table('lsp_klasifikasi')
-                    ->whereIn('id_klasifikasi', $arraySub)
-                    ->get();
-
-        foreach($klas as $data){
-            array_push($arrayKlas, $data->klasifikasi);
-        }
+        $subklas = explode(',', $sub);
 
         $apt = DB::table('pkb_personal_profesi_ta_detail')
-                    ->where('Terakreditasi', '=' , '1')
-                    ->whereIn('klasifikasi', $arrayKlas)
-                    ->pluck('ID_Asosiasi_Profesi', 'Nama_Lengkap', 'Nama');
+            ->join('lsp_klasifikasi', 'pkb_personal_profesi_ta_detail.klasifikasi', '=', 'lsp_klasifikasi.klasifikasi')
+            ->join('lsp_subklasifikasi', 'lsp_klasifikasi.id_klasifikasi', '=', 'lsp_subklasifikasi.id_klasifikasi')
+            ->where('Terakreditasi', '=' , '1')
+            ->whereIn('lsp_subklasifikasi.subklasifikasi', $subklas)
+            ->groupBy('ID_Asosiasi_Profesi')
+            ->get(['ID_Asosiasi_Profesi', 'Nama_Lengkap']);
 
         return $apt;
     }
