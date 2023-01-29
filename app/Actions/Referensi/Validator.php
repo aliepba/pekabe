@@ -19,7 +19,7 @@ class Validator
             ->where('Terakreditasi', '=' , '1')
             ->whereIn('lsp_subklasifikasi.subklasifikasi', $subklas)
             ->groupBy('ID_Asosiasi_Profesi')
-            ->get(['ID_Asosiasi_Profesi', 'Nama_Lengkap']);
+            ->get(['ID_Asosiasi_Profesi', 'Nama_Lengkap', 'Nama']);
 
         return $apt;
     }

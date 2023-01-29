@@ -220,7 +220,7 @@
                     if(res){
                     res.forEach(item => {
                         let option = document.createElement("option");
-                        option.text = item.Nama_Lengkap;
+                        option.text = item.Nama_Lengkap + ' (' + item.Nama + ')' ;
                         option.value = item.ID_Asosiasi_Profesi;
                         document.getElementById("validator").appendChild(option);
                     });
