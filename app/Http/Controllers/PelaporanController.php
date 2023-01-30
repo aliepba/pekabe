@@ -105,7 +105,6 @@ class PelaporanController extends Controller
     {
         // $this->authorize('submit_pelaporan', PelaporanKegiatan::class);
         $this->pelaporanService->submit($id);
-        // dispatch(new isVerifikasi());
         dispatch(new Penilaian($id));
         return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'yey berhasil!');
     }

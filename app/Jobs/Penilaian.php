@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use Carbon\Carbon;
 use App\Models\Kegiatan;
 use App\Models\LogKegiatan;
 use App\Models\PenilaianKegiatan;
@@ -50,13 +51,14 @@ class Penilaian implements ShouldQueue
                 'is_verifikasi' => 1
             ]);
 
-            $tingkat = 0;
-            $metode = $kegiatan->metode_kegiatan == 'Tatap Muka' ? $unsurKegiatan->bobot->tatap_muka : $unsurKegiatan->bobot->daring;
+            $tingkat = 1;
             $jenis = $unsurKegiatan->bobot->verif != null ? $unsurKegiatan->bobot->verif : $unsurKegiatan->bobot->mandiri;
+            $metode = $kegiatan->metode_kegiatan == 'Tatap Muka' ? $unsurKegiatan->bobot->tatap_muka : $unsurKegiatan->bobot->daring;
+            $sifat = $unsurKegiatan->bobot->khusus;
 
-            if($kegiatan->tingkat_kegiatan == 1){
+            if($kegiatan->tingkat_kegiatan === "1"){
                 $tingkat = $unsurKegiatan->bobot->nasional;
-            }elseif($kegiatan->tingkat_kegiatan == 2){
+            }elseif($kegiatan->tingkat_kegiatan === "2"){
                 $tingkat = $unsurKegiatan->bobot->internasional_dalam_negeri;
             }else{
                 $tingkat = $unsurKegiatan->bobot->internasional_luar_negeri;
@@ -66,10 +68,10 @@ class Penilaian implements ShouldQueue
                 'uuid' => $kegiatan->uuid,
                 'nilai_skpk' => $unsurKegiatan->nilai_skpk,
                 'is_jenis' => $jenis,
-                'is_sifat' => $unsurKegiatan->bobot->khusus,
+                'is_sifat' => $sifat,
                 'is_metode' => $metode,
                 'is_tingkat' => $tingkat,
-                'angka_kredit' => $unsurKegiatan->nilai_skpk * $jenis * 1 * $metode * $tingkat
+                'angka_kredit' => $unsurKegiatan->nilai_skpk * ($jenis == null ? 1 : (float)$jenis) * ($sifat == null ? 1 : (float)$sifat) * ($metode == null ? 1 : (float)$metode) * ($tingkat == null ? 1 : (float)$tingkat)
             ]);
 
             LogKegiatan::query()->create([
@@ -78,8 +80,6 @@ class Penilaian implements ShouldQueue
                 'keterangan' => 'kegiatan terverifikasi',
                 'user' => 1
             ]);
-
-
         });
     }
 }

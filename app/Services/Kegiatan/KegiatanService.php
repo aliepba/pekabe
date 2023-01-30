@@ -108,6 +108,7 @@ class KegiatanService {
             $data->update([
                 'status_permohonan_kegiatan' => $request->status_permohonan,
                 'status_permohonan_penyelenggara' => $request->status_permohonan,
+                'tgl_proses' => Carbon::now(),
                 'keterangan' => $request->keterangan
             ]);
 

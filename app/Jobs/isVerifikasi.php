@@ -59,6 +59,7 @@ class isVerifikasi implements ShouldQueue
             $tingkat = 0;
             $metode = $kegiatan->metode_kegiatan == 'Tatap Muka' ? $unsurKegiatan->bobot->tatap_muka : $unsurKegiatan->bobot->daring;
             $jenis = $unsurKegiatan->bobot->not_verif_penyelenggara != null ? $unsurKegiatan->bobot->not_verif_penyelenggara : $unsurKegiatan->bobot->mandiri;
+            $sifat = $unsurKegiatan->bobot->khusus;
 
             if($kegiatan->tingkat_kegiatan == 1){
                 $tingkat = $unsurKegiatan->bobot->nasional;
@@ -75,7 +76,7 @@ class isVerifikasi implements ShouldQueue
                 'is_sifat' => $unsurKegiatan->bobot->khusus,
                 'is_metode' => $metode,
                 'is_tingkat' => $tingkat,
-                'angka_kredit' => $unsurKegiatan->nilai_skpk * $jenis * 1 * $metode * $tingkat
+                'angka_kredit' => $unsurKegiatan->nilai_skpk * ($jenis == null ? 1 : $jenis) * ($sifat == null ? 1 : $sifat) * ($metode == null ? 1 : $metode) * ($tingkat == null ? 1 : $tingkat)
             ]);
 
             LogKegiatan::query()->create([

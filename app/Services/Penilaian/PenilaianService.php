@@ -81,8 +81,6 @@ class PenilaianService{
                 'keterangan' => 'kegiatan tidak terverifikasi',
                 'user' => 1
             ]);
-
-
         });
     }
 }
