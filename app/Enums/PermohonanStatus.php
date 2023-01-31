@@ -11,4 +11,5 @@ class PermohonanStatus
     const PERBAIKAN = 'PERBAIKAN';
     const TERVERIFIKASI = 'TERVERIFIKASI';
     CONST UNVERIFIED = 'UNVERIFIED';
+    const PENILAIAN = 'PENILAIAN';
 }

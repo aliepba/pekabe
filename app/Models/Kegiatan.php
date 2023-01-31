@@ -37,4 +37,8 @@ class Kegiatan extends Model
     public function unsur(){
         return $this->belongsTo(MtSubUnsurKegiatan::class, 'unsur_kegiatan', 'id');
     }
+
+    public function nilaiPelaporan(){
+        return $this->hasOne(PenilaianKegiatan::class, 'uuid', 'uuid');
+    }
 }
