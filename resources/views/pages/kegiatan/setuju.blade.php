@@ -38,7 +38,10 @@
                     <tr>
                         <td>{{$loop->iteration}}</td>
                         <td>{{$item->nama_kegiatan}}</td>
-                        <td>{{$item->status_permohonan_kegiatan}} - (Masa Pelaporan Kegiatan {{$DeferenceInDays = \Carbon\Carbon::parse(\Carbon\Carbon::now())->diffInDays($item->tgl_proses)}} / Hari)</td>
+                        <td>{{$item->status_permohonan_kegiatan}} - (Masa Pelaporan Kegiatan
+                            {{$DeferenceInDays = \Carbon\Carbon::parse(\Carbon\Carbon::now())->diffInDays($item->end_kegiatan)}}
+                            )
+                        </td>
                         <td>{{$item->tgl_pengajuan}}</td>
                         <td>{{$item->start_kegiatan}} <br/> {{$item->end_kegiatan}}</td>
                         <td>

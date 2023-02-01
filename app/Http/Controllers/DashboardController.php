@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Actions\Logbook\TenagaAhli;
 use Illuminate\Support\Facades\Auth;
 use App\Actions\Dashboard\CountKegiatan;
+use App\Actions\Logbook\GetAngkaKreditTerverifikasi;
 
 class DashboardController extends Controller
 {
@@ -26,6 +27,6 @@ class DashboardController extends Controller
     }
 
     public function dashboardTenagaAhli(){
-        return view('pages.dashboard.dashboard-ska', TenagaAhli::run(Auth::user()->nik));
+        return view('pages.dashboard.dashboard-ska', TenagaAhli::run(Auth::user()->nik),GetAngkaKreditTerverifikasi::run());
     }
 }

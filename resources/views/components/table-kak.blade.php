@@ -109,7 +109,7 @@
                     <td>-</td>
                     <td>{{$item->tanggal_cetak}}</td>
                     <td>{{date('Y-m-d', strtotime('+3 year', strtotime($item->tanggal_cetak)))}}</td>
-                    <td></td>
+                    <td>{{$ak[0]->angka_kredit}}</td>
                     <td></td>
                     <td></td>
                     <td></td>
