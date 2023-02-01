@@ -92,6 +92,21 @@
                     <!--end::Symbol-->
                     <!--begin::Text-->
                     <div class="d-flex flex-column flex-grow-1 font-weight-bold">
+                        <span class="text-muted">Unsur Kegiatan</span>
+                        <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">{{$data->unsur->nama_sub_unsur}}</a>
+                    </div>
+                    <!--end::Text-->
+                </div>
+                <div class="d-flex align-items-center mb-10">
+                    <!--begin::Symbol-->
+                    <div class="symbol symbol-40 symbol-light-success mr-5">
+                        <span class="symbol-label">
+                            <img src="assets/media/svg/avatars/009-boy-4.svg" class="h-75 align-self-end" alt="" />
+                        </span>
+                    </div>
+                    <!--end::Symbol-->
+                    <!--begin::Text-->
+                    <div class="d-flex flex-column flex-grow-1 font-weight-bold">
                         <span class="text-muted">Penilai</span>
                         <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">{{$data->validator->Nama}}</a>
                     </div>
@@ -108,7 +123,9 @@
                     <!--begin::Text-->
                     <div class="d-flex flex-column flex-grow-1 font-weight-bold">
                         <span class="text-muted">Tingkat Kegiatan</span>
-                        <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">{{$data->tingkat_kegiatan}}</a>
+                        <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">
+                            {{$result = ($data->tingkat_kegiatan == 1) ? 'Nasional' : (($data->tingkat_kegiatan == 2) ? 'Internasional Dalam Negeri' : 'Internasional Luar Negeri')}}
+                        </a>
                     </div>
                     <!--end::Text-->
                 </div>

@@ -26,6 +26,8 @@
                   <th>Tanggal Kegiatan</th>
                   <th>Subklasifikasi Tenaga Ahli</th>
                   <th>Penilai</th>
+                  <th>Terverifikasi</th>
+                  <th>Penilaian Validator</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -47,6 +49,12 @@
                                 @endfor
                             </td>
                             <td>{{$item->validator->Nama}}</td>
+                            <td>
+                                <span class="badge badge-success">{{$item->is_verifikasi == '1' ? 'YES' : 'NO'}}</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-success">{{$item->tgl_penilaian == null ? 'BELUM' : 'SUDAH'}}</span>
+                            </td>
                             <td>
                                 <a href="{{route('kegiatan-penyelenggara.show', $item->uuid)}}" class="btn btn-sm btn-primary">Detail</a>
                             </td>

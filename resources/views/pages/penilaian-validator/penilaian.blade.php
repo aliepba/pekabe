@@ -113,15 +113,7 @@
                         <!--begin::Text-->
                         <div class="d-flex flex-column flex-grow-1 font-weight-bold">
                             <span class="text-muted">Tingkat Kegiatan</span>
-                            <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">
-                                @if ($data->tingkat_kegiatan == 1)
-                                    Nasional
-                                @elseif ($data->tingkat_kegiatan == 2)
-                                    Internasion Dalam Negeri
-                                @else
-                                    Internasion Luar Negeri
-                                @endif
-                            </a>
+                            <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">{{$data->unsur->nama_sub_unsur}}</a>
                         </div>
                         <!--end::Text-->
                     </div>
@@ -248,7 +240,7 @@
                                         <select class="form-control" name="is_jenis" id="is_jenis">
                                             <option value="">Pilih Jenis</option>
                                             <option value="{{$bobot->verif}}">Terverfikasi</option>
-                                            <option value="{{$bobot->no_verif_penyelenggara}}">Tidak Terverifikasi Penyelenggara PKB dapat diverifikasi dan divalidasi</option>
+                                            <option value="{{$bobot->no_verif_penyelenggara}}">Tidak Terverifikasi Penyelenggara PKB dapat diverifikasi dan divalidasi</optio   n>
                                             <option value="{{$bobot->no_verif_not_penyelenggara}}">Tidak Terverifikasi Penyelenggara PKB tidak dapat diverifikasi dan divalidasi</option>
                                             <option value="{{$bobot->mandiri}}">Mandiri</option>
                                         </select>

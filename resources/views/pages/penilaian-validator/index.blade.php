@@ -38,7 +38,7 @@
                             @endfor
                         </td>
                         <td>
-                            <a href="{{route('penilaian-validator.show', $item->uuid)}}" class="btn btn-sm btn-primary">Detail</a>
+                            <a href="{{route('penilaian-validator.show', $item->uuid)}}" class="btn btn-sm btn-primary">Proses</a>
                         </td>
                     </tr>
                 @endforeach

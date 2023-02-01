@@ -41,4 +41,8 @@ class Kegiatan extends Model
     public function nilaiPelaporan(){
         return $this->hasOne(PenilaianKegiatan::class, 'uuid', 'uuid');
     }
+
+    public function nilaiValidasi(){
+        return $this->hasOne(PenilaianValidator::class, 'id_kegiatan', 'uuid');
+    }
 }

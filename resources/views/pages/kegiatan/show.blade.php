@@ -109,6 +109,16 @@
                 </a>
             </li>
             @endif
+            @if ($data->is_verifikasi == 1 && $data->tgl_penilaian)
+            <li class="nav-item">
+                <a class="nav-link" id="profile-tab-1" data-toggle="tab" href="#tab-penilaian" aria-controls="profile">
+                    <span class="nav-icon">
+                        <i class="flaticon2-layers-1"></i>
+                    </span>
+                    <span class="nav-text">Hasil Penilaian</span>
+                </a>
+            </li>
+            @endif
         </ul>
     </div>
     <div class="tab-content mt-5" id="myTabContent1">
@@ -120,6 +130,9 @@
         </div>
         <div class="tab-pane fade" id="tab-pelaporan" role="tabpanel" aria-labelledby="profile-tab-1">
             @include('pages.kegiatan.pelaporan.create')
+        </div>
+        <div class="tab-pane fade" id="tab-penilaian" role="tabpanel" aria-labelledby="profile-tab-1">
+            @include('components.hasil-penilaian')
         </div>
     </div>
 
