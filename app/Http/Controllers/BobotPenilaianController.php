@@ -49,7 +49,7 @@ class BobotPenilaianController extends Controller
     {
         $this->authorize('create-bobot');
         $this->bobotPenilaianService->store($request);
-        return redirect()->route('bobot-penilaian.index')->with(['success', 'yey berhasil']);
+        return redirect()->route('bobot-penilaian.index')->with(['success', 'berhasil']);
     }
 
     /**
@@ -85,7 +85,7 @@ class BobotPenilaianController extends Controller
     {
         $this->authorize('edit-bobot');
         $this->bobotPenilaianService->update($request, $id);
-        return redirect()->route('bobot-penilaian.index')->with(['success', 'yey berhasil']);
+        return redirect()->route('bobot-penilaian.index')->with(['success', 'berhasil']);
     }
 
     /**

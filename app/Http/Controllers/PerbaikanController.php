@@ -53,31 +53,31 @@ class PerbaikanController extends Controller
 
     public function updateSurat(Request $request, $id){
         $this->perbaikaService->surat($request, $id);
-        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'yey berhasil!');
+        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'surat berhasil diupdate!');
     }
 
     public function updateTor(Request $request, $id){
         $this->perbaikaService->tor($request, $id);
-        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'yey berhasil!');
+        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'tor/kak berhasil diupdate!!');
     }
 
     public function updateCV(Request $request, $id){
         $this->perbaikaService->cv($request, $id);
-        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'yey berhasil!');
+        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'cv berhasil diupdate!!');
     }
 
     public function updateSK(Request $request, $id){
         $this->perbaikaService->sk($request, $id);
-        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'yey berhasil!');
+        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'sk berhasil diupdate!!');
     }
 
     public function updateLain1(Request $request, $id){
         $this->perbaikaService->lain1($request, $id);
-        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'yey berhasil!');
+        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'berhasil diupdate!!');
     }
 
     public function updateLain2(Request $request, $id){
         $this->perbaikaService->lain2($request, $id);
-        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'yey berhasil!');
+        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'berhasil diupdate!!');
     }
 }

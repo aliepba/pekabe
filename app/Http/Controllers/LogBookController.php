@@ -39,7 +39,7 @@ class LogBookController extends Controller
     public function store(Request $request)
     {
         $this->kegiatanService->unverified($request);
-        return redirect(route('kegiatan.unverified'))->with('success', 'yey berhasil!');
+        return redirect(route('kegiatan.unverified'))->with('success', 'berhasil disimpan!');
     }
 
 

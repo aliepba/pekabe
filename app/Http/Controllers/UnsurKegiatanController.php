@@ -54,7 +54,7 @@ class UnsurKegiatanController extends Controller
     {
         $this->authorize('create-unsur');
         $this->UnsurKegiatanService->store($request);
-        return redirect()->route('unsur-kegiatan.index')->with(['success', 'yey berhasil']);
+        return redirect()->route('unsur-kegiatan.index')->with(['success', 'berhasil']);
     }
 
     /**
@@ -93,7 +93,7 @@ class UnsurKegiatanController extends Controller
     {
         $this->authorize('edit-unsur');
         $this->UnsurKegiatanService->update($request, $id);
-        return redirect()->route('unsur-kegiatan.index')->with(['success', 'yey berhasil']);
+        return redirect()->route('unsur-kegiatan.index')->with(['success', 'berhasil']);
     }
 
     /**

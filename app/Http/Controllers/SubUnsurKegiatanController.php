@@ -54,7 +54,7 @@ class SubUnsurKegiatanController extends Controller
     {
         $this->authorize('create-sub-unsur');
         $this->subUnsurService->store($request);
-        return redirect()->route('sub-unsur-kegiatan.index')->with(['success', 'yey berhasil']);
+        return redirect()->route('sub-unsur-kegiatan.index')->with(['success', 'berhasil']);
     }
 
     /**
@@ -95,7 +95,7 @@ class SubUnsurKegiatanController extends Controller
     {
         $this->authorize('edit-sub-unsur');
         $this->subUnsurService->update($request, $id);
-        return redirect()->route('sub-unsur-kegiatan.index')->with(['success', 'yey berhasil']);
+        return redirect()->route('sub-unsur-kegiatan.index')->with(['success', 'berhasil']);
     }
 
     /**

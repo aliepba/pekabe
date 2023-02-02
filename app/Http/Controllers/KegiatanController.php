@@ -74,7 +74,7 @@ class KegiatanController extends Controller
     {
         $this->authorize('create-kegiatan', Kegiatan::class);
         $this->kegiatanService->store($request);
-        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'yey berhasil!');
+        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'Kegiatan berhasil dibuat!');
     }
 
     /**
@@ -126,7 +126,7 @@ class KegiatanController extends Controller
     {
         $this->authorize('update-kegiatan', Kegiatan::class);
         $this->kegiatanService->update($request, $id);
-        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'yey berhasil!');
+        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'kegiatan berhasil diedit!');
     }
 
     /**
@@ -144,7 +144,7 @@ class KegiatanController extends Controller
     {
         $this->authorize('submit-kegiatan', Kegiatan::class);
         $this->kegiatanService->submit($uuid);
-        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'yey berhasil!');
+        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'kegiatan berhasil disubmit!');
     }
 
     public function setuju()

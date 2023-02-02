@@ -49,7 +49,7 @@ class PelaporanController extends Controller
     {
         // $this->authorize('pelaporan', PelaporanKegiatan::class);
         $this->pelaporanService->store($request);
-        return redirect(route('kegiatan-penyelenggara.show', $request->id_kegiatan))->with('success', 'yey berhasil!');
+        return redirect(route('kegiatan-penyelenggara.show', $request->id_kegiatan))->with('success', 'pengunggahan data laporan kegiatan PKB telah berhasil!');
     }
 
     /**
@@ -87,7 +87,7 @@ class PelaporanController extends Controller
     {
         // $this->authorize('pelaporan', PelaporanKegiatan::class);
         $this->pelaporanService->update($request, $id);
-        return redirect(route('kegiatan-penyelenggara.show', $request->id_kegiatan))->with('success', 'yey berhasil!');
+        return redirect(route('kegiatan-penyelenggara.show', $request->id_kegiatan))->with('success', 'pengunggahan data laporan kegiatan PKB telah berhasil diupdate!');
     }
 
     /**
@@ -106,6 +106,6 @@ class PelaporanController extends Controller
         // $this->authorize('submit_pelaporan', PelaporanKegiatan::class);
         $this->pelaporanService->submit($id);
         dispatch(new Penilaian($id));
-        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'yey berhasil!');
+        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'data laporan kegiatan berhasil disubmit!');
     }
 }

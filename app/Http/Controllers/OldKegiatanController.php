@@ -49,7 +49,7 @@ class OldKegiatanController extends Controller
     public function store(Request $request)
     {
         $this->oldKegiatanService->store($request);
-        return redirect(route('kegiatan.unverified'))->with('success', 'yey berhasil!');
+        return redirect(route('kegiatan.unverified'))->with('success', 'berhasil disimpan!');
     }
 
     /**

@@ -52,7 +52,7 @@ class SubPenyelenggaraController extends Controller
     {
         $this->authorize('create-sub-penyelenggara', SubPenyelenggara::class);
         $this->subPenyelenggaraService->store($request);
-        return redirect(route('sub-penyelenggara.index'))->with('success', 'yey berhasil');
+        return redirect(route('sub-penyelenggara.index'))->with('success', 'berhasil dibuat');
     }
 
     /**
@@ -91,7 +91,7 @@ class SubPenyelenggaraController extends Controller
     {
         $this->authorize('update-sub-penyelenggara', SubPenyelenggara::class);
         $this->subPenyelenggaraService->update($request, $subPenyelenggara);
-        return redirect(route('sub-penyelenggara.index'))->with('success', 'yey berhasil');
+        return redirect(route('sub-penyelenggara.index'))->with('success', 'berhasil diupdate');
     }
 
     /**
@@ -103,13 +103,13 @@ class SubPenyelenggaraController extends Controller
     public function destroy(SubPenyelenggara $subPenyelenggara)
     {
         $this->subPenyelenggaraService->destroy($subPenyelenggara);
-        return redirect(route('sub-penyelenggara.index'))->with('success', 'yey berhasil');
+        return redirect(route('sub-penyelenggara.index'))->with('success', 'berhasil didelete');
     }
 
     public function change($id)
     {
         $this->authorize('change-status-sub-penyelenggara', SubPenyelenggara::class);
         $this->subPenyelenggaraService->changeStatus($id);
-        return redirect(route('sub-penyelenggara.index'))->with('success', 'yey berhasil');
+        return redirect(route('sub-penyelenggara.index'))->with('success', 'berhasil diupdate status');
     }
 }

@@ -51,7 +51,7 @@ class PesertaKegiatanController extends Controller
     {
         $this->authorize('create-peserta', PesertaKegiatan::class);
         $this->pesertaService->store($request);
-        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'yey berhasil!');
+        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'berhasil ditambahkan!');
     }
 
     /**
@@ -90,7 +90,7 @@ class PesertaKegiatanController extends Controller
     {
         $this->authorize('update-peserta', PesertaKegiatan::class);
         $this->pesertaService->update($request, $id);
-        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'yey berhasil!');
+        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'berhasil diupdate!');
     }
 
     /**
