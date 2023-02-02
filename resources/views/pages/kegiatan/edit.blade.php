@@ -17,7 +17,7 @@
                             <select class="form-control" name="penyelenggara_lain">
                                 <option value="{{$data->penyelenggara_lain}}" selected>{{$data->penyelenggara_lain}}</option>
                                 @foreach ($penyelenggara as $item)
-                                <option value="{{$item->nama_instansi}}">{{$item->nama_instansi}}</option>
+                                <option value="{{$item->id}}">{{$item->nama_instansi}}</option>
                             @endforeach
                             </select>
                         </div>
