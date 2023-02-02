@@ -18,7 +18,7 @@
                     <th>Nama Instansi</th>
                     <th>Email</th>
                     <th>Alamat</th>
-                    <th>Telepon</th>
+                    <th>Tanggal Pengajuan</th>
                     <th class="text-center">Action</th>
                 </tr>
               </thead>
@@ -31,7 +31,7 @@
                     <td>{{$item->alamat}}</td>
                     <td>{{$item->telepon}}</td>
                     <td>
-                        <a href="{{route('detail.permohonan', $item->uuid)}}" class="btn btn-sm btn-primary"><i class="flaticon-eye"></i></a>
+                        <a href="{{route('detail.permohonan', $item->uuid)}}" class="btn btn-sm btn-primary"><i class="flaticon-eye"></i> Proses</a>
                     </td>
                 </tr>
                 @endforeach

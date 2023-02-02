@@ -132,7 +132,9 @@
             @include('pages.kegiatan.pelaporan.create')
         </div>
         <div class="tab-pane fade" id="tab-penilaian" role="tabpanel" aria-labelledby="profile-tab-1">
+            @if (!empty($data->nilaiValidasi))
             @include('components.hasil-penilaian')
+            @endif
         </div>
     </div>
 

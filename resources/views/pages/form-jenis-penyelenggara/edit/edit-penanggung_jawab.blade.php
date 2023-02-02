@@ -10,7 +10,7 @@
         </div>
         <div class="form-group">
             <label class="text-sm font-weight-bolder text-dark">NPWP <span class="text-danger">*</span></label>
-            <input type="number" class="form-control" placeholder="NPWP" name="npwp" value="{{$data->penanggungjawab->npwp}}" required/>
+            <input type="text" class="form-control" placeholder="NPWP" name="npwp" id="npwp" value="{{$data->penanggungjawab->npwp}}" required/>
         </div>
         <div class="form-group">
             <label class="text-sm font-weight-bolder text-dark">Berkas SK Penunjukan <span class="text-danger">*</span></label>

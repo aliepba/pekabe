@@ -28,8 +28,8 @@
                         </div>
                         <div class="my-lg-0 my-3">
                             <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Action
+                                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Hasil Periksa
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item" href="{{route('permohonan.approve', $data->uuid)}}">Approve</a>
@@ -122,7 +122,6 @@
             </div>
             <h6 class="h6 mt-5 ml-2">SK Pengangkatan</h6>
             <a href="{{asset('storage/'. $data->penanggungjawab->upload_persyaratan)}}" class="btn btn-sm btn-primary rounded-lg col-md-2 ml-2" target="_blank"><i class="flaticon-file"></i>Persyaratan</a>
-            <a href="{{Storage::url($data->penanggungjawab->upload_persyaratan)}}" class="btn btn-sm btn-primary rounded-lg col-md-2 ml-2" target="_blank"><i class="flaticon-file"></i>Persyaratan</a>
             <!--begin::Items-->
         </div>
       </div>
