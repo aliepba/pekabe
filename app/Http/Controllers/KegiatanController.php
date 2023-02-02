@@ -14,6 +14,7 @@ use App\Services\Kegiatan\KegiatanService;
 use App\Http\Resources\Kegiatan\KegiatanResource;
 use App\Http\Requests\PermohonanKegiatanRequest;
 use App\Http\Resources\Kegiatan\KegiatanCollection;
+use App\Models\DetailInstansi;
 
 class KegiatanController extends Controller
 {
@@ -58,7 +59,8 @@ class KegiatanController extends Controller
         return view('pages.kegiatan.create', [
             'subklas' => MtSubklasifikasi::all(),
             'profesi' => MtAsosiasiProfesi::all(),
-            'jenis' => MtUnsurKegiatan::all()
+            'jenis' => MtUnsurKegiatan::all(),
+            'penyelenggara' => DetailInstansi::where('status_permohonan', 'APPROVE')->get()
         ]);
     }
 
@@ -108,7 +110,8 @@ class KegiatanController extends Controller
             'metode' => $metode,
             'subklas' => MtSubklasifikasi::all(),
             'profesi' => MtAsosiasiProfesi::all(),
-            'jenis' => MtUnsurKegiatan::all()
+            'jenis' => MtUnsurKegiatan::all(),
+            'penyelenggara' => DetailInstansi::where('status_permohonan', 'APPROVE')->get()
         ]);
     }
 

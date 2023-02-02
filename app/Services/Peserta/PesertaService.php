@@ -13,6 +13,12 @@ class PesertaService
     public function store(Request $request)
     {
         DB::transaction(function () use($request){
+            $peserta = PesertaKegiatan::where('nik', $request->nik)->first();
+
+            if($peserta->nik_peserta == $request->nik && $peserta->id_kegiatan == $request->id_kegiaatan){
+                return 'pesert sudah di catatkan';
+            }
+
             PesertaKegiatan::query()->create([
                 'uuid' => Uuid::uuid4()->toString(),
                 'id_kegiatan' => $request->id_kegiatan,
