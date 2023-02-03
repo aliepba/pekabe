@@ -43,7 +43,7 @@ class PermohonanAkunService
                 'nama_penanggung_jawab' => $request->nama_penanggung_jawab,
                 'nik' => $request->nik,
                 'jabatan' => $request->jabatan,
-                'email' => $request->email_penanggung_jawab,
+                'email' => $request->email,
                 'npwp' => $request->npwp,
                 'password' => $request->password,
                 'upload_persyaratan' => $request->hasFile('upload_persyaratan') ? $request->file('upload_persyaratan')->store('file/sk_penunjukan', 'public') : null,
@@ -71,13 +71,14 @@ class PermohonanAkunService
                 'file1' => $request->hasFile('file1') ? $request->file('file1')->store('file/file1', 'public') : $detail->file1,
                 'file2' => $request->hasFile('file2') ? $request->file('file2')->store('file/file2', 'public') : $detail->file2,
                 'file3' => $request->hasFile('file3') ? $request->file('file3')->store('file/file3', 'public') : $detail->file3,
+                'status_permohonan' => PermohonanStatus::SUBMIT,
             ]);
 
             $penanggungjawab->update([
                 'nama_penanggung_jawab' => $request->nama_penanggung_jawab,
                 'nik' => $request->nik,
                 'jabatan' => $request->jabatan,
-                'email' => $request->email_penanggung_jawab,
+                'email' => $request->email,
                 'npwp' => $request->npwp,
                 'password' => $request->password,
                 'upload_persyaratan' => $request->hasFile('upload_persyaratan') ? $request->file('upload_persyaratan')->store('file/sk_penunjukan', 'public') : $detail->upload_persyaratan,

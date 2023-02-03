@@ -37,7 +37,7 @@ class PermohonanAkunRequest extends FormRequest
             'nama_penanggung_jawab' => 'required',
             'nik' => 'required',
             'jabatan' => 'required',
-            'email_penanggung_jawab' => 'required|unique:pkb_penanggung_jawab_pkb',
+            'email' =>  ['required', 'string', 'email', 'max:255', 'unique:pkb_penanggung_jawab_pkb'],
             'npwp' => 'required',
             'upload_persyaratan' => 'max:2000|mimes:pdf'
         ];

@@ -147,11 +147,10 @@ class PermohonanAkunController extends Controller
                 'propinsi' => DB::table('propinsi_dagri')->get()
             ]);
         }
+    }
 
-        public function update(Request $request, $uuid){
-            $this->permohonanAkunService->update($request, $uuid);
-            return redirect()->route('/')->with('success', 'Perbaikan Permohonan Akun Berhasil disubmit');
-        }
-
+    public function update(Request $request, $uuid){
+        $this->permohonanAkunService->update($request, $uuid);
+        return redirect('/')->with('success', 'Perbaikan Permohonan Akun Berhasil disubmit');
     }
 }

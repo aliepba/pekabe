@@ -25,7 +25,7 @@
         </div>
         <div class="form-group">
             <label class="text-sm font-weight-bolder text-dark">Email <span class="text-danger">*</span></label>
-            <input type="email" class="form-control" placeholder="Email" name="email_penanggung_jawab" required/>
+            <input type="email" class="form-control" placeholder="Email" name="email" required/>
         </div>
         <div class="form-group">
             <label class="text-sm font-weight-bolder text-dark">Password <span class="text-danger">*</span></label>

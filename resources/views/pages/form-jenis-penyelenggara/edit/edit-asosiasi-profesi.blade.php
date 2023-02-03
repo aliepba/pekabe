@@ -48,6 +48,7 @@
             <!--begin::Form-->
             <a href="{{route('indexing')}}" class="btn btn-sm btn-primary mb-2"><i class="flaticon2-left-arrow-1"></i> Kembali</a>
             <form action="{{route('form.update.perbaikan', $data->uuid)}}" class="form" novalidate="novalidate" id="kt_login_signup_form" method="POST" enctype="multipart/form-data">
+                @method('PUT')
                 @csrf
                 <div class="card">
                     <div class="card-body">
