@@ -24,7 +24,7 @@
                             </span>
                         </span>
                         <div class="d-flex flex-column text-right">
-                            <span class="text-dark-75 font-weight-bolder font-size-h3">750$</span>
+                            <span class="text-dark-75 font-weight-bolder font-size-h3">{{$setujuByUser}}</span>
                             <span class="text-muted font-weight-bold mt-2">Kegiatan Disetujui</span>
                         </div>
                     </div>
@@ -53,7 +53,7 @@
                             </span>
                         </span>
                         <div class="d-flex flex-column text-right">
-                            <span class="text-dark-75 font-weight-bolder font-size-h3">750$</span>
+                            <span class="text-dark-75 font-weight-bolder font-size-h3">{{$tolakByUser}}</span>
                             <span class="text-muted font-weight-bold mt-2">Kegiatan Ditolak</span>
                         </div>
                     </div>
@@ -82,8 +82,8 @@
                             </span>
                         </span>
                         <div class="d-flex flex-column text-right">
-                            <span class="text-dark-75 font-weight-bolder font-size-h3">750$</span>
-                            <span class="text-muted font-weight-bold mt-2">Kegiatan Terverifikasi</span>
+                            <span class="text-dark-75 font-weight-bolder font-size-h3">{{$pelaporanByUser[0]->jumlah}}</span>
+                            <span class="text-muted font-weight-bold mt-2">Kegiatan Sudah Pelaporan</span>
                         </div>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
                             </span>
                         </span>
                         <div class="d-flex flex-column text-right">
-                            <span class="text-dark-75 font-weight-bolder font-size-h3">750$</span>
+                            <span class="text-dark-75 font-weight-bolder font-size-h3">{{$unverified}}</span>
                             <span class="text-muted font-weight-bold mt-2">Kegiatan Tidak Terverifikasi</span>
                         </div>
                     </div>

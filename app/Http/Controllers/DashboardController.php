@@ -7,6 +7,7 @@ use App\Actions\Logbook\TenagaAhli;
 use Illuminate\Support\Facades\Auth;
 use App\Actions\Dashboard\CountKegiatan;
 use App\Actions\Logbook\GetAngkaKreditTerverifikasi;
+use App\Actions\Dashboard\CountKegiatanByPenyelenggara;
 
 class DashboardController extends Controller
 {
@@ -23,7 +24,7 @@ class DashboardController extends Controller
     }
 
     public function dashboardUser(){
-        return view('pages.dashboard.dashboard-user');
+        return view('pages.dashboard.dashboard-user', CountKegiatanByPenyelenggara::run());
     }
 
     public function dashboardTenagaAhli(){
