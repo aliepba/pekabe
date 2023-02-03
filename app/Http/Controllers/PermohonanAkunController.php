@@ -148,7 +148,10 @@ class PermohonanAkunController extends Controller
             ]);
         }
 
-
+        public function update(Request $request, $uuid){
+            $this->permohonanAkunService->update($request, $uuid);
+            return redirect()->route('/')->with('success', 'Perbaikan Permohonan Akun Berhasil disubmit');
+        }
 
     }
 }

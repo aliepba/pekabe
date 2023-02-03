@@ -76,7 +76,7 @@ class PermohonanAkunService
             $penanggungjawab->update([
                 'nama_penanggung_jawab' => $request->nama_penanggung_jawab,
                 'nik' => $request->nik,
-                'jabatan' => $request->npwp,
+                'jabatan' => $request->jabatan,
                 'email' => $request->email_penanggung_jawab,
                 'npwp' => $request->npwp,
                 'password' => $request->password,

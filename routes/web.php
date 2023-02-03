@@ -41,7 +41,7 @@ Route::get('/pkb-simpan-login', [SSOController::class, 'loginSKK'])->name('skk')
 Route::post('/login-simpan', [SSOController::class, 'skk'])->name('login.skk');
 
 //index
-Route::get('/', [IndexController::class, 'index']);
+Route::get('/', [IndexController::class, 'index'])->name('indexing');
 
 //testing
 Route::get('/prototype', function(){
@@ -53,6 +53,7 @@ Route::get('/permohonan-akun', [PermohonanAkunController::class, 'index'])->name
 Route::get('/permohonan-akun/detail', [PermohonanAkunController::class, 'form'])->name('form.akun');
 Route::post('/permohonan-akun/save', [PermohonanAkunController::class, 'store'])->name('form.akun.save');
 Route::get('/permohonan-akun/perbaikan/{uuid}', [PermohonanAkunController::class, 'edit'])->name('form.perbaikan');
+Route::put('/permohonan-akun/update/{uuid}', [PermohonanAkunController::class, 'update'])->name('form.update.perbaikan');
 
 Route::middleware(['auth'])->group(function () {
     //admin
