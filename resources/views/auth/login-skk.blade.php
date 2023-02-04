@@ -15,7 +15,7 @@
     </div>
     <!--end::Aside Top-->
     <!--begin::Aside Bottom-->
-    <div class="aside-img d-flex flex-row-fluid bgi-no-repeat bgi-position-x-center" style="background-position-y: calc(100% + 5rem); background-image: url(assets/media/svg/illustrations/login-visual-5.svg)"></div>
+    <div class="aside-img d-flex flex-row-fluid bgi-no-repeat bgi-position-x-center" style="background-position-y: calc(100% + 5rem); background-image: url({{asset('images/konstruksi.jpg')}})"></div>
     <!--end::Aside Bottom-->
 </div>
 @endsection

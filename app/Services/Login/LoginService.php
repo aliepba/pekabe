@@ -34,59 +34,70 @@ class LoginService{
         $url = 'https://siki.pu.go.id/siki-api/pkb/v1/sso';
         $username = $request->username;
         $password = $request->password;
-        $response = $this->setting($username,$password, $url);
-        $dataDecoded = json_decode($response);
 
-        if($dataDecoded->status == 'errors'){
-            return redirect(route('skk'))->with(['error' => 'Password dan username salah']);
+        try {
+            $response = $this->setting($username,$password, $url);
+            $dataDecoded = json_decode($response);
+
+            if($response->failed()){
+                return redirect('/pkb-siki-login');
+            }
+
+            $data = array(
+                'name' => $dataDecoded->data->nama,
+                'email' => $dataDecoded->data->email,
+                'password' => $password,
+                'nik' => $dataDecoded->data->nik,
+                'jenis' => 'ska'
+            );
+
+            $user = User::where('email', $dataDecoded->data->email)->first();
+
+            if(!$user){
+                $this->userService->store($data);
+            }
+
+            $login = User::where('email', $dataDecoded->data->email)->first();
+
+            Auth::login($login, true);
+        } catch (\Throwable $th) {
+            return redirect('/pkb-siki-login');
         }
 
-        $data = array(
-            'name' => $dataDecoded->data->nama,
-            'email' => $dataDecoded->data->email,
-            'password' => $password,
-            'nik' => $dataDecoded->data->nik,
-            'jenis' => 'ska'
-        );
-
-        $user = User::where('email', $dataDecoded->data->email)->first();
-
-        if(!$user){
-            $this->userService->store($data);
-        }
-
-        $login = User::where('email', $dataDecoded->data->email)->first();
-
-        Auth::login($login, true);
     }
 
     public function skk(Request $request){
         $url = 'https://simpan.pu.go.id/simpan-api/pkb/v1/sso';
         $username = $request->username;
         $password = $request->password;
-        $response = $this->setting($username,$password, $url);
-        $dataDecoded = json_decode($response);
+        try {
+            $response = $this->setting($username,$password, $url);
+            $dataDecoded = json_decode($response);
 
-        if($dataDecoded->status == 'errors'){
-            return redirect(route('skk'))->with(['error' => 'Password dan username salah']);
+            if($dataDecoded->status == 'errors'){
+                return redirect('/pkb-simpan-login');
+            }
+
+            $data = array(
+                'name' => $dataDecoded->data->nama,
+                'email' => $dataDecoded->data->email,
+                'password' => $password,
+                'nik' => $dataDecoded->data->nik,
+                'jenis' => 'ska'
+            );
+
+            $user = User::where('email', $dataDecoded->data->email)->first();
+
+            if(!$user){
+                $this->userService->store($data);
+            }
+
+            $login = User::where('email', $dataDecoded->data->email)->first();
+
+            Auth::login($login, true);
+        } catch (\Throwable $th) {
+            return redirect('/pkb-simpan-login');
         }
 
-        $data = array(
-            'name' => $dataDecoded->data->nama,
-            'email' => $dataDecoded->data->email,
-            'password' => $password,
-            'nik' => $dataDecoded->data->nik,
-            'jenis' => 'ska'
-        );
-
-        $user = User::where('email', $dataDecoded->data->email)->first();
-
-        if(!$user){
-            $this->userService->store($data);
-        }
-
-        $login = User::where('email', $dataDecoded->data->email)->first();
-
-        Auth::login($login, true);
     }
 }

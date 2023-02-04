@@ -16,6 +16,7 @@ class DashboardController extends Controller
     {
         $this->middleware('isAdmin')->only('index');
         $this->middleware('isPenyelenggara')->only('dashboardUser');
+        $this->middleware('isSKA')->only('dashboardTenagaAhli');
     }
 
     public function index(){
