@@ -6,7 +6,7 @@
     <div class="d-flex flex-column-auto flex-column pt-lg-40 pt-15">
         <!--begin::Aside header-->
         <a href="#" class="login-logo text-center pt-lg-25 pb-10">
-            <img src="assets/media/logos/logo-1.png" class="max-h-70px" alt="" />
+            <img src="{{asset('images/pupr.png')}}" class="max-h-70px" alt="" />
         </a>
         <!--end::Aside header-->
         <!--begin::Aside Title-->
