@@ -31,15 +31,24 @@
                 @csrf
                 <!--begin::Form group-->
                 <div class="form-group">
-                    <label class="font-size-h6 font-weight-bolder text-dark">Your Username</label>
+                    <label class="font-size-h6 font-weight-bolder text-dark">Username</label>
                     <input class="form-control h-auto py-7 px-6 rounded-lg border-0" type="text" name="username" autocomplete="off" />
                 </div>
                 <!--end::Form group-->
                 <!--begin::Form group-->
                 <div class="form-group">
-                    <label class="font-size-h6 font-weight-bolder text-dark pt-5">Your Password</label>
+                    <label class="font-size-h6 font-weight-bolder text-dark pt-5">Password</label>
                     <input class="form-control h-auto py-7 px-6 rounded-lg border-0" type="password" name="password" autocomplete="off" />
                 </div>
+                <div class="form-group">
+                    {!! NoCaptcha::display() !!}
+                    {!! NoCaptcha::renderJs() !!}
+                    @error('g-recaptcha-response')
+                    <span class="text-danger" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+            </div>
                 <!--end::Form group-->
                 <!--begin::Action-->
                 <div class="pb-lg-0 pb-5">

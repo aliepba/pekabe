@@ -15,6 +15,8 @@ use App\Http\Resources\Kegiatan\KegiatanResource;
 use App\Http\Requests\PermohonanKegiatanRequest;
 use App\Http\Resources\Kegiatan\KegiatanCollection;
 use App\Models\DetailInstansi;
+use App\Actions\Kegiatan\GetKegiatanByUser;
+use App\Actions\Kegiatan\GetKegiatanTolak;
 
 class KegiatanController extends Controller
 {
@@ -150,12 +152,12 @@ class KegiatanController extends Controller
     public function setuju()
     {
         $this->authorize('list-setuju', Kegiatan::class);
-        return view('pages.kegiatan.setuju', GetKegiatan::run());
+        return view('pages.kegiatan.setuju', GetKegiatanByUser::run());
     }
 
     public function tolak()
     {
         $this->authorize('list-tolak', Kegiatan::class);
-        return view('pages.kegiatan.setuju', GetKegiatan::run());
+        return view('pages.kegiatan.setuju', GetKegiatanTolak::run());
     }
 }

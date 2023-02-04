@@ -31,14 +31,14 @@
                 @csrf
                 <!--begin::Form group-->
                 <div class="form-group">
-                    <label class="font-size-h6 font-weight-bolder text-dark">Your Email</label>
+                    <label class="font-size-h6 font-weight-bolder text-dark">Email</label>
                     <input class="form-control h-auto py-7 px-6 rounded-lg border-0" type="email" name="email" autocomplete="off" />
                 </div>
                 <!--end::Form group-->
                 <!--begin::Form group-->
                 <div class="form-group">
                     <div class="d-flex justify-content-between mt-n5">
-                        <label class="font-size-h6 font-weight-bolder text-dark pt-5">Your Password</label>
+                        <label class="font-size-h6 font-weight-bolder text-dark pt-5">Password</label>
                         <a href="custom/pages/login/login-3/forgot.html" class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5">Lupa Password ?</a>
                     </div>
                     <input class="form-control h-auto py-7 px-6 rounded-lg border-0" type="password" name="password" autocomplete="off" />

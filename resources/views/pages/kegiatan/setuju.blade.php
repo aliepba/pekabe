@@ -32,10 +32,9 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ($ByUserSetuju as $item)
+                @foreach ($kegiatan as $item)
                     <?php
                     $subklas = explode(",",$item->subklasifikasi);
-                    $metode = explode(",", $item->metode_kegiatan);
                     ?>
                     <tr>
                         <td>{{$loop->iteration}}</td>
@@ -51,7 +50,7 @@
                                 <span class="badge badge-success mt-1">{{$subklas[$i]}}</span>
                             @endfor
                         </td>
-                        <td>{{$item->validator->Nama}}</td>
+                        <td>{{$item->Nama}}</td>
                         <td>
                             <span class="badge badge-success">{{$item->is_verifikasi == '1' ? 'YES' : 'NO'}}</span>
                         </td>

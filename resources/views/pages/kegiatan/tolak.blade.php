@@ -33,7 +33,6 @@
                 @foreach ($ByUserTolak as $item)
                     <?php
                     $subklas = explode(",",$item->subklasifikasi);
-                    $metode = explode(",", $item->metode_kegiatan);
                     ?>
                     <tr>
                         <td>{{$loop->iteration}}</td>
@@ -46,7 +45,7 @@
                                 <span class="badge badge-success mt-1">{{$subklas[$i]}}</span>
                             @endfor
                         </td>
-                        <td>{{$item->validator->Nama}}</td>
+                        <td>{{$item->Nama}}</td>
                         <td>
                             <a href="{{route('kegiatan-penyelenggara.show', $item->uuid)}}" class="btn btn-sm btn-primary">Detail</a>
                         </td>
