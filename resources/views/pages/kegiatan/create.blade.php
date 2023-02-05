@@ -121,6 +121,8 @@
                             <label>TOR/KAK <span class="text-danger">*</span></label>
                             <input type="file" name="tor_kak" class="form-control" required/>
                             <span class="text-muted">Accepted formats: pdf Max file size 1Mb</span>
+                            <br/>
+                            <a href="{{asset('format/format_kak_kegiatan.docx')}}" class="btn btn-sm btn-primary" target="_blank">Unduh Format TOR/KAK</a>
                         </div>
                         <div class="form-group">
                             <label>SK Panitia</label>

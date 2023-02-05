@@ -37,7 +37,7 @@ class PesertaKegiatanController extends Controller
     {
         $this->authorize('create-peserta', PesertaKegiatan::class);
         return view('pages.peserta.create', [
-            'data' => Kegiatan::where('uuid', $uuid)->first()
+            'data' => Kegiatan::with('unsur')->where('uuid', $uuid)->first()
         ]);
     }
 
@@ -51,7 +51,7 @@ class PesertaKegiatanController extends Controller
     {
         $this->authorize('create-peserta', PesertaKegiatan::class);
         $this->pesertaService->store($request);
-        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'berhasil ditambahkan!');
+        return redirect(route('kegiatan-penyelenggara.show', $request->id_kegiatan))->with('success', 'berhasil ditambahkan!');
     }
 
     /**

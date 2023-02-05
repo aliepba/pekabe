@@ -5,10 +5,17 @@
     <!--begin::Aside Top-->
     <div class="d-flex flex-column-auto flex-column pt-15 px-30">
         <!--begin::Aside header-->
-        <a href="#" class="login-logo py-6">
-            {{-- <img src="assets/media/logos/logo-1.png" class="max-h-70px" alt="" /> --}}
-            LPJK
-        </a>
+        <div class="row">
+            <div class="col-md-2">
+                <a href="#" class="login-logo py-6">
+                    <img src="{{asset('images/pupr.png')}}" class="max-h-70px" alt="" />
+                </a>
+            </div>
+            <div class="col-md-10">
+                <h5 class="h6 mt-1">Lembaga Pengembangan Jasa Konstruksi</h5>
+                <h5 class="h5">Aplikasi Pengembangan Keprofesian Berkelanjutan</h5>
+            </div>
+        </div>
         <!--end::Aside header-->
         <!--begin: Wizard Nav-->
         <div class="wizard-nav pt-5 pt-lg-30">
@@ -34,7 +41,7 @@
     </div>
     <!--end::Aside Top-->
     <!--begin::Aside Bottom-->
-    <div class="aside-img-wizard d-flex flex-row-fluid bgi-no-repeat bgi-position-y-bottom bgi-position-x-center pt-2 pt-lg-5" style="background-position-y: calc(100% + 3rem); background-image: url(assets/media/svg/illustrations/features.svg)"></div>
+    <div class="aside-img-wizard d-flex flex-row-fluid bgi-no-repeat bgi-position-y-bottom bgi-position-x-center pt-2 pt-lg-5" style="background-position-y: calc(100% + 3rem); background-image: url({{asset('images/konstruksi.jpg')}})"></div>
     <!--end::Aside Bottom-->
 </div>
 @endsection

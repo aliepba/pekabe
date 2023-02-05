@@ -15,13 +15,7 @@ class GetKegiatan
     {
         return [
             'setuju' => Kegiatan::where('status_permohonan_kegiatan', PermohonanStatus::APPROVE)->get(),
-            'tolak' => Kegiatan::where('status_permohonan_kegiatan', PermohonanStatus::TOLAK)->get(),
-            'ByUserSetuju' => Kegiatan::where('status_permohonan_kegiatan', PermohonanStatus::APPROVE)
-                        ->where('user_id', Auth::user()->id)
-                        ->get(),
-            'ByUserTolak' => Kegiatan::where('status_permohonan_kegiatan', PermohonanStatus::TOLAK)
-                            ->where('user_id', Auth::user()->id)
-                            ->get()
+            'tolak' => Kegiatan::where('status_permohonan_kegiatan', PermohonanStatus::TOLAK)->get()
         ];
     }
 }

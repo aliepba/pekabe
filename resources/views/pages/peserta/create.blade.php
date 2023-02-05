@@ -18,7 +18,9 @@
                         </div>
                         <div class="form-group">
                             <label>Unsur Kegiatan</label>
-                            <input type="text" class="form-control" name="unsur" value="{{$data->unsur_kegiatan}}" readonly>
+                            <select class="form-control" name="unsur">
+                                <option value="{{$data->unsur_kegiatan}}" selected>{{$data->unsur->nama_sub_unsur}}</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label>Metode Kegiatan</label>

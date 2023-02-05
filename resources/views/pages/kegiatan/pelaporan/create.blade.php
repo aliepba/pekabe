@@ -72,7 +72,7 @@
                         <h5 class="h5">Format Laporan Kegiatan</h5>
                         <div class="form-group">
                             <label><span class="text-danger">*</span> acuan bagi penyelenggara PKB dalam menyusun pelaporan kegiatan</label><br/>
-                            <a href="" class="btn btn-sm btn-primary rounded-lg ml-2" target="_blank"><i class="flaticon-file"></i>Unduh</a>
+                            <a href="{{asset('format/format_laporan_kak_kegiatan.docx')}}" class="btn btn-sm btn-primary rounded-lg ml-2" target="_blank"><i class="flaticon-file"></i>Unduh</a>
                         </div>
                     </div>
                 </div>
