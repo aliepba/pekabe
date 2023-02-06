@@ -19,4 +19,4 @@
 <link href="{{asset('assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('css/custom.css')}}" rel="stylesheet" type="text/css" />
 <!--end::Layout Themes-->
-<link rel="shortcut icon" href="{{asset('assets/media/logos/favicon.ico" />
+<link rel="shortcut icon" href="{{asset('images/pupr.png')}}" />
