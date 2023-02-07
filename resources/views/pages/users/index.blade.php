@@ -18,6 +18,7 @@
                   <th>Name</th>
                   <th>Email</th>
                   <th>Roles</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -30,6 +31,9 @@
                     @foreach ($item->roles as $role)
                         {{$role->name}}
                     @endforeach
+                    </td>
+                    <td>
+                        <a href="{{route('users.edit', $item->id)}}" class="btn btn-sm btn-primary">Edit</a>
                     </td>
                 </tr>
                 @endforeach

@@ -74,9 +74,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return view('pages.users.edit', [
+            'data' => new UserResource($user->load(['roles'])),
+            'roles' => Role::all()
+        ]);
     }
 
     /**
@@ -86,9 +89,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $this->userService->update($request, $user);
+        return redirect()->route('users.index')->with('success', 'user berhasil update');
     }
 
     /**
