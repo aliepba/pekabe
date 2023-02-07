@@ -152,9 +152,10 @@ class KegiatanService {
             ]);
 
             $unsurKegiatan = MtSubUnsurKegiatan::with(['bobot'])->find($kegiatan->id_unsur_kegiatan);
-            $tingkat = 0;
+            $tingkat = 1;
             $metode = $kegiatan->metode_kegiatan == 'Tatap Muka' ? $unsurKegiatan->bobot->tatap_muka : $unsurKegiatan->bobot->daring;
             $jenis = $unsurKegiatan->bobot->not_verif_penyelenggara != null ? $unsurKegiatan->bobot->not_verif_penyelenggara : $unsurKegiatan->bobot->mandiri;
+            $sifat = $unsurKegiatan->bobot->khusus;
 
             if($kegiatan->tingkat_kegiatan == 1){
                 $tingkat = $unsurKegiatan->bobot->nasional;
@@ -163,6 +164,7 @@ class KegiatanService {
             }else{
                 $tingkat = $unsurKegiatan->bobot->internasional_luar_negeri;
             }
+
             PenilaianKegiatan::query()->create([
                 'uuid' => $kegiatan->uuid,
                 'nilai_skpk' => $unsurKegiatan->nilai_skpk,
@@ -170,7 +172,8 @@ class KegiatanService {
                 'is_sifat' => $unsurKegiatan->bobot->khusus,
                 'is_metode' => $metode,
                 'is_tingkat' => $tingkat,
-                'angka_kredit' => $unsurKegiatan->nilai_skpk * $jenis * 1 * $metode * $tingkat
+                'angka_kredit' => $unsurKegiatan->nilai_skpk * ($jenis == null ? 1 : (float)$jenis) * ($sifat == null ? 1 : (float)$sifat) * ($metode == null ? 1 : (float)$metode) * ($tingkat == null ? 1 : (float)$tingkat)
+
             ]);
 
         });

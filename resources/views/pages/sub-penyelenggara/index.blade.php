@@ -33,6 +33,7 @@
                         <td>{{$loop->iteration}}</td>
                         <td>{{$item->nama}}</td>
                         <td>{{$item->alamat}}</td>
+                        <td>{{$item->propinsi->Nama}}</td>
                         <td>{{$item->email}}</td>
                         <td><span class="badge badge-{{$item->is_active == 1 ? "success" : "danger"}}">{{$item->is_active == 1 ? "Active" : "Deactive"}}</td>
                         <td class="text-center">

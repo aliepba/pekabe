@@ -18,6 +18,15 @@
                     <textarea class="form-control" name="alamat" rows="5"></textarea>
                 </div>
                 <div class="form-group">
+                    <label class="control-label">Provinsi</label>
+                    <select class="form-control" name="id_propinsi" required>
+                        <option value="">Pilih Provinsi</option>
+                        @foreach ($propinsi as $prov)
+                        <option value="{{$prov->id_propinsi_dagri}}">{{$prov->Nama}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
                     <label class="control-label">No Handphone</label>
                     <input type="text" class="form-control" name="telepon" placeholder="Nomor Handphone" required/>
                 </div>

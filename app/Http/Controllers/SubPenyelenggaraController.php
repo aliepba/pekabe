@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\SubPenyelenggara;
+use Illuminate\Support\Facades\DB;
 use App\Services\SubPenyelenggara\SubPenyelenggaraService;
 use App\Http\Resources\SubPenyelenggara\SubPenyelenggaraResource;
 use App\Http\Resources\SubPenyelenggara\SubPenyelenggaraCollection;
@@ -26,7 +27,7 @@ class SubPenyelenggaraController extends Controller
         $this->authorize('view-sub-penyelenggara', SubPenyelenggara::class);
         return view('pages.sub-penyelenggara.index', [
             'data' => new SubPenyelenggaraCollection(
-                SubPenyelenggara::query()->paginate(10)
+                SubPenyelenggara::query()->with(['propinsi'])->paginate(10)
             )
         ]);
     }
@@ -39,7 +40,9 @@ class SubPenyelenggaraController extends Controller
     public function create()
     {
         $this->authorize('create-sub-penyelenggara', SubPenyelenggara::class);
-        return view('pages.sub-penyelenggara.create');
+        return view('pages.sub-penyelenggara.create', [
+            'propinsi' => DB::table('propinsi_dagri')->get()
+        ]);
     }
 
     /**
@@ -76,7 +79,8 @@ class SubPenyelenggaraController extends Controller
     {
         $this->authorize('edit-sub-penyelenggara', SubPenyelenggara::class);
         return view('pages.sub-penyelenggara.edit', [
-            'data' => new SubPenyelenggaraResource($subPenyelenggara)
+            'data' => new SubPenyelenggaraResource($subPenyelenggara),
+            'propinsi' => DB::table('propinsi_dagri')->get()
         ]);
     }
 

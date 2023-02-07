@@ -21,6 +21,7 @@ class CreateSubPenyelenggaraTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->integer('user_id');
+            $table->unsignedBigInteger('id_propinsi');
             $table->integer('is_active');
             $table->softDeletes();
             $table->timestamps();

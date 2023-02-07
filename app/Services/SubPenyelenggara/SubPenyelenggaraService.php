@@ -19,6 +19,7 @@ class SubPenyelenggaraService {
                 'alamat' => $request->alamat,
                 'telepon' => $request->telepon,
                 'email' => $request->email,
+                'id_propinsi' => $request->id_propinsi,
                 'password' => $request->password,
                 'is_active' => 1,
                 'user_id' => Auth::user()->id
@@ -42,6 +43,7 @@ class SubPenyelenggaraService {
                 'nama' => $request->nama,
                 'alamat' => $request->alamat,
                 'telepon' => $request->telepon,
+                'id_propinsi' => $request->id_propinsi,
                 'email' => $request->email,
             ]);
 
