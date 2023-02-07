@@ -22,6 +22,7 @@
                   <th>No</th>
                   <th>Full Name</th>
                   <th>Alamat</th>
+                  <th>Propinsi</th>
                   <th>Email</th>
                   <th>Active</th>
                   <th class="text-center">Action</th>

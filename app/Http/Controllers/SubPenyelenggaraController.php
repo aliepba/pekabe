@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\SubPenyelenggara;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\SubPenyelenggaraRequest;
 use App\Services\SubPenyelenggara\SubPenyelenggaraService;
 use App\Http\Resources\SubPenyelenggara\SubPenyelenggaraResource;
 use App\Http\Resources\SubPenyelenggara\SubPenyelenggaraCollection;
@@ -51,7 +52,7 @@ class SubPenyelenggaraController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SubPenyelenggaraRequest $request)
     {
         $this->authorize('create-sub-penyelenggara', SubPenyelenggara::class);
         $this->subPenyelenggaraService->store($request);
