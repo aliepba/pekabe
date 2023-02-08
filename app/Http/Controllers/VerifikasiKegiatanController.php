@@ -49,7 +49,7 @@ class VerifikasiKegiatanController extends Controller
     public function updateStatus(Request $request){
         $this->authorize('status-permohonan-kegiatan', Kegiatan::class);
         $this->kegiatanService->verifikasi($request);
-        return redirect()->route('list.kegiatan')->with('success', 'Permohonan berhasil di minta perbaikan');
+        return redirect()->route('list.kegiatan')->with('success', 'Permohonan kegiatan berhasil di update');
     }
 
     public function detailKegiatan($id){

@@ -43,13 +43,14 @@ class ApproveNotification extends Notification
     {
         return (new MailMessage)
                     ->line('Yth. ' . $this->data['nama_instansi'])
+                    ->line('Dengan Hormat, ')
                     ->line('Sesuai dengan permohonan pendaftaran akun
                     sebagai penyelenggara kegiatan Pengembangan Keprofesian
                     berkelanjutan (PKB) di LPJK PUPR, dapat kami sampaikan bahwa permohonanya sudah kami proses dengan
                     status :')
                     ->line('Disetujui')
                     ->action('Login', url('/login'))
-                    ->line('Terima Kaih,')
+                    ->line('Terima Kasih.')
                     ->line('Pengelola PKB')
                     ->line('LPJK PUPR')
                     ->line('Jln. Wijaya I Nomor 68 Petogogan Kebayoran Baru

@@ -119,9 +119,7 @@ class KegiatanService {
                 'user' => Auth::user()->id
             ]);
 
-            if($data->status_permohonan_kegiatan == 'APPROVE'){
-                Notification::send($user, new KegiatanNotification());
-            }
+            Notification::send($user, new KegiatanNotification($data));
 
         });
      }

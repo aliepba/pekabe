@@ -92,4 +92,9 @@ class PenilaianValidatorController extends Controller
     {
         //
     }
+
+    public function apt()
+    {
+        return view('pages.penilaian-validator.listByApt');
+    }
 }

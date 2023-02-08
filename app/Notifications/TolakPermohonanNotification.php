@@ -43,9 +43,16 @@ class TolakPermohonanNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('Permohonan Akun anda di tolak.')
+                    ->line('Dengan Hormat, ')
+                    ->line('Sesuai dengan permohonan pendaftaran akun sebagai penyelenggara kegiatan Pengembangan Keprofesian berkelanjutan (PKB) di LPJK PUPR,  dapat kami sampaikan bahwa permohonannya sudah kami proses dengan status : Ditolak')
                     ->line('Dengan keterangan : '. $this->item['keterangan'])
-                    ->line('Terima Kasih telah menggunakan Aplikasi ini.');
+                    ->line('Terima Kaih,')
+                    ->line('Pengelola PKB')
+                    ->line('LPJK PUPR')
+                    ->line('Jln. Wijaya I Nomor 68 Petogogan Kebayoran Baru
+                    Jakarta Selatan, DKI Jakarta')
+                    ->line('www.lpjk.pu.go.id')
+                    ->line('bantuanlpjk@pu.go.id');
     }
 
     /**

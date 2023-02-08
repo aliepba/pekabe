@@ -21,7 +21,7 @@
                 <div class="form-group">
                     <label class="control-label">Role</label>
                     <select class="form-control" name="role" required>
-                        <option value="{{$data->roles->first()->name != null ? $data->roles->first()->name != null : 'user'}}">{{$data->roles->first() != null ? $data->roles->first()->name != null : 'user'}}</option>
+                        <option value="{{!empty($data->roles->first()) ? $data->roles->first()->name : 'user'}}">{{!empty($data->roles->first()) ? $data->roles->first()->name : 'user'}}</option>
                         @foreach ($roles as $item)
                         <option value="{{$item->name}}">{{$item->name}}</option>
                         @endforeach
