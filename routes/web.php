@@ -5,6 +5,7 @@ use App\Http\Controllers\SSOController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\Pkbv1Controller;
 use App\Http\Controllers\LogBookController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\DashboardController;
@@ -21,7 +22,6 @@ use App\Http\Controllers\SubUnsurKegiatanController;
 use App\Http\Controllers\SubPenyelenggaraController;
 use App\Http\Controllers\VerifikasiKegiatanController;
 use App\Http\Controllers\PenilaianValidatorController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -110,6 +110,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/peserta-kegiatan', [PesertaKegiatanController::class, 'store'])->name('peserta.store');
     Route::resource('/peserta', PesertaKegiatanController::class)->only(['edit', 'update']);
     Route::post('/mark-as-read', [PreferensiController::class, 'markNotif'])->name('markNotification');
+
+    Route::get('kegiatan-pkb-terverifikasi', [Pkbv1Controller::class, 'kegiatanTerverifikasi'])->name('pkb.lama');
 
     //tenaga ahli
     Route::get('/daftar-kegiatan', [LogBookController::class, 'index'])->name('logbook.index');

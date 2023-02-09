@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Actions\Kegiatan\GetValidatorByAPT;
 use App\Services\Penilaian\PenilaianService;
 use App\Actions\Kegiatan\GetPenilaianValidator;
 use App\Actions\Kegiatan\GetDetailPenilaianValidator;
@@ -95,6 +96,6 @@ class PenilaianValidatorController extends Controller
 
     public function apt()
     {
-        return view('pages.penilaian-validator.listByApt');
+        return view('pages.penilaian-validator.listByApt', GetValidatorByAPT::run());
     }
 }

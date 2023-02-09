@@ -72,8 +72,8 @@
                                     <input type="text" class="form-control" placeholder="Email Instansi" name="email_instansi" required/>
                                 </div>
                                 <div class="form-group">
-                                    <label class="text-sm font-weight-bolder text-dark">Data Pokok Pendidikan (Dapodik) untuk lembaga pendidikan <span class="text-danger">*</span></label>
-                                    <input type="file" class="form-control" name="file1" required/>
+                                    <label class="text-sm font-weight-bolder text-dark">Data Pendidikan Tinggi (DDikti) untuk lembaga pendidikan <span class="text-danger">*</span></label>
+                                    <input type="file" class="form-control" name="file1"/>
                                     <span class="text-muted">Accepted formats: pdf Max file size 1Mb</span>
                                 </div>
                                 <div class="form-group">

@@ -15,6 +15,7 @@
                         <div class="form-group">
                             <label>Penyelenggara Lain</label>
                             <select class="form-control" name="penyelenggara_lain">
+                                    <option value="">pilih penyelenggara lain</option>
                                 @foreach ($penyelenggara as $item)
                                     <option value="{{$item->id}}">{{$item->nama_instansi}}</option>
                                 @endforeach
