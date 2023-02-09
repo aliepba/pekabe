@@ -48,6 +48,11 @@ return [
         'detail-permohonan-kegiatan',
         'status-permohonan-kegiatan'
     ],
+    'validator_permissions' => [
+        'list-kegiatan-validasi',
+        'detail_kegiatan-validasi',
+        'proses_kegiatan-validasi'
+    ],
     'permohonan_kegiatan_permissions' => [
         'view-kegiatan',
         'create-kegiatan',

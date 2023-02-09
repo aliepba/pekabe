@@ -101,6 +101,18 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label>Validator Penilaian Permissions</label>
+                    <div class="checkbox-inline">
+                        @foreach ($validatorPermissions as $item)
+                        <label class="checkbox">
+                            <input type="checkbox" name="permissions[]" value="{{$item->name}}"/>
+                            <span></span>
+                            {{$item->name}}
+                        </label>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="form-group">
                     <label>Permohonan Kegiatan Permissions</label>
                     <div class="checkbox-inline">
                         @foreach ($permohonanKegiatanPermissions as $item)
