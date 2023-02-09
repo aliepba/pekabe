@@ -78,12 +78,12 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="text-sm font-weight-bolder text-dark">Izin lembaga pelatihan dari dinas terkait untuk lembaga pelatihan <span class="text-danger">*</span></label>
-                                    <input type="file" class="form-control" name="file2" required/>
+                                    <input type="file" class="form-control" name="file2"/>
                                     <span class="text-muted">Accepted formats: pdf Max file size 1Mb</span>
                                 </div>
                                 <div class="form-group">
                                     <label class="text-sm font-weight-bolder text-dark">Perkumpulan dari Kemenkumham <span class="text-danger">*</span></label>
-                                    <input type="file" class="form-control" name="file3" required/>
+                                    <input type="file" class="form-control" name="file3"/>
                                     <span class="text-muted">Accepted formats: pdf Max file size 1Mb</span>
                                 </div>
                             </div>

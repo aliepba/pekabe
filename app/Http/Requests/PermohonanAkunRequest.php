@@ -31,7 +31,7 @@ class PermohonanAkunRequest extends FormRequest
             'telepon' => 'required',
             'provinsi' => 'required',
             'kab_kota' => 'required',
-            'file1' => 'max:2000|mimes:pdf',
+            'file1' => 'max:7000|mimes:pdf',
             'file2' => 'max:2000|mimes:pdf',
             'file3' => 'max:2000|mimes:pdf',
             'nama_penanggung_jawab' => 'required',

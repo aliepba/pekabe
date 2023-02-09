@@ -76,7 +76,7 @@
                                 <div class="form-group">
                                     <label class="text-sm font-weight-bolder text-dark">Akta notaris atas pendirian asosiasi <span class="text-danger">*</span></label>
                                     <input type="file" class="form-control" name="file1" required/>
-                                    <span class="text-muted">Accepted formats: pdf Max file size 1Mb</span>
+                                    <span class="text-muted">Accepted formats: pdf Max file size 5Mb</span>
                                 </div>
                                 <div class="form-group">
                                     <label class="text-sm font-weight-bolder text-dark">Pengesahan badan hukum <span class="text-danger">*</span></label>

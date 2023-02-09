@@ -66,7 +66,7 @@
                                 <div class="form-group">
                                     <label class="text-sm font-weight-bolder text-dark">Akta Notaris atas pendirian Lembaga atau organisasi atau Pengesahan badan hukum perkumpulan dari Kemenkumham <span class="text-danger">*</span></label>
                                     <input type="file" class="form-control" name="file1" required/>
-                                    <span class="text-muted">Accepted formats: pdf Max file size 1Mb</span>
+                                    <span class="text-muted">Accepted formats: pdf Max file size 5Mb</span>
                                 </div>
                                 <div class="form-group">
                                     <label class="text-sm font-weight-bolder text-dark">SIUP <span class="text-danger">*</span></label>
