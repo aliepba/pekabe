@@ -5,6 +5,7 @@ namespace App\Actions\VerifikasiKegiatan;
 use App\Models\Kegiatan;
 use Illuminate\Support\Facades\Auth;
 use Lorisleiva\Actions\Concerns\AsAction;
+use App\Http\Resources\Kegiatan\KegiatanCollection;
 
 class GetByApt
 {
@@ -13,9 +14,9 @@ class GetByApt
     public function handle()
     {
         return [
-            'data' => Kegiatan::with(['validator'])
+            'data' =>  new KegiatanCollection (Kegiatan::with(['validator'])
                     ->where('penilai', Auth::user()->jenis)
-                    ->where('status_permohonan_kegiatan', 'SUBMIT')->get()
+                    ->where('status_permohonan_kegiatan', 'SUBMIT')->get())
         ];
     }
 }
