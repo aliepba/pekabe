@@ -9,6 +9,7 @@ use App\Models\PerbaikanPersyaratan;
 use App\Actions\Kegiatan\GetKegiatan;
 use App\Services\Kegiatan\KegiatanService;
 use App\Actions\VerifikasiKegiatan\GetAll;
+use App\Actions\VerifikasiKegiatan\GetByApt;
 use App\Services\Perbaikan\PerbaikanService;
 use App\Http\Resources\Kegiatan\KegiatanCollection;
 
@@ -40,9 +41,7 @@ class VerifikasiKegiatanController extends Controller
 
     public function apt(){
         $this->authorize('list-permohonan-kegiatan', Kegiatan::class);
-        return view('pages.verifikasi-kegiatan.all', [
-            'data' => Kegiatan::with(['validator'])->where('status_permohonan_kegiatan', 'SUBMIT')->get()
-        ]);
+        return view('pages.verifikasi-kegiatan.all', GetByApt::run());
     }
 
     public function updateStatus(Request $request){
