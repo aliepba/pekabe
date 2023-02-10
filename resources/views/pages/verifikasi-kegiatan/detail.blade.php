@@ -47,7 +47,13 @@
                                 <a href="#" class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
                                 <i class="flaticon-map-location mr-2 font-size-lg"></i>{{$data->tempat_kegiatan}}</a>
                                 <a href="#" class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
-                                <i class="flaticon-earth-globe mr-2 font-size-lg"></i>{{$data->tingkat_kegiatan}}</a>
+                                <i class="flaticon-earth-globe mr-2 font-size-lg"></i>@if ($data->tingkat_kegiatan == 1)
+                                Nasional
+                            @elseif ($data->tingkat_kegiatan == 2)
+                                Internasion Dalam Negeri
+                            @else
+                                Internasion Luar Negeri
+                            @endif</a>
                                 <a href="#" class="text-dark-50 text-hover-primary font-weight-bold">
                                 <i class="flaticon-calendar-with-a-clock-time-tools mr-2 font-size-lg"></i>{{$data->start_kegiatan}} s/d {{$data->end_kegiatan}}</a>
                             </div>
@@ -104,8 +110,10 @@
                         <!--end::Symbol-->
                         <!--begin::Text-->
                         <div class="d-flex flex-column flex-grow-1 font-weight-bold">
-                            <span class="text-muted">Tingkat Kegiatan</span>
-                            <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">{{$data->tingkat_kegiatan}}</a>
+                            <span class="text-muted">Unsur Kegiatan</span>
+                            <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">
+                               {{$data->unsur->nama_sub_unsur}}
+                            </a>
                         </div>
                         <!--end::Text-->
                     </div>
