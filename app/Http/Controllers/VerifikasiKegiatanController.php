@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Kegiatan;
 use Illuminate\Http\Request;
-use App\Models\DetailInstansi;
-use App\Models\PerbaikanPersyaratan;
 use App\Actions\Kegiatan\GetKegiatan;
 use App\Services\Kegiatan\KegiatanService;
 use App\Actions\VerifikasiKegiatan\GetAll;
+use App\Actions\VerifikasiKegiatan\GetDetailKegiatan;
 use App\Actions\VerifikasiKegiatan\GetByApt;
 use App\Services\Perbaikan\PerbaikanService;
 
@@ -34,9 +33,7 @@ class VerifikasiKegiatanController extends Controller
     public function detail($uuid)
     {
         $this->authorize('detail-permohonan-kegiatan', Kegiatan::class);
-        return view('pages.verifikasi-kegiatan.detail', [
-            'data' => Kegiatan::with(['validator'])->where('uuid', $uuid)->first()
-        ]);
+        return view('pages.verifikasi-kegiatan.detail', GetDetailKegiatan::run($uuid));
     }
 
     public function apt(){

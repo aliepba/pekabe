@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Role\GetListRole;
 use Illuminate\Http\Request;
 use App\Services\Role\RoleService;
 use Spatie\Permission\Models\Role;
@@ -24,9 +25,7 @@ class RoleController extends Controller
     public function index()
     {
         $this->authorize('view-roles', Role::class);
-        return view('pages.roles.index', [
-            'roles' => Role::with('permissions')->orderByDesc('id')->paginate(5)
-        ]);
+        return view('pages.roles.index', GetListRole::run());
     }
 
     /**
