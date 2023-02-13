@@ -73,7 +73,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/akun-setujui', [VerifikasiAkunController::class, 'setuju'])->name('akun.setuju');
     Route::get('/list-verifikasi', [VerifikasiKegiatanController::class, 'list'])->name('list.kegiatan');
     Route::get('/detail-verifikasi/{uuid}', [VerifikasiKegiatanController::class, 'detail'])->name('verifikasi.kegiatan');
-    Route::get('/list-verifikasi-apt', [VerifikasiKegiatanController::class, 'apt'])->name('verifikasi.apt');
     Route::get('/kegiatan-setuju', [VerifikasiKegiatanController::class, 'setuju'])->name('setuju.kegiatan');
     Route::get('/kegiatan-tolak', [VerifikasiKegiatanController::class, 'tolak'])->name('tolak.kegiatan');
     Route::get('/detail/{id}', [VerifikasiKegiatanController::class, 'detailKegiatan']);
@@ -118,6 +117,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/kegiatan-tidak-terverifikasi', [LogBookController::class, 'unverified'])->name('kegiatan.unverified');
     Route::post('/unverified', [LogBookController::class, 'store'])->name('unverified.store');
     Route::resource('/kegiatan-terdaftar', OldKegiatanController::class)->only(['create', 'store']);
+
+    //apt
+    Route::get('/dashboard-apt', [DashboardController::class, 'dashboardApt'])->name('dashboard.apt');
+    Route::get('/list-verifikasi-apt', [VerifikasiKegiatanController::class, 'apt'])->name('verifikasi.apt');
+    Route::get('/list-validasi-apt', [PenilaianValidatorController::class, 'apt'])->name('validator.apt');
 });
 
 //referensi

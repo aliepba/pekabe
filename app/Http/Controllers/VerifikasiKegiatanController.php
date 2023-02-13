@@ -38,7 +38,7 @@ class VerifikasiKegiatanController extends Controller
 
     public function apt(){
         $this->authorize('list-permohonan-kegiatan', Kegiatan::class);
-        return view('pages.verifikasi-kegiatan.all', GetByApt::run());
+        return view('pages.verifikasi-kegiatan.byApt', GetByApt::run());
     }
 
     public function updateStatus(Request $request){

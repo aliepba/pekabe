@@ -15,6 +15,9 @@
     @if(Auth::user()->role == 'skk-ska')
     @include('includes.menu.skk')
     @endif
+    @if (Auth::user()->role == 'apt')
+    @include('includes.menu.apt')
+    @endif
     <!--end::Menu Nav-->
 </div>
 5
