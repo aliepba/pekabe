@@ -34,8 +34,8 @@ class Kegiatan extends Model
         return $this->belongsTo(MtUnsurKegiatan::class, 'jenis_kegiatan', 'id');
     }
 
-    public function unsur(){
-        return $this->belongsTo(MtSubUnsurKegiatan::class, 'unsur_kegiatan', 'id');
+    public function unsurKegiatan(){
+        return $this->hasMany(UnsurKegiatanPenyelenggara::class, 'id_kegiatan', 'uuid');
     }
 
     public function nilaiPelaporan(){
@@ -45,4 +45,8 @@ class Kegiatan extends Model
     public function nilaiValidasi(){
         return $this->hasOne(PenilaianValidator::class, 'id_kegiatan', 'uuid');
     }
+
+    // public function unsur(){
+    //     return $this->belongsTo(MtSubUnsurKegiatan::class, 'unsur_kegiatan', 'id');
+    // }
 }

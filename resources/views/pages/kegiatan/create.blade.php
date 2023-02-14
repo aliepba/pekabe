@@ -26,7 +26,7 @@
                         <h5 class="h5">Sasaran Utama Tenaga Ahli</h5>
                         <div class="form-group">
                             <label>Sub Klasifikasi <span class="text-danger">*</span></label>
-                            <select class="form-control select2 multiplee" id="kt_select2_3" name="subklas[]" multiple="multiple">
+                            <select class="form-control select2 multiplee selectpicker" name="subklas[]" multiple="multiple">
                                 @foreach ($subklas as $item)
                                     <option value="{{$item->subklasifikasi}}">{{$item->subklasifikasi}}</option>
                                 @endforeach
@@ -55,7 +55,7 @@
                         </div>
                         <div class="form-group">
                             <label>Unsur Kegiatan <span class="text-danger">*</span></label>
-                            <select class="form-control" name="unsur_kegiatan" id="unsur_kegiatan">
+                            <select class="form-control" name="unsur_kegiatan[]" id="unsur_kegiatan" multiple>
                             </select>
                         </div>
                     </div>
@@ -189,6 +189,29 @@
     KTSelect2.init();
     });
 
+    var KTSelect2 = function() {
+    // Private functions
+    var demos = function() {
+
+    // multi select
+    $('#unsur_kegiatan').select2({
+    placeholder: "pilih unsur kegiatan",
+    });
+    }
+
+    // Public functions
+    return {
+    init: function() {
+    demos();
+        }
+    };
+    }();
+
+    // Initialization
+    jQuery(document).ready(function() {
+    KTSelect2.init();
+    });
+
     $('#jenis_kegiatan').change(function(){
       var id = $(this).val();
       console.log(id)
@@ -237,6 +260,8 @@
             })
         }
     })
+
+    // unsur_kegiatan
 
     </script>
 @endpush

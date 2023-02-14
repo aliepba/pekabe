@@ -16,6 +16,7 @@ use App\Enums\PermohonanStatus;
 use App\Models\KegiatanUnverified;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Models\UnsurKegiatanPenyelenggara;
 use App\Notifications\KegiatanNotification;
 
 class KegiatanService {
@@ -27,7 +28,6 @@ class KegiatanService {
                 'subklasifikasi' => implode("," ,$request->subklas),
                 'penilai' => $request->penilai,
                 'jenis_kegiatan' => $request->jenis_kegiatan,
-                'unsur_kegiatan' => $request->unsur_kegiatan,
                 'metode_kegiatan' => implode(",",$request->metode_kegiatan),
                 'tingkat_kegiatan' => $request->tingkat_kegiatan,
                 'nama_kegiatan' => $request->nama_kegiatan,
@@ -46,6 +46,14 @@ class KegiatanService {
                 'user_id' => Auth::user()->id
             ]);
 
+            foreach($request->unsur_kegiatan as $unsur){
+                UnsurKegiatanPenyelenggara::query()->create([
+                    'id_kegiatan' => $kegiatan->uuid,
+                    'id_unsur' => $unsur
+                ]);
+            }
+
+
             LogKegiatan::query()->create([
                 'id_kegiatan' => $kegiatan->uuid,
                 'status_permohonan' => PermohonanStatus::OPEN,
@@ -56,14 +64,13 @@ class KegiatanService {
      }
 
      public function update(Request $request, $id){
-        $data = Kegiatan::find($id);
+        $data = Kegiatan::with(['unsurKegiatan'])->find($id);
         DB::transaction(function() use($request, $data){
             $data->update([
                 'penyelenggara_lain' => $request->penyelenggara_lain,
                 'subklasifikasi' => implode("," ,$request->subklas),
                 'penilai' => $request->penilai,
                 'jenis_kegiatan' => $request->jenis_kegiatan,
-                'unsur_kegiatan' => $request->unsur_kegiatan,
                 'metode_kegiatan' => implode(",",$request->metode_kegiatan),
                 'tingkat_kegiatan' => $request->tingkat_kegiatan,
                 'nama_kegiatan' => $request->nama_kegiatan,
@@ -80,6 +87,15 @@ class KegiatanService {
                 'status_permohonan_penyelenggara' => $request->id_penyelenggara == null ? PermohonanStatus::SUBMIT : PermohonanStatus::OPEN,
                 'id_penyelenggara' => $request->id_penyelenggara,
             ]);
+
+            $data->unsurKegiatan()->forceDelete();
+
+            foreach($request->unsur_kegiatan as $unsur){
+                UnsurKegiatanPenyelenggara::query()->create([
+                    'id_kegiatan' => $data->uuid,
+                    'id_unsur' => $unsur
+                ]);
+            }
         });
      }
 
@@ -91,6 +107,13 @@ class KegiatanService {
                 'status_permohonan_kegiatan' => PermohonanStatus::SUBMIT,
                 'status_permohonan_penyelenggara' => PermohonanStatus::SUBMIT,
             ]);
+
+            foreach($request->unsur_kegiatan as $unsur){
+                UnsurKegiatanPenyelenggara::query()->create([
+                    'id_kegiatan' => $kegiatan->uuid,
+                    'id_unsur' => $unsur
+                ]);
+            }
 
             LogKegiatan::query()->create([
                 'id_kegiatan' => $uuid,

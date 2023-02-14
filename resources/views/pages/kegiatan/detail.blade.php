@@ -93,7 +93,11 @@
                     <!--begin::Text-->
                     <div class="d-flex flex-column flex-grow-1 font-weight-bold">
                         <span class="text-muted">Unsur Kegiatan</span>
-                        <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">{{$data->unsur->nama_sub_unsur}}</a>
+                        <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">
+                            @foreach ($data->unsurKegiatan as $unsurKegiatan)
+                                {{$unsurKegiatan->unsur->nama_sub_unsur}}
+                            @endforeach
+                        </a>
                     </div>
                     <!--end::Text-->
                 </div>

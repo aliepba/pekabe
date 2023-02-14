@@ -8,6 +8,7 @@
         </div>
         <div class="card-body">
             <form action="{{route('kegiatan-penyelenggara.update', $data->id)}}" method="POST" enctype="multipart/form-data">
+                @method('PUT')
                 @csrf
                 <div class="row">
                     <div class="col-md-6">
@@ -59,8 +60,15 @@
                         </div>
                         <div class="form-group">
                             <label>Unsur Kegiatan <span class="text-danger">*</span></label>
-                            <select class="form-control" name="unsur_kegiatan" id="unsur_kegiatan">
-                                <option value="{{$data->unsur_kegiatan}}">{{$data->unsur->nama_sub_unsur}}</option>
+                            <select class="form-control selectpicker" name="unsur_kegiatan[]" id="unsur_kegiatan" multiple>
+                                @foreach ($unsur as $item)
+                                    <option value="{{$item->id}}"  @foreach($data->unsurKegiatan as $unsurKegiatan)
+                                        @if ($unsurKegiatan->id_unsur == $item->id)
+                                        selected
+                                        @endif
+                                        @endforeach>{{$item->nama_sub_unsur}}</option>
+                                @endforeach
+                                foreac
                             </select>
                         </div>
                     </div>

@@ -17,6 +17,7 @@ use App\Http\Resources\Kegiatan\KegiatanCollection;
 use App\Models\DetailInstansi;
 use App\Actions\Kegiatan\GetKegiatanByUser;
 use App\Actions\Kegiatan\GetKegiatanTolak;
+use App\Models\MtSubUnsurKegiatan;
 
 class KegiatanController extends Controller
 {
@@ -89,7 +90,7 @@ class KegiatanController extends Controller
     {
         $this->authorize('submit-kegiatan', Kegiatan::class);
         return view('pages.kegiatan.show', [
-            'data' => Kegiatan::with(['validator', 'timeline', 'peserta', 'laporan', 'jenis', 'unsur', 'nilaiPelaporan', 'nilaiValidasi'])->where('uuid', $uuid)->first()
+            'data' => Kegiatan::with(['validator', 'timeline', 'peserta', 'laporan', 'jenis', 'nilaiPelaporan', 'nilaiValidasi', 'unsurKegiatan' ,'unsurKegiatan.unsur'])->where('uuid', $uuid)->first()
         ]);
     }
 
@@ -102,7 +103,7 @@ class KegiatanController extends Controller
     public function edit($id)
     {
         $this->authorize('edit-kegiatan', Kegiatan::class);
-        $data = Kegiatan::with(['validator', 'jenis', 'unsur'])->find($id);
+        $data = Kegiatan::with(['validator', 'jenis', 'unsurKegiatan', 'unsurKegiatan.unsur'])->find($id);
         $subklas = explode(',', $data->subklasifikasi);
         $metode = explode(',', $data->metode_kegiatan);
 
@@ -113,6 +114,7 @@ class KegiatanController extends Controller
             'subklas' => MtSubklasifikasi::all(),
             'profesi' => MtAsosiasiProfesi::all(),
             'jenis' => MtUnsurKegiatan::all(),
+            'unsur' => MtSubUnsurKegiatan::all(),
             'penyelenggara' => DetailInstansi::where('status_permohonan', 'APPROVE')->get()
         ]);
     }
