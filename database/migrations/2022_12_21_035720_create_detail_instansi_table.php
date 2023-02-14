@@ -28,6 +28,7 @@ class CreateDetailInstansiTable extends Migration
             $table->text('file1')->nullable();
             $table->text('file2')->nullable();
             $table->text('file3')->nullable();
+            $table->date('tgl_proses')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

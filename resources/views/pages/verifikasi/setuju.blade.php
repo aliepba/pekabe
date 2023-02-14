@@ -19,6 +19,8 @@
                     <th>Email</th>
                     <th>Alamat</th>
                     <th>Telepon</th>
+                    <th>Status Permohonan</th>
+                    <th>Tanggal Proses</th>
                 </tr>
               </thead>
               <tbody>
@@ -29,6 +31,8 @@
                     <td>{{$item->email_instansi}}</td>
                     <td>{{$item->alamat}}</td>
                     <td>{{$item->telepon}}</td>
+                    <td>{{$item->status_permohonan}}</td>
+                    <td>{{$item->tgl_proses == null ? 'Data Import PKB Lama' : $item->tgl_proses}}</td>
                 </tr>
                 @endforeach
               </tbody>

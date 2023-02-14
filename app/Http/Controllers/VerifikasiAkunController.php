@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Instansi\GetProsesInstansi;
 use Illuminate\Http\Request;
 use App\Models\DetailInstansi;
 use App\Services\PermohonanAkun\PermohonanAkunService;
@@ -23,9 +24,7 @@ class VerifikasiAkunController extends Controller
     }
 
     public function setuju(){
-        return view('pages.verifikasi.setuju', [
-            'list' => DetailInstansi::where('status_permohonan', 'APPROVE')->get()
-        ]);
+        return view('pages.verifikasi.setuju', GetProsesInstansi::run());
     }
 
     public function detailPermohonan($uuid){

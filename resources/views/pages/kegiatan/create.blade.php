@@ -35,7 +35,8 @@
                         <div class="form-group">
                             <label>Verifikator/validator dan penilai <span class="text-danger">*</span></label>
                             <select class="form-control" name="penilai" id="validator">
-
+                                <option>-- pilih validator -- </option>
+                                <option value="000">Lembaga Pengembangan Jasa Konstruksi (LPJK)</option>
                             </select>
                         </div>
                     </div>
@@ -222,7 +223,6 @@
                 url : "/get-validator?subklas="+subklas,
                 dataType : 'JSON',
                 success:function(res){
-                    console.log(res)
                     if(res){
                     res.forEach(item => {
                         let option = document.createElement("option");

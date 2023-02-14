@@ -91,6 +91,7 @@ class PermohonanAkunService
             $permohonan = DetailInstansi::with(['penanggungjawab'])->where('uuid', $uuid)->first();
             $permohonan->update([
                 'status_permohonan' => PermohonanStatus::TOLAK,
+                'tgl_proses' => Carbon::now()
             ]);
 
             $log = LogPermohonan::query()->create([
@@ -127,6 +128,7 @@ class PermohonanAkunService
             $permohonan = DetailInstansi::with(['penanggungjawab'])->where('uuid', $uuid)->first();
             $permohonan->update([
                 'status_permohonan' => PermohonanStatus::APPROVE,
+                'tgl_proses' => Carbon::now()
             ]);
 
             LogPermohonan::query()->create([
