@@ -37,7 +37,7 @@ class PesertaKegiatanController extends Controller
     {
         $this->authorize('create-peserta', PesertaKegiatan::class);
         return view('pages.peserta.create', [
-            'data' => Kegiatan::with('unsur')->where('uuid', $uuid)->first()
+            'data' => Kegiatan::with('unsurKegiatan', 'unsurKegiatan.unsur')->where('uuid', $uuid)->first()
         ]);
     }
 

@@ -19,7 +19,9 @@
                         <div class="form-group">
                             <label>Unsur Kegiatan</label>
                             <select class="form-control" name="unsur">
-                                <option value="{{$data->unsur_kegiatan}}" selected>{{$data->unsur->nama_sub_unsur}}</option>
+                                @foreach ($data->unsurKegiatan as $unsurKegiatan)
+                                <option value="{{$unsurKegiatan->id_unsur}}" selected>{{$unsurKegiatan->unsur->nama_sub_unsur}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group">

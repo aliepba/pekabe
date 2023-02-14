@@ -108,13 +108,6 @@ class KegiatanService {
                 'status_permohonan_penyelenggara' => PermohonanStatus::SUBMIT,
             ]);
 
-            foreach($request->unsur_kegiatan as $unsur){
-                UnsurKegiatanPenyelenggara::query()->create([
-                    'id_kegiatan' => $kegiatan->uuid,
-                    'id_unsur' => $unsur
-                ]);
-            }
-
             LogKegiatan::query()->create([
                 'id_kegiatan' => $uuid,
                 'status_permohonan' => PermohonanStatus::SUBMIT,

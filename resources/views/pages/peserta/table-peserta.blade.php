@@ -22,8 +22,8 @@
                 <tr>
                     <td>{{$loop->iteration}}</td>
                     <td>{{$item->nik_peserta}}</td>
-                    <td>{{$item->unsur_peserta}}</td>
                     <td>{{$item->metode_peserta}}</td>
+                    <td>{{$item->unsur->nama_sub_unsur}}</td>
                     <td>
                         <a href="{{route('peserta.edit', $item->id)}}" class="btn btn-sm btn-primary">Edit</a>
                     </td>

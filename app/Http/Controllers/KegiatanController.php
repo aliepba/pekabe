@@ -90,7 +90,7 @@ class KegiatanController extends Controller
     {
         $this->authorize('submit-kegiatan', Kegiatan::class);
         return view('pages.kegiatan.show', [
-            'data' => Kegiatan::with(['validator', 'timeline', 'peserta', 'laporan', 'jenis', 'nilaiPelaporan', 'nilaiValidasi', 'unsurKegiatan' ,'unsurKegiatan.unsur'])->where('uuid', $uuid)->first()
+            'data' => Kegiatan::with(['validator', 'timeline', 'peserta', 'laporan', 'jenis', 'nilaiPelaporan', 'nilaiValidasi', 'unsurKegiatan' ,'unsurKegiatan.unsur', 'peserta.unsur'])->where('uuid', $uuid)->first()
         ]);
     }
 
