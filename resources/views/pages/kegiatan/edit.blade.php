@@ -51,10 +51,11 @@
                         <h5 class="h5">Klasifikasi Kegiatan</h5>
                         <div class="form-group">
                             <label>Jenis Kegiatan <span class="text-danger">*</span></label>
-                            <select class="form-control" name="jenis_kegiatan" id="jenis_kegiatan">
-                                <option value="{{$data->jenis_kegiatan}}">-- {{$data->jenis->unsur_kegiatan}} --</option>
+                            <select class="form-control selectpicker" name="jenis_kegiatan[]" id="jenis_kegiatan" multiple>
                                 @foreach ($jenis as $item)
-                                <option value="{{$item->id}}">{{$item->unsur_kegiatan}}</option>
+                                <option value="{{$item->id}}">
+                                    {{$item->unsur_kegiatan}}
+                                </option>
                                 @endforeach
                             </select>
                         </div>
@@ -78,7 +79,13 @@
                             <label>Tingkat <span class="text-danger">*</span></label>
                             <select class="form-control" name="tingkat_kegiatan">
                                 <option value="{{$data->tingkat_kegiatan}}">
-                                    {{$data->tingkat_kegiatan == 1 ? 'Nasional' : $data->tingkat_kegiatan == 2 ? 'Internasional Dalam Negeri' : 'Internasional Luar Negeri'}}
+                                    @if ($data->tingkat_kegiatan == 1)
+                                        Nasional
+                                    @elseif ($data->tingkat_kegiatan == 2)
+                                    Internasional Dalam Negeri
+                                    @else
+                                    Internasional Luar Negeri
+                                    @endif
                                 </option>
                                 <option value="1">Nasional</option>
                                 <option value="2">Internasional Dalam Negeri</option>

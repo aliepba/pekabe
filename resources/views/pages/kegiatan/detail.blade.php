@@ -95,7 +95,7 @@
                         <span class="text-muted">Unsur Kegiatan</span>
                         <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">
                             @foreach ($data->unsurKegiatan as $unsurKegiatan)
-                                {{$unsurKegiatan->unsur->nama_sub_unsur}}
+                                {{$unsurKegiatan->unsur->nama_sub_unsur}}, <br />
                             @endforeach
                         </a>
                     </div>

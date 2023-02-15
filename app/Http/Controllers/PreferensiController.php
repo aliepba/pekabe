@@ -44,7 +44,7 @@ class PreferensiController extends Controller
     }
 
     public function unsurKegiatan(Request $request){
-        $unsur = MtSubUnsurKegiatan::where('id_unsur_kegiatan', $request->id)->pluck('id','nama_sub_unsur');
+        $unsur = MtSubUnsurKegiatan::whereIn('id_unsur_kegiatan', $request->id)->pluck('id','nama_sub_unsur');
 
         return response()->json($unsur);
     }

@@ -45,8 +45,8 @@
                     <div class="col-md-6">
                         <h5 class="h5">Klasifikasi Kegiatan</h5>
                         <div class="form-group">
-                            <label>Jenis Kegiatan <span class="text-danger">*</span></label>
-                            <select class="form-control" name="jenis_kegiatan" id="jenis_kegiatan">
+                            <label>unsur Kegiatan <span class="text-danger">*</span></label>
+                            <select class="form-control selectpicker" name="jenis_kegiatan[]" id="jenis_kegiatan"  multiple>
                                 <option value="">Pilih Jenis Kegiatan</option>
                                 @foreach ($jenis as $item)
                                 <option value="{{$item->id}}">{{$item->unsur_kegiatan}}</option>
@@ -56,6 +56,9 @@
                         <div class="form-group">
                             <label>Unsur Kegiatan <span class="text-danger">*</span></label>
                             <select class="form-control" name="unsur_kegiatan[]" id="unsur_kegiatan" multiple>
+                                @foreach ($unsur as $item)
+                                    <option value="{{$item->id}}">{{$item->nama_sub_unsur}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -207,31 +210,31 @@
     KTSelect2.init();
     });
 
-    $('#jenis_kegiatan').change(function(){
-      var id = $(this).val();
-      console.log(id)
-      if(id){
-        $.ajax({
-          type : "GET",
-          url : "/get-unsur-kegiatan?id="+id,
-          dataType : 'JSON',
-          success:function(res){
-            console.log(res)
-            if(res){
-              $('#unsur_kegiatan').empty();
-              $("#unsur_kegiatan").append('<option>---Pilih Unsur Kegiatan---</option>');
-              $.each(res,function(nama_sub_unsur,id){
-                    $("#unsur_kegiatan").append('<option value="'+id+'">'+nama_sub_unsur+'</option>');
-              });
-            }else{
-              $('#unsur_kegiatan').empty();
-            }
-          }
-        })
-      }else{
-        $('#unsur_kegiatan').empty();
-      }
-    })
+    // $('#jenis_kegiatan').change(function(){
+    //   var id = $(this).val();
+    //   console.log(id)
+    //   if(id){
+    //     $.ajax({
+    //       type : "GET",
+    //       url : "/get-unsur-kegiatan?id="+id,
+    //       dataType : 'JSON',
+    //       success:function(res){
+    //         console.log(res)
+    //         if(res){
+    //           $('#unsur_kegiatan').empty();
+    //           $("#unsur_kegiatan").append('<option>---Pilih Unsur Kegiatan---</option>');
+    //           $.each(res,function(nama_sub_unsur,id){
+    //                 $("#unsur_kegiatan").append('<option value="'+id+'">'+nama_sub_unsur+'</option>');
+    //           });
+    //         }else{
+    //           $('#unsur_kegiatan').empty();
+    //         }
+    //       }
+    //     })
+    //   }else{
+    //     $('#unsur_kegiatan').empty();
+    //   }
+    // })
 
     $('.multiplee').change(function(){
         var subklas = $(this).val();

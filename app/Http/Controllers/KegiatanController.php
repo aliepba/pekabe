@@ -63,6 +63,7 @@ class KegiatanController extends Controller
             'subklas' => MtSubklasifikasi::all(),
             'profesi' => MtAsosiasiProfesi::all(),
             'jenis' => MtUnsurKegiatan::all(),
+            'unsur' => MtSubUnsurKegiatan::all(),
             'penyelenggara' => DetailInstansi::where('status_permohonan', 'APPROVE')->get()
         ]);
     }
@@ -106,6 +107,7 @@ class KegiatanController extends Controller
         $data = Kegiatan::with(['validator', 'jenis', 'unsurKegiatan', 'unsurKegiatan.unsur'])->find($id);
         $subklas = explode(',', $data->subklasifikasi);
         $metode = explode(',', $data->metode_kegiatan);
+        $jenis = explode(',', $data->jenis_kegiatan);
 
         return view('pages.kegiatan.edit', [
             'data' => $data,
@@ -115,6 +117,7 @@ class KegiatanController extends Controller
             'profesi' => MtAsosiasiProfesi::all(),
             'jenis' => MtUnsurKegiatan::all(),
             'unsur' => MtSubUnsurKegiatan::all(),
+            'jenisKegiatan' => $jenis,
             'penyelenggara' => DetailInstansi::where('status_permohonan', 'APPROVE')->get()
         ]);
     }
