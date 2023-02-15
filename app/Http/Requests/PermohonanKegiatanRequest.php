@@ -24,7 +24,6 @@ class PermohonanKegiatanRequest extends FormRequest
     public function rules()
     {
         return [
-            'surat_permohonan' => 'max:2000|mimes:pdf',
             'tor_kak' => 'max:2000|mimes:pdf',
             'sk_panitia' => 'max:2000|mimes:pdf',
             'cv' => 'max:2000|mimes:pdf',

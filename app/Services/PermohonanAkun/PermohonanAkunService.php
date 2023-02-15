@@ -139,8 +139,8 @@ class PermohonanAkunService
             ]);
 
             $user = User::query()->create([
-                'name' => $permohonan->penanggungjawab->nama_penanggung_jawab,
-                'email' => $permohonan->penanggungjawab->email,
+                'name' => $permohonan->nama_instansi,
+                'email' => $permohonan->email_instansi,
                 'email_verified_at' => Carbon::now(),
                 'role' => 'user',
                 'password' => Hash::make($permohonan->penanggungjawab->password)

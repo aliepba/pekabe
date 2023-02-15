@@ -14,6 +14,10 @@ class Kegiatan extends Model
 
     protected $guarded = [];
 
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
     public function validator(){
         return $this->hasOne(MtAsosiasiProfesi::class, 'ID_Asosiasi_Profesi', 'penilai');
     }

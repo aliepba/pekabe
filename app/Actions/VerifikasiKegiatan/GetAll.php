@@ -12,7 +12,7 @@ class GetAll
     public function handle()
     {
         return [
-            'data' => Kegiatan::with(['validator'])->where('status_permohonan_kegiatan', 'SUBMIT')->get()
+            'data' => Kegiatan::with(['validator', 'user'])->where('status_permohonan_kegiatan', 'SUBMIT')->get()
         ];
     }
 }

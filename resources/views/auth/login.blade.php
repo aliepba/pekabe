@@ -11,6 +11,14 @@
         <!--end::Aside header-->
         <!--begin::Aside Title-->
         <h3 class="font-weight-bolder text-center font-size-h4 text-dark-50 line-height-xl">Login PKB</h3>
+        <p class="text-weight-bolder font-size-h3 ml-5 mr-5">
+            Bagi Penyelenggara Kegiatan PKB yang telah
+            memiliki akun lama silakan melakukan reset password dengan cara
+            klik menu Lupa Password!
+        </p>
+        <p class="text-weight-bolder font-size-h3 ml-5 mr-5">
+            Terima Kasih.
+        </p>
         <!--end::Aside Title-->
     </div>
     <!--end::Aside Top-->

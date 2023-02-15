@@ -120,5 +120,11 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-lg-4">
+            <a href="https://siki.pu.go.id/pkb-v1/index.php/front/signin/penyelenggara" class="btn btn-sm btn-primary">Login Penyelenggara</a>
+            <span class="text-muted">Login Penyelenggara aplikasi lama</span>
+        </div>
+    </div>
 </div>
 @endsection

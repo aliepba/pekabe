@@ -2,7 +2,7 @@
 
 namespace App\Actions\Kegiatan;
 
-use App\models\SubPenyelenggara;
+use App\Models\SubPenyelenggara;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Lorisleiva\Actions\Concerns\AsAction;

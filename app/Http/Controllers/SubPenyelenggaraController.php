@@ -28,7 +28,7 @@ class SubPenyelenggaraController extends Controller
         $this->authorize('view-sub-penyelenggara', SubPenyelenggara::class);
         return view('pages.sub-penyelenggara.index', [
             'data' => new SubPenyelenggaraCollection(
-                SubPenyelenggara::query()->with(['propinsi'])->paginate(10)
+                SubPenyelenggara::query()->with(['propinsi'])->where('user_id', Auth::user()->id)->paginate(10)
             )
         ]);
     }

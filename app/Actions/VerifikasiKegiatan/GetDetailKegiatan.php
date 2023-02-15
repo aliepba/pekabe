@@ -12,7 +12,7 @@ class GetDetailKegiatan
     public function handle($uuid)
     {
         return [
-            'data' => Kegiatan::with(['validator', 'unsurKegiatan', 'unsurKegiatan.unsur'])->where('uuid', $uuid)->first()
+            'data' => Kegiatan::with(['validator', 'unsurKegiatan', 'unsurKegiatan.unsur', 'user'])->where('uuid', $uuid)->first()
         ];
     }
 }
