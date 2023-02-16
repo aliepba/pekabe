@@ -91,7 +91,11 @@ class KegiatanController extends Controller
     {
         $this->authorize('submit-kegiatan', Kegiatan::class);
         return view('pages.kegiatan.show', [
-            'data' => Kegiatan::with(['validator', 'timeline', 'peserta', 'laporan', 'jenis', 'nilaiPelaporan', 'nilaiValidasi', 'unsurKegiatan' ,'unsurKegiatan.unsur', 'peserta.unsur'])->where('uuid', $uuid)->first()
+            'data' => Kegiatan::with(['validator', 'timeline', 'peserta', 'laporan',
+                                    'penyelenggaraLain', 'penyelenggaraLain.userPenyelenggara' ,
+                                    'jenis', 'nilaiPelaporan', 'nilaiValidasi', 'unsurKegiatan' ,
+                                    'unsurKegiatan.unsur', 'peserta.unsur'])
+                                ->where('uuid', $uuid)->first()
         ]);
     }
 
@@ -104,7 +108,7 @@ class KegiatanController extends Controller
     public function edit($id)
     {
         $this->authorize('edit-kegiatan', Kegiatan::class);
-        $data = Kegiatan::with(['validator', 'jenis', 'unsurKegiatan', 'unsurKegiatan.unsur'])->find($id);
+        $data = Kegiatan::with(['validator', 'jenis', 'unsurKegiatan', 'unsurKegiatan.unsur', 'penyelenggaraLain', 'penyelenggaraLain.userPenyelenggara'])->find($id);
         $subklas = explode(',', $data->subklasifikasi);
         $metode = explode(',', $data->metode_kegiatan);
         $jenis = explode(',', $data->jenis_kegiatan);

@@ -16,6 +16,7 @@ class CreatePkbPenilaianKegiatanTable extends Migration
         Schema::create('pkb_penilaian_kegiatan', function (Blueprint $table) {
             $table->id();
             $table->string('uuid');
+            $table->string('id_unsur')->nullable();
             $table->decimal('nilai_skpk');
             $table->decimal('is_jenis')->nullable();
             $table->decimal('is_sifat')->nullable();

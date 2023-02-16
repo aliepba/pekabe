@@ -11,6 +11,7 @@ use App\Models\Kegiatan;
 use App\Models\LogKegiatan;
 use App\Models\PenilaianKegiatan;
 use App\Models\MtSubUnsurKegiatan;
+use App\Models\KegiatanPenyelenggaraLain;
 use Illuminate\Http\Request;
 use App\Enums\PermohonanStatus;
 use App\Models\KegiatanUnverified;
@@ -24,7 +25,6 @@ class KegiatanService {
         DB::transaction(function () use($request) {
             $kegiatan = Kegiatan::query()->create([
                 'uuid' => Uuid::uuid4()->toString(),
-                'penyelenggara_lain' => $request->penyelenggara_lain,
                 'subklasifikasi' => implode("," ,$request->subklas),
                 'penilai' => $request->penilai,
                 'jenis_kegiatan' => implode($request->jenis_kegiatan),
@@ -49,6 +49,14 @@ class KegiatanService {
                 UnsurKegiatanPenyelenggara::query()->create([
                     'id_kegiatan' => $kegiatan->uuid,
                     'id_unsur' => $unsur
+                ]);
+            }
+
+
+            foreach($request->penyelenggara_lain as $lain){
+                KegiatanPenyelenggaraLain::query()->create([
+                    'id_penyelenggara' => $lain,
+                    'id_kegiatan' => $kegiatan->uuid
                 ]);
             }
 
@@ -87,6 +95,7 @@ class KegiatanService {
             ]);
 
             $data->unsurKegiatan()->forceDelete();
+            $data->penyelenggaraLain()->forceDelete();
 
             foreach($request->unsur_kegiatan as $unsur){
                 UnsurKegiatanPenyelenggara::query()->create([
@@ -94,6 +103,14 @@ class KegiatanService {
                     'id_unsur' => $unsur
                 ]);
             }
+
+            foreach($request->penyelenggara_lain as $lain){
+                KegiatanPenyelenggaraLain::query()->create([
+                    'id_penyelenggara' => $lain,
+                    'id_kegiatan' => $data->uuid
+                ]);
+            }
+
         });
      }
 

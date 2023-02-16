@@ -50,6 +50,10 @@ class Kegiatan extends Model
         return $this->hasOne(PenilaianValidator::class, 'id_kegiatan', 'uuid');
     }
 
+    public function penyelenggaraLain(){
+        return $this->hasMany(KegiatanPenyelenggaraLain::class, 'id_kegiatan', 'uuid');
+    }
+
     // public function unsur(){
     //     return $this->belongsTo(MtSubUnsurKegiatan::class, 'unsur_kegiatan', 'id');
     // }

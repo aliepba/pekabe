@@ -69,6 +69,7 @@ class Penilaian implements ShouldQueue
 
                 PenilaianKegiatan::query()->create([
                     'uuid' => $kegiatan->uuid,
+                    'id_unsur' => $nilai->id_unsur,
                     'nilai_skpk' => $unsurKegiatan->nilai_skpk,
                     'is_jenis' => $jenis,
                     'is_sifat' => $sifat,

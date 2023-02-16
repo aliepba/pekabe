@@ -54,6 +54,11 @@
                 @endforeach
               </tbody>
             </table>
+            <div class="row">
+                <span class="text-muted">*OPEN - kegiatan dibuat</span>
+                <span class="text-muted">*SUBMIT - kegiatan diajukan</span>
+                <span class="text-muted">*APPROVE - kegiatan disetujui</span>
+            </div>
           </div>
         </div>
       </div>

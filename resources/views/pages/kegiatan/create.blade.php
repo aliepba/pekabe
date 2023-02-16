@@ -14,7 +14,7 @@
                         <h5 class="h5">Kolaborasi Penyelenggara</h5>
                         <div class="form-group">
                             <label>Penyelenggara Lain</label>
-                            <select class="form-control" name="penyelenggara_lain">
+                            <select class="form-control selectpicker" name="penyelenggara_lain[]" multiple>
                                     <option value="">pilih penyelenggara lain</option>
                                 @foreach ($penyelenggara as $item)
                                     <option value="{{$item->id}}">{{$item->nama_instansi}}</option>

@@ -15,10 +15,16 @@
                         <h5 class="h5">Kolaborasi Penyelenggara</h5>
                         <div class="form-group">
                             <label>Penyelenggara Lain</label>
-                            <select class="form-control" name="penyelenggara_lain">
-                                <option value="{{$data->penyelenggara_lain}}" selected>{{$data->penyelenggara_lain}}</option>
+                            <select class="form-control selectpicker" name="penyelenggara_lain[]" multiple>
                                 @foreach ($penyelenggara as $item)
-                                <option value="{{$item->id}}">{{$item->nama_instansi}}</option>
+                                <option value="{{$item->id}}"
+                                    @foreach ($data->penyelenggaraLain as $i)
+                                    @if ($i->id_penyelenggara == $item->id)
+                                    selected
+                                    @endif
+                                    @endforeach
+                                >{{$item->nama_instansi}}
+                                </option>
                             @endforeach
                             </select>
                         </div>

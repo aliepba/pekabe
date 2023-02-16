@@ -17,7 +17,7 @@ use App\Http\Controllers\UnsurKegiatanController;
 use App\Http\Controllers\PermohonanAkunController;
 use App\Http\Controllers\VerifikasiAkunController;
 use App\Http\Controllers\BobotPenilaianController;
-use App\Http\controllers\PesertaKegiatanController;
+use App\Http\Controllers\PesertaKegiatanController;
 use App\Http\Controllers\SubUnsurKegiatanController;
 use App\Http\Controllers\SubPenyelenggaraController;
 use App\Http\Controllers\VerifikasiKegiatanController;
