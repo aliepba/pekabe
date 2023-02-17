@@ -74,7 +74,6 @@ class KegiatanService {
         $data = Kegiatan::with(['unsurKegiatan'])->find($id);
         DB::transaction(function() use($request, $data){
             $data->update([
-                'penyelenggara_lain' => $request->penyelenggara_lain,
                 'subklasifikasi' => implode("," ,$request->subklas),
                 'penilai' => $request->penilai,
                 'jenis_kegiatan' => implode(',',$request->jenis_kegiatan),
