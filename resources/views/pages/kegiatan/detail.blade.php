@@ -182,6 +182,25 @@
                     </div>
                     <!--end::Text-->
                 </div>
+                @if ((Auth::user()->role == 'admin' || Auth::user()->role == 'root' ) && ($data->status_permohonan_kegiatan == 'APPROVE' || $data->status_permohonan_kegiatan == 'TOLAK'))
+                <div class="d-flex align-items-center mb-10">
+                    <!--begin::Symbol-->
+                    <div class="symbol symbol-40 symbol-light-success mr-5">
+                        <span class="symbol-label">
+                            <img src="assets/media/svg/avatars/009-boy-4.svg" class="h-75 align-self-end" alt="" />
+                        </span>
+                    </div>
+                    <!--end::Symbol-->
+                    <!--begin::Text-->
+                    <div class="d-flex flex-column flex-grow-1 font-weight-bold">
+                        <span class="text-muted">Keterangan Pengajuan Kegiatan {{$data->status_permohonan_kegiatan}}</span>
+                        <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">
+                            {{$data->keterangan}}
+                        </a>
+                    </div>
+                    <!--end::Text-->
+                </div>
+                @endif
                 <!--end::detail kegiatan-->
             </div>
             <!--end: Card Body-->

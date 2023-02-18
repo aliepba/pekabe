@@ -53,11 +53,13 @@ class KegiatanService {
             }
 
 
-            foreach($request->penyelenggara_lain as $lain){
-                KegiatanPenyelenggaraLain::query()->create([
-                    'id_penyelenggara' => $lain,
-                    'id_kegiatan' => $kegiatan->uuid
-                ]);
+            if(!empty($request->penyelenggara_lain)){
+                foreach($request->penyelenggara_lain as $lain){
+                    KegiatanPenyelenggaraLain::query()->create([
+                        'id_penyelenggara' => $lain,
+                        'id_kegiatan' => $kegiatan->uuid
+                    ]);
+                }
             }
 
 
@@ -103,11 +105,13 @@ class KegiatanService {
                 ]);
             }
 
-            foreach($request->penyelenggara_lain as $lain){
-                KegiatanPenyelenggaraLain::query()->create([
-                    'id_penyelenggara' => $lain,
-                    'id_kegiatan' => $data->uuid
-                ]);
+            if(!empty($request->penyelenggara_lain)){
+                foreach($request->penyelenggara_lain as $lain){
+                    KegiatanPenyelenggaraLain::query()->create([
+                        'id_penyelenggara' => $lain,
+                        'id_kegiatan' => $data->uuid
+                    ]);
+                }
             }
 
         });

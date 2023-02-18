@@ -27,6 +27,7 @@
                         </div>
                         <div class="my-lg-0 my-3">
                             <a href="javascript:void(0)" onclick="updateKeabsahan({{$data->id}})" class="btn btn-sm btn-info"><i class="icon-x text-white-50 flaticon-eye"></i>Action</a>
+                            <a href="{{route('kegiatan-penyelenggara.edit', $data->id)}}" class="btn btn-sm btn-primary">Edit</a>
                             {{-- <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Action
@@ -113,7 +114,7 @@
                             <span class="text-muted">Unsur Kegiatan</span>
                             <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">
                                 @foreach ($data->unsurKegiatan as $unsurKegiatan)
-                                {{$unsurKegiatan->unsur->nama_sub_unsur}}
+                                {{$unsurKegiatan->unsur->nama_sub_unsur}}, <br/>
                                 @endforeach
                             </a>
                         </div>
