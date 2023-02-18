@@ -22,7 +22,8 @@ class PerbaikanService{
         $komen->user_id = $request->user_id;
         $komen->save();
         $user = User::find($komen->user_id);
-        Notification::sendNow($user, new PerbaikanNotification($komen));
+        $kegiatan = Kegiatan::where('uuid', $request->id_kegiatan)->first();
+        Notification::sendNow($user, new PerbaikanNotification($komen, $kegiatan));
         return response()->json($komen);
     }
 

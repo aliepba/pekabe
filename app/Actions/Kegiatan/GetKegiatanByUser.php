@@ -40,9 +40,9 @@ class GetKegiatanByUser
 	        a.tgl_penilaian
         FROM pkb_kegiatan_penyelenggara a
         JOIN personal_profesi_ta_detail b on a.penilai = b.ID_Asosiasi_Profesi
-        WHERE a.user_id = '1'
+        WHERE a.user_id = '". Auth::user()->id . "'
         UNION
-        select  a1.uuid,
+        SELECT  a1.uuid,
             a1.nama_kegiatan,
             a1.status_permohonan_kegiatan,
             a1.tgl_pengajuan,
@@ -52,8 +52,8 @@ class GetKegiatanByUser
             a1.Nama,
             a1.is_verifikasi,
 	        a1.tgl_penilaian
-        	from (
-        select  a.uuid,
+        	FROM (
+        SELECT  a.uuid,
             a.nama_kegiatan,
             a.status_permohonan_kegiatan,
             a.tgl_pengajuan,
@@ -64,13 +64,13 @@ class GetKegiatanByUser
             b.id_penyelenggara ,
             bb.Nama ,
 	        a.tgl_penilaian from pkb_kegiatan_penyelenggara a
-        join pkb_kegiatan_penyelenggara_lain b on a.uuid = b.id_kegiatan
+        JOIN pkb_kegiatan_penyelenggara_lain b on a.uuid = b.id_kegiatan
         JOIN personal_profesi_ta_detail bb on a.penilai = bb.ID_Asosiasi_Profesi
         WHERE a.status_permohonan_kegiatan IN ('SUBMIT', 'APPROVE')
-        and a.user_id = '3002' ) as a1
-        join (
-        select b.id, b.nama_instansi from pkb_kegiatan_penyelenggara_lain a
-        join pkb_detail_instansi b on a.id_penyelenggara = b.id) b1 on a1.id_penyelenggara = b1.id
+        AND a.user_id = '". Auth::user()->id . "' ) as a1
+        JOIN (
+        SELECT b.id, b.nama_instansi from pkb_kegiatan_penyelenggara_lain a
+        JOIN pkb_detail_instansi b on a.id_penyelenggara = b.id) b1 on a1.id_penyelenggara = b1.id
         UNION
         SELECT
             a.uuid,
