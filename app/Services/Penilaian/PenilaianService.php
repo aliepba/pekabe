@@ -7,6 +7,7 @@ use App\Models\Kegiatan;
 use App\Models\LogKegiatan;
 use Illuminate\Http\Request;
 use App\Enums\PermohonanStatus;
+use App\Jobs\Penilaian;
 use App\Models\MtBobotPenilaian;
 use App\Models\PenilaianKegiatan;
 use Illuminate\Support\Facades\DB;
@@ -91,29 +92,33 @@ class PenilaianService{
     public function penilaianValidator(Request $request){
         $kegiatan = Kegiatan::where('uuid', $request->id_kegiatan)->first();
         DB::transaction(function () use($request, $kegiatan){
-
             $kegiatan->update([
                 'tgl_penilaian' => Carbon::now()
             ]);
 
-            $jenis =  $request->is_jenis;
-            $sifat =  $request->is_sifat;
-            $metode = $request->is_metode;
-            $tingkat = $request->is_tingkat;
+            $idUnsur = $request->input('id_unsur');
+            $nilai = $request->input('nilai_skpk');
+            $jenis = $request->input('is_jenis');
+            $sifat = $request->input('is_sifat');
+            $metode = $request->input('is_metode');
+            $tingkat = $request->input('is_tingkat');
 
-            PenilaianValidator::query()->create([
-                'id_kegiatan' => $request->id_kegiatan,
-                'nilai_skpk' => $request->nilai_skpk,
-                'is_jenis' => $request->is_jenis,
-                'is_sifat' => $request->is_sifat,
-                'is_metode' => $request->is_metode,
-                'is_tingkat' => $request->is_tingkat,
-                'angka_kredit' => (float)$request->nilai_skpk * ($jenis == null ? 1 : (float)$jenis) * ($sifat == null ? 1 : (float)$sifat) * ($metode == null ? 1 : (float)$metode) * ($tingkat == null ? 1 : (float)$tingkat),
-                'validate_by' => Auth::user()->id
-            ]);
+            for($i=0; $i < count($nilai); $i++){
+                PenilaianValidator::query()->create([
+                    'id_kegiatan' => $kegiatan->uuid,
+                    'id_unsur' => $idUnsur[$i],
+                    'nilai_skpk' => $nilai[$i],
+                    'is_jenis' => $jenis[$i],
+                    'is_sifat' => $sifat[$i],
+                    'is_metode' => $metode[$i],
+                    'is_tingkat' => $tingkat[$i],
+                    'angka_kredit' => (float)$nilai[$i] * ($jenis[$i] == null ? 1 : (float)$jenis[$i]) * ($sifat[$i] == null ? 1 : (float)$sifat[$i]) * ($metode[$i] == null ? 1 : (float)$metode[$i]) * ($tingkat[$i] == null ? 1 : (float)$tingkat[$i]),
+                    'validate_by' => Auth::user()->id
+                ]);
+            }
 
             LogKegiatan::query()->create([
-                'id_kegiatan' => $request->id_kegiatan,
+                 'id_kegiatan' => $request->id_kegiatan,
                 'status_permohonan' => PermohonanStatus::PENILAIAN,
                 'keterangan' => 'kegiatan sudah dilakukan penilaian oleh validator',
                 'user' => 1

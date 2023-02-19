@@ -12,10 +12,14 @@ class GetDetailPenilaianValidator
 
     public function handle($uuid):array
     {
-        $kegiatan = Kegiatan::with(['nilaiPelaporan', 'jenis', 'unsurKegiatan', 'unsurKegiatan.unsur'])->where('uuid', $uuid)->first();
+        $kegiatan = Kegiatan::with(['nilaiPelaporan', 'nilaiPelaporan.unsur' ,'jenis', 'unsurKegiatan', 'unsurKegiatan.unsur'])->where('uuid', $uuid)->first();
+        $idUnsur = [];
+        foreach ($kegiatan->unsurKegiatan as $unsurKegiatan){
+            $idUnsur[] = $unsurKegiatan->unsur->id_bobot_penilaian;
+        }
         return [
             'data' => $kegiatan,
-            'bobot' => MtBobotPenilaian::find($kegiatan->unsur->id_bobot_penilaian)
+            'bobot' => MtBobotPenilaian::whereIn('id', $idUnsur)->get()
         ];
     }
 }

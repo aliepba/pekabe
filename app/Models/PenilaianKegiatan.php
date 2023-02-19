@@ -12,4 +12,8 @@ class PenilaianKegiatan extends Model
     protected $table = 'pkb_penilaian_kegiatan';
 
     protected $guarded = [];
+
+    public function unsur(){
+        return $this->hasOne(MtSubUnsurKegiatan::class, 'id', 'id_unsur');
+    }
 }

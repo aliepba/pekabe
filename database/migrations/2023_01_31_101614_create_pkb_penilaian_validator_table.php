@@ -16,6 +16,7 @@ class CreatePkbPenilaianValidatorTable extends Migration
         Schema::create('pkb_penilaian_validator', function (Blueprint $table) {
             $table->id();
             $table->string('id_kegiatan');
+            $table->string('id_unsur');
             $table->decimal('nilai_skpk')->nullable();
             $table->decimal('is_jenis')->nullable();
             $table->decimal('is_sifat')->nullable();

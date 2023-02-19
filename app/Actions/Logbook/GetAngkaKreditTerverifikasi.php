@@ -20,10 +20,8 @@ class GetAngkaKreditTerverifikasi
                                 JOIN pkb_pelaporan_kegiatan ppk ON a.uuid = ppk.id_kegiatan
                                 WHERE a.is_verifikasi  = '1'
                                 AND ppk.status_laporan  = 'SUBMIT'
-                                AND c.nik_peserta IN ('". Auth::user()->nik ."')
+                                AND d.nik_peserta IN ('". Auth::user()->nik ."')
                                 "),
-
-
             'byValidasi' => DB::select("SELECT SUM(DISTINCT b.angka_kredit) AS angka_kredit FROM pkb_kegiatan_penyelenggara a
                                 JOIN pkb_penilaian_validator b ON a.uuid = b.id_kegiatan
                                 JOIN pkb_peserta_kegiatan c ON a.uuid = c.id_kegiatan

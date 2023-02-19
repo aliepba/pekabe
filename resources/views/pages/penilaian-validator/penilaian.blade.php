@@ -115,7 +115,7 @@
                             <span class="text-muted">Tingkat Kegiatan</span>
                             <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">
                                 @foreach ($data->unsurKegiatan as $unsurKegiatan)
-                                {{$unsurKegiatan->unsur->nama_sub_unsur}}
+                                {{$unsurKegiatan->unsur->nama_sub_unsur}}, <br/>
                                 @endforeach
                             </a>
                         </div>
@@ -188,106 +188,111 @@
                 <!--begin::Body-->
                 <div class="card-body pt-4">
                     <!--begin::Timeline-->
+                    <form action="{{route('penilaian-validator.store')}}" method="POST">
+                    @csrf
+                    @foreach ($data->nilaiPelaporan as $item)
                     <div class="row">
                         <div class="col-md-6">
-                            <h5 class="h5">Penilaian Sesuai Pelaporan</h5>
-                            <div class="form-group row">
+                            <h6 class="h6 border-bottom">Penilaian Sesuai Pelaporan - {{$item->unsur->nama_sub_unsur}}</h6>
+                            <div class="form-group row mt-5">
                                 <label  class="col-2 col-form-label">Nilai SKPK</label>
                                 <div class="col-10">
-                                    <input class="form-control" type="text" value="{{$data->nilaiPelaporan->nilai_skpk}}" readonly/>
+                                    <input class="form-control" type="text" value="{{$item->nilai_skpk}}" readonly/>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label  class="col-2 col-form-label">Jenis Kegiatan</label>
                                 <div class="col-10">
-                                    <input class="form-control" type="text" value="{{$data->nilaiPelaporan->is_jenis}}" readonly/>
+                                    <input class="form-control" type="text" value="{{$item->is_jenis}}" readonly/>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label  class="col-2 col-form-label">Sifat Kegiatan</label>
                                 <div class="col-10">
-                                    <input class="form-control" type="text" value="{{$data->nilaiPelaporan->is_sifat}}" readonly/>
+                                    <input class="form-control" type="text" value="{{$item->is_sifat}}" readonly/>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label  class="col-2 col-form-label">Metode Kegiatan</label>
                                 <div class="col-10">
-                                    <input class="form-control" type="text" value="{{$data->nilaiPelaporan->is_metode}}" readonly/>
+                                    <input class="form-control" type="text" value="{{$item->is_metode}}" readonly/>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label  class="col-2 col-form-label">Tingkat Kegiatan</label>
                                 <div class="col-10">
-                                    <input class="form-control" type="text" value="{{$data->nilaiPelaporan->is_tingkat}}" readonly/>
+                                    <input class="form-control" type="text" value="{{$item->is_tingkat}}" readonly/>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label  class="col-2 col-form-label">Angka Kredit</label>
                                 <div class="col-10">
-                                    <input class="form-control" type="text" value="{{$data->nilaiPelaporan->angka_kredit}}" readonly/>
+                                    <input class="form-control" type="text" value="{{$item->angka_kredit}}" readonly/>
                                 </div>
                             </div>
                         </div>
+                        @foreach (\App\Models\MtBobotPenilaian::where('id', $item->unsur->id_bobot_penilaian)->get() as $j)
                         <div class="col-md-6">
-                            <form action="{{route('penilaian-validator.store')}}" method="POST">
-                                @csrf
                                 <h5 class="h5">Penilaian Validator</h5>
-                                <div class="form-group row">
+                                <div class="form-group row mt-5">
                                     <label  class="col-2 col-form-label">Nilai SKPK</label>
                                     <div class="col-10">
-                                        <input class="form-control" type="number" min="0" max="{{$data->nilaiPelaporan->nilai_skpk}}" name="nilai_skpk" required/>
+                                        <input class="form-control" type="number" min="0" max="{{$item->nilai_skpk}}" name="nilai_skpk[]" required/>
                                         <input name="id_kegiatan" value="{{$data->uuid}}" hidden/>
+                                        <input name="id_unsur[]" value={{$item->id_unsur}} hidden/>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label  class="col-2 col-form-label">Jenis Kegiatan</label>
                                     <div class="col-10">
-                                        <select class="form-control" name="is_jenis" id="is_jenis">
+                                        <select class="form-control" name="is_jenis[]" id="is_jenis">
                                             <option value="">Pilih Jenis</option>
-                                            <option value="{{$bobot->verif}}">Terverfikasi</option>
-                                            <option value="{{$bobot->no_verif_penyelenggara}}">Tidak Terverifikasi Penyelenggara PKB dapat diverifikasi dan divalidasi</optio   n>
-                                            <option value="{{$bobot->no_verif_not_penyelenggara}}">Tidak Terverifikasi Penyelenggara PKB tidak dapat diverifikasi dan divalidasi</option>
-                                            <option value="{{$bobot->mandiri}}">Mandiri</option>
+                                            <option value="{{$j->verif}}">Terverfikasi</option>
+                                            <option value="{{$j->no_verif_penyelenggara}}">Tidak Terverifikasi Penyelenggara PKB dapat diverifikasi dan divalidasi</optio   n>
+                                            <option value="{{$j->no_verif_not_penyelenggara}}">Tidak Terverifikasi Penyelenggara PKB tidak dapat diverifikasi dan divalidasi</option>
+                                            <option value="{{$j->mandiri}}">Mandiri</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label  class="col-2 col-form-label">Sifat Kegiatan</label>
                                     <div class="col-10">
-                                        <select class="form-control" name="is_sifat" id="is_sifat">
+                                        <select class="form-control" name="is_sifat[]" id="is_sifat">
                                             <option value="">Pilih Jenis</option>
-                                            <option value="{{$bobot->umum}}">Umum</option>
-                                            <option value="{{$bobot->khusus}}">Khusus</option>
+                                            <option value="{{$j->umum}}">Umum</option>
+                                            <option value="{{$j->khusus}}">Khusus</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label  class="col-2 col-form-label">Metode Kegiatan</label>
                                     <div class="col-10">
-                                        <select class="form-control" name="is_metode" id="is_metode">
+                                        <select class="form-control" name="is_metode[]" id="is_metode">
                                             <option value="">Pilih Metode</option>
-                                            <option value="{{$bobot->tatap_muka}}">Tatap Muka</option>
-                                            <option value="{{$bobot->daring}}">Daring</option>
+                                            <option value="{{$j->tatap_muka}}">Tatap Muka</option>
+                                            <option value="{{$j->daring}}">Daring</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label  class="col-2 col-form-label">Tingkat Kegiatan</label>
                                     <div class="col-10">
-                                        <select class="form-control" name="is_tingkat" id="is_tingkat">
+                                        <select class="form-control" name="is_tingkat[]" id="is_tingkat">
                                             <option value="">Pilih Tingkat</option>
-                                            <option value="{{$bobot->nasional}}">Nasional</option>
-                                            <option value="{{$bobot->internasional_dalam_negeri}}">Internasional Dalam Negeri</option>
-                                            <option value="{{$bobot->internasional_luar_negeri}}">Internasional Luar Negeri</option>
+                                            <option value="{{$j->nasional}}">Nasional</option>
+                                            <option value="{{$j->internasional_dalam_negeri}}">Internasional Dalam Negeri</option>
+                                            <option value="{{$j->internasional_luar_negeri}}">Internasional Luar Negeri</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <button class="btn btn-primary btn-block" type="submit">Submit</button>
-                                </div>
-                            </form>
                         </div>
+                        @endforeach
                     </div>
+                    @endforeach
+                    <div class="form-group row">
+                        <button class="btn btn-primary btn-block" type="submit">Submit</button>
+                    </div>
+                </form>
                     <!--end::Timeline-->
                 </div>
                 <!--end: Card Body-->
