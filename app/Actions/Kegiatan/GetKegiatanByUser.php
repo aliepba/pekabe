@@ -40,7 +40,8 @@ class GetKegiatanByUser
 	        a.tgl_penilaian
         FROM pkb_kegiatan_penyelenggara a
         JOIN personal_profesi_ta_detail b on a.penilai = b.ID_Asosiasi_Profesi
-        WHERE a.user_id = '". Auth::user()->id . "'
+        WHERE a.status_permohonan_kegiatan IN ('SUBMIT', 'APPROVE')
+        AND a.user_id = '". Auth::user()->id . "'
         UNION
         SELECT  a1.uuid,
             a1.nama_kegiatan,
@@ -85,7 +86,8 @@ class GetKegiatanByUser
 	        a.tgl_penilaian
         FROM pkb_kegiatan_penyelenggara a
         JOIN personal_profesi_ta_detail b on a.penilai = b.ID_Asosiasi_Profesi
-        WHERE a.user_id in ('". $subUser ."')
+        WHERE a.status_permohonan_kegiatan IN ('SUBMIT', 'APPROVE')
+        AND a.user_id in ('". $subUser ."')
         ) q")
         ];
     }

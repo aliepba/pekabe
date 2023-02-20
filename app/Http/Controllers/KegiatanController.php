@@ -40,11 +40,16 @@ class KegiatanController extends Controller
         if(Auth::user()->role == 'sub-user'){
             return view('pages.kegiatan.index', [
                 'kegiatan' => new KegiatanCollection(
-                    Kegiatan::where('status_permohonan_kegiatan', 'OPEN')->where('user_id', Auth::user()->id)->get()
+                    Kegiatan::where('status_permohonan_kegiatan', 'OPEN')
+                            ->orWhere('status_permohonan_kegiatan', 'SUBMIT')
+                            ->where('user_id', Auth::user()->id)->get()
                 ),
             ]);
         }else{
-            $data = new KegiatanCollection(Kegiatan::query()->where('user_id', Auth::user()->id)->get());
+            $data = new KegiatanCollection(
+                            Kegiatan::where('status_permohonan_kegiatan', 'OPEN')
+                                    ->orWhere('status_permohonan_kegiatan', 'SUBMIT')
+                                    ->where('user_id', Auth::user()->id)->get());
             return view('pages.kegiatan.index', [
                 'kegiatan' => $data
             ]);
@@ -167,6 +172,6 @@ class KegiatanController extends Controller
     public function tolak()
     {
         $this->authorize('list-tolak', Kegiatan::class);
-        return view('pages.kegiatan.setuju', GetKegiatanTolak::run());
+        return view('pages.kegiatan.tolak', GetKegiatanTolak::run());
     }
 }

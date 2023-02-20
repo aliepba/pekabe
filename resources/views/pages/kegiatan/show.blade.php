@@ -41,6 +41,9 @@
                                 </div>
                             </div>
                             @endif
+                            @if (Auth::user()->role == 'admin' || Auth::user()->role == 'root')
+                            <a href="{{route('kegiatan-penyelenggara.edit', $data->id)}}" class="btn btn-sm btn-primary">Edit</a>
+                            @endif
                         </div>
                     </div>
                     <!--end::Title-->
