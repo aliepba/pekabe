@@ -90,28 +90,28 @@ class KegiatanService {
                 'cv' => $request->hasFile('cv') ? $request->file('cv')->store('file/cv', 'public') : $data->cv,
                 'persyaratan_lain' => $request->hasFile('persyaratan_lain') ? $request->file('persyaratan_lain')->store('file/persyaratan_lain', 'public') : $data->persyaratan_lain,
                 'persyaratan_lain_lain' => $request->hasFile('persyaratan_lain_lain') ? $request->file('persyaratan_lain_lain')->store('file/persyaratan_lain_lain', 'public') : $data->persyaratan_lain_lain,
-                'status_permohonan_kegiatan' => PermohonanStatus::OPEN,
                 'status_permohonan_penyelenggara' => $request->id_penyelenggara == null ? PermohonanStatus::SUBMIT : PermohonanStatus::OPEN,
                 'id_penyelenggara' => $request->id_penyelenggara,
             ]);
 
-            $data->unsurKegiatan()->forceDelete();
-            $data->penyelenggaraLain()->forceDelete();
-
-            foreach($request->unsur_kegiatan as $unsur){
-                UnsurKegiatanPenyelenggara::query()->create([
-                    'id_kegiatan' => $data->uuid,
-                    'id_unsur' => $unsur
-                ]);
+            if(!empty($request->unsur_kegiatan)){
+                $data->unsurKegiatan()->forceDelete();
+                foreach($request->unsur_kegiatan as $unsur){
+                    UnsurKegiatanPenyelenggara::query()->create([
+                        'id_kegiatan' => $data->uuid,
+                        'id_unsur' => $unsur
+                    ]);
+                }
             }
 
             if(!empty($request->penyelenggara_lain)){
-                foreach($request->penyelenggara_lain as $lain){
-                    KegiatanPenyelenggaraLain::query()->create([
-                        'id_penyelenggara' => $lain,
-                        'id_kegiatan' => $data->uuid
-                    ]);
-                }
+                    $data->penyelenggaraLain()->forceDelete();
+                    foreach($request->penyelenggara_lain as $lain){
+                        KegiatanPenyelenggaraLain::query()->create([
+                            'id_penyelenggara' => $lain,
+                            'id_kegiatan' => $data->uuid
+                        ]);
+                    }
             }
 
         });
