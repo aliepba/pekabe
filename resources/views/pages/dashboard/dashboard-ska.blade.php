@@ -121,7 +121,8 @@
         </div>
     </div>
 
-    @include('components.table-kak')
+    {{-- @include('components.table-kak') --}}
+    @include('components.table-dashboard-new')
 
 </div>
 @endsection

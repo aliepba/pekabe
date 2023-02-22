@@ -37,23 +37,34 @@ class KegiatanController extends Controller
     public function index()
     {
         $this->authorize('view-kegiatan', Kegiatan::class);
-        if(Auth::user()->role == 'sub-user'){
-            return view('pages.kegiatan.index', [
-                'kegiatan' => new KegiatanCollection(
-                    Kegiatan::where('status_permohonan_kegiatan', 'OPEN')
-                            ->orWhere('status_permohonan_kegiatan', 'SUBMIT')
-                            ->where('user_id', Auth::user()->id)->get()
-                ),
-            ]);
-        }else{
-            $data = new KegiatanCollection(
-                            Kegiatan::where('status_permohonan_kegiatan', 'OPEN')
-                                    ->orWhere('status_permohonan_kegiatan', 'SUBMIT')
-                                    ->where('user_id', Auth::user()->id)->get());
-            return view('pages.kegiatan.index', [
-                'kegiatan' => $data
-            ]);
-        }
+
+        return view('pages.kegiatan.index', [
+            'kegiatan' => new KegiatanCollection(
+                Kegiatan::where('status_permohonan_kegiatan', 'OPEN')
+                        ->where('status_permohonan_kegiatan', 'SUBMIT')
+                        ->where('user_id', Auth::user()->id)->get()
+            ),
+        ]);
+
+        // if(Auth::user()->role == 'sub-user'){
+        //     return view('pages.kegiatan.index', [
+        //         'kegiatan' => new KegiatanCollection(
+        //             Kegiatan::where('status_permohonan_kegiatan', 'OPEN')
+        //                     ->orWhere('status_permohonan_kegiatan', 'SUBMIT')
+        //                     ->where('user_id', Auth::user()->id)->get()
+        //         ),
+        //     ]);
+        // }
+
+        // if(Auth::user()->role == 'user'){
+        //     $data = new KegiatanCollection(
+        //         Kegiatan::where('status_permohonan_kegiatan', 'OPEN')
+        //                 ->orWhere('status_permohonan_kegiatan', 'SUBMIT')
+        //                 ->where('user_id', Auth::user()->id)->get());
+        //     return view('pages.kegiatan.index', [
+        //         'kegiatan' => $data
+        //     ]);
+        // }
     }
 
     /**
