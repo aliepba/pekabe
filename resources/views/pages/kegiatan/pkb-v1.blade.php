@@ -16,7 +16,7 @@
         </div>
         <div class="card-body">
           <div class="table">
-            <table class="table table-bordered" id="kegiatan" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="kegiatan1" width="100%" cellspacing="0">
               <thead>
                 <tr>
                     <th>No</th>
@@ -31,7 +31,7 @@
                     <tr>
                         <td>{{$loop->iteration}}</td>
                         <td>{{$item->nama_kegiatan}}</td>
-                        <td>{{$item->tempat_kegiatan}}</td>
+                        <td>{{$item->tmpt_kegiatan}}</td>
                         <td>{{$item->mulai_kegiatan}}</td>
                         <td>{{$item->selesai_kegiatan}}</td>
                     <tr>
@@ -47,7 +47,7 @@
 @push('addon-script')
     <script>
         $(document).ready(function () {
-            $('#kegiatan').DataTable();
+            $('#kegiatan1').DataTable();
         });
     </script>
 @endpush
