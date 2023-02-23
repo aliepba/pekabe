@@ -12,7 +12,7 @@ class KegiatanTenagaAhli
     public function handle($nik, $id)
     {
         return [
-            'data' => DB::select("SELECT nama_kegiatan,
+            'kegiatan' => DB::select("SELECT nama_kegiatan,
             start_kegiatan,
             end_kegiatan,
             jenis_kegiatan,

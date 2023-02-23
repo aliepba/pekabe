@@ -18,12 +18,12 @@
                     <th rowspan=3 style="text-align:center"><div>Status</div></th>
                 </tr>
                 <tr>
-                    <th colspan=2 style="text-align:center"><div>Selain Kegiatan Pendidikan Nonformal</div></th>
-                    <th colspan=2 style="text-align:center"><div>Kegiatan Pendidikan Nonformal</div></th>
-                    <th colspan=4 style="text-align:center"><div>Hasil</div></th>
-
                     <th colspan=2 style="text-align:center"><div>Kegiatan PKB Utama</div></th>
                     <th colspan=2 style="text-align:center"><div>Kegiatan PKB Penunjang</div></th>
+                    <th colspan=4 style="text-align:center"><div>Hasil</div></th>
+
+                    <th colspan=2 style="text-align:center"><div>Selain Kegiatan Pendidikan Nonformal</div></th>
+                    <th colspan=2 style="text-align:center"><div>Kegiatan Pendidikan Nonformal</div></th>
                     <th colspan=4 style="text-align:center"><div>Hasil</div></th>
 
                     <th colspan=2 style="text-align:center"><div>Kegiatan PKB Terverifikasi</div></th>
@@ -39,9 +39,9 @@
                 </tr>
                 <tr style="align-items: center;">
                     {{-- //syarat 1 --}}
-                    <th style="text-align:center">Syarat <br/>(>75%)</th>
+                    <th style="text-align:center">Syarat <br/>(> 75%)</th>
                     <th style="text-align:center">Perolehan</th>
-                    <th style="text-align:center">Syarat <br/>(>25%)</th>
+                    <th style="text-align:center">Syarat <br/>(< 25%)</th>
                     <th style="text-align:center">Perolehan</th>
                     <th style="text-align:center">Kelebihan/ Kekurangan Nilai Kredit pada Kegiatan PKB Penunjang</th>
                     <th style="text-align:center">Kelebihan/ Kekurangan Nilai Kredit pada Kegiatan PKB Utama</th>
@@ -49,32 +49,32 @@
                     <th style="text-align:center">Penjelasan</th>
 
                     {{-- syarat 2 --}}
-                    <th style="text-align:center">Syarat <br/>(>75%)</th>
+                    <th style="text-align:center">Syarat <br/>(> 75%)</th>
                     <th style="text-align:center">Perolehan</th>
-                    <th style="text-align:center">Syarat <br/>(>25%)</th>
+                    <th style="text-align:center">Syarat <br/>(< 25%)</th>
                     <th style="text-align:center">Perolehan</th>
-                    <th style="text-align:center">Kelebihan/ Kekurangan Nilai Kredit pada Kegiatan PKB Penunjang</th>
-                    <th style="text-align:center">Kelebihan/ Kekurangan Nilai Kredit pada Kegiatan PKB Utama</th>
+                    <th style="text-align:center">Kelebihan/ Kekurangan Nilai Kredit pada Kegiatan PKB Pendidikan Nonformal</th>
+                    <th style="text-align:center">Kelebihan/ Kekurangan Nilai Kredit pada Kegiatan PKB selain Pendidikan Nonformal</th>
                     <th style="text-align:center">M/T</th>
                     <th style="text-align:center">Penjelasan</th>
 
                     {{-- syarat 3 --}}
-                    <th style="text-align:center">Syarat <br/>(>75%)</th>
+                    <th style="text-align:center">Syarat <br/>(> 60%)</th>
                     <th style="text-align:center">Perolehan</th>
-                    <th style="text-align:center">Syarat <br/>(>25%)</th>
+                    <th style="text-align:center">Syarat <br/>(< 40%)</th>
                     <th style="text-align:center">Perolehan</th>
-                    <th style="text-align:center">Kelebihan/ Kekurangan Nilai Kredit pada Kegiatan PKB Penunjang</th>
-                    <th style="text-align:center">Kelebihan/ Kekurangan Nilai Kredit pada Kegiatan PKB Utama</th>
+                    <th style="text-align:center">Kelebihan/ Kekurangan Nilai Kredit pada Kegiatan PKB Tidak Terverifikasi</th>
+                    <th style="text-align:center">Kelebihan/ Kekurangan Nilai Kredit pada Kegiatan PKB Terverifikasi</th>
                     <th style="text-align:center">M/T</th>
                     <th style="text-align:center">Penjelasan</th>
 
                     {{-- syarat 4 --}}
-                    <th style="text-align:center">Syarat <br/>(>60%)</th>
+                    <th style="text-align:center">Syarat <br/>(> 60%)</th>
                     <th style="text-align:center">Perolehan</th>
-                    <th style="text-align:center">Syarat <br/>(>40%)</th>
+                    <th style="text-align:center">Syarat <br/>(< 40%)</th>
                     <th style="text-align:center">Perolehan</th>
-                    <th style="text-align:center">Kelebihan/ Kekurangan Nilai Kredit pada Kegiatan PKB Penunjang</th>
-                    <th style="text-align:center">Kelebihan/ Kekurangan Nilai Kredit pada Kegiatan PKB Utama</th>
+                    <th style="text-align:center">Kelebihan/ Kekurangan Nilai Kredit pada Kegiatan PKB Umum</th>
+                    <th style="text-align:center">Kelebihan/ Kekurangan Nilai Kredit pada Kegiatan PKB Khusus</th>
                     <th style="text-align:center">M/T</th>
                     <th style="text-align:center">Penjelasan</th>
 

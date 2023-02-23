@@ -117,6 +117,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/kegiatan-tidak-terverifikasi', [LogBookController::class, 'unverified'])->name('kegiatan.unverified');
     Route::post('/unverified', [LogBookController::class, 'store'])->name('unverified.store');
     Route::resource('/kegiatan-terdaftar', OldKegiatanController::class)->only(['create', 'store']);
+    Route::get('/kegiatan-skpk', [LogBookController::class, 'listSkpk'])->name('kegiatan.skpk');
 
     //apt
     Route::get('/dashboard-apt', [DashboardController::class, 'dashboardApt'])->name('dashboard.apt');

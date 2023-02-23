@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\MtKlasifikasi;
 use App\Models\MtUnsurKegiatan;
 use App\Actions\Logbook\TenagaAhli;
+use App\Actions\Logbook\GetLogKegiatan;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Kegiatan\KegiatanService;
 
@@ -24,7 +25,7 @@ class LogBookController extends Controller
     public function index()
     {
         $this->authorize('list-kegiatan');
-        return view('pages.logbook.index', KegiatanTenagaAhli::run(Auth::user()->nik, Auth::user()->id));
+        return view('pages.logbook.index', KegiatanTenagaAhli::run(Auth::user()->nik, Auth::user()->id), TenagaAhli::run(Auth::user()->nik));
     }
 
     public function unverified()
@@ -40,6 +41,10 @@ class LogBookController extends Controller
     {
         $this->kegiatanService->unverified($request);
         return redirect(route('kegiatan.unverified'))->with('success', 'berhasil disimpan!');
+    }
+
+    public function listSkpk(){
+        return view('pages.logbook.kegiatan', GetLogKegiatan::run());
     }
 
 

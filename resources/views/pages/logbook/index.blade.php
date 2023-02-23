@@ -19,7 +19,7 @@
 
 @section('content')
 <div class="container">
-    <div class="card card-custom shadow mb-4">
+    {{-- <div class="card card-custom shadow mb-4">
         <div class="card-header flex-wrap py-3">
             <div class="card-title">
                 <h4 class="h4">List Kegiatan Penyelenggara</h4>
@@ -65,15 +65,9 @@
             </table>
           </div>
         </div>
-      </div>
+    </div> --}}
+    @include('components.table-logbook')
 </div>
 @endsection
 
-@push('addon-script')
-    <script>
-        $(document).ready(function () {
-            $('#kegiatan').DataTable();
-        });
-    </script>
-@endpush
 
