@@ -83,7 +83,7 @@ class LoginService{
                 'email' => $dataDecoded->data->email,
                 'password' => $password,
                 'nik' => $dataDecoded->data->nik,
-                'jenis' => 'ska'
+                'jenis' => 'skk'
             );
 
             $user = User::where('email', $dataDecoded->data->email)->first();

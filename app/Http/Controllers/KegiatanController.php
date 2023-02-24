@@ -41,7 +41,7 @@ class KegiatanController extends Controller
         return view('pages.kegiatan.index', [
             'kegiatan' => new KegiatanCollection(
                 Kegiatan::where('status_permohonan_kegiatan', 'OPEN')
-                        ->where('status_permohonan_kegiatan', 'SUBMIT')
+                        ->orWhere('status_permohonan_kegiatan', 'SUBMIT')
                         ->where('user_id', Auth::user()->id)->get()
             ),
         ]);
@@ -164,7 +164,8 @@ class KegiatanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->kegiatanService->delete($id);
+        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'kegiatan berhasil dihapus!');
     }
 
     public function submit($uuid)

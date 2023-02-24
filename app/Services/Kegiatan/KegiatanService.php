@@ -117,6 +117,15 @@ class KegiatanService {
         });
      }
 
+     public function delete($id){
+        $kegiatan = Kegiatan::find($id);
+        DB::transaction(function() use($kegiatan){
+            $kegiatan->forceDelete();
+            $kegiatan->unsurKegiatan()->forceDelete();
+            $kegiatan->penyelenggaraLain()->forceDelete();
+        });
+     }
+
      public function submit($uuid){
         $data = Kegiatan::where('uuid', $uuid)->first();
         DB::transaction(function () use($uuid, $data){

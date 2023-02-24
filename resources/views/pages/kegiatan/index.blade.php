@@ -49,6 +49,13 @@
                         <td>{{$item->validator->Nama}}</td>
                         <td>
                             <a href="{{route('kegiatan-penyelenggara.show', $item->uuid)}}" class="btn btn-sm btn-primary">Detail</a>
+                            @if ($item->status_permohonan_kegiatan == 'OPEN')
+                            <form action="{{route('kegiatan-penyelenggara.destroy', $item->id)}}" method="post">
+                                @csrf
+                                @method('delete')
+                            <button class="btn btn-danger btn-sm mt-5"><i class="flaticon2-trash"></i></button>
+                        </form>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

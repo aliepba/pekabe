@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Enums\PermohonanStatus;
 use App\Models\Kegiatan;
 use App\Models\PelaporanKegiatan;
+use App\Models\PesertaKegiatan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -42,6 +43,8 @@ class PelaporanService{
             $pelaporanKegiatan->update([
                 'status_laporan' => PermohonanStatus::SUBMIT
             ]);
+
+            // $peserta = PesertaKegiatan::where('id_kegiatan', $pelaporanKegiatan->id_kegiatan)->get();
 
             LogKegiatan::query()->create([
                 'id_kegiatan' => $pelaporanKegiatan->id_kegiatan,
