@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Logbook\GetRekapSKPK;
 use App\Actions\Logbook\KegiatanTenagaAhli;
 use App\Models\LogBook;
 use Illuminate\Http\Request;
@@ -25,7 +26,10 @@ class LogBookController extends Controller
     public function index()
     {
         $this->authorize('list-kegiatan');
-        return view('pages.logbook.index', KegiatanTenagaAhli::run(Auth::user()->nik, Auth::user()->id), TenagaAhli::run(Auth::user()->nik));
+        return view('pages.logbook.index',
+                    KegiatanTenagaAhli::run(Auth::user()->nik, Auth::user()->id),
+                    TenagaAhli::run(Auth::user()->nik)
+                );
     }
 
     public function unverified()
@@ -44,7 +48,7 @@ class LogBookController extends Controller
     }
 
     public function listSkpk(){
-        return view('pages.logbook.kegiatan', GetLogKegiatan::run());
+        return view('pages.logbook.kegiatan', GetLogKegiatan::run(), GetRekapSKPK::run());
     }
 
 

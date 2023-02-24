@@ -2,41 +2,35 @@
 
 @section('content')
 <div class="container">
-    <div class="card card-custom shadow mb-4">
-        <div class="card-header flex-wrap py-3">
-            <div class="card-title">
-                <h4 class="h4">Daftar Kegiatan Aplikasi Lama</h4>
-            </div>
+    <div class="card shadow mb-4">
+        <ul class="nav nav-pills" id="myTab1" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="home-tab-1" data-toggle="tab" href="#rekap">
+                    <span class="nav-icon">
+                        <i class="flaticon2-chat-1"></i>
+                    </span>
+                    <span class="nav-text">Rekap Prakiraan SKPK</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="home-tab-2" data-toggle="tab" href="#daftar">
+                    <span class="nav-icon">
+                        <i class="flaticon2-chat-1"></i>
+                    </span>
+                    <span class="nav-text">Daftar Kegiatan PKB</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="tab-content mt-5" id="myTabContent1">
+        <div class="tab-pane fade show active" id="rekap" role="tabpanel" aria-labelledby="home-tab-1">
+            @include('components.table-rekap')
         </div>
-        <div class="card-body">
-          <div class="table">
-            <table class="table table-bordered" id="kegiatan" width="100%" cellspacing="0">
-              <thead>
-                <tr>
-                  <th>No</th>
-                  <th>Id Sub Bidang</th>
-                  <th>Nama Kegiatan</th>
-                  <th>Tanggal Mulai</th>
-                  <th>Tanggal Selesai</th>
-                  <th>Prakiraan SKPK</th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach ($kegiatan as $item)
-                    <tr>
-                        <td>{{$loop->iteration}}</td>
-                        <td>{{$item->id_sub_bidang}}</td>
-                        <td>{{$item->nama_kegiatan}}</td>
-                        <td>{{$item->mulai_kegiatan}}</td>
-                        <td>{{$item->selesai_kegiatan}}</td>
-                        <td>{{$item->prakiraan_skpk}}</td>
-                    </tr>
-                @endforeach
-              </tbody>
-            </table>
-          </div>
+        <div class="tab-pane fade show" id="daftar" role="tabpanel" aria-labelledby="home-tab-2">
+            @include('components.table-kegiatan-lama')
         </div>
-      </div>
+    </div>
 </div>
 @endsection
 

@@ -1,6 +1,6 @@
 <div class="card card-custom mt-5">
     <div class="card-body pt-0 table-responsive scroller">
-        <table class="table table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
+        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
             <!--begin::Table head-->
             <thead>
                 <tr>
