@@ -16,6 +16,7 @@ use App\Http\Requests\PermohonanKegiatanRequest;
 use App\Http\Resources\Kegiatan\KegiatanCollection;
 use App\Models\DetailInstansi;
 use App\Actions\Kegiatan\GetKegiatanByUser;
+use App\Actions\Kegiatan\GetKegiatanPenyelenggara;
 use App\Actions\Kegiatan\GetKegiatanTolak;
 use App\Models\MtSubUnsurKegiatan;
 
@@ -38,33 +39,7 @@ class KegiatanController extends Controller
     {
         $this->authorize('view-kegiatan', Kegiatan::class);
 
-        return view('pages.kegiatan.index', [
-            'kegiatan' => new KegiatanCollection(
-                Kegiatan::where('status_permohonan_kegiatan', 'OPEN')
-                        ->orWhere('status_permohonan_kegiatan', 'SUBMIT')
-                        ->where('user_id', Auth::user()->id)->get()
-            ),
-        ]);
-
-        // if(Auth::user()->role == 'sub-user'){
-        //     return view('pages.kegiatan.index', [
-        //         'kegiatan' => new KegiatanCollection(
-        //             Kegiatan::where('status_permohonan_kegiatan', 'OPEN')
-        //                     ->orWhere('status_permohonan_kegiatan', 'SUBMIT')
-        //                     ->where('user_id', Auth::user()->id)->get()
-        //         ),
-        //     ]);
-        // }
-
-        // if(Auth::user()->role == 'user'){
-        //     $data = new KegiatanCollection(
-        //         Kegiatan::where('status_permohonan_kegiatan', 'OPEN')
-        //                 ->orWhere('status_permohonan_kegiatan', 'SUBMIT')
-        //                 ->where('user_id', Auth::user()->id)->get());
-        //     return view('pages.kegiatan.index', [
-        //         'kegiatan' => $data
-        //     ]);
-        // }
+        return view('pages.kegiatan.index', GetKegiatanPenyelenggara::run());
     }
 
     /**
