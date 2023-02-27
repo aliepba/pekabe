@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\Logbook\GetRekapSKPK;
-use App\Actions\Logbook\KegiatanTenagaAhli;
 use App\Models\LogBook;
 use Illuminate\Http\Request;
 use App\Models\MtKlasifikasi;
 use App\Models\MtUnsurKegiatan;
+use PDF;
 use App\Actions\Logbook\TenagaAhli;
-use App\Actions\Logbook\GetLogKegiatan;
 use Illuminate\Support\Facades\Auth;
+use App\Actions\Logbook\GetRekapSKPK;
+use App\Actions\Logbook\GetLogKegiatan;
+use App\Actions\Logbook\GetRekapExport;
 use App\Services\Kegiatan\KegiatanService;
+use App\Actions\Logbook\KegiatanTenagaAhli;
 
 class LogBookController extends Controller
 {
@@ -49,6 +51,11 @@ class LogBookController extends Controller
 
     public function listSkpk(){
         return view('pages.logbook.kegiatan', GetLogKegiatan::run(), GetRekapSKPK::run());
+    }
+
+    public function export($subBidang){
+        $pdf = PDF::loadview('pdf.summary', GetRekapExport::run($subBidang));
+        return $pdf->stream();
     }
 
 

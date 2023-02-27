@@ -14,6 +14,7 @@
               <th>Deskripsi Bidang</th>
               <th>Kualifikasi</th>
               <th>Prakiraan SKPK</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -24,6 +25,9 @@
                     <td>{{$item['des_sub_klas']}}</td>
                     <td>{{$item['kualifikasi']}}</td>
                     <td>{{$item['nilai_skpk']}}</td>
+                    <td>
+                        <a href="{{route('summary', $item['id_sub_bidang'])}}" class="btn btn-sm btn-primary">Export Data</a>
+                    </td>
                 </tr>
             @endforeach
           </tbody>
