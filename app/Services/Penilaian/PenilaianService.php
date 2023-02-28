@@ -2,21 +2,27 @@
 
 namespace App\Services\Penilaian;
 
+use App\Actions\Logbook\TenagaAhli;
 use Carbon\Carbon;
+use App\Jobs\Penilaian;
 use App\Models\Kegiatan;
 use App\Models\LogKegiatan;
 use Illuminate\Http\Request;
 use App\Enums\PermohonanStatus;
-use App\Jobs\Penilaian;
+use App\Models\PenilaianPeserta;
 use App\Models\MtBobotPenilaian;
 use App\Models\PenilaianKegiatan;
 use Illuminate\Support\Facades\DB;
 use App\Models\PenilaianValidator;
+use App\Models\PesertaKegiatan;
 use Illuminate\Support\Facades\Auth;
+use App\Models\PelaporanKegiatan;
+use App\Models\MtSubUnsurKegiatan;
 
 class PenilaianService{
+
     public function verifikasi($uuid){
-        $kegiatan = Kegiatan::where('uuid', $uuid)->first();
+        $kegiatan = Kegiatan::with(['peserta'])->where('uuid', $uuid)->first();
         $bobotPenilaian = MtBobotPenilaian::find($kegiatan->unsur_kegiatan);
         DB::transaction(function () use($kegiatan, $bobotPenilaian){
             $kegiatan->update([
@@ -125,4 +131,50 @@ class PenilaianService{
             ]);
         });
     }
+
+    public function penilaianPeserta($id){
+        $pelaporan = PelaporanKegiatan::findOrFail($id);
+        $kegiatan = Kegiatan::with(['peserta'])->where('uuid',$pelaporan->id_kegiatan)->first();
+        DB::transaction(function () use($kegiatan){
+            foreach($kegiatan->peserta as $item){
+                $unsurKegiatan = MtSubUnsurKegiatan::with(['bobot'])->find($item->unsur_peserta);
+
+                $tingkat = 1;
+                $jenis = 1;
+                $metode = $item->metode_peserta == 'Tatap Muka' ? $unsurKegiatan->bobot->tatap_muka : $unsurKegiatan->bobot->daring;
+                $sifat = $unsurKegiatan->bobot->khusus;
+
+                if($kegiatan->tingkat_kegiatan === "1"){
+                    $tingkat = $unsurKegiatan->bobot->nasional;
+                }elseif($kegiatan->tingkat_kegiatan === "2"){
+                    $tingkat = $unsurKegiatan->bobot->internasional_dalam_negeri;
+                }else{
+                    $tingkat = $unsurKegiatan->bobot->internasional_luar_negeri;
+                }
+
+                foreach(TenagaAhli::run($item->nik_peserta) as $sub){
+                    foreach($sub as $s){
+                        PenilaianPeserta::query()->create([
+                            'id_kegiatan' => $kegiatan->uuid,
+                            'id_unsur' => $item->unsur_peserta,
+                            'nik' => $item->nik_peserta,
+                            'id_sub_bidang' => $s->id_sub_bidang,
+                            'is_jenis' => $jenis,
+                            'is_sifat' => $sifat,
+                            'is_metode' => $metode,
+                            'is_tingkat' => $tingkat,
+                            'angka_kredit' => $unsurKegiatan->nilai_skpk * ($jenis == null ? 1 : (float)$jenis) * ($sifat == null ? 1 : (float)$sifat) * ($metode == null ? 1 : (float)$metode) * ($tingkat == null ? 1 : (float)$tingkat)
+                        ]);
+                    }
+                }
+
+            }
+        });
+    }
 }
+
+
+// get peserta dari model KegiatanPeserta
+// get unsur kegiatan by id unsur
+// get bobot penilaian by id bobot
+// nilai unsur

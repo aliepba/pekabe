@@ -8,15 +8,18 @@ use Illuminate\Http\Request;
 use App\Services\Pelaporan\PelaporanService;
 use App\Jobs\isVerifikasi;
 use App\Jobs\Penilaian;
+use App\Services\Penilaian\PenilaianService;
 
 class PelaporanController extends Controller
 {
 
     private $pelaporanService;
+    private $penilaianService;
 
-    public function __construct(PelaporanService $pelaporanService)
+    public function __construct(PelaporanService $pelaporanService, PenilaianService $penilaianService)
     {
         $this->pelaporanService = $pelaporanService;
+        $this->penilaianService = $penilaianService;
     }
 
     /**
@@ -105,6 +108,7 @@ class PelaporanController extends Controller
     {
         // $this->authorize('submit_pelaporan', PelaporanKegiatan::class);
         $this->pelaporanService->submit($id);
+        $this->penilaianService->penilaianPeserta($id);
         dispatch(new Penilaian($id));
         return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'data laporan kegiatan berhasil disubmit!');
     }

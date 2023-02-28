@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class PelaporanService{
+
     public function store(Request $request)
     {
         DB::transaction(function () use($request){
