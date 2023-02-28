@@ -15,6 +15,15 @@ class CreatePkbPenilaianPesertaTable extends Migration
     {
         Schema::create('pkb_penilaian_peserta', function (Blueprint $table) {
             $table->id();
+            $table->string('id_kegiatan');
+            $table->string('id_unsur');
+            $table->string('nik');
+            $table->string('id_sub_bidang')->nullable();
+            $table->decimal('is_jenis')->nullable();
+            $table->decimal('is_sifat')->nullable();
+            $table->decimal('is_metode')->nullable();
+            $table->decimal('is_tingkat')->nullable();
+            $table->decimal('angka_kredit')->nullable();
             $table->timestamps();
         });
     }

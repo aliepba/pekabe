@@ -23,12 +23,12 @@
             <tr>
                 <th width="200px">Nama</th>
                 <th>:</th>
-                <th>{{$data->Nama}}</th>
+                <th>{{$data->nama}}</th>
             </tr>
             <tr>
                 <th width="200px">NIK</th>
                 <th>:</th>
-                <th>{{$data->NIK}}</th>
+                <th>{{$data->nik}}</th>
             </tr>
             <tr>
                 <th width="200px">Kode Subklasifikasi</th>
