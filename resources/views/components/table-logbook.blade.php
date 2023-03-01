@@ -28,7 +28,7 @@
                         <td>{{$d->nama_kegiatan}}</td>
                         <td>{{$d->start_kegiatan}}</td>
                         <td>{{$d->unsur_kegiatan}}</td>
-                        <td>Terverifikasi</td>
+                        <td>{{$d->is_verifikasi == 1 ? 'Terverifikasi' : 'Tidak Tervefikasi'}}</td>
                         @foreach ($data as $item)
                         <td>Khusus</td>
                         @endforeach
