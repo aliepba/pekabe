@@ -205,7 +205,7 @@
                 <!--begin::Body-->
                 <div class="card-body pt-4">
                     <!--begin::Timeline-->
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col-lg-2">
                             <a href="{{asset('storage/'. $data->surat_permohonan)}}" target="_blank" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>Surat Permohonan *</a>
                         </div>
@@ -231,7 +231,7 @@
                             </div>
                             </form>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="row mt-2">
                         <div class="col-lg-2">
                             <a href="{{asset('storage/'. $data->tor_kak)}}" target="_blank" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>TOR / KAK</a><span class="text-danger">*</span>

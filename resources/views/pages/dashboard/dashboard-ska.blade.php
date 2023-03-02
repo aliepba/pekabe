@@ -24,7 +24,7 @@
                             </span>
                         </span>
                         <div class="d-flex flex-column text-right">
-                            <span class="text-dark-75 font-weight-bolder font-size-h3">750$</span>
+                            <span class="text-dark-75 font-weight-bolder font-size-h3"></span>
                             <span class="text-muted font-weight-bold mt-2">Kegiatan Disetujui</span>
                         </div>
                     </div>
@@ -53,7 +53,7 @@
                             </span>
                         </span>
                         <div class="d-flex flex-column text-right">
-                            <span class="text-dark-75 font-weight-bolder font-size-h3">750$</span>
+                            <span class="text-dark-75 font-weight-bolder font-size-h3"></span>
                             <span class="text-muted font-weight-bold mt-2">Kegiatan Ditolak</span>
                         </div>
                     </div>
@@ -82,7 +82,7 @@
                             </span>
                         </span>
                         <div class="d-flex flex-column text-right">
-                            <span class="text-dark-75 font-weight-bolder font-size-h3">750$</span>
+                            <span class="text-dark-75 font-weight-bolder font-size-h3"></span>
                             <span class="text-muted font-weight-bold mt-2">Kegiatan Terverifikasi</span>
                         </div>
                     </div>
@@ -111,7 +111,7 @@
                             </span>
                         </span>
                         <div class="d-flex flex-column text-right">
-                            <span class="text-dark-75 font-weight-bolder font-size-h3">750$</span>
+                            <span class="text-dark-75 font-weight-bolder font-size-h3"></span>
                             <span class="text-muted font-weight-bold mt-2">Kegiatan Tidak Terverifikasi</span>
                         </div>
                     </div>
