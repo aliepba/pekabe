@@ -12,4 +12,5 @@ class PermohonanStatus
     const TERVERIFIKASI = 'TERVERIFIKASI';
     CONST UNVERIFIED = 'UNVERIFIED';
     const PENILAIAN = 'PENILAIAN';
+    const APPROVESISTEM = 'APPROVE SISTEM';
 }
