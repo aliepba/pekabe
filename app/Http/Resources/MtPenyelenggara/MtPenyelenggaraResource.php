@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Resources\User;
+namespace App\Http\Resources\MtPenyelenggara;
 
 use App\Enums\DateFormat;
-use App\Http\Resources\MtPenyelenggara\MtPenyelenggaraResource;
-use App\Http\Resources\Role\RoleResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class MtPenyelenggaraResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,10 +17,8 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->id,
-            'email' => $this->email,
-            'roles' => RoleResource::collection($this->whenLoaded('roles')),
-            'penyelenggara' => MtPenyelenggaraResource::collection($this->whenLoaded('penyelenggara')),
+            'jenis_penyelenggara' => $this->jenis_penyelenggara,
+            'deleted_at' => $this->created_at->format(DateFormat::WITH_TIME),
             'created_at' => $this->created_at->format(DateFormat::WITH_TIME),
             'updated_at' => $this->updated_at->format(DateFormat::WITH_TIME),
         ];

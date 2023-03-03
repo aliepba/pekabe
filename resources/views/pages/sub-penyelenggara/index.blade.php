@@ -50,7 +50,6 @@
                                     @if ($item->is_active == 0)
                                     <a href="{{route('change.status', $item->id)}}" class="dropdown-item">Active</a>
                                     @endif
-                                    <a class="dropdown-item" href="#">Something else here</a>
                                 </div>
                             </div>
                         </td>

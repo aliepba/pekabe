@@ -11,6 +11,16 @@
                 @method('PUT')
                 @csrf
                 <div class="form-group">
+                    <label class="control-label">Jenis Penyelenggara</label>
+                    <select class="form-control" name="jenis_penyelenggara" required>
+                        @foreach ($jenis as $item)
+                        <option value="{{$item->id}}" @if ($item->id == $data->jenis_penyelenggara)
+                            selected
+                        @endif>{{$item->jenis_penyelenggara}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
                     <label class="control-label">Nama</label>
                     <input type="text" class="form-control" name="name" placeholder="FullName" value="{{$data->name}}" required/>
                 </div>

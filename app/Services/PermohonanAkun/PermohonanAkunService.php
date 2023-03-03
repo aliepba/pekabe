@@ -143,7 +143,8 @@ class PermohonanAkunService
                 'email' => $permohonan->email_instansi,
                 'email_verified_at' => Carbon::now(),
                 'role' => 'user',
-                'password' => Hash::make($permohonan->penanggungjawab->password)
+                'password' => Hash::make($permohonan->penanggungjawab->password),
+                'jenis_penyelenggara' => $permohonan->jenis
             ]);
 
             $user->syncRoles('user');

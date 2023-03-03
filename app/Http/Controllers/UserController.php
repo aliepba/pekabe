@@ -8,6 +8,7 @@ use Spatie\Permission\Models\Role;
 use App\Services\User\UserService;
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\User\UserCollection;
+use App\Models\MtPenyelenggara;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -29,7 +30,7 @@ class UserController extends Controller
         // dd(Auth::user()->roles->first()->name);
         $this->authorize('view-users', User::class);
         return view('pages.users.index', [
-            'users' => new UserCollection(User::query()->with(['roles'])->paginate(10))
+            'users' => new UserCollection(User::query()->with(['roles', 'penyelenggara'])->get())
         ]);
     }
 
@@ -41,7 +42,8 @@ class UserController extends Controller
     public function create()
     {
         return view('pages.users.create', [
-            'roles' => Role::all()
+            'roles' => Role::all(),
+            'jenis' => MtPenyelenggara::all()
         ]);
     }
 
@@ -77,8 +79,9 @@ class UserController extends Controller
     public function edit(User $user)
     {
         return view('pages.users.edit', [
-            'data' => new UserResource($user->load(['roles'])),
-            'roles' => Role::all()
+            'data' => new UserResource($user->load(['roles', 'penyelenggara'])),
+            'roles' => Role::all(),
+            'jenis' => MtPenyelenggara::all()
         ]);
     }
 

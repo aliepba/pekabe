@@ -10,6 +10,14 @@
             <form action="{{route('users.store')}}" method="POST">
                 @csrf
                 <div class="form-group">
+                    <label class="control-label">Jenis Penyelenggara</label>
+                    <select class="form-control" name="jenis_penyelenggara" required>
+                        @foreach ($jenis as $item)
+                        <option value="{{$item->id}}">{{$item->jenis_penyelenggara}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
                     <label class="control-label">Nama</label>
                     <input type="text" class="form-control" name="name" placeholder="FullName" required/>
                 </div>

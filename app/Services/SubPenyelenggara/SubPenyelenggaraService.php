@@ -29,7 +29,8 @@ class SubPenyelenggaraService {
                 'name' => $data->nama,
                 'email' => $data->email,
                 'password' => Hash::make($data->password),
-                'role' => 'sub-user'
+                'role' => 'sub-user',
+                'jenis_penyelenggara' => Auth::user()->jenis_penyelenggara
             ]);
 
             $user->assignRole('sub-user');

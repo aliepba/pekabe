@@ -18,7 +18,8 @@ class UserService {
                 'password' => Hash::make($data['password']),
                 'role' => 'skk-ska',
                 'nik' => $data['nik'],
-                'jenis' => $data['jenis']
+                'jenis' => $data['jenis'],
+                'jenis_penyelenggara' => 99
             ]);
 
             $user->assignRole('skk-ska');
@@ -31,7 +32,8 @@ class UserService {
                 'name' => $data->name,
                 'email' => $data->email,
                 'password' => Hash::make($data->password),
-                'role' => 'sub-user'
+                'role' => 'sub-user',
+                'jenis_penyelenggara' => Auth::user()->jenis_penyelenggara
             ]);
 
             $user->assignRole('sub-user');
@@ -45,7 +47,8 @@ class UserService {
                             'name' => $request->input('name'),
                             'email' => $request->input('email'),
                             'password' => Hash::make($request->input('password')),
-                            'role' => $request->input('role')
+                            'role' => $request->input('role'),
+                            'jenis_penyelenggara' => $request->jenis_penyelenggara
                         ]);
 
             $user->syncRoles($request->role);
@@ -57,7 +60,8 @@ class UserService {
             $user->update([
                 'name' => $request->name,
                 'email' => $request->email,
-                'role' => $request->input('role')
+                'role' => $request->input('role'),
+                'jenis_penyelenggara' => $request->jenis_penyelenggara
             ]);
 
             $user->syncRoles($request->role);

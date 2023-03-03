@@ -27,7 +27,8 @@ class User extends Authenticatable
         'password',
         'role',
         'nik',
-        'jenis'
+        'jenis',
+        'jenis_penyelenggara'
     ];
 
     /**
@@ -48,4 +49,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function penyelenggara(){
+        return $this->hasOne(MtPenyelenggara::class, 'id', 'jenis_penyelenggara');
+    }
 }
