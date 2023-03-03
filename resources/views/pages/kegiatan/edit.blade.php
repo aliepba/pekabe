@@ -41,6 +41,18 @@
                                 @endforeach
                             </select>
                         </div>
+                        @if (Auth::user()->jenis_penyelenggara == 1)
+                        <div class="form-group">
+                            <label>Verifikator/validator dan penilai <span class="text-danger">*</span></label>
+                            <select class="form-control" name="penilai">
+                                <option value="{{$data->penilai}}" selected>{{$data->validator->Nama_Lengkap}} ({{$data->validator->Nama}})</option>
+                                @foreach ($profesi as $item)
+                                    <option value="{{$item->ID_Asosiasi_Profesi}}">{{$item->Nama_Lengkap}} ({{$item->Nama}})</option>
+                                    <option value="000">Lembaga Pengembangan Jasa Konstruksi (LPJK)</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @else
                         <div class="form-group">
                             <label>Verifikator/validator dan penilai <span class="text-danger">*</span></label>
                             <select class="form-control" name="penilai">
@@ -50,6 +62,7 @@
                                 @endforeach
                             </select>
                         </div>
+                        @endif
                     </div>
                 </div>
                 <div class="row">

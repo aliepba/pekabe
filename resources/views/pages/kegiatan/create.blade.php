@@ -32,6 +32,15 @@
                                 @endforeach
                             </select>
                         </div>
+                        @if (Auth::user()->jenis_penyelenggara == 1)
+                        <div class="form-group">
+                            <label>Verifikator/validator dan penilai <span class="text-danger">*</span></label>
+                            <select class="form-control" name="penilai" id="validator1">
+                                <option>-- pilih validator -- </option>
+                                <option value="000">Lembaga Pengembangan Jasa Konstruksi (LPJK)</option>
+                            </select>
+                        </div>
+                        @else
                         <div class="form-group">
                             <label>Verifikator/validator dan penilai <span class="text-danger">*</span></label>
                             <select class="form-control" name="penilai" id="validator">
@@ -39,6 +48,7 @@
                                 <option value="000">Lembaga Pengembangan Jasa Konstruksi (LPJK)</option>
                             </select>
                         </div>
+                        @endif
                     </div>
                 </div>
                 <div class="row">
