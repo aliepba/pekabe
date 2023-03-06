@@ -41,7 +41,7 @@ class PersetujuanKegiatan implements ShouldQueue
 
             if($DeferenceInDays > 3){
                 $item->update([
-                    'status_permohonan_kegiatan' => PermohonanStatus::APPROVESISTEM
+                    'status_permohonan_kegiatan' => PermohonanStatus::APPROVE
                 ]);
 
                 LogKegiatan::query()->create([

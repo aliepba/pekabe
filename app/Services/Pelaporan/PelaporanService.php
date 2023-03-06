@@ -45,8 +45,6 @@ class PelaporanService{
                 'status_laporan' => PermohonanStatus::SUBMIT
             ]);
 
-            // $peserta = PesertaKegiatan::where('id_kegiatan', $pelaporanKegiatan->id_kegiatan)->get();
-
             LogKegiatan::query()->create([
                 'id_kegiatan' => $pelaporanKegiatan->id_kegiatan,
                 'status_permohonan' => PermohonanStatus::SUBMIT,

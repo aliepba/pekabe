@@ -179,85 +179,21 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-lg-2">
-                    <a href="{{asset('storage/'. $data->laporan->upload_persyaratan)}}" target="_blank" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>Laporan Kegiatan *</a>
+                <div class="col-lg-3">
+                    <a href="{{asset('storage/'. $data->laporan->upload_persyaratan)}}" target="_blank" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>Laporan Kegiatan *</a> <br />
+                    <a href="{{asset('storage/'. $data->laporan->materi_kegiatan)}}" target="_blank" class="btn btn-sm btn-primary rounded-lg mt-2"><i class="flaticon-file"></i>Materi Kegiatan *</a> <br />
+                    <a href="{{asset('storage/'. $data->laporan->dokumentasi_kegiatan)}}" target="_blank" class="btn btn-sm btn-primary rounded-lg mt-2"><i class="flaticon-file"></i>Dokumentasi Kegiatan *</a>
                 </div>
-                <div class="col-lg-2">
-                    <span class="switch switch-icon">
-                        <label>
-                        <input type="checkbox" name="select" id="checkSurat"/>
-                        <span></span>
-                        </label>
-                    </span>
+                <div class="col-md-7">
+                    <form action="{{route('validasi.kegiatan', $data->uuid)}}" method="POST">
+                    @method('PUT')
+                    @csrf
+                    <textarea rows="5" class="form-control" name="keterangan_verifikasi"></textarea>
                 </div>
-                <div class="col-lg-8">
-                    <form id="suratPermohonan">
-                        @csrf
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="keterangan" name="keterangan_surat" id="keterangan_surat" disabled/>
-                        <input type="hidden" value="{{$data->uuid}}" name="id_kegiatan"/>
-                        <input type="hidden" value="edit.surat" name="linkSurat"/>
-                        <input type="hidden" value="{{$data->user_id}}" name="user_id_surat"/>
-                        <div class="input-group-append">
-                            <button class="btn btn-secondary" type="submit">Kirim!</button>
-                        </div>
-                    </div>
-                    </form>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-sm btn-primary">Submit</button>
                 </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-lg-2">
-                    <a href="{{asset('storage/'. $data->laporan->materi_kegiatan)}}" target="_blank" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>Materi Kegiatan *</a>
-                </div>
-                <div class="col-lg-2">
-                    <span class="switch switch-icon">
-                        <label>
-                        <input type="checkbox" name="select" id="checkTor"/>
-                        <span></span>
-                        </label>
-                    </span>
-                </div>
-                <div class="col-lg-8">
-                    <form id="suratPermohonan">
-                        @csrf
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="keterangan" name="keterangan_surat" id="tor_kak" disabled/>
-                        <input type="hidden" value="{{$data->uuid}}" name="id_kegiatan"/>
-                        <input type="hidden" value="edit.surat" name="linkSurat"/>
-                        <input type="hidden" value="{{$data->user_id}}" name="user_id_surat"/>
-                        <div class="input-group-append">
-                            <button class="btn btn-secondary" type="submit">Kirim!</button>
-                        </div>
-                    </div>
-                    </form>
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-lg-2">
-                    <a href="{{asset('storage/'. $data->laporan->dokumentasi_kegiatan)}}" target="_blank" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>Dokumentasi Kegiatan *</a>
-                </div>
-                <div class="col-lg-2">
-                    <span class="switch switch-icon">
-                        <label>
-                        <input type="checkbox" name="select" id="checkCV"/>
-                        <span></span>
-                        </label>
-                    </span>
-                </div>
-                <div class="col-lg-8">
-                    <form id="suratPermohonan">
-                        @csrf
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="keterangan" name="keterangan_surat" id="cv" disabled/>
-                        <input type="hidden" value="{{$data->uuid}}" name="id_kegiatan"/>
-                        <input type="hidden" value="edit.surat" name="linkSurat"/>
-                        <input type="hidden" value="{{$data->user_id}}" name="user_id_surat"/>
-                        <div class="input-group-append">
-                            <button class="btn btn-secondary" type="submit">Kirim!</button>
-                        </div>
-                    </div>
-                    </form>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -277,6 +213,7 @@
                         <th>NIK</th>
                         <th>Unsur</th>
                         <th>Metode</th>
+                        <th>Action</th>
                       </tr>
                   </thead>
                   <tbody>
@@ -286,6 +223,9 @@
                         <td>{{$item->nik_peserta}}</td>
                         <td>{{$item->metode_peserta}}</td>
                         <td>{{$item->unsur->nama_sub_unsur}}</td>
+                        <td>
+                            <a href="{{route('peserta.edit', $item->id)}}" class="btn btn-sm btn-primary">Edit</a>
+                        </td>
                     </tr>
                     @endforeach
                   </tbody>

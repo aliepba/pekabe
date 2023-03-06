@@ -34,14 +34,15 @@ class CreateKegiatanPenyelenggaraTable extends Migration
             $table->text('cv');
             $table->text('persyaratan_lain')->nullable();
             $table->text('persyaratan_lain_lain')->nullable();
-            $table->enum('status_permohonan_kegiatan', ['APPROVE', 'PERBAIKAN', 'TOLAK', 'SUBMIT', 'OPEN', 'APPROVE SISTEM'])->default('OPEN');
-            $table->enum('status_permohonan_penyelenggara', ['APPROVE', 'PERBAIKAN', 'TOLAK', 'SUBMIT', 'OPEN', 'APPROVE SISTEM'])->default('OPEN');
+            $table->enum('status_permohonan_kegiatan', ['APPROVE', 'PERBAIKAN', 'TOLAK', 'SUBMIT', 'OPEN', 'APPROVE SISTEM', 'VALIDASI', 'PELAPORAN', 'PENGESAHAN', 'UNVERIFIED', 'TERVERIFIKASI', 'PENILAIAN'])->default('OPEN');
+            $table->enum('status_permohonan_penyelenggara', ['APPROVE', 'PERBAIKAN', 'TOLAK', 'SUBMIT', 'OPEN', 'APPROVE SISTEM', 'VALIDASI', 'PELAPORAN', 'PENGESAHAN', 'UNVERIFIED', 'TERVERIFIKASI', 'PENILAIAN'])->default('OPEN');
             $table->string('id_penyelenggara')->nullable();
             $table->string('user_id');
             $table->text('keterangan')->nullable();
             $table->boolean('is_verifikasi')->nullable();
             $table->date('tgl_proses')->nullable();
             $table->date('tgl_penilaian')->nullable();
+            $table->text('keterangan_verifikasi')->nullable();
             $table->timestamps();
         });
     }

@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kegiatan;
+use App\Models\LogKegiatan;
 use Illuminate\Http\Request;
+use App\Enums\PermohonanStatus;
+use Illuminate\Support\Facades\DB;
 use App\Actions\Kegiatan\GetValidatorByAPT;
 use App\Services\Penilaian\PenilaianService;
 use App\Actions\Kegiatan\GetPenilaianValidator;
@@ -13,8 +17,7 @@ class PenilaianValidatorController extends Controller
 
     private $penilaianService;
 
-    public function __construct(PenilaianService $penilaianService)
-    {
+    public function __construct(PenilaianService $penilaianService){
         $this->PenilaianService = $penilaianService;
     }
     /**
@@ -32,10 +35,6 @@ class PenilaianValidatorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -61,26 +60,30 @@ class PenilaianValidatorController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function validasi(Request $request, $uuid)
     {
-        //
+        // $this->penilaianService->validasiKegiatan($request, $uuid);
+        $kegiatan = Kegiatan::where('uuid', $uuid)->first();
+        DB::transaction(function () use($request, $kegiatan){
+            $kegiatan->update([
+                'status_permohonan_kegiatan' => PermohonanStatus::VALIDASI,
+                'keterangan_verifikasi' => $request->keterangan_verifikasi
+            ]);
+
+            LogKegiatan::query()->create([
+                'id_kegiatan' => $kegiatan->uuid,
+                'status_permohonan' => PermohonanStatus::VALIDASI,
+                'keterangan' => 'kegiatan terverifikasi',
+                'user' => 1
+            ]);
+        });
+        return redirect(route('penilaian-validator.index'))->with('success', 'berhasil diverifikasi dan validasi');
     }
 
     /**

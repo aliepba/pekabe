@@ -171,6 +171,24 @@ class PenilaianService{
             }
         });
     }
+
+    public function validasiKegiatan(Request $request, $uuid){
+        $kegiatan = Kegiatan::where('uuid', $uuid)->first();
+        dd($kegiatan);
+        DB::transaction(function () use($request, $kegiatan){
+            $kegiatan->update([
+                'keterangan_verifikasi' => $request->keterangan_verifikasi
+            ]);
+
+            LogKegiatan::query()->create([
+                'id_kegiatan' => $kegiatan->uuid,
+                'status_permohonan' => PermohonanStatus::VALIDASI,
+                'keterangan' => 'kegiatan terverifikasi',
+                'user' => 1
+            ]);
+        });
+    }
+
 }
 
 

@@ -22,6 +22,8 @@ use App\Http\Controllers\SubUnsurKegiatanController;
 use App\Http\Controllers\SubPenyelenggaraController;
 use App\Http\Controllers\VerifikasiKegiatanController;
 use App\Http\Controllers\PenilaianValidatorController;
+use App\Models\PenilaianValidator;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -64,6 +66,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('bobot-penilaian', BobotPenilaianController::class);
     Route::resource('sub-unsur-kegiatan', SubUnsurKegiatanController::class);
     Route::resource('penilaian-validator', PenilaianValidatorController::class)->only(['index', 'store', 'show']);
+    Route::put('/verifikasi-validasi/{uuid}', [PenilaianValidatorController::class, 'validasi'])->name('validasi.kegiatan');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/list-permohonan', [VerifikasiAkunController::class, 'list'])->name('list.permohonan');
     Route::get('/detail-permohonan/{uuid}', [VerifikasiAkunController::class, 'detailPermohonan'])->name('detail.permohonan');

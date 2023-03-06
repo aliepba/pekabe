@@ -4,13 +4,16 @@ namespace App\Enums;
 
 class PermohonanStatus
 {
-    const OPEN = 'OPEN';
-    const SUBMIT = 'SUBMIT';
     const APPROVE = 'APPROVE';
-    const TOLAK = 'TOLAK';
     const PERBAIKAN = 'PERBAIKAN';
-    const TERVERIFIKASI = 'TERVERIFIKASI';
-    CONST UNVERIFIED = 'UNVERIFIED';
-    const PENILAIAN = 'PENILAIAN';
+    const TOLAK = 'TOLAK';
+    const SUBMIT = 'SUBMIT';
+    const OPEN = 'OPEN';
     const APPROVESISTEM = 'APPROVE SISTEM';
+    const VALIDASI = 'VALIDASI';
+    const PELAPORAN = 'PELAPORAN';
+    const PENGESAHAN = 'PENGESAHAN';
+    CONST UNVERIFIED = 'UNVERIFIED';
+    const TERVERIFIKASI = 'TERVERIFIKASI';
+    const PENILAIAN = 'PENILAIAN';
 }
