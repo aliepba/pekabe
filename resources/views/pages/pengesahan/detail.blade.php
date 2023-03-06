@@ -90,7 +90,7 @@
                    </div>
                    <div class="row">
                         <div class="col-md-4">
-                            <label>Tingkat Kegiatan : </label>
+                            <label>Unsur Kegiatan : </label>
                         </div>
                         <div class="col-md-6">
                             <label>  @foreach ($data->unsurKegiatan as $unsurKegiatan)
@@ -106,55 +106,142 @@
                             </div>
                         </div>
                    </div>
+                   <div class="row">
+                    <div class="col-md-4">
+                        <label>Metode Kegiatan : </label>
+                    </div>
+                    <div class="col-md-6">
+                        <label>{{$data->metode_kegiatan}}</label>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="checkbox-inline">
+                            <label class="checkbox">
+                                <input type="checkbox" name="Checkboxes2"/>
+                                <span></span>
+                            </label>
+                        </div>
+                    </div>
+                   </div>
+                   <div class="row">
+                    <div class="col-md-4">
+                        <label>Tingkat Kegiatan : </label>
+                    </div>
+                    <div class="col-md-6">
+                        <label>@if ($data->tingkat_kegiatan == 1)
+                            Nasional
+                        @elseif ($data->tingkat_kegiatan == 2)
+                            Internasion Dalam Negeri
+                        @else
+                            Internasion Luar Negeri
+                        @endif</label>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="checkbox-inline">
+                            <label class="checkbox">
+                                <input type="checkbox" name="Checkboxes2"/>
+                                <span></span>
+                            </label>
+                        </div>
+                    </div>
+                   </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="d-flex align-items-center mb-10">
-                        <!--begin::Symbol-->
-                        <div class="symbol symbol-40 symbol-light-success mr-5">
-                            <span class="symbol-label">
-                                <img src="assets/media/svg/avatars/009-boy-4.svg" class="h-75 align-self-end" alt="" />
-                            </span>
-                        </div>
-                        <!--end::Symbol-->
-                        <!--begin::Text-->
-                        <div class="d-flex flex-column flex-grow-1 font-weight-bold">
-                            <span class="text-muted">Subklasifikasi</span>
-                            <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">{{$data->subklasifikasi}}</a>
-                        </div>
-                        <!--end::Text-->
+                    <div class="row">
+                     <div class="col-md-4">
+                         <label>Nama Kegiatan : </label>
+                     </div>
+                     <div class="col-md-6">
+                         <label>{{$data->nama_kegiatan}}</label>
+                     </div>
+                     <div class="col-md-2">
+                         <div class="checkbox-inline">
+                             <label class="checkbox">
+                                 <input type="checkbox" name="Checkboxes2"/>
+                                 <span></span>
+                             </label>
+                         </div>
+                     </div>
                     </div>
-                    <div class="d-flex align-items-center mb-10">
-                        <!--begin::Symbol-->
-                        <div class="symbol symbol-40 symbol-light-success mr-5">
-                            <span class="symbol-label">
-                                <img src="assets/media/svg/avatars/009-boy-4.svg" class="h-75 align-self-end" alt="" />
-                            </span>
-                        </div>
-                        <!--end::Symbol-->
-                        <!--begin::Text-->
-                        <div class="d-flex flex-column flex-grow-1 font-weight-bold">
-                            <span class="text-muted">Metode Kegiatan</span>
-                            <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">{{$data->metode_kegiatan}}</a>
-                        </div>
-                        <!--end::Text-->
+                    <div class="row">
+                         <div class="col-md-4">
+                             <label>Subklasifikasi : </label>
+                         </div>
+                         <div class="col-md-6">
+                             <label>{{$data->subklasifikasi}}</label>
+                         </div>
+                         <div class="col-md-2">
+                             <div class="checkbox-inline">
+                                 <label class="checkbox">
+                                     <input type="checkbox" name="Checkboxes2"/>
+                                     <span></span>
+                                 </label>
+                             </div>
+                         </div>
                     </div>
-                    <div class="d-flex align-items-center mb-10">
-                        <!--begin::Symbol-->
-                        <div class="symbol symbol-40 symbol-light-success mr-5">
-                            <span class="symbol-label">
-                                <img src="assets/media/svg/avatars/009-boy-4.svg" class="h-75 align-self-end" alt="" />
-                            </span>
-                        </div>
-                        <!--end::Symbol-->
-                        <!--begin::Text-->
-                        <div class="d-flex flex-column flex-grow-1 font-weight-bold">
-                            <span class="text-muted">Tempat Kegiatan</span>
-                            <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">{{$data->tempat_kegiatan}}</a>
-                        </div>
-                        <!--end::Text-->
+                    <div class="row">
+                     <div class="col-md-4">
+                         <label>Tingkat Kegiatan : </label>
+                     </div>
+                     <div class="col-md-6">
+                         <label>@if ($data->tingkat_kegiatan == 1)
+                             Nasional
+                         @elseif ($data->tingkat_kegiatan == 2)
+                             Internasion Dalam Negeri
+                         @else
+                             Internasion Luar Negeri
+                         @endif</label>
+                     </div>
+                     <div class="col-md-2">
+                         <div class="checkbox-inline">
+                             <label class="checkbox">
+                                 <input type="checkbox" name="Checkboxes2"/>
+                                 <span></span>
+                             </label>
+                         </div>
+                     </div>
+                    </div>
+                 </div>
+                </div>
+            <div class="row mt-5">
+                <div class="col-md-3">
+                    <a href="{{asset('storage/'. $data->laporan->upload_persyaratan)}}" target="_blank" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>Laporan Kegiatan *</a> <br />
+                </div>
+                <div class="col-md-6 mt-3">
+                    <div class="checkbox-inline">
+                        <label class="checkbox">
+                            <input type="checkbox" name="Checkboxes2"/>
+                            <span></span>
+                        </label>
                     </div>
                 </div>
             </div>
+            <div class="row mt-5">
+                <div class="col-md-3">
+                    <a href="{{asset('storage/'. $data->laporan->materi_kegiatan)}}" target="_blank" class="btn btn-sm btn-primary rounded-lg mt-2"><i class="flaticon-file"></i>Materi Kegiatan *</a> <br />
+                </div>
+                <div class="col-md-6 mt-4">
+                    <div class="checkbox-inline">
+                        <label class="checkbox">
+                            <input type="checkbox" name="Checkboxes2"/>
+                            <span></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-3">
+                    <a href="{{asset('storage/'. $data->laporan->dokumentasi_kegiatan)}}" target="_blank" class="btn btn-sm btn-primary rounded-lg mt-2"><i class="flaticon-file"></i>Dokumentasi Kegiatan *</a>
+                </div>
+                <div class="col-md-6 mt-4">
+                    <div class="checkbox-inline">
+                        <label class="checkbox">
+                            <input type="checkbox" name="Checkboxes2"/>
+                            <span></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

@@ -18,6 +18,7 @@ use App\Http\Controllers\PermohonanAkunController;
 use App\Http\Controllers\VerifikasiAkunController;
 use App\Http\Controllers\BobotPenilaianController;
 use App\Http\Controllers\PengesahanController;
+use App\Http\Controllers\PenilaianKegiatanController;
 use App\Http\Controllers\PesertaKegiatanController;
 use App\Http\Controllers\SubUnsurKegiatanController;
 use App\Http\Controllers\SubPenyelenggaraController;
@@ -65,7 +66,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('unsur-kegiatan', UnsurKegiatanController::class);
     Route::resource('bobot-penilaian', BobotPenilaianController::class);
     Route::resource('sub-unsur-kegiatan', SubUnsurKegiatanController::class);
-    Route::resource('penilaian-validator', PenilaianValidatorController::class)->only(['index', 'store', 'show']);
+    Route::resource('verifikasi-validasi', PenilaianValidatorController::class)->only(['index', 'show']);
     Route::put('/verifikasi-validasi/{uuid}', [PenilaianValidatorController::class, 'validasi'])->name('validasi.kegiatan');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/list-permohonan', [VerifikasiAkunController::class, 'list'])->name('list.permohonan');
@@ -81,6 +82,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/detail/{id}', [VerifikasiKegiatanController::class, 'detailKegiatan']);
     Route::put('/kegiatan/hasil', [VerifikasiKegiatanController::class, 'updateStatus'])->name('verifikasi.status');
     Route::post('/add-komen', [VerifikasiKegiatanController::class, 'addKomen'])->name('add.komen');
+    Route::get('/penilaian-kegiatan', [PenilaianKegiatanController::class, 'index'])->name('penilaian.index');
+    Route::get('/penilaian-kegiatan/{uuid}', [PenilaianKegiatanController::class, 'detail'])->name('penilaian.detail');
+    Route::post('/save-penilaian', [PenilaianKegiatanController::class, 'store'])->name('penilaian.store');
     Route::get('/pengesahan-kegiatan', [PengesahanController::class, 'index'])->name('pengesahan.index');
     Route::get('/detail-pengesahan/{uuid}', [PengesahanController::class, 'detail'])->name('pengesahan.detail');
 

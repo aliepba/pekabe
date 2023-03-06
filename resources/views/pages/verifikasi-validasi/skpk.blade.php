@@ -13,7 +13,7 @@
             <!--begin::Body-->
             <div class="card-body pt-4">
                 <!--begin::Timeline-->
-                <form action="{{route('penilaian-validator.store')}}" method="POST">
+                <form action="{{route('verifikasi-validasi.store')}}" method="POST">
                 @csrf
                 @foreach ($data->nilaiPelaporan as $item)
                 <div class="row">

@@ -99,7 +99,8 @@ class PenilaianService{
         $kegiatan = Kegiatan::where('uuid', $request->id_kegiatan)->first();
         DB::transaction(function () use($request, $kegiatan){
             $kegiatan->update([
-                'tgl_penilaian' => Carbon::now()
+                'tgl_penilaian' => Carbon::now(),
+                'status_permohonan_kegiatan' => PermohonanStatus::PENILAIAN
             ]);
 
             $idUnsur = $request->input('id_unsur');
@@ -191,8 +192,3 @@ class PenilaianService{
 
 }
 
-
-// get peserta dari model KegiatanPeserta
-// get unsur kegiatan by id unsur
-// get bobot penilaian by id bobot
-// nilai unsur

@@ -27,7 +27,7 @@ class PenilaianValidatorController extends Controller
      */
     public function index()
     {
-        return view('pages.penilaian-validator.index', GetPenilaianValidator::run());
+        return view('pages.verifikasi-validasi.index', GetPenilaianValidator::run());
     }
 
     /**
@@ -44,8 +44,8 @@ class PenilaianValidatorController extends Controller
      */
     public function store(Request $request)
     {
-        $this->PenilaianService->penilaianValidator($request);
-        return redirect(route('penilaian-validator.index'))->with('success', 'berhasil dinilai');
+        // $this->PenilaianService->penilaianValidator($request);
+        // return redirect(route('verifikasi-validasi.index'))->with('success', 'berhasil dinilai');
     }
 
     /**
@@ -56,7 +56,7 @@ class PenilaianValidatorController extends Controller
      */
     public function show($uuid)
     {
-        return view('pages.penilaian-validator.verifikasi', GetDetailPenilaianValidator::run($uuid));
+        return view('pages.verifikasi-validasi.verifikasi', GetDetailPenilaianValidator::run($uuid));
     }
 
     /**
@@ -83,7 +83,7 @@ class PenilaianValidatorController extends Controller
                 'user' => 1
             ]);
         });
-        return redirect(route('penilaian-validator.index'))->with('success', 'berhasil diverifikasi dan validasi');
+        return redirect(route('verifikasi-validasi.index'))->with('success', 'berhasil diverifikasi dan validasi');
     }
 
     /**
@@ -99,6 +99,6 @@ class PenilaianValidatorController extends Controller
 
     public function apt()
     {
-        return view('pages.penilaian-validator.listByApt', GetValidatorByAPT::run());
+        return view('pages.verifikasi-validasi.listByApt', GetValidatorByAPT::run());
     }
 }
