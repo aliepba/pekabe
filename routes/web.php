@@ -17,12 +17,12 @@ use App\Http\Controllers\UnsurKegiatanController;
 use App\Http\Controllers\PermohonanAkunController;
 use App\Http\Controllers\VerifikasiAkunController;
 use App\Http\Controllers\BobotPenilaianController;
+use App\Http\Controllers\PengesahanController;
 use App\Http\Controllers\PesertaKegiatanController;
 use App\Http\Controllers\SubUnsurKegiatanController;
 use App\Http\Controllers\SubPenyelenggaraController;
 use App\Http\Controllers\VerifikasiKegiatanController;
 use App\Http\Controllers\PenilaianValidatorController;
-use App\Models\PenilaianValidator;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,6 +81,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/detail/{id}', [VerifikasiKegiatanController::class, 'detailKegiatan']);
     Route::put('/kegiatan/hasil', [VerifikasiKegiatanController::class, 'updateStatus'])->name('verifikasi.status');
     Route::post('/add-komen', [VerifikasiKegiatanController::class, 'addKomen'])->name('add.komen');
+    Route::get('/pengesahan-kegiatan', [PengesahanController::class, 'index'])->name('pengesahan.index');
+    Route::get('/detail-pengesahan/{uuid}', [PengesahanController::class, 'detail'])->name('pengesahan.detail');
 
     //penyelenggara
     Route::get('/dashboard-user', [DashboardController::class, 'dashboardUser'])->name('dashboard.user');

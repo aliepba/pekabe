@@ -14,7 +14,10 @@ class GetKegiatan
     public function handle() :array
     {
         return [
-            'setuju' => Kegiatan::where('status_permohonan_kegiatan', PermohonanStatus::APPROVE)->get(),
+            'setuju' => Kegiatan::where('status_permohonan_kegiatan', '!=' ,PermohonanStatus::OPEN)
+                                ->where('status_permohonan_kegiatan', '!=', PermohonanStatus::SUBMIT)
+                                ->where('status_permohonan_kegiatan', '!=', PermohonanStatus::TOLAK)
+                                ->get(),
             'tolak' => Kegiatan::where('status_permohonan_kegiatan', PermohonanStatus::TOLAK)->get()
         ];
     }

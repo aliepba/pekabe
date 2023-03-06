@@ -112,7 +112,7 @@
                         <!--end::Symbol-->
                         <!--begin::Text-->
                         <div class="d-flex flex-column flex-grow-1 font-weight-bold">
-                            <span class="text-muted">Tingkat Kegiatan</span>
+                            <span class="text-muted">Unsur Kegiatan</span>
                             <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">
                                 @foreach ($data->unsurKegiatan as $unsurKegiatan)
                                 {{$unsurKegiatan->unsur->nama_sub_unsur}}, <br/>

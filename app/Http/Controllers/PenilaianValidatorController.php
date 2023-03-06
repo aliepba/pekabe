@@ -56,7 +56,7 @@ class PenilaianValidatorController extends Controller
      */
     public function show($uuid)
     {
-        return view('pages.penilaian-validator.penilaian', GetDetailPenilaianValidator::run($uuid));
+        return view('pages.penilaian-validator.verifikasi', GetDetailPenilaianValidator::run($uuid));
     }
 
     /**
