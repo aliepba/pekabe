@@ -12,7 +12,7 @@ class GetDetailPengesahan
     public function handle($uuid)
     {
         return [
-            'data' => Kegiatan::with(['jenis', 'unsurKegiatan', 'unsurKegiatan.unsur'])->where('uuid', $uuid)->first()
+            'data' => Kegiatan::with(['jenis', 'unsurKegiatan', 'unsurKegiatan.unsur', 'laporan'])->where('uuid', $uuid)->first()
         ];
     }
 }

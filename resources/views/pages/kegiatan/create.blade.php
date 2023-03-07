@@ -76,7 +76,7 @@
                         <h5 class="h5">Klasifikasi Kegiatan</h5>
                         <div class="form-group">
                             <label>Tingkat <span class="text-danger">*</span></label>
-                            <select class="form-control" name="tingkat_kegiatan">
+                            <select class="form-control" name="tingkat_kegiatan" required>
                                 <option value="hehe">pilih tingkat</option>
                                 <option value="1">Nasional</option>
                                 <option value="2">Internasional Dalam Negeri</option>

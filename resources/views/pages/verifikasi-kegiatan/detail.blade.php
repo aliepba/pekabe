@@ -425,10 +425,6 @@
             })
         }
 
-        document.getElementById('checkSurat').onchange = function() {
-            document.getElementById('keterangan_surat').disabled = !this.checked;
-        };
-
         document.getElementById('checkTor').onchange = function() {
             document.getElementById('tor_kak').disabled = !this.checked;
         };

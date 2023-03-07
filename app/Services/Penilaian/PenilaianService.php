@@ -52,7 +52,7 @@ class PenilaianService{
                 'id_kegiatan' => $kegiatan->uuid,
                 'status_permohonan' => PermohonanStatus::TERVERIFIKASI,
                 'keterangan' => 'kegiatan terverifikasi',
-                'user' => 1
+                'user' => Auth::user()->id
             ]);
 
 
@@ -90,7 +90,7 @@ class PenilaianService{
                 'id_kegiatan' => $kegiatan->uuid,
                 'status_permohonan' => PermohonanStatus::UNVERIFIED,
                 'keterangan' => 'kegiatan tidak terverifikasi',
-                'user' => 1
+                'user' => Auth::user()->id
             ]);
         });
     }
@@ -128,7 +128,7 @@ class PenilaianService{
                  'id_kegiatan' => $request->id_kegiatan,
                 'status_permohonan' => PermohonanStatus::PENILAIAN,
                 'keterangan' => 'kegiatan sudah dilakukan penilaian oleh validator',
-                'user' => 1
+                'user' => Auth::user()->id
             ]);
         });
     }
@@ -175,7 +175,6 @@ class PenilaianService{
 
     public function validasiKegiatan(Request $request, $uuid){
         $kegiatan = Kegiatan::where('uuid', $uuid)->first();
-        dd($kegiatan);
         DB::transaction(function () use($request, $kegiatan){
             $kegiatan->update([
                 'keterangan_verifikasi' => $request->keterangan_verifikasi
@@ -185,8 +184,25 @@ class PenilaianService{
                 'id_kegiatan' => $kegiatan->uuid,
                 'status_permohonan' => PermohonanStatus::VALIDASI,
                 'keterangan' => 'kegiatan terverifikasi',
-                'user' => 1
+                'user' => Auth::user()->id
             ]);
+        });
+    }
+
+    public function pengesahan(Request $request, $uuid){
+        $kegiatan = Kegiatan::where('uuid', $uuid)->first();
+        DB::transaction(function () use($request, $kegiatan){
+            $kegiatan->update([
+                'status_permohonan_kegiatan' => PermohonanStatus::PENGESAHAN
+            ]);
+
+            LogKegiatan::query()->create([
+                'id_kegiatan' => $kegiatan->uuid,
+                'status_permohonan' => PermohonanStatus::PENGESAHAN,
+                'keterangan' => 'kegiatan sudah pengesahan',
+                'user' => Auth::user()->id
+            ]);
+
         });
     }
 

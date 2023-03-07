@@ -26,15 +26,7 @@
                             </a>
                         </div>
                         <div class="my-lg-0 my-3">
-                            <a href="javascript:void(0)" onclick="updateKeabsahan({{$data->id}})" class="btn btn-sm btn-info"><i class="icon-x text-white-50 flaticon-eye"></i>Action</a>
-                            {{-- <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Action
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="{{route('permohonan.approve', $data->uuid)}}">Submit</a>
-                                </div>
-                            </div> --}}
+                            <a href="" class="btn btn-sm btn-info"><i class="icon-x text-white-50 flaticon-eye"></i>Submit</a>
                         </div>
                     </div>
                     <!--end::Title-->
@@ -58,11 +50,6 @@
                                 </a>
                                 <a href="#" class="text-dark-50 text-hover-primary font-weight-bold">
                                 <i class="flaticon-calendar-with-a-clock-time-tools mr-2 font-size-lg"></i>{{$data->start_kegiatan}} s/d {{$data->end_kegiatan}}</a>
-                            </div>
-                            <div class="row">
-                            {{-- <a href="" class="btn btn-sm btn-primary rounded-lg col-md-3" target="_blank"><i class="flaticon-file"></i>{{$file1 != null ? $file1 : 'upload persyaratan'}}</a>
-                            <a href="" class="btn btn-sm btn-primary rounded-lg col-md-3 ml-2" target="_blank"><i class="flaticon-file"></i>{{$file2 != null ? $file2 : 'upload persyaratan'}}</a>
-                            <a href="" class="btn btn-sm btn-primary rounded-lg col-md-3 ml-2" target="_blank"><i class="flaticon-file"></i>{{$file2 != null ? $file2 : 'upload persyaratan'}}</a> --}}
                             </div>
                         </div>
                     </div>
@@ -112,28 +99,6 @@
                     </div>
                     <div class="col-md-6">
                         <label>{{$data->metode_kegiatan}}</label>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="checkbox-inline">
-                            <label class="checkbox">
-                                <input type="checkbox" name="Checkboxes2"/>
-                                <span></span>
-                            </label>
-                        </div>
-                    </div>
-                   </div>
-                   <div class="row">
-                    <div class="col-md-4">
-                        <label>Tingkat Kegiatan : </label>
-                    </div>
-                    <div class="col-md-6">
-                        <label>@if ($data->tingkat_kegiatan == 1)
-                            Nasional
-                        @elseif ($data->tingkat_kegiatan == 2)
-                            Internasion Dalam Negeri
-                        @else
-                            Internasion Luar Negeri
-                        @endif</label>
                     </div>
                     <div class="col-md-2">
                         <div class="checkbox-inline">
@@ -232,7 +197,7 @@
                 <div class="col-md-3">
                     <a href="{{asset('storage/'. $data->laporan->dokumentasi_kegiatan)}}" target="_blank" class="btn btn-sm btn-primary rounded-lg mt-2"><i class="flaticon-file"></i>Dokumentasi Kegiatan *</a>
                 </div>
-                <div class="col-md-6 mt-4">
+                <div class="col-md-2 mt-4">
                     <div class="checkbox-inline">
                         <label class="checkbox">
                             <input type="checkbox" name="Checkboxes2"/>
@@ -241,7 +206,14 @@
                     </div>
                 </div>
             </div>
-
+            <div class="row mt-5">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Keterangan</label>
+                        <textarea class="form-control" name="keterangan" rows="5"></textarea>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
