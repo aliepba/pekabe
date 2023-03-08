@@ -4,7 +4,7 @@
 <div class="container">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h4 class="h4">Form Kegiatan</h4>
+            <h4 class="h4">Form Kegiatan {{$data->nama_kegiatan}}</h4>
         </div>
         <div class="card-body">
             <form action="{{route('cv.update', $data->id)}}" method="POST" enctype="multipart/form-data">
