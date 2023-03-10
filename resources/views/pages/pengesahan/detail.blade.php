@@ -186,10 +186,10 @@
                     <a href="{{asset('storage/'. $data->laporan->dokumentasi_kegiatan)}}" target="_blank" class="btn btn-sm btn-primary rounded-lg mt-2"><i class="flaticon-file"></i>Dokumentasi Kegiatan *</a>
                 </div>
                 <div class="col-md-7">
-                    <form action="{{route('validasi.kegiatan', $data->uuid)}}" method="POST">
+                    <form action="{{route('pengesahan.selesai', $data->uuid)}}" method="POST">
                     @method('PUT')
                     @csrf
-                    <textarea rows="5" class="form-control" name="keterangan_verifikasi"></textarea>
+                    <textarea rows="5" class="form-control" name="keterangan_pengesahan"></textarea>
                 </div>
                 <div class="col-md-2">
                     <button type="submit" class="btn btn-sm btn-primary">Submit</button>

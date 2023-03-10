@@ -18,7 +18,7 @@ class PenilaianValidatorController extends Controller
     private $penilaianService;
 
     public function __construct(PenilaianService $penilaianService){
-        $this->PenilaianService = $penilaianService;
+        $this->penilaianService = $penilaianService;
     }
     /**
      * Display a listing of the resource.
@@ -68,21 +68,7 @@ class PenilaianValidatorController extends Controller
      */
     public function validasi(Request $request, $uuid)
     {
-        // $this->penilaianService->validasiKegiatan($request, $uuid);
-        $kegiatan = Kegiatan::where('uuid', $uuid)->first();
-        DB::transaction(function () use($request, $kegiatan){
-            $kegiatan->update([
-                'status_permohonan_kegiatan' => PermohonanStatus::VALIDASI,
-                'keterangan_verifikasi' => $request->keterangan_verifikasi
-            ]);
-
-            LogKegiatan::query()->create([
-                'id_kegiatan' => $kegiatan->uuid,
-                'status_permohonan' => PermohonanStatus::VALIDASI,
-                'keterangan' => 'kegiatan terverifikasi',
-                'user' => 1
-            ]);
-        });
+        $this->penilaianService->validasiKegiatan($request, $uuid);
         return redirect(route('verifikasi-validasi.index'))->with('success', 'berhasil diverifikasi dan validasi');
     }
 

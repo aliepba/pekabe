@@ -133,9 +133,8 @@ class PenilaianService{
         });
     }
 
-    public function penilaianPeserta($id){
-        $pelaporan = PelaporanKegiatan::findOrFail($id);
-        $kegiatan = Kegiatan::with(['peserta'])->where('uuid',$pelaporan->id_kegiatan)->first();
+    public function penilaianPeserta($uuid){
+        $kegiatan = Kegiatan::with(['peserta'])->where('uuid', $uuid)->first();
         DB::transaction(function () use($kegiatan){
             foreach($kegiatan->peserta as $item){
                 $unsurKegiatan = MtSubUnsurKegiatan::with(['bobot'])->find($item->unsur_peserta);
@@ -176,7 +175,8 @@ class PenilaianService{
     public function validasiKegiatan(Request $request, $uuid){
         $kegiatan = Kegiatan::where('uuid', $uuid)->first();
         DB::transaction(function () use($request, $kegiatan){
-            $kegiatan->update([
+             $kegiatan->update([
+                'status_permohonan_kegiatan' => PermohonanStatus::VALIDASI,
                 'keterangan_verifikasi' => $request->keterangan_verifikasi
             ]);
 
@@ -184,17 +184,20 @@ class PenilaianService{
                 'id_kegiatan' => $kegiatan->uuid,
                 'status_permohonan' => PermohonanStatus::VALIDASI,
                 'keterangan' => 'kegiatan terverifikasi',
-                'user' => Auth::user()->id
+                'user' => 1
             ]);
         });
     }
 
     public function pengesahan(Request $request, $uuid){
         $kegiatan = Kegiatan::where('uuid', $uuid)->first();
-        DB::transaction(function () use($request, $kegiatan){
+        DB::transaction(function () use($request, $kegiatan,  $uuid){
             $kegiatan->update([
-                'status_permohonan_kegiatan' => PermohonanStatus::PENGESAHAN
+                'status_permohonan_kegiatan' => PermohonanStatus::PENGESAHAN,
+                'keterangan_pengesahan' => $request->keterangan_pengesahan
             ]);
+
+            $this->penilaianPeserta($uuid);
 
             LogKegiatan::query()->create([
                 'id_kegiatan' => $kegiatan->uuid,

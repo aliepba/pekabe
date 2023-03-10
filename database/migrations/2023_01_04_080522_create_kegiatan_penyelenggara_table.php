@@ -43,6 +43,7 @@ class CreateKegiatanPenyelenggaraTable extends Migration
             $table->date('tgl_proses')->nullable();
             $table->date('tgl_penilaian')->nullable();
             $table->text('keterangan_verifikasi')->nullable();
+            $table->text('keterangan_pengesahan')->nullable();
             $table->timestamps();
         });
     }

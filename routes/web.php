@@ -87,6 +87,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/save-penilaian', [PenilaianKegiatanController::class, 'store'])->name('penilaian.store');
     Route::get('/pengesahan-kegiatan', [PengesahanController::class, 'index'])->name('pengesahan.index');
     Route::get('/detail-pengesahan/{uuid}', [PengesahanController::class, 'detail'])->name('pengesahan.detail');
+    Route::put('/pengesahan/{uuid}', [PengesahanController::class, 'sah'])->name('pengesahan.selesai');
 
     //penyelenggara
     Route::get('/dashboard-user', [DashboardController::class, 'dashboardUser'])->name('dashboard.user');

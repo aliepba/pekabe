@@ -126,6 +126,13 @@ class PermohonanAkunService
     public function approve($uuid){
         DB::transaction(function () use($uuid){
             $permohonan = DetailInstansi::with(['penanggungjawab'])->where('uuid', $uuid)->first();
+
+            $user = User::where('email', $permohonan->email_instansi)->first();
+
+            if($user){
+                return redirect(route('list.permohonan'))->with('errors', 'Akun Dengan Email Tersebut Sudah Terdaftar');
+            }
+
             $permohonan->update([
                 'status_permohonan' => PermohonanStatus::APPROVE,
                 'tgl_proses' => Carbon::now()
