@@ -116,7 +116,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/sub-penyelenggara/change-status/{id}', [SubPenyelenggaraController::class, 'change'])->name('change.status');
     Route::get('/peserta-kegiatan/create/{uuid}', [PesertaKegiatanController::class, 'create'])->name('peserta.create');
     Route::post('/peserta-kegiatan', [PesertaKegiatanController::class, 'store'])->name('peserta.store');
-    Route::resource('/peserta', PesertaKegiatanController::class)->only(['edit', 'update']);
+    Route::resource('/peserta', PesertaKegiatanController::class)->only(['edit', 'update', 'destroy']);
     Route::post('/mark-as-read', [PreferensiController::class, 'markNotif'])->name('markNotification');
 
     Route::get('kegiatan-pkb-terverifikasi', [Pkbv1Controller::class, 'kegiatanTerverifikasi'])->name('pkb.lama');

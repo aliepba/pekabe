@@ -19,7 +19,15 @@
                         </div>
                         <div class="form-group">
                             <label>Unsur Kegiatan</label>
-                            <input type="text" class="form-control" name="unsur" value="{{$data->unsur_peserta}}" readonly>
+                            <select class="form-control" name="unsur">
+                            @foreach ($kegiatan->unsurKegiatan as $unsurKegiatan)
+                            <option value="{{$unsurKegiatan->id_unsur}}" @if ($unsurKegiatan->id_unsur == $data->unsur_peserta)
+                                selected
+                            @endif>
+                                {{$unsurKegiatan->unsur->nama_sub_unsur}}
+                            </option>
+                            @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
                             <label>Metode Kegiatan</label>

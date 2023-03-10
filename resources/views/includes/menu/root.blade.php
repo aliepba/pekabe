@@ -89,10 +89,10 @@
                     </g>
                 </svg><!--end::Svg Icon-->
             </span>
-            <span class="menu-text">Verifikasi Validasi</span>
+            <span class="menu-text">Verifikasi Validasi dan Penilaian</span>
         </a>
     </li>
-    <li class="menu-item menu-item" aria-haspopup="true">
+    {{-- <li class="menu-item menu-item" aria-haspopup="true">
         <a href="{{route('penilaian.index')}}" class="menu-link">
             <span class="svg-icon menu-icon"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\legacy\metronic\theme\html\demo1\dist/../src/media/svg/icons\Communication\Add-user.svg-->
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -106,7 +106,7 @@
             </span>
             <span class="menu-text">Penilaian Kegiatan</span>
         </a>
-    </li>
+    </li> --}}
     <li class="menu-item menu-item" aria-haspopup="true">
         <a href="{{route('pengesahan.index')}}" class="menu-link">
             <span class="svg-icon menu-icon"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\legacy\metronic\theme\html\demo1\dist/../src/media/svg/icons\Communication\Add-user.svg-->

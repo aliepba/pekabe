@@ -1,4 +1,4 @@
-<div class="row">
+{{-- <div class="row">
     <div class="col-lg-12 col-xxl-12">
         <!--begin::List Widget 9-->
         <div class="card card-custom card-stretch gutter-b">
@@ -99,4 +99,4 @@
         </div>
         <!--end: List Widget 9-->
     </div>
-</div>
+</div> --}}

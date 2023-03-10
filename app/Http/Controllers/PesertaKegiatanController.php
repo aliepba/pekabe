@@ -74,8 +74,10 @@ class PesertaKegiatanController extends Controller
     public function edit($id)
     {
         $this->authorize('edit-peserta', PesertaKegiatan::class);
+        $data = PesertaKegiatan::with(['unsur'])->find($id);
         return view('pages.peserta.edit', [
-            'data' => PesertaKegiatan::find($id)
+            'data' => $data,
+            'kegiatan' => Kegiatan::with('unsurKegiatan', 'unsurKegiatan.unsur')->where('uuid', $data->id_kegiatan)->first()
         ]);
     }
 
@@ -101,6 +103,7 @@ class PesertaKegiatanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->pesertaService->delete($id);
+        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'peserta berhasil dihapus');
     }
 }

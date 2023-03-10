@@ -26,7 +26,8 @@
                             </a>
                         </div>
                         <div class="my-lg-0 my-3">
-                            <a href="javascript:void(0)" onclick="updateKeabsahan({{$data->id}})" class="btn btn-sm btn-info"><i class="icon-x text-white-50 flaticon-eye"></i>Action</a>
+                            {{-- <a href="javascript:void(0)" onclick="updateKeabsahan({{$data->id}})" class="btn btn-sm btn-info"><i class="icon-x text-white-50 flaticon-eye"></i>Action</a> --}}
+                            <a href="{{route('kegiatan-penyelenggara.edit', $data->id)}}" class="btn btn-sm btn-primary">Edit</a>
                             {{-- <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Action
@@ -225,6 +226,11 @@
                         <td>{{$item->unsur->nama_sub_unsur}}</td>
                         <td>
                             <a href="{{route('peserta.edit', $item->id)}}" class="btn btn-sm btn-primary">Edit</a>
+                            <form action="{{route('peserta.destroy', $item->id)}}" method="post">
+                                @csrf
+                                @method('delete')
+                            <button class="btn btn-danger btn-sm mt-5"><i class="flaticon2-trash"></i></button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach

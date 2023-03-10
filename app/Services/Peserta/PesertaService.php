@@ -41,4 +41,11 @@ class PesertaService
             ]);
         });
     }
+
+    public function delete($id){
+        $peserta = PesertaKegiatan::find($id);
+        DB::transaction(function () use($peserta){
+            $peserta->forceDelete();
+        });
+    }
 }
