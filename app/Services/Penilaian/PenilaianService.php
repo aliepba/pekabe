@@ -2,22 +2,25 @@
 
 namespace App\Services\Penilaian;
 
-use App\Actions\Logbook\TenagaAhli;
+use Notification;
 use Carbon\Carbon;
+use App\Models\User;
 use App\Jobs\Penilaian;
 use App\Models\Kegiatan;
 use App\Models\LogKegiatan;
 use Illuminate\Http\Request;
+use App\Models\PesertaKegiatan;
 use App\Enums\PermohonanStatus;
 use App\Models\PenilaianPeserta;
 use App\Models\MtBobotPenilaian;
 use App\Models\PenilaianKegiatan;
-use Illuminate\Support\Facades\DB;
-use App\Models\PenilaianValidator;
-use App\Models\PesertaKegiatan;
-use Illuminate\Support\Facades\Auth;
 use App\Models\PelaporanKegiatan;
+use App\Models\PenilaianValidator;
+use Illuminate\Support\Facades\DB;
 use App\Models\MtSubUnsurKegiatan;
+use App\Actions\Logbook\TenagaAhli;
+use Illuminate\Support\Facades\Auth;
+use App\Notifications\PengesahanNotification;
 
 class PenilaianService{
 
@@ -191,7 +194,8 @@ class PenilaianService{
 
     public function pengesahan(Request $request, $uuid){
         $kegiatan = Kegiatan::where('uuid', $uuid)->first();
-        DB::transaction(function () use($request, $kegiatan,  $uuid){
+        $user = User::find($kegiatan->user_id);
+        DB::transaction(function () use($request, $kegiatan, $uuid, $user){
             $kegiatan->update([
                 'status_permohonan_kegiatan' => PermohonanStatus::PENGESAHAN,
                 'keterangan_pengesahan' => $request->keterangan_pengesahan
@@ -206,6 +210,7 @@ class PenilaianService{
                 'user' => Auth::user()->id
             ]);
 
+            Notification::send($user, new PengesahanNotification($kegiatan));
         });
     }
 

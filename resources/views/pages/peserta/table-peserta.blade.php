@@ -12,8 +12,8 @@
                 <tr>
                     <th>No</th>
                     <th>NIK</th>
-                    <th>Unsur</th>
                     <th>Metode</th>
+                    <th>Unsur</th>
                     <th>Action</th>
                   </tr>
               </thead>

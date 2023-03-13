@@ -39,6 +39,7 @@
                         </td>
                         <td>
                             <a href="{{route('pengesahan.detail', $item->uuid)}}" class="btn btn-sm btn-primary">Proses</a>
+                            <a href="{{route('pengesahan.ba', $item->uuid)}}" class="btn btn-sm btn-info">Berita Acara</a>
                         </td>
                     </tr>
                 @endforeach

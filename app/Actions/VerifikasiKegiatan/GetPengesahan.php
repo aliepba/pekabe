@@ -13,7 +13,10 @@ class GetPengesahan
     public function handle():array
     {
         return [
-            'data' => Kegiatan::with(['unsurKegiatan', 'unsurKegiatan.unsur'])->where('status_permohonan_kegiatan', PermohonanStatus::VALIDASI)->get()
+            'data' => Kegiatan::with(['unsurKegiatan', 'unsurKegiatan.unsur'])
+                    ->where('status_permohonan_kegiatan', PermohonanStatus::VALIDASI)
+                    ->orWhere('status_permohonan_kegiatan', PermohonanStatus::PENGESAHAN)
+                    ->get()
         ];
     }
 }

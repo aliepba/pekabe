@@ -173,7 +173,7 @@
             </div>
         </div>
     </div>
-    @if ($data->laporan->status_laporan == 'SUBMIT')
+    @if (!empty($data->laporan))
     <div class="card shadow mb-4">
         <div class="card-header py-2 mt-2">
             Dokumen Pelaporan
@@ -212,8 +212,8 @@
                     <tr>
                         <th>No</th>
                         <th>NIK</th>
-                        <th>Unsur</th>
                         <th>Metode</th>
+                        <th>Unsur</th>
                         <th>Action</th>
                       </tr>
                   </thead>
