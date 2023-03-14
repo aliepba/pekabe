@@ -40,9 +40,14 @@ class PelaporanService{
     public function submit($id)
     {
         $pelaporanKegiatan = PelaporanKegiatan::find($id);
-        DB::transaction(function () use($pelaporanKegiatan){
+        $kegiatan = Kegiatan::where('uuid', $pelaporanKegiatan->id_kegiatan)->first();
+        DB::transaction(function () use($pelaporanKegiatan, $kegiatan){
             $pelaporanKegiatan->update([
                 'status_laporan' => PermohonanStatus::SUBMIT
+            ]);
+
+            $kegiatan->update([
+                'status_permohonan_kegiatan' => PermohonanStatus::PELAPORAN
             ]);
 
             LogKegiatan::query()->create([

@@ -198,7 +198,8 @@ class PenilaianService{
         DB::transaction(function () use($request, $kegiatan, $uuid, $user){
             $kegiatan->update([
                 'status_permohonan_kegiatan' => PermohonanStatus::PENGESAHAN,
-                'keterangan_pengesahan' => $request->keterangan_pengesahan
+                'keterangan_pengesahan' => $request->keterangan_pengesahan,
+                'tgl_penilaian' => Carbon::now(),
             ]);
 
             $this->penilaianPeserta($uuid);
