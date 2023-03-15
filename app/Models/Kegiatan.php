@@ -54,6 +54,10 @@ class Kegiatan extends Model
         return $this->hasMany(KegiatanPenyelenggaraLain::class, 'id_kegiatan', 'uuid');
     }
 
+    public function excelPeserta(){
+        return $this->hasMany(UploadPeserta::class, 'id_kegiatan', 'uuid');
+    }
+
     // public function unsur(){
     //     return $this->belongsTo(MtSubUnsurKegiatan::class, 'unsur_kegiatan', 'id');
     // }

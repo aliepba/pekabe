@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Services\Peserta;
+
+use App\Imports\PesertaImport;
+use Illuminate\Http\Request;
+use App\Models\ExcelPeserta;
+use App\Models\Kegiatan;
+use App\Models\UploadPeserta;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+
+class UploadService
+{
+    public function import(Request $request, $idKegiatan){
+        $file = $request->file('excel');
+
+        $nama_file = rand().Auth::user()->id.$file->getClientOriginalName();
+
+        $file->move('excel_peserta', $nama_file);
+
+        Excel::import(new PesertaImport($idKegiatan), public_path('/excel_peserta/'.$nama_file));
+    }
+
+    public function update(Request $request, $id){
+        $peserta = UploadPeserta::find($id);
+        DB::transaction(function () use($request, $peserta){
+           $peserta->update([
+                'nik' => $request->nik,
+                'unsur_peserta' => $request->unsur,
+                'metode' => $request->metode,
+           ]);
+        });
+    }
+}

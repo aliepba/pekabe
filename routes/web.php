@@ -18,12 +18,14 @@ use App\Http\Controllers\PermohonanAkunController;
 use App\Http\Controllers\VerifikasiAkunController;
 use App\Http\Controllers\BobotPenilaianController;
 use App\Http\Controllers\PengesahanController;
+use App\Http\Controllers\UploadPesertaController;
 use App\Http\Controllers\PenilaianKegiatanController;
 use App\Http\Controllers\PesertaKegiatanController;
 use App\Http\Controllers\SubUnsurKegiatanController;
 use App\Http\Controllers\SubPenyelenggaraController;
 use App\Http\Controllers\VerifikasiKegiatanController;
 use App\Http\Controllers\PenilaianValidatorController;
+use App\Models\UploadPeserta;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,6 +91,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/detail-pengesahan/{uuid}', [PengesahanController::class, 'detail'])->name('pengesahan.detail');
     Route::put('/pengesahan/{uuid}', [PengesahanController::class, 'sah'])->name('pengesahan.selesai');
     Route::get('/berita-acara-pengesahan/{uuid}', [PengesahanController::class, 'ba'])->name('pengesahan.ba');
+
+    Route::get('/upload-excel/{uuid}', [UploadPesertaController::class, 'index'])->name('excel');
+    Route::post('/import-excel/{uuid}', [UploadPesertaController::class, 'import'])->name('excel.import');
+    Route::get('/excel-peserta/edit/{id}', [UploadPesertaController::class, 'edit'])->name('excel.edit');
+    Route::put('/excel-peserta/{id}/{uuid}', [UploadPesertaController::class, 'update'])->name('excel.update');
 
     //penyelenggara
     Route::get('/dashboard-user', [DashboardController::class, 'dashboardUser'])->name('dashboard.user');

@@ -40,7 +40,7 @@ class GetKegiatanByUser
 	        a.tgl_penilaian
         FROM pkb_kegiatan_penyelenggara a
         JOIN personal_profesi_ta_detail b on a.penilai = b.ID_Asosiasi_Profesi
-        WHERE a.status_permohonan_kegiatan IN ('SUBMIT', 'APPROVE')
+        WHERE a.status_permohonan_kegiatan IN ('SUBMIT', 'APPROVE', 'PELAPORAN', 'PENGESAHAN', 'VALIDASI')
         AND a.user_id = '". Auth::user()->id . "'
         UNION
         SELECT  a1.uuid,
@@ -67,7 +67,7 @@ class GetKegiatanByUser
 	        a.tgl_penilaian from pkb_kegiatan_penyelenggara a
         JOIN pkb_kegiatan_penyelenggara_lain b on a.uuid = b.id_kegiatan
         JOIN personal_profesi_ta_detail bb on a.penilai = bb.ID_Asosiasi_Profesi
-        WHERE a.status_permohonan_kegiatan IN ('SUBMIT', 'APPROVE')
+        WHERE a.status_permohonan_kegiatan IN ('SUBMIT', 'APPROVE', 'PELAPORAN', 'PENGESAHAN', 'VALIDASI')
         AND a.user_id = '". Auth::user()->id . "' ) as a1
         JOIN (
         SELECT b.id, b.nama_instansi from pkb_kegiatan_penyelenggara_lain a
@@ -86,7 +86,7 @@ class GetKegiatanByUser
 	        a.tgl_penilaian
         FROM pkb_kegiatan_penyelenggara a
         JOIN personal_profesi_ta_detail b on a.penilai = b.ID_Asosiasi_Profesi
-        WHERE a.status_permohonan_kegiatan IN ('SUBMIT', 'APPROVE')
+        WHERE a.status_permohonan_kegiatan IN ('SUBMIT', 'APPROVE', 'PELAPORAN', 'PENGESAHAN', 'VALIDASI')
         AND a.user_id in ('". $subUser ."')
         ) q")
         ];

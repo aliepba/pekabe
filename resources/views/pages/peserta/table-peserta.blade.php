@@ -4,6 +4,7 @@
             <i class="flaticon-plus"></i>
             Tambah Peserta
           </a>
+          <a href="{{route('excel', $data->uuid)}}" class="btn btn-sm btn-info">Upload Excel</a>
         </div>
         <div class="card-body">
           <div class="table-responsive">

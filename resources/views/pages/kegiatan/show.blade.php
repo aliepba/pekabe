@@ -128,11 +128,11 @@
         <div class="tab-pane fade" id="tab-pelaporan" role="tabpanel" aria-labelledby="profile-tab-1">
             @include('pages.kegiatan.pelaporan.create')
         </div>
+        @if (!empty($data->nilaiValidasi))
         <div class="tab-pane fade" id="tab-penilaian" role="tabpanel" aria-labelledby="profile-tab-1">
-            @if (!empty($data->nilaiValidasi))
             @include('components.hasil-penilaian')
-            @endif
         </div>
+        @endif
     </div>
 
 </div>
