@@ -51,6 +51,7 @@
                   </thead>
                   <tbody>
                     @foreach ($data->excelPeserta as $item)
+                    @if ($item->acc == 0)
                     <tr>
                         <td>{{$loop->iteration}}</td>
                         <td>{{$item->id_kegiatan}}</td>
@@ -58,14 +59,27 @@
                         <td>{{$item->metode}}</td>
                         <td>{{$item->unsur_peserta != null ? $item->unsur->nama_sub_unsur : 'Harap Edit'}}</td>
                         <td>
+                            @if ($item->unsur_peserta == null)
                             <a href="{{route('excel.edit', $item->id)}}" class="btn btn-sm btn-primary">Edit</a>
-                            {{-- <form action="{{route('peserta.destroy', $item->id)}}" method="post">
+                            <form action="{{route('excel.destroy', ['id' => $item->id, 'uuid' => $item->id_kegiatan])}}" method="post">
                                 @csrf
                                 @method('delete')
                             <button class="btn btn-danger btn-sm mt-5"><i class="flaticon2-trash"></i></button>
-                            </form> --}}
+                            </form>
+                            @endif
+
+                            @if ($item->unsur_peserta != null)
+                            <a href="{{route('excel.edit', $item->id)}}" class="btn btn-sm btn-primary">Edit</a>
+                            <a href="{{route('excel.acc', ['id' => $item->id, 'uuid' => $item->id_kegiatan])}}" class="btn btn-sm btn-success">Simpan</a>
+                            <form action="{{route('excel.destroy', ['id' => $item->id, 'uuid' => $item->id_kegiatan])}}" method="post">
+                            @csrf
+                            @method('delete')
+                            <button class="btn btn-danger btn-sm mt-5"><i class="flaticon2-trash"></i></button>
+                            </form>
+                            @endif
                         </td>
                     </tr>
+                    @endif
                     @endforeach
                   </tbody>
                 </table>

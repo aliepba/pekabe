@@ -44,4 +44,16 @@ class UploadPesertaController extends Controller
         $this->uploadService->update($request, $id);
         return redirect(route('excel', $idKegiatan))->with('success', 'Import Peserta Berhasil harap lakukan edit');
     }
+
+    public function destroy(Request $request, $id, $idKegiatan){
+        $idKegiatan = $request->uuid;
+        $this->uploadService->delete($id);
+        return redirect(route('excel', $idKegiatan))->with('success', 'Peserta Berhasil dihapus');
+    }
+
+    public function acc(Request $request, $id, $idKegiatan){
+        $idKegiatan = $request->uuid;
+        $this->uploadService->acc($id);
+        return redirect(route('excel', $idKegiatan))->with('success', 'Peserta Berhasil diimport');
+    }
 }

@@ -96,6 +96,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/import-excel/{uuid}', [UploadPesertaController::class, 'import'])->name('excel.import');
     Route::get('/excel-peserta/edit/{id}', [UploadPesertaController::class, 'edit'])->name('excel.edit');
     Route::put('/excel-peserta/{id}/{uuid}', [UploadPesertaController::class, 'update'])->name('excel.update');
+    Route::get('/excel-peserta/accept/{id}/{uuid}', [UploadPesertaController::class, 'acc'])->name('excel.acc');
+    Route::delete('/excel-peserta/delete/{id}/{uuid}', [UploadPesertaController::class, 'destroy'])->name('excel.destroy');
 
     //penyelenggara
     Route::get('/dashboard-user', [DashboardController::class, 'dashboardUser'])->name('dashboard.user');
