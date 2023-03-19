@@ -25,7 +25,6 @@ use App\Http\Controllers\SubUnsurKegiatanController;
 use App\Http\Controllers\SubPenyelenggaraController;
 use App\Http\Controllers\VerifikasiKegiatanController;
 use App\Http\Controllers\PenilaianValidatorController;
-use App\Models\UploadPeserta;
 
 /*
 |--------------------------------------------------------------------------
