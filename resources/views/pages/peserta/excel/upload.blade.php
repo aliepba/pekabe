@@ -19,7 +19,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Format Upload Excel</label><br />
-                            <a href="" class="btn btn-sm btn-info">Format Excel</a>
+                            <a href="{{asset('format/format_excel.xlsx')}}" class="btn btn-sm btn-info">Format Excel</a>
                         </div>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                   <thead>
                     <tr>
                         <th>No</th>
-                        <th>Nama Kegiatan</th>
+                        <th>ID Kegiatan</th>
                         <th>NIK</th>
                         <th>Metode</th>
                         <th>Unsur</th>
