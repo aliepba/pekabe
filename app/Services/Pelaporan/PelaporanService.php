@@ -52,7 +52,7 @@ class PelaporanService{
 
             LogKegiatan::query()->create([
                 'id_kegiatan' => $pelaporanKegiatan->id_kegiatan,
-                'status_permohonan' => PermohonanStatus::SUBMIT,
+                'status_permohonan' => PermohonanStatus::PELAPORAN,
                 'keterangan' => 'laporan sudah disubmit',
                 'user' => Auth::user()->id
             ]);

@@ -26,7 +26,7 @@
                             </a>
                         </div>
                         <div class="my-lg-0 my-3">
-                            @if ($data->status_permohonan_kegiatan == 'SUBMIT')
+                            @if ($data->status_permohonan_kegiatan == 'SUBMIT' || $data->status_permohonan_kegiatan == 'PELAPORAN' || $data->status_permohonan_kegiatan == 'VALIDASI' || $data->status_permohonan_kegiatan == 'PENGESAHAN' )
                             <span class="badge badge-primary">SUBMITTED</span>
                             @elseif ($data->status_permohonan_kegiatan == 'APPROVE')
                             <span class="badge badge-danger">Submit Pelaporan</span>
