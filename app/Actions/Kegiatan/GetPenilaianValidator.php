@@ -13,7 +13,7 @@ class GetPenilaianValidator
     public function handle():array
     {
         return [
-            'data' => Kegiatan::where('status_permohonan_kegiatan',PermohonanStatus::PELAPORAN)->get(),
+            'data' => Kegiatan::with(['user'])->where('status_permohonan_kegiatan',PermohonanStatus::PELAPORAN)->get(),
         ];
     }
 }

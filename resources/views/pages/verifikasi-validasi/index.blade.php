@@ -12,6 +12,7 @@
               <thead>
                 <tr>
                     <th>No</th>
+                    <th>Penyelenggara</th>
                     <th>Kegiatan</th>
                     <th>Status</th>
                     <th>Tanggal Pengajuan</th>
@@ -28,6 +29,7 @@
                 ?>
                 <tr>
                     <td>{{$loop->iteration}}</td>
+                    <td>{{$item->user->name}}</td>
                     <td>{{$item->nama_kegiatan}}</td>
                     <td>{{$item->status_permohonan_kegiatan}}</td>
                     <td>{{$item->tgl_pengajuan}}</td>
