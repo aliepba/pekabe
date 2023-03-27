@@ -92,39 +92,39 @@
                     <td>-</td>
                     <td>{{$item->tanggal_cetak}}</td>
                     <td>{{date('Y-m-d', strtotime('+3 year', strtotime($item->tanggal_cetak)))}}</td>
+                    <td>{{\helpers\MyHelper::nilaiSyarat(75, $item->kualifikasi)}}</td>
+                    <td>{{\App\Actions\Logbook\GetNilaiByIDSub::run()}}</td>
+                    <td>{{\helpers\MyHelper::nilaiSyarat(75, $item->kualifikasi)}}</td>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
+                    <td>{{\helpers\MyHelper::nilaiSyarat(75, $item->kualifikasi)}}</td>
+                    <td></td>
+                    <td>{{\helpers\MyHelper::nilaiSyarat(25, $item->kualifikasi)}}</td>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
+                    <td>{{\helpers\MyHelper::nilaiSyarat(60, $item->kualifikasi)}}</td>
+                    <td></td>
+                    <td>{{\helpers\MyHelper::nilaiSyarat(40, $item->kualifikasi)}}</td>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
+                    <td>{{\helpers\MyHelper::nilaiSyarat(60, $item->kualifikasi)}}</td>
+                    <td></td>
+                    <td>{{\helpers\MyHelper::nilaiSyarat(40, $item->kualifikasi)}}</td>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{\App\Actions\Logbook\GetNilaiByIDSub::run()}}</td>
                     <td></td>
                     <td></td>
                 </tr>

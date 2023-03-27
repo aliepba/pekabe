@@ -2,9 +2,9 @@
 
 namespace App\Actions\Logbook;
 
-use Lorisleiva\Actions\Concerns\AsAction;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Lorisleiva\Actions\Concerns\AsAction;
 
 class GetLogKegiatan
 {

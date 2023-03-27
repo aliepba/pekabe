@@ -211,6 +211,7 @@
                   <thead>
                     <tr>
                         <th>No</th>
+                        <th>Nama</th>
                         <th>NIK</th>
                         <th>Metode</th>
                         <th>Unsur</th>
@@ -221,6 +222,7 @@
                     @foreach ($data->peserta as $item)
                     <tr>
                         <td>{{$loop->iteration}}</td>
+                        <td>{{\App\Actions\Logbook\GetNamaTenagaAhli::run($item->nik_peserta)}}</td>
                         <td>{{$item->nik_peserta}}</td>
                         <td>{{$item->metode_peserta}}</td>
                         <td>{{$item->unsur->nama_sub_unsur}}</td>
