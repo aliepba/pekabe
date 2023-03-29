@@ -7,6 +7,7 @@
                     <th rowspan="3">Nama Kegiatan</th>
                     <th rowspan="3">Tanggal Mulai</th>
                     <th colspan="9">Klasifikasi Kegiatan</th>
+                    <th colspan="2">Nilai SKPK</th>
                 </tr>
                 <tr>
                     <th rowspan="2">Unsur Kegiatan</th>
@@ -14,11 +15,19 @@
                     <th colspan="{{count($data)}}">Sifat</th>
                     <th rowspan="2">Metode</th>
                     <th rowspan="2">Tingkat</th>
+                    <th colspan="{{count($data)}}" style="border-right : 1px;">Berdasarkan Penilaian Mandiri</th>
+                    <th colspan="{{count($data)}}">Sudah Verifikasi Validasi</th>
                 </tr>
                 <tr>
                     @foreach ($data as $item)
                         <th>{{$item->des_sub_klas}}</th>
                     @endforeach
+                    @foreach ($data as $item)
+                    <th>{{$item->des_sub_klas}}</th>
+                    @endforeach
+                    @foreach ($data as $item)
+                    <th>{{$item->des_sub_klas}}</th>
+                @endforeach
                 </tr>
             </thead>
             <tbody class="text-center">
@@ -34,6 +43,12 @@
                         @endforeach
                         <td>{{$d->metode_kegiatan}}</td>
                         <td>{{$d->tingkat_kegiatan}}</td>
+                        @foreach ($data as $item)
+                        <td>{{$d->ak}}</td>
+                        @endforeach
+                        @foreach ($data as $item)
+                        <td>{{$d->ak}}</td>
+                        @endforeach
                     </tr>
                 @endforeach
             </tbody>

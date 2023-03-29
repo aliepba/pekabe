@@ -29,7 +29,7 @@ class LogBookController extends Controller
     {
         $this->authorize('list-kegiatan');
         return view('pages.logbook.index',
-                    KegiatanTenagaAhli::run(Auth::user()->nik, Auth::user()->id),
+                    KegiatanTenagaAhli::run(),
                     TenagaAhli::run(Auth::user()->nik)
                 );
     }
