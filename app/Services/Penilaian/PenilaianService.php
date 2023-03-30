@@ -200,6 +200,7 @@ class PenilaianService{
                 'status_permohonan_kegiatan' => PermohonanStatus::PENGESAHAN,
                 'keterangan_pengesahan' => $request->keterangan_pengesahan,
                 'tgl_penilaian' => Carbon::now(),
+                'is_verifikasi' => 1
             ]);
 
             $this->penilaianPeserta($uuid);
