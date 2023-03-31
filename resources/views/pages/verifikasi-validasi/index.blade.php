@@ -15,7 +15,7 @@
                     <th>Penyelenggara</th>
                     <th>Kegiatan</th>
                     <th>Status</th>
-                    <th>Tanggal Pengajuan</th>
+                    <th>Tanggal Pelaporan</th>
                     <th>Tanggal Kegiatan</th>
                     <th>Subklasifikasi Tenaga Ahli</th>
                     <th>Action</th>
@@ -32,7 +32,7 @@
                     <td>{{$item->user->name}}</td>
                     <td>{{$item->nama_kegiatan}}</td>
                     <td>{{$item->status_permohonan_kegiatan}}</td>
-                    <td>{{$item->tgl_pengajuan}}</td>
+                    <td>{{$item->updated_at}}</td>
                     <td>{{$item->start_kegiatan}} <br/> {{$item->end_kegiatan}}</td>
                     <td>
                         @for ($i = 0; $i < count($subklas); $i++)

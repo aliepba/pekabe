@@ -256,5 +256,11 @@
         document.getElementById('checkCV').onchange = function() {
             document.getElementById('cv').disabled = !this.checked;
         };
+
+    $(document).ready(function () {
+        $('#peserta').DataTable();
+    });
+
+
 </script>
 @endpush
