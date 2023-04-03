@@ -6,8 +6,9 @@
                     <th rowspan="3">Kegiatan Ke</th>
                     <th rowspan="3">Nama Kegiatan</th>
                     <th rowspan="3">Tanggal Mulai</th>
-                    <th colspan="9">Klasifikasi Kegiatan</th>
-                    <th colspan="2">Nilai SKPK</th>
+                    <th colspan="{{4+count($data)}}">Klasifikasi Kegiatan</th>
+                    <th colspan="{{count($data)*2}}">Nilai SKPK</th>
+                    <th rowspan="3">Action</th>
                 </tr>
                 <tr>
                     <th rowspan="2">Unsur Kegiatan</th>
@@ -49,6 +50,14 @@
                         @foreach ($data as $item)
                         <td>{{$d->ak}}</td>
                         @endforeach
+                        <td>
+                            @if ($d->is_verifikasi == 1)
+                                Terverifikasi
+                            @endif
+                            @if ($d->is_verifikasi == 0)
+                                <a class="btn btn-sm btn-danger" href="">Delete</a>
+                            @endif
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

@@ -93,19 +93,19 @@
                     <td>{{$item->tanggal_cetak}}</td>
                     <td>{{date('Y-m-d', strtotime('+3 year', strtotime($item->tanggal_cetak)))}}</td>
                     <td>{{\helpers\MyHelper::nilaiSyarat(75, $item->kualifikasi)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanUtama::run()}}</td>
+                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanUtama::run($item->id_sub_bidang)}}</td>
                     <td>{{\helpers\MyHelper::nilaiSyarat(25, $item->kualifikasi)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanPenunjang::run()}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanPenunjang::run() - \helpers\MyHelper::nilaiSyarat(25, $item->kualifikasi)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanUtama::run() - \helpers\MyHelper::nilaiSyarat(75, $item->kualifikasi)}}</td>
+                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanPenunjang::run($item->id_sub_bidang)}}</td>
+                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanPenunjang::run($item->id_sub_bidang) - \helpers\MyHelper::nilaiSyarat(25, $item->kualifikasi)}}</td>
+                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanUtama::run($item->id_sub_bidang) - \helpers\MyHelper::nilaiSyarat(75, $item->kualifikasi)}}</td>
                     <td></td>
                     <td></td>
                     <td>{{\helpers\MyHelper::nilaiSyarat(75, $item->kualifikasi)}}</td>
-                    <td>13123</td>
+                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanSelainNonFormal::run($item->id_sub_bidang)}}</td>
                     <td>{{\helpers\MyHelper::nilaiSyarat(25, $item->kualifikasi)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanNonFormal::run()}}</td>
-                    <td></td>
-                    <td></td>
+                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanNonFormal::run($item->id_sub_bidang)}}</td>
+                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanNonFormal::run($item->id_sub_bidang) - \helpers\MyHelper::nilaiSyarat(25, $item->kualifikasi)}}</td>
+                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanSelainNonFormal::run($item->id_sub_bidang) - \helpers\MyHelper::nilaiSyarat(75, $item->kualifikasi)}}</td>
                     <td></td>
                     <td></td>
                     <td>{{\helpers\MyHelper::nilaiSyarat(60, $item->kualifikasi)}}</td>
