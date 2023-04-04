@@ -109,22 +109,23 @@
                     <td></td>
                     <td></td>
                     <td>{{\helpers\MyHelper::nilaiSyarat(60, $item->kualifikasi)}}</td>
-                    <td></td>
+                    <td>{{\App\Actions\Logbook\GetNilaiTerverifikasi::run($item->id_sub_bidang)}}</td>
                     <td>{{\helpers\MyHelper::nilaiSyarat(40, $item->kualifikasi)}}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{\App\Actions\Logbook\GetNilaiUnverifikasi::run()}}</td>
+                    <td>{{\App\Actions\Logbook\GetNilaiUnverifikasi::run() - \helpers\MyHelper::nilaiSyarat(40, $item->kualifikasi)}}</td>
+                    <td>{{\App\Actions\Logbook\GetNilaiTerverifikasi::run($item->id_sub_bidang) - \helpers\MyHelper::nilaiSyarat(60, $item->kualifikasi)}}</td>
                     <td></td>
                     <td></td>
                     <td>{{\helpers\MyHelper::nilaiSyarat(60, $item->kualifikasi)}}</td>
-                    <td></td>
+                    <td>{{\App\Actions\Logbook\GetNilaiKhusus::run($item->id_sub_bidang)}}</td>
                     <td>{{\helpers\MyHelper::nilaiSyarat(40, $item->kualifikasi)}}</td>
+                    <td>{{\App\Actions\Logbook\GetNilaiUmum::run($item->id_sub_bidang)}}</td>
+                    <td>{{\App\Actions\Logbook\GetNilaiUmum::run($item->id_sub_bidang) - \helpers\MyHelper::nilaiSyarat(40, $item->kualifikasi)}}</td>
+                    <td>{{\App\Actions\Logbook\GetNilaiKhusus::run($item->id_sub_bidang) - \helpers\MyHelper::nilaiSyarat(60, $item->kualifikasi)}}</td>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>{{\App\Actions\Logbook\GetNilaiByIDSub::run()}}</td>
+                    <td>{{\helpers\MyHelper::syarat($item->kualifikasi)}}</td>
+                    <td>{{\App\Actions\Logbook\GetNilaiByIDSub::run($item->id_sub_bidang)}}</td>
                     <td></td>
                     <td></td>
                 </tr>

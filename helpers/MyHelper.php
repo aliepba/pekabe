@@ -24,4 +24,22 @@ class MyHelper
 
         return $syarat;
     }
+
+    public static function syarat($jenjang)
+    {
+        if($jenjang == 'Utama' || ($jenjang == '9' || $jenjang =='8' || $jenjang == '7'))
+        {
+            $syarat = 200;
+        }
+
+        if($jenjang == 'Madya' || ($jenjang == '6' || $jenjang =='5' || $jenjang == '4')){
+            $syarat = 150;
+        }
+
+        if($jenjang == 'Muda' || ($jenjang == '3' || $jenjang =='2' || $jenjang == '1')){
+            $syarat = 100;
+        }
+
+        return $syarat;
+    }
 }
