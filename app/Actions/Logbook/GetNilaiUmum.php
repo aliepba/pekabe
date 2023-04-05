@@ -12,17 +12,10 @@ class GetNilaiUmum
 
     public function handle($idSub)
     {
-        $sum = DB::SELECT("SELECT sum(total.ak) AS ak from (
-            select sum(angka_kredit) as ak from pkb_penilaian_peserta a
-            where a.id_sub_bidang  = '$idSub'
-            and a.nik = '". Auth::user()->nik . "'
-            and a.is_sifat = 0.8
-            union
-            select sum(angka_kredit) as ak from pkb_penilaian_kegiatan x
-            join pkb_kegiatan_unverified y on x.uuid = y.uuid
-            where y.user_id = '". Auth::user()->id . "'
-        ) as total
-        ")[0];
+        $sum = DB::SELECT("SELECT sum(angka_kredit) as ak from pkb_penilaian_peserta a
+        where a.id_sub_bidang  = '$idSub'
+        and a.nik = '". Auth::user()->nik . "'
+        and a.is_sifat = 0.8")[0];
 
         if(empty($sum)){
         $ak = 0;

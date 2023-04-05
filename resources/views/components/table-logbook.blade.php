@@ -43,7 +43,7 @@
                         <td>Khusus</td>
                         @endforeach
                         <td>{{$d->metode_kegiatan}}</td>
-                        <td>{{$d->tingkat_kegiatan}}</td>
+                        <td>{{$result = ($d->tingkat_kegiatan == 1) ? 'Nasional' : (($d->tingkat_kegiatan == 2) ? 'Internasional Dalam Negeri' : 'Internasional Luar Negeri')}}</td>
                         @foreach ($data as $item)
                         <td>{{$d->ak}}</td>
                         @endforeach

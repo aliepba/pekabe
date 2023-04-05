@@ -29,7 +29,11 @@ class KegiatanTenagaAhli
                 b.end_kegiatan,
                 b.jenis_kegiatan,
                 c.nama_sub_unsur ,
-                b.metode_kegiatan,
+                case
+                    when a.is_metode is null then '-'
+                    when a.is_metode = 1 then 'Tatap Muka'
+                    else 'Daring'
+                end as metode_kegiatan,
                 b.tingkat_kegiatan,
                 b.is_verifikasi,
                 a.angka_kredit as ak
@@ -52,9 +56,7 @@ class KegiatanTenagaAhli
             from pkb_kegiatan_unverified x
             join pkb_sub_unsur_kegiatan y on x.id_unsur_kegiatan  = y.id
             join pkb_penilaian_kegiatan z on x.uuid = z.uuid
-            where x.user_id = '". Auth::user()->id ."'
-            group by x.nama_kegiatan
-        ) a
+            where x.user_id = '". Auth::user()->id ."') a
         ")
         ];
     }
