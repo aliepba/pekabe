@@ -5,6 +5,12 @@
             Tambah Peserta
           </a>
           <a href="{{route('excel', $data->uuid)}}" class="btn btn-sm btn-info">Upload Excel</a>
+          <br/>
+          <span class="badge badge-danger mt-2">
+            *) Disclamer!, Dengan menyetujui ketentuan ini kami sepenuhnya bertanggungjawab terhadap segala resiko sebagai akibat dari pelaporan kegiatan PKB,
+             termasuk bukti laporan yang disampaikan <br/> beserta daftar peserta kegiatan yang
+            telah kami selenggarakan.Kami siap melayani segala bentuk pengaduan dari Peserta kegiatan sebagai akibat kelalaian pelaporan kegiatan ini.
+          </span>
         </div>
         <div class="card-body">
           <div class="table-responsive">

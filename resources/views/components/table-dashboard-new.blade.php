@@ -93,7 +93,7 @@
                     <td>{{$item->tanggal_cetak}}</td>
                     <td>{{date('Y-m-d', strtotime('+3 year', strtotime($item->tanggal_cetak)))}}</td>
                     <td>{{\helpers\MyHelper::nilaiSyarat(75, $item->kualifikasi)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanUtama::run($item->id_sub_bidang)}}</td>
+                    <td>{{dd(\App\Actions\Logbook\GetNilaiKegiatanUtama::run($item->id_sub_bidang))}}</td>
                     <td>{{\helpers\MyHelper::nilaiSyarat(25, $item->kualifikasi)}}</td>
                     <td>{{\App\Actions\Logbook\GetNilaiKegiatanPenunjang::run($item->id_sub_bidang)}}</td>
                     <td>{{\App\Actions\Logbook\GetNilaiKegiatanPenunjang::run($item->id_sub_bidang) - \helpers\MyHelper::nilaiSyarat(25, $item->kualifikasi)}}</td>

@@ -89,7 +89,9 @@
                     </g>
                 </svg><!--end::Svg Icon-->
             </span>
-            <span class="menu-text">Verifikasi Validasi dan Penilaian</span>
+            <span class="menu-text">Verifikasi Validasi dan Penilaian
+                <sup class="badge badge-danger">{{count(App\Models\Kegiatan::where('status_permohonan_kegiatan', 'PELAPORAN')->get())}}</sup>
+            </span>
         </a>
     </li>
     {{-- <li class="menu-item menu-item" aria-haspopup="true">
@@ -119,7 +121,9 @@
                     </g>
                 </svg><!--end::Svg Icon-->
             </span>
-            <span class="menu-text">Pengesahan Kegiatan</span>
+            <span class="menu-text">Pengesahan Kegiatan
+                <sup class="badge badge-danger">{{count(App\Models\Kegiatan::where('status_permohonan_kegiatan', 'VALIDASI')->get())}}</sup>
+            </span>
         </a>
     </li>
     <li class="menu-section">

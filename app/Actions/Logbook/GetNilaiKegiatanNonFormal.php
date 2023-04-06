@@ -19,12 +19,12 @@ class GetNilaiKegiatanNonFormal
                     and a.id_sub_bidang = '$idSub'
                     and a.nik = '". Auth::user()->nik . "'
                     union
-                    select sum(x.angka_kredit) as ak from pkb_penilaian_kegiatan x
-                    join pkb_sub_unsur_kegiatan y on x.id_unsur = y.id
-                    join pkb_kegiatan_unverified z on x.uuid = z.uuid
-                    where y.id_unsur_kegiatan = 2
-                    and z.user_id = '". Auth::user()->id . "'
-                    ) as total")[0];
+                    select sum(a.angka_kredit) as ak  from pkb_penilaian_kegiatan a
+                    join pkb_kegiatan_unverified b on a.uuid = b.uuid
+                    join pkb_sub_unsur_kegiatan c on b.id_unsur_kegiatan = c.id
+                    where b.user_id = '". Auth::user()->id . "'
+                    and c.id_unsur_kegiatan = 2
+                ) as total")[0];
 
         if(empty($sum)){
             $ak = 0;
