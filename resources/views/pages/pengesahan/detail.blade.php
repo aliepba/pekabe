@@ -247,6 +247,10 @@
 
 @push('addon-script')
 <script>
+         $(document).ready(function () {
+        $('#peserta').DataTable();
+    });
+    
     document.getElementById('checkSurat').onchange = function() {
             document.getElementById('keterangan_surat').disabled = !this.checked;
         };
