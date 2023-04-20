@@ -47,7 +47,7 @@
                 <div class="form-group">
                     <div class="d-flex justify-content-between mt-n5">
                         <label class="font-size-h6 font-weight-bolder text-dark pt-5">Password</label>
-                        <a href="custom/pages/login/login-3/forgot.html" class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5">Lupa Password ?</a>
+                        <a href="{{route('password.request')}}" class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5">Lupa Password ?</a>
                     </div>
                     <input class="form-control h-auto py-7 px-6 rounded-lg border-0" type="password" name="password" autocomplete="off" />
                 </div>
