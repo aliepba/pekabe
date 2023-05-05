@@ -25,6 +25,7 @@ use App\Http\Controllers\SubUnsurKegiatanController;
 use App\Http\Controllers\SubPenyelenggaraController;
 use App\Http\Controllers\VerifikasiKegiatanController;
 use App\Http\Controllers\PenilaianValidatorController;
+use App\Models\PesertaKegiatan;
 
 /*
 |--------------------------------------------------------------------------
@@ -127,8 +128,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/peserta-kegiatan/create/{uuid}', [PesertaKegiatanController::class, 'create'])->name('peserta.create');
     Route::post('/peserta-kegiatan', [PesertaKegiatanController::class, 'store'])->name('peserta.store');
     Route::resource('/peserta', PesertaKegiatanController::class)->only(['edit', 'update', 'destroy']);
-    Route::post('/mark-as-read', [PreferensiController::class, 'markNotif'])->name('markNotification');
+    Route::put('/peserta-update/{id}/{kegiatan?}', [PesertaKegiatanController::class, 'updateValidasi'])->name('peserta.validasi');
 
+    Route::post('/add-peserta', [PesertaKegiatanController::class, 'addPeserta'])->name('peserta.add');
+    Route::get('/get-peserta/{id}', [PesertaKegiatanController::class, 'getPeserta'])->name('peserta.get');
+    Route::delete('/hapus-peserta/{id}', [PesertaKegiatanController::class, 'deletePeserta'])->name('peserta.hapus');
+
+    Route::post('/mark-as-read', [PreferensiController::class, 'markNotif'])->name('markNotification');
     Route::get('kegiatan-pkb-terverifikasi', [Pkbv1Controller::class, 'kegiatanTerverifikasi'])->name('pkb.lama');
 
     //tenaga ahli
