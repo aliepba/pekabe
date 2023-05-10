@@ -22,24 +22,24 @@ class MyHelper
             $syarat = $muda * $syrt/100;
         }
 
-        return $syarat;
+        return $syarat ?? 0;
     }
 
     public static function syarat($jenjang)
     {
-        if($jenjang == 'Utama' || ($jenjang == '9' || $jenjang =='8' || $jenjang == '7'))
+        if($jenjang == 'Utama' || $jenjang == '9')
         {
             $syarat = 200;
         }
 
-        if($jenjang == 'Madya' || ($jenjang == '6' || $jenjang =='5' || $jenjang == '4')){
+        if($jenjang == 'Madya' || $jenjang == '8'){
             $syarat = 150;
         }
 
-        if($jenjang == 'Muda' || ($jenjang == '3' || $jenjang =='2' || $jenjang == '1')){
+        if($jenjang == 'Muda' || $jenjang == '7'){
             $syarat = 100;
         }
 
-        return $syarat;
+        return $syarat ?? 0;
     }
 }

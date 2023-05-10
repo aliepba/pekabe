@@ -61,6 +61,10 @@ Route::get('/permohonan-akun/perbaikan/{uuid}', [PermohonanAkunController::class
 Route::put('/permohonan-akun/update/{uuid}', [PermohonanAkunController::class, 'update'])->name('form.update.perbaikan');
 Route::get('/dashboard-tenaga-ahli', [DashboardController::class, 'dashboardTenagaAhli'])->name('dashboard.tenaga.ahli');
 
+Route::get('/daftar-kegiatan-disetujui', function(){
+    return view('daftar-kegiatan');
+});
+
 Route::middleware(['auth'])->group(function () {
     //admin
     Route::resource('roles', RoleController::class)->except('show');
@@ -149,6 +153,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard-apt', [DashboardController::class, 'dashboardApt'])->name('dashboard.apt');
     Route::get('/list-verifikasi-apt', [VerifikasiKegiatanController::class, 'apt'])->name('verifikasi.apt');
     Route::get('/list-validasi-apt', [PenilaianValidatorController::class, 'apt'])->name('validator.apt');
+    
 });
 
 //referensi
