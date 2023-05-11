@@ -29,8 +29,10 @@
                 <tr>
                     <th>No</th>
                     <th>Nama Kegiatan</th>
+                    <th>Subklasifikasi</th>
                     <th>Tanggal Mulai</th>
                     <th>Tanggal Selesai</th>
+                    <th>Email Penyelenggara</th>
                     <th>Penyelenggara</th>
                 </tr>
             </thead>
@@ -38,9 +40,11 @@
                 @foreach ($kegiatan as $item)
                     <tr>
                         <td>{{$loop->iteration}}</td>  
+                        <td>{{$item->subklasifikasi}}</td>
                         <td>{{$item->nama_kegiatan}}</td>
                         <td>{{$item->start_kegiatan}}</td>
                         <td>{{$item->end_kegiatan}}</td>
+                        <td>{{$item->user->email}}</td>
                         <td>{{$item->user->name}}</td>
                     </tr>
                 @endforeach

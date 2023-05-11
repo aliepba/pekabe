@@ -2,6 +2,7 @@
 
 namespace App\Services\Kegiatan;
 
+use App\Notifications\PerbaikanPelaporanNotification;
 use Notification;
 use Carbon\Carbon;
 use App\Models\User;
@@ -219,4 +220,6 @@ class KegiatanService {
 
         });
      }
+
+
 }

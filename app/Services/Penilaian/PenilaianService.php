@@ -21,6 +21,7 @@ use App\Models\MtSubUnsurKegiatan;
 use App\Actions\Logbook\TenagaAhli;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\PengesahanNotification;
+use App\Notifications\PerbaikanPelaporanNotification;
 
 class PenilaianService{
 
@@ -191,6 +192,28 @@ class PenilaianService{
             ]);
         });
     }
+
+    public function pelaporan(Request $request){
+        $data = Kegiatan::find($request->id);
+        $user = User::find($data->user_id);
+        DB::transaction(function () use($request, $data, $user){
+
+        
+            $data->update([
+                'status_permohonan_kegiatan' => $request->status_permohonan,
+                'status_permohonan_penyelenggara' => $request->status_permohonan,
+            ]);
+ 
+            $item = LogKegiatan::query()->create([
+                'id_kegiatan' => $data->uuid,
+                'status_permohonan' => $request->status_permohonan,
+                'keterangan' => $request->keterangan,
+                'user' => Auth::user()->id
+            ]);
+
+            Notification::send($user, new PerbaikanPelaporanNotification($item));
+        });
+     }
 
     public function pengesahan(Request $request, $uuid){
         $kegiatan = Kegiatan::where('uuid', $uuid)->first();
