@@ -49,6 +49,9 @@
           <ul class="list-reset lg:flex justify-end flex-1 items-center">
             @guest
             <li class="mr-3">
+              <a class="inline-block py-2 px-4 text-black font-bold no-underline" href="{{route('kegiatan.setujui')}}">Daftar Kegiatan</a>
+            </li>
+            <li class="mr-3">
               <a class="inline-block py-2 px-4 text-black font-bold no-underline" href="#">Panduan</a>
             </li>
             <li class="mr-3">

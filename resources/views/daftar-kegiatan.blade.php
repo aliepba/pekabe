@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>PKB</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" crossorigin="anonymous">
 </head>
 <body>
     <header>
@@ -16,14 +17,14 @@
             <div class="collapse navbar-collapse" id="collapsibleNavId">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
+                        <a class="nav-link" href="/">Home</a>
                     </li>
                 </ul>
             </div>
         </nav>
     </header>
     <section class="container mt-5">
-        <table class="table">
+        <table class="table" id="kegiatan">
             <thead>
                 <tr>
                     <th>No</th>
@@ -34,17 +35,27 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td scope="row"></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+                @foreach ($kegiatan as $item)
+                    <tr>
+                        <td>{{$loop->iteration}}</td>  
+                        <td>{{$item->nama_kegiatan}}</td>
+                        <td>{{$item->start_kegiatan}}</td>
+                        <td>{{$item->end_kegiatan}}</td>
+                        <td>{{$item->user->name}}</td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </section>
+
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js" ></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#kegiatan').DataTable();
+        });
+    </script>
 </body>
 </html>

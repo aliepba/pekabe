@@ -1,5 +1,6 @@
 <?php
 
+use App\Actions\Kegiatan\GetKegiatanSetuju;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SSOController;
 use App\Http\Controllers\UserController;
@@ -25,7 +26,6 @@ use App\Http\Controllers\SubUnsurKegiatanController;
 use App\Http\Controllers\SubPenyelenggaraController;
 use App\Http\Controllers\VerifikasiKegiatanController;
 use App\Http\Controllers\PenilaianValidatorController;
-use App\Models\PesertaKegiatan;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,8 +62,8 @@ Route::put('/permohonan-akun/update/{uuid}', [PermohonanAkunController::class, '
 Route::get('/dashboard-tenaga-ahli', [DashboardController::class, 'dashboardTenagaAhli'])->name('dashboard.tenaga.ahli');
 
 Route::get('/daftar-kegiatan-disetujui', function(){
-    return view('daftar-kegiatan');
-});
+    return view('daftar-kegiatan', GetKegiatanSetuju::run());
+})->name('kegiatan.setujui');
 
 Route::middleware(['auth'])->group(function () {
     //admin
