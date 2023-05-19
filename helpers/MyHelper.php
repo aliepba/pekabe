@@ -2,10 +2,12 @@
 
 namespace helpers;
 
+use App\Actions\Logbook\GetNilaiByIDSub;
+
 class MyHelper
 {
-    public static function nilaiSyarat($syrt,$jenjang)
-    {
+    
+    public static function nilaiSyarat($syrt,$jenjang){
         $utama = 200;
         $madya = 150;
         $muda = 100;
@@ -25,8 +27,7 @@ class MyHelper
         return $syarat ?? 0;
     }
 
-    public static function syarat($jenjang)
-    {
+    public static function syarat($jenjang){
         if($jenjang == 'Utama' || $jenjang == '9')
         {
             $syarat = 200;
@@ -41,5 +42,16 @@ class MyHelper
         }
 
         return $syarat ?? 0;
+    }
+
+    public static function status($jenjang, $idSub){
+        $syarat = self::syarat($jenjang);
+
+        $ak = GetNilaiByIDSub::run($idSub);
+
+        $status = $ak - $syarat;
+
+        return $status > $syarat ? 'Memenuhi' : "Tidak Memenuhi";
+
     }
 }

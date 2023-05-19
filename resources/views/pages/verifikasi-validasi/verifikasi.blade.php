@@ -227,6 +227,7 @@
                     <div class="form-group">
                         <label>Keterangan</label>
                         <textarea rows="5" class="form-control" name="keterangan_verifikasi"></textarea>
+                        <input value="{{$data->id}}" id="idKegiatan" name="id" hidden/>
                     </div>
                     <div class="form-group">
                         <select class="form-control" name="status_permohonan_kegiatan">

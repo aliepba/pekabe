@@ -127,7 +127,7 @@
                     <td>{{\helpers\MyHelper::syarat($item->kualifikasi)}}</td>
                     <td>{{\App\Actions\Logbook\GetNilaiByIDSub::run($item->id_sub_bidang)}}</td>
                     <td></td>
-                    <td></td>
+                    <td>{{\helpers\MyHelper::status($item->kualifikasi, $item->id_sub_bidang)}}</td>
                 </tr>
                 @endforeach
             </tbody>
