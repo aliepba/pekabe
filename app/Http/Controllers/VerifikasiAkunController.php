@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Instansi\GetProsesInstansi;
+use App\Actions\Instansi\GetTolakPenyelenggara;
 use Illuminate\Http\Request;
 use App\Models\DetailInstansi;
 use App\Services\PermohonanAkun\PermohonanAkunService;
@@ -25,6 +26,10 @@ class VerifikasiAkunController extends Controller
 
     public function setuju(){
         return view('pages.verifikasi.setuju', GetProsesInstansi::run());
+    }
+
+    public function tolak(){
+        return view('pages.verifikasi.tolak', GetTolakPenyelenggara::run());
     }
 
     public function detailPermohonan($uuid){

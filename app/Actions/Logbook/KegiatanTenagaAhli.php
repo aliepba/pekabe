@@ -41,7 +41,6 @@ class KegiatanTenagaAhli
             join pkb_kegiatan_penyelenggara b on a.id_kegiatan = b.uuid
             join pkb_sub_unsur_kegiatan c on a.id_unsur  = c.id
             where a.nik = '". Auth::user()->nik ."'
-            group by b.nama_kegiatan
             union
             select
                 x.nama_kegiatan,

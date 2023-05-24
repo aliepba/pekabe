@@ -14,8 +14,7 @@ class GetProsesInstansi
         return [
             'list' => DetailInstansi::
                         where('status_permohonan', 'APPROVE')
-                    ->orWhere('status_permohonan', 'TOLAK')
-                    ->get()
+                        ->get()
         ];
     }
 }

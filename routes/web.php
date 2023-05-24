@@ -81,6 +81,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/permohonan-perbaikan/{uuid}', [VerifikasiAkunController::class, 'perbaikanPermohonan'])->name('permohonan.perbaikan');
     Route::get('/permohonan-approve/{uuid}', [VerifikasiAkunController::class, 'approvePermohonan'])->name('permohonan.approve');
     Route::get('/akun-setujui', [VerifikasiAkunController::class, 'setuju'])->name('akun.setuju');
+    Route::get('/akun-tolak', [VerifikasiAkunController::class, 'tolak'])->name('akun.tolak');
     Route::get('/list-verifikasi', [VerifikasiKegiatanController::class, 'list'])->name('list.kegiatan');
     Route::get('/detail-verifikasi/{uuid}', [VerifikasiKegiatanController::class, 'detail'])->name('verifikasi.kegiatan');
     Route::get('/kegiatan-setuju', [VerifikasiKegiatanController::class, 'setuju'])->name('setuju.kegiatan');
@@ -102,6 +103,9 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/excel-peserta/{id}/{uuid}', [UploadPesertaController::class, 'update'])->name('excel.update');
     Route::get('/excel-peserta/accept/{id}/{uuid}', [UploadPesertaController::class, 'acc'])->name('excel.acc');
     Route::delete('/excel-peserta/delete/{id}/{uuid}', [UploadPesertaController::class, 'destroy'])->name('excel.destroy');
+
+    //export excel
+    Route::get('/export-kegiatan', [VerifikasiKegiatanController::class, 'export'])->name('export.kegiatan');
 
     //penyelenggara
     Route::get('/dashboard-user', [DashboardController::class, 'dashboardUser'])->name('dashboard.user');

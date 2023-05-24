@@ -7,12 +7,6 @@
             <div class="card-title">
                 <h4 class="h4">List Kegiatan Penyelenggara</h4>
             </div>
-            {{-- <div class="card-toolbar">
-                <a href="{{route('kegiatan-penyelenggara.create')}}" class="btn btn-sm btn-primary">
-                    <i class="flaticon-plus"></i>
-                    Tambah Kegiatan
-                  </a>
-            </div> --}}
         </div>
         <div class="card-body">
           <div class="table">
