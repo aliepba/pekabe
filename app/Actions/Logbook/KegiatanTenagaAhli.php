@@ -14,6 +14,8 @@ class KegiatanTenagaAhli
     {
         return [
             'kegiatan' => DB::select("SELECT
+            id,
+            uuid,
             nama_kegiatan,
             start_kegiatan,
             end_kegiatan,
@@ -24,7 +26,10 @@ class KegiatanTenagaAhli
             is_verifikasi,
             ak
             from (
-            select b.nama_kegiatan,
+            select 
+                b.id,
+                b.uuid,
+                b.nama_kegiatan,
                 b.start_kegiatan ,
                 b.end_kegiatan,
                 b.jenis_kegiatan,
@@ -43,6 +48,8 @@ class KegiatanTenagaAhli
             where a.nik = '". Auth::user()->nik ."'
             union
             select
+                x.id,
+                x.uuid,
                 x.nama_kegiatan,
                 x.start_kegiatan,
                 x.end_kegiatan,

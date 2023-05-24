@@ -43,6 +43,11 @@ class LogBookController extends Controller
         ]);
     }
 
+    public function delete($id){
+        $this->kegiatanService->deleteKegiatanUnverified($id);
+        return redirect(route('logbook.index'))->with('success', 'berhasil dihapus');
+    }
+
     public function store(Request $request)
     {
         $this->kegiatanService->unverified($request);

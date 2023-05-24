@@ -55,7 +55,11 @@
                                 Terverifikasi
                             @endif
                             @if ($d->is_verifikasi == 0)
-                                <a class="btn btn-sm btn-danger" href="">Delete</a>
+                            <form action="{{route('unverified.delete', $d->id)}}" method="post">
+                                @csrf
+                                @method('delete')
+                            <button class="btn btn-danger btn-sm mt-5"><i class="flaticon2-trash"></i></button>
+                            </form>
                             @endif
                         </td>
                     </tr>

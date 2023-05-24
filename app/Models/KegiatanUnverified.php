@@ -12,4 +12,8 @@ class KegiatanUnverified extends Model
     protected $table = 'pkb_kegiatan_unverified';
 
     protected $guarded = [];
+
+    public function penilaian(){
+        return $this->hasOne(PenilaianKegiatan::class, 'uuid', 'uuid');
+    }
 }

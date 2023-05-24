@@ -9,6 +9,7 @@ class PermohonanStatus
     const TOLAK = 'TOLAK';
     const SUBMIT = 'SUBMIT';
     const OPEN = 'OPEN';
+    const UPDATE = 'UPDATE';
     const APPROVESISTEM = 'APPROVE SISTEM';
     const VALIDASI = 'VALIDASI';
     const PELAPORAN = 'PELAPORAN';

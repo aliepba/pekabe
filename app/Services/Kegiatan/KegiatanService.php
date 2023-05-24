@@ -221,5 +221,68 @@ class KegiatanService {
         });
      }
 
+     public function updateKegiatanUnverified(Request $request, $id)
+     {
+        $kegiatan = KegiatanUnverified::find($id);
+        DB::transaction(function () use($request, $kegiatan){
+            $kegiatan->update([
+                'nama_kegiatan' => $request->nama_kegiatan,
+                'jenis_kegiatan' => $request->jenis_kegiatan,
+                'id_unsur_kegiatan' => $request->id_unsur_kegiatan,
+                'nama_penyelenggara' => $request->nama_penyelenggara,
+                'tempat_kegiatan' => $request->tempat_kegiatan,
+                'start_kegiatan' => $request->start_kegiatan,
+                'end_kegiatan' => $request->end_kegiatan,
+                'id_klasifikasi' => $request->id_klasifikasi,
+                'metode_kegiatan' => $request->metode,
+                'tingkat_kegiatan' => $request->tingkat_kegiatan,
+                'upload_persyaratan' =>$request->hasFile('upload_persyaratan') ? $request->file('upload_persyaratan')->store('file/bukti-kegiatan', 'public') : $kegiatan->upload_persyaratan
+            ]);
 
+            $kegiatan->penilaian->forceDelete();
+
+            LogKegiatan::query()->create([
+                'id_kegiatan' => $kegiatan->uuid,
+                'status_permohonan' => PermohonanStatus::UPDATE,
+                'keterangan' => 'created',
+                'user' => Auth::user()->id
+            ]);
+
+            $unsurKegiatan = MtSubUnsurKegiatan::with(['bobot'])->find($kegiatan->id_unsur_kegiatan);
+            $tingkat = 1;
+            $metode = $kegiatan->metode_kegiatan == 'Tatap Muka' ? $unsurKegiatan->bobot->tatap_muka : $unsurKegiatan->bobot->daring;
+            $jenis = $unsurKegiatan->bobot->not_verif_penyelenggara != null ? $unsurKegiatan->bobot->not_verif_penyelenggara : $unsurKegiatan->bobot->mandiri;
+            $sifat = $unsurKegiatan->bobot->khusus;
+
+            if($kegiatan->tingkat_kegiatan == 1){
+                $tingkat = $unsurKegiatan->bobot->nasional;
+            }elseif($kegiatan->tingkat_kegiatan == 2){
+                $tingkat = $unsurKegiatan->bobot->internasional_dalam_negeri;
+            }else{
+                $tingkat = $unsurKegiatan->bobot->internasional_luar_negeri;
+            }
+
+            PenilaianKegiatan::query()->create([
+                'uuid' => $kegiatan->uuid,
+                'nilai_skpk' => $unsurKegiatan->nilai_skpk,
+                'is_jenis' => $jenis,
+                'is_sifat' => $unsurKegiatan->bobot->khusus,
+                'is_metode' => $metode,
+                'is_tingkat' => $tingkat,
+                'angka_kredit' => $unsurKegiatan->nilai_skpk * ($jenis == null ? 1 : (float)$jenis) * ($sifat == null ? 1 : (float)$sifat) * ($metode == null ? 1 : (float)$metode) * ($tingkat == null ? 1 : (float)$tingkat)
+
+            ]);
+
+
+        });
+     }
+
+     public function deleteKegiatanUnverified($id)
+     {
+        $kegiatan = KegiatanUnverified::find($id);
+        DB::transaction(function () use($kegiatan){
+            $kegiatan->forceDelete();
+            $kegiatan->penilaian->forceDelete();
+        });
+     }
 }
