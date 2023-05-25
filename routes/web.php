@@ -148,6 +148,8 @@ Route::middleware(['auth'])->group(function () {
     //tenaga ahli
     Route::get('/daftar-kegiatan', [LogBookController::class, 'index'])->name('logbook.index');
     Route::get('/kegiatan-tidak-terverifikasi', [LogBookController::class, 'unverified'])->name('kegiatan.unverified');
+    Route::get('/kegiatan-tidak-terverifikasi/{id}', [LogBookController::class, 'edit'])->name('unverified.edit');
+    Route::put('/kegiatan-unverified/update/{id}', [LogBookController::class, 'update'])->name('unverified.update');
     Route::post('/unverified', [LogBookController::class, 'store'])->name('unverified.store');
     Route::delete('/unverified-delete/{id}', [LogBookController::class, 'delete'])->name('unverified.delete');
     Route::resource('/kegiatan-terdaftar', OldKegiatanController::class)->only(['create', 'store']);

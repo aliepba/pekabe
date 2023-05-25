@@ -23,6 +23,7 @@ class KegiatanExport implements FromCollection,WithHeadings
                          'a.tgl_pengajuan', 'a.start_kegiatan', 'a.end_kegiatan',
                           'a.subklasifikasi','d.nama_sub_unsur', 'a.metode_kegiatan',
                           'a.tingkat_kegiatan', 'a.keterangan')
+                        ->whereIn('status_permohonan_kegiatan', ['APPROVE', 'PELAPORAN', 'PENGESAHAN', 'VALIDASI'])
                         ->get();
 
         return $kegiatan;

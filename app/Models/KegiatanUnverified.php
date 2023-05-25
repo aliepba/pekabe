@@ -16,4 +16,14 @@ class KegiatanUnverified extends Model
     public function penilaian(){
         return $this->hasOne(PenilaianKegiatan::class, 'uuid', 'uuid');
     }
+
+     public function jenis(){
+        return $this->belongsTo(MtUnsurKegiatan::class, 'jenis_kegiatan', 'id');
+    }
+
+    public function unsur(){
+        return $this->belongsTo(MtSubUnsurKegiatan::class, 'id_unsur_kegiatan', 'id');
+    }
 }
+
+

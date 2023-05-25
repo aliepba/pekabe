@@ -55,6 +55,7 @@
                                 Terverifikasi
                             @endif
                             @if ($d->is_verifikasi == 0)
+                            <a class="btn btn-sm btn-primary" href="{{route('unverified.edit', $d->id)}}">Edit</a>
                             <form action="{{route('unverified.delete', $d->id)}}" method="post">
                                 @csrf
                                 @method('delete')
