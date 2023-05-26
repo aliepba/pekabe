@@ -143,6 +143,11 @@
                             <label>Tempat <span class="text-danger">*</span></label>
                             <input type="text" name="tempat_kegiatan" class="form-control" value="{{$data->tempat_kegiatan}}" />
                         </div>
+                        <div class="form-group">
+                            <label>Contact Person Kegiatan</label>
+                            <input type="text" name="cp" class="form-control" />
+                            <span class="text-muted">** Jika Ada</span>
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <h5 class="h5">Data Kegiatan</h5>
@@ -153,6 +158,11 @@
                         <div class="form-group">
                             <label>Tanggal Selesai <span class="text-danger">*</span></label>
                             <input type="date" name="end_kegiatan" class="form-control" value="{{$data->end_kegiatan}}"/>
+                        </div>
+                         <div class="form-group">
+                            <label>Link Pendaftaran</label>
+                            <input type="text" name="link_kegiatan" class="form-control" />
+                            <span class="text-muted">** Jika Ada</span>
                         </div>
                     </div>
                 </div>
