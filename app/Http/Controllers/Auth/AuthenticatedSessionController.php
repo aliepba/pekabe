@@ -32,8 +32,8 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
         $request->session()->regenerate();
-        isVerifikasi::dispatch();
-        PersetujuanKegiatan::dispatch();
+        // isVerifikasi::dispatch();
+        // PersetujuanKegiatan::dispatch();
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 

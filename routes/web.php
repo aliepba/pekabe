@@ -9,21 +9,22 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\Pkbv1Controller;
 use App\Http\Controllers\LogBookController;
 use App\Http\Controllers\KegiatanController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PelaporanController;
 use App\Http\Controllers\PerbaikanController;
 use App\Http\Controllers\PreferensiController;
+use App\Http\Controllers\PengesahanController;
 use App\Http\Controllers\OldKegiatanController;
+use App\Http\Controllers\UploadPesertaController;
 use App\Http\Controllers\UnsurKegiatanController;
 use App\Http\Controllers\PermohonanAkunController;
 use App\Http\Controllers\VerifikasiAkunController;
 use App\Http\Controllers\BobotPenilaianController;
-use App\Http\Controllers\PengesahanController;
-use App\Http\Controllers\UploadPesertaController;
-use App\Http\Controllers\PenilaianKegiatanController;
 use App\Http\Controllers\PesertaKegiatanController;
-use App\Http\Controllers\SubUnsurKegiatanController;
 use App\Http\Controllers\SubPenyelenggaraController;
+use App\Http\Controllers\SubUnsurKegiatanController;
+use App\Http\Controllers\PenilaianKegiatanController;
 use App\Http\Controllers\VerifikasiKegiatanController;
 use App\Http\Controllers\PenilaianValidatorController;
 
@@ -106,6 +107,10 @@ Route::middleware(['auth'])->group(function () {
 
     //export excel
     Route::get('/export-kegiatan', [VerifikasiKegiatanController::class, 'export'])->name('export.kegiatan');
+
+    //setting
+    Route::get('/setting-pelaporan', [SettingsController::class, 'index'])->name('setting.pelaporan');
+    Route::get('/change-status-setting', [SettingsController::class, 'statusPelaporan'])->name('setting.update');
 
     //penyelenggara
     Route::get('/dashboard-user', [DashboardController::class, 'dashboardUser'])->name('dashboard.user');

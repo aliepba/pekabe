@@ -43,7 +43,6 @@ class GetKegiatanByUser
         a.end_kegiatan,
         a.subklasifikasi,
         a.is_verifikasi,
-        b.id_penyelenggara ,
         bb.Nama ,
 	    a.tgl_penilaian 
         FROM pkb_kegiatan_penyelenggara a
@@ -65,7 +64,8 @@ class GetKegiatanByUser
             a1.is_verifikasi,
 	        a1.tgl_penilaian
         	FROM (
-        SELECT a.uuid,
+        SELECT 
+            a.uuid,
             a.nama_kegiatan,
             a.status_permohonan_kegiatan,
             a.tgl_pengajuan,
