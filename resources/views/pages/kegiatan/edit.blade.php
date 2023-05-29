@@ -145,7 +145,7 @@
                         </div>
                         <div class="form-group">
                             <label>Contact Person Kegiatan</label>
-                            <input type="text" name="cp" class="form-control" />
+                            <input type="text" name="cp" class="form-control" value="{{$data->contact_person}}"/>
                             <span class="text-muted">** Jika Ada</span>
                         </div>
                     </div>
@@ -159,9 +159,9 @@
                             <label>Tanggal Selesai <span class="text-danger">*</span></label>
                             <input type="date" name="end_kegiatan" class="form-control" value="{{$data->end_kegiatan}}"/>
                         </div>
-                         <div class="form-group">
+                        <div class="form-group">
                             <label>Link Pendaftaran</label>
-                            <input type="text" name="link_kegiatan" class="form-control" />
+                            <input type="text" name="link_kegiatan" class="form-control" value="{{$data->link_kegiatan}}"/>
                             <span class="text-muted">** Jika Ada</span>
                         </div>
                     </div>

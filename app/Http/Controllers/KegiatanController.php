@@ -19,6 +19,7 @@ use App\Actions\Kegiatan\GetKegiatanByUser;
 use App\Actions\Kegiatan\GetKegiatanPenyelenggara;
 use App\Actions\Kegiatan\GetKegiatanTolak;
 use App\Models\MtSubUnsurKegiatan;
+use App\Models\SettingPelaporan;
 
 class KegiatanController extends Controller
 {
@@ -86,7 +87,8 @@ class KegiatanController extends Controller
                                     'penyelenggaraLain', 'penyelenggaraLain.userPenyelenggara' ,
                                     'jenis', 'nilaiPelaporan', 'nilaiValidasi', 'unsurKegiatan' ,
                                     'unsurKegiatan.unsur', 'peserta.unsur'])
-                                ->where('uuid', $uuid)->first()
+                                ->where('uuid', $uuid)->first(),
+            'setting' => SettingPelaporan::first()
         ]);
     }
 

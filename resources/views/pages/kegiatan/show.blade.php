@@ -88,7 +88,7 @@
                     <span class="nav-text">Detail</span>
                 </a>
             </li>
-            {{-- @if (App\Models\SettingPelaporan::first('is_active') === 1) --}}
+            @if ($setting->is_active == 1)
                 @if ($data->status_permohonan_kegiatan == 'APPROVE' && \Carbon\Carbon::parse(\Carbon\Carbon::now())->diffInDays($data->end_kegiatan) <= 14 && (Auth::user()->id == $data->user_id ))
                 <li class="nav-item">
                     <a class="nav-link" id="profile-tab-1" data-toggle="tab" href="#tab-peserta" aria-controls="profile">
@@ -107,8 +107,8 @@
                     </a>
                 </li>
                 @endif
-            {{-- @endif --}}
-            {{-- @if (App\Models\SettingPelaporan::first('is_active') === 0 && (Auth::user()->id == $data->user_id) && $data->status_permohonan_kegiatan == 'APPROVE')
+            @endif
+            @if ($setting->is_active == 0 && (Auth::user()->id == $data->user_id) && $data->status_permohonan_kegiatan == 'APPROVE')
             <li class="nav-item">
                 <a class="nav-link" id="profile-tab-1" data-toggle="tab" href="#tab-peserta" aria-controls="profile">
                     <span class="nav-icon">
@@ -125,7 +125,7 @@
                     <span class="nav-text">Berkas Laporan Kegiatan</span>
                 </a>
             </li>
-            @endif --}}
+            @endif
             @if ($data->is_verifikasi == 1 && $data->tgl_penilaian)
             <li class="nav-item">
                 <a class="nav-link" id="profile-tab-1" data-toggle="tab" href="#tab-penilaian" aria-controls="profile">
