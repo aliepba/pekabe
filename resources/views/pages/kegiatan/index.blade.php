@@ -47,16 +47,36 @@
                             @endfor
                         </td>
                         <td>{{$item->validator->Nama}}</td>
-                        <td>
-                            <a href="{{route('kegiatan-penyelenggara.show', $item->uuid)}}" class="btn btn-sm btn-primary">Detail</a>
-                            @if ($item->status_permohonan_kegiatan == 'OPEN')
-                            <form action="{{route('kegiatan-penyelenggara.destroy', $item->id)}}" method="post">
-                                @csrf
-                                @method('delete')
-                            <button class="btn btn-danger btn-sm mt-5"><i class="flaticon2-trash"></i></button>
-                        </form>
+                        @if ($setting->is_active == 1)
+                            @if (\Carbon\Carbon::parse(\Carbon\Carbon::now())->diffInDays($item->start_kegiatan) <= $setting->maks_hari)
+                                <td>
+                                    <a href="{{route('kegiatan-penyelenggara.show', $item->uuid)}}" class="btn btn-sm btn-primary">Detail</a>
+                                    @if ($item->status_permohonan_kegiatan == 'OPEN')
+                                    <form action="{{route('kegiatan-penyelenggara.destroy', $item->id)}}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                    <button class="btn btn-danger btn-sm mt-5"><i class="flaticon2-trash"></i></button>
+                                </form>
+                                @endif
+                                </td>
+                            @else
+                                <td>
+                                    Kegiatan tidak dapat diajukan karena maksimal 3 hari sebelum tanggal kegiatan
+                                </td>
                             @endif
-                        </td>
+                        @endif
+                        @if ($setting->is_active == 0)
+                             <td>
+                                    <a href="{{route('kegiatan-penyelenggara.show', $item->uuid)}}" class="btn btn-sm btn-primary">Detail</a>
+                                    @if ($item->status_permohonan_kegiatan == 'OPEN')
+                                    <form action="{{route('kegiatan-penyelenggara.destroy', $item->id)}}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                    <button class="btn btn-danger btn-sm mt-5"><i class="flaticon2-trash"></i></button>
+                                </form>
+                                @endif
+                                </td>
+                        @endif
                     </tr>
                 @endforeach
               </tbody>

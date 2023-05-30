@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddCpToPkbKegiatanPenyelenggara extends Migration
+class CreateSettingPengajuanKegiatanTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class AddCpToPkbKegiatanPenyelenggara extends Migration
      */
     public function up()
     {
-        Schema::table('pkb_kegiatan_penyelenggara', function (Blueprint $table) {
-            $table->string('contact_person')->nullable();
-            $table->text('link_kegiatan')->nullable();
+        Schema::create('pkb_setting_pengajuan_kegiatan', function (Blueprint $table) {
+            $table->id();
+            $table->integer('maks_hari');
+            $table->tinyInteger('is_active');
+            $table->timestamps();
         });
     }
 
@@ -26,8 +28,6 @@ class AddCpToPkbKegiatanPenyelenggara extends Migration
      */
     public function down()
     {
-        Schema::table('pkb_kegiatan_penyelenggara', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('setting_pengajuan_kegiatan');
     }
 }

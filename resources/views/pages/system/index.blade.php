@@ -14,11 +14,11 @@
                   </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="home-tab-1" data-toggle="tab" href="#soon">
+                <a class="nav-link" id="home-tab-1" data-toggle="tab" href="#kegiatan">
                     <span class="nav-icon">
                         <i class="flaticon2-chat-1"></i>
                     </span>
-                    <span class="nav-text">Setting Pelaporan</span>
+                    <span class="nav-text">Setting Kegiatan</span>
                 </a>
             </li>
           </ul>
@@ -28,8 +28,8 @@
         <div class="tab-pane fade show active" id="pelaporan" role="tabpanel" aria-labelledby="home-tab-1">
             @include('pages.system.pelaporan')
         </div>
-        <div class="tab-pane fade show" id="soon" role="tabpanel" aria-labelledby="home-tab-1">
-            <h4>To Be Announcement</h4>
+        <div class="tab-pane fade show" id="kegiatan" role="tabpanel" aria-labelledby="home-tab-1">
+            @include('pages.system.kegiatan')
         </div>
     </div>
 </div>

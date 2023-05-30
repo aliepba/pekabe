@@ -27,6 +27,7 @@ use App\Http\Controllers\SubUnsurKegiatanController;
 use App\Http\Controllers\PenilaianKegiatanController;
 use App\Http\Controllers\VerifikasiKegiatanController;
 use App\Http\Controllers\PenilaianValidatorController;
+use PhpOffice\PhpSpreadsheet\Writer\Ods\Settings;
 
 /*
 |--------------------------------------------------------------------------
@@ -109,8 +110,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/export-kegiatan', [VerifikasiKegiatanController::class, 'export'])->name('export.kegiatan');
 
     //setting
-    Route::get('/setting-pelaporan', [SettingsController::class, 'index'])->name('setting.pelaporan');
+    Route::get('/settings', [SettingsController::class, 'index'])->name('setting.pelaporan');
     Route::get('/change-status-setting', [SettingsController::class, 'statusPelaporan'])->name('setting.update');
+    Route::get('/change-status-kegiatan', [SettingsController::class, 'pengajuanKegiatan'])->name('setting.kegiatan');
 
     //penyelenggara
     Route::get('/dashboard-user', [DashboardController::class, 'dashboardUser'])->name('dashboard.user');
