@@ -60,9 +60,11 @@
                     <label  class="col-2 col-form-label">Klasifikasi <span class="text-danger">*</span></label>
                     <div class="col-10">
                         <select class="form-control" name="id_klasifikasi">
-                            <option value="">Pilih Klasifikasi</option>
                             @foreach ($klas as $item)
-                                <option value="{{$item->id_klasifikasi}}">{{$item->klasifikasi}}</option>
+                                <option value="{{$item->id_klasifikasi}}" 
+                                    @if ($data->id_klasifikasi == $item->id_klasifikasi)
+                                        selected
+                                    @endif>{{$item->klasifikasi}}</option>
                             @endforeach
                         </select>
                     </div>

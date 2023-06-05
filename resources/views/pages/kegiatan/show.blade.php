@@ -89,7 +89,7 @@
                 </a>
             </li>
             @if ($setting->is_active == 1)
-                @if ($data->status_permohonan_kegiatan == 'APPROVE' && \Carbon\Carbon::parse(\Carbon\Carbon::now())->diffInDays($data->end_kegiatan) <= 14 && (Auth::user()->id == $data->user_id ))
+                @if (($data->status_permohonan_kegiatan == 'APPROVE' || $data->status_permohonan_kegiatan == 'PERBAIKAN PELAPORAN') && \Carbon\Carbon::parse(\Carbon\Carbon::now())->diffInDays($data->end_kegiatan) <= 14 && (Auth::user()->id == $data->user_id ))
                 <li class="nav-item">
                     <a class="nav-link" id="profile-tab-1" data-toggle="tab" href="#tab-peserta" aria-controls="profile">
                         <span class="nav-icon">
@@ -108,7 +108,7 @@
                 </li>
                 @endif
             @endif
-            @if ($setting->is_active == 0 && (Auth::user()->id == $data->user_id) && $data->status_permohonan_kegiatan == 'APPROVE')
+            @if ($setting->is_active == 0 && (Auth::user()->id == $data->user_id) && ($data->status_permohonan_kegiatan == 'APPROVE' || $data->status_permohonan_kegiatan == 'PERBAIKAN PELAPORAN'))
             <li class="nav-item">
                 <a class="nav-link" id="profile-tab-1" data-toggle="tab" href="#tab-peserta" aria-controls="profile">
                     <span class="nav-icon">
@@ -126,13 +126,13 @@
                 </a>
             </li>
             @endif
-            @if ($data->is_verifikasi == 1 && $data->tgl_penilaian)
+            @if ($data->status_permohonan_kegiatan == 'VALIDASI' || $data->status_permohonan_kegiatan == 'PENGESAHAN')
             <li class="nav-item">
                 <a class="nav-link" id="profile-tab-1" data-toggle="tab" href="#tab-penilaian" aria-controls="profile">
                     <span class="nav-icon">
                         <i class="flaticon2-layers-1"></i>
                     </span>
-                    <span class="nav-text">Hasil Penilaian</span>
+                    <span class="nav-text">Data Pelaporan</span>
                 </a>
             </li>
             @endif
@@ -148,9 +148,9 @@
         <div class="tab-pane fade" id="tab-pelaporan" role="tabpanel" aria-labelledby="profile-tab-1">
             @include('pages.kegiatan.pelaporan.create')
         </div>
-        @if (!empty($data->nilaiValidasi))
+        @if ($data->status_permohonan_kegiatan == 'VALIDASI' || $data->status_permohonan_kegiatan == 'PENGESAHAN')
         <div class="tab-pane fade" id="tab-penilaian" role="tabpanel" aria-labelledby="profile-tab-1">
-            @include('components.hasil-penilaian')
+            @include('pages.kegiatan.pelaporan.detail')
         </div>
         @endif
     </div>
