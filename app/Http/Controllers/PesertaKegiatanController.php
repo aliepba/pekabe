@@ -94,6 +94,11 @@ class PesertaKegiatanController extends Controller
     public function update(Request $request, $id)
     {
         $this->authorize('update-peserta', PesertaKegiatan::class);
+        if(Auth::user()->role == 'root' || Auth::user()->role == 'admin'){
+            $this->pesertaService->update($request, $id);
+            $kegiatan = PesertaKegiatan::find($id);
+            return redirect(route('verifikasi-validasi.show', $kegiatan->id_kegiatan))->with('success', 'berhasil diupdate');
+        }
         $this->pesertaService->update($request, $id);
         return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'berhasil diupdate!');
     }
