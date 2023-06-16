@@ -44,10 +44,10 @@ class MyHelper
         return $syarat ?? 0;
     }
 
-    public static function status($jenjang, $idSub){
+    public static function status($jenjang, $idSub, $tgl){
         $syarat = self::syarat($jenjang);
 
-        $ak = GetNilaiByIDSub::run($idSub);
+        $ak = GetNilaiByIDSub::run($idSub, $tgl);
 
         $status = $ak - $syarat;
 

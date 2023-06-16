@@ -10,7 +10,7 @@ class GetNilaiKegiatanNonFormal
 {
     use AsAction;
 
-    public function handle($idSub)
+    public function handle($idSub, $tgl)
     {
         $sum = DB::SELECT("SELECT sum(total.ak) as ak from (
                     select sum(a.angka_kredit) as ak from pkb_penilaian_peserta a
@@ -24,6 +24,7 @@ class GetNilaiKegiatanNonFormal
                     join pkb_sub_unsur_kegiatan c on b.id_unsur_kegiatan = c.id
                     where b.user_id = '". Auth::user()->id . "'
                     and c.id_unsur_kegiatan = 2
+                    and start_kegiatan = '$tgl'
                 ) as total")[0];
 
         if(empty($sum)){

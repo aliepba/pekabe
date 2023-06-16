@@ -226,7 +226,7 @@
                     @csrf
                     <div class="form-group">
                         <label>Keterangan</label>
-                        <textarea rows="5" class="form-control" name="keterangan_verifikasi"></textarea>
+                        <textarea rows="5" class="form-control" name="keterangan"></textarea>
                         <input value="{{$data->id}}" id="idKegiatan" name="id" hidden/>
                     </div>
                     <div class="form-group">

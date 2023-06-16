@@ -10,7 +10,6 @@
             <a href="{{route('kegiatan.unverified')}}" class="btn btn-md btn-warning ml-2"> <i class="flaticon-plus"></i> Tambah Kegiatan Tidak Terverifikasi</a>
             <!--end::Page Title-->
             <!--begin::Actions-->
-
             <!--end::Actions-->
         </div>
     </div>

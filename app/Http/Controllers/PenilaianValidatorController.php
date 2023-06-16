@@ -69,7 +69,7 @@ class PenilaianValidatorController extends Controller
     public function validasi(Request $request, $uuid)
     {
         if($request->status_permohonan_kegiatan == 'PERBAIKAN PELAPORAN'){
-            $this->penilaianService->pelaporan($request);
+            $this->penilaianService->pelaporan($request, $uuid);
             return redirect(route('verifikasi-validasi.index'))->with('success', 'berhasil dilakukan  dan validasi perbaikan pelaporan');
         }
         

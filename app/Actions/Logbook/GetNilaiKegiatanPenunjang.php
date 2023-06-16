@@ -10,7 +10,7 @@ class GetNilaiKegiatanPenunjang
 {
     use AsAction;
 
-    public function handle($idSub)
+    public function handle($idSub, $tgl)
     {
         $sum = DB::SELECT("SELECT SUM(total.ak) as ak FROM (
             select sum(a.angka_kredit) as ak  from pkb_penilaian_peserta a
@@ -26,6 +26,7 @@ class GetNilaiKegiatanPenunjang
 			join pkb_master_unsur_kegiatan z on y.id_unsur_kegiatan = z.id 
 			where z.jenis = 'Kegiatan Penunjang'
 			and w.user_id = '". Auth::user()->id ."'
+            and start_kegiatan = '$tgl'
         ) as total")[0];
 
         if(empty($sum)){

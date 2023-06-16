@@ -196,17 +196,20 @@ class PenilaianService{
     public function pelaporan(Request $request){
         $data = Kegiatan::find($request->id);
         $user = User::find($data->user_id);
-        DB::transaction(function () use($request, $data, $user){
-
-        
+        $laporan = PelaporanKegiatan::where('id_kegiatan', $data->uuid)->first();
+        DB::transaction(function () use($request, $data, $user, $laporan){
             $data->update([
-                'status_permohonan_kegiatan' => $request->status_permohonan,
-                'status_permohonan_penyelenggara' => $request->status_permohonan,
+                'status_permohonan_kegiatan' => PermohonanStatus::PERBAIKAN_PELAPORAN,
+                'status_permohonan_penyelenggara' => PermohonanStatus::PERBAIKAN_PELAPORAN,
+            ]);
+
+            $laporan->update([
+                'status_laporan' => PermohonanStatus::OPEN
             ]);
  
             $item = LogKegiatan::query()->create([
                 'id_kegiatan' => $data->uuid,
-                'status_permohonan' => $request->status_permohonan,
+                'status_permohonan' => PermohonanStatus::PERBAIKAN_PELAPORAN,
                 'keterangan' => $request->keterangan,
                 'user' => Auth::user()->id
             ]);
