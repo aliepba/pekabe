@@ -50,7 +50,7 @@ class GetKegiatanByUser
         JOIN pkb_users pu on a.user_id = pu.id
         JOIN pkb_detail_instansi pdi on pu.email = pdi.email_instansi 
         JOIN personal_profesi_ta_detail bb on a.penilai = bb.ID_Asosiasi_Profesi
-        WHERE a.status_permohonan_kegiatan IN ('SUBMIT', 'APPROVE', 'PELAPORAN', 'PENGESAHAN', 'VALIDASI')
+        WHERE a.status_permohonan_kegiatan IN ('SUBMIT', 'APPROVE', 'PELAPORAN', 'PENGESAHAN', 'VALIDASI', 'PERBAIKAN PELAPORAN')
         AND b.id_penyelenggara = '$idPenyelenggara'
         UNION
         SELECT  a1.uuid,
@@ -77,7 +77,7 @@ class GetKegiatanByUser
             a.tgl_penilaian
         FROM pkb_kegiatan_penyelenggara a
         JOIN personal_profesi_ta_detail b on a.penilai = b.ID_Asosiasi_Profesi
-        WHERE a.status_permohonan_kegiatan IN ('SUBMIT', 'APPROVE', 'PELAPORAN', 'PENGESAHAN', 'VALIDASI')
+        WHERE a.status_permohonan_kegiatan IN ('SUBMIT', 'APPROVE', 'PELAPORAN', 'PENGESAHAN', 'VALIDASI', 'PERBAIKAN PELAPORAN')
         AND a.user_id = '". Auth::user()->id . "' ) as a1
         UNION
         SELECT

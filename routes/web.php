@@ -29,6 +29,9 @@ use App\Http\Controllers\VerifikasiKegiatanController;
 use App\Http\Controllers\PenilaianValidatorController;
 use PhpOffice\PhpSpreadsheet\Writer\Ods\Settings;
 
+
+use App\Http\Controllers\SiJKTController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,6 +49,11 @@ Route::get('/pkb-siki-login', [SSOController::class, 'view'])->name('ska');
 Route::post('/login-siki', [SSOController::class, 'login'])->name('login.sso');
 Route::get('/pkb-simpan-login', [SSOController::class, 'loginSKK'])->name('skk');
 Route::post('/login-simpan', [SSOController::class, 'skk'])->name('login.skk');
+
+Route::get('/sijkt', [SiJKTController::class, 'sijkt'])->name('sijkt');
+Route::get('/sijkt-proses', [SiJKTController::class, 'proses'])->name('sijkt.proses');
+Route::get('/login-siki-simpan/{id}/{token}', [SiJKTController::class, 'login'])->name('sijkt.siki');
+Route::post('/connect-sijkt', [SiJKTController::class, 'connect'])->name('sijkt.connect');
 
 //index
 Route::get('/', [IndexController::class, 'index'])->name('indexing');

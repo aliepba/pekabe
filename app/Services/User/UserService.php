@@ -19,7 +19,8 @@ class UserService {
                 'role' => 'skk-ska',
                 'nik' => $data['nik'],
                 'jenis' => $data['jenis'],
-                'jenis_penyelenggara' => 99
+                'jenis_penyelenggara' => 99,
+                'sijkt_pkb' => $data['id_sijkt']
             ]);
 
             $user->assignRole('skk-ska');

@@ -84,6 +84,9 @@
             <li class="mr-3">
                 <a class="inline-block py-2 px-4 text-black font-bold no-underline" href="{{route('login')}}">LPJK</a>
             </li>
+            <li class="mr-3">
+              <a class="inline-block py-2 px-4 text-black font-bold no-underline" href="{{route('sijkt')}}">SIJKT</a>
+          </li>
             @endguest
             @auth
             <li class="mr-3">

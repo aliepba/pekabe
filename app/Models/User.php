@@ -28,7 +28,8 @@ class User extends Authenticatable
         'role',
         'nik',
         'jenis',
-        'jenis_penyelenggara'
+        'jenis_penyelenggara',
+        'sijkt_pkb'
     ];
 
     /**
