@@ -24,6 +24,7 @@
         </nav>
     </header>
     <section class="container mt-5">
+        <h4 class="text-center">Kegiatan Yang Akan Terselenggara</h4>
         <table class="table" id="kegiatan">
             <thead>
                 <tr>
@@ -34,6 +35,7 @@
                     <th>Tanggal Selesai</th>
                     <th>Email Penyelenggara</th>
                     <th>Penyelenggara</th>
+                    <th>CP Penyelenggara / Link Pendaftaran</th>
                 </tr>
             </thead>
             <tbody>
@@ -46,6 +48,36 @@
                         <td>{{$item->end_kegiatan}}</td>
                         <td>{{$item->user->email}}</td>
                         <td>{{$item->user->name}}</td>
+                        <td>{{$item->contact_person}} - {{$item->link_kegiatan}}
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <br/>
+        <br/>
+        <h4 class="text-center">Kegiatan Yang Telah Terselenggara</h4>
+        <table class="table mb-5" id="done">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Kegiatan</th>
+                    <th>Tanggal Mulai</th>
+                    <th>Tanggal Selesai</th>
+                    <th>Email Penyelenggara</th>
+                    <th>Penyelenggara</th>
+                    <th>CP Penyelenggara</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($done as $item)
+                    <tr>
+                        <td>{{$loop->iteration}}</td>  
+                        <td>{{$item->nama_kegiatan}}</td>
+                        <td>{{$item->start_kegiatan}}</td>
+                        <td>{{$item->end_kegiatan}}</td>
+                        <td>{{$item->user->email}}</td>
+                        <td>{{$item->user->name}}</td>
+                        <td>{{$item->contact_person}}
                     </tr>
                 @endforeach
             </tbody>
@@ -59,6 +91,7 @@
     <script>
         $(document).ready(function () {
             $('#kegiatan').DataTable();
+            $('#done').DataTable();
         });
     </script>
 </body>

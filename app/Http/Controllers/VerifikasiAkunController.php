@@ -34,11 +34,11 @@ class VerifikasiAkunController extends Controller
 
     public function detailPermohonan($uuid){
         $this->authorize('detail-akun', DetailInstansi::class);
-        $data = DetailInstansi::with(['penanggungjawab', 'provinsi', 'kabKota'])->where('uuid', $uuid)->first();
+        $data = DetailInstansi::with(['penanggungjawab', 'provinsi', 'kabKota', 'Jenispenyelenggara'])->where('uuid', $uuid)->first();
 
         if($data->jenis == 1){
             return view('pages.verifikasi.detail', [
-                'data' => DetailInstansi::with(['penanggungjawab', 'provinsi', 'kabKota'])->where('uuid', $uuid)->first(),
+                'data' => $data,
                 'file1' => null,
                 'file2' => null,
                 'file3' => null,
@@ -47,7 +47,7 @@ class VerifikasiAkunController extends Controller
 
         if($data->jenis == 2){
             return view('pages.verifikasi.detail', [
-                'data' => DetailInstansi::with(['penanggungjawab', 'provinsi', 'kabKota'])->where('uuid', $uuid)->first(),
+                'data' => $data,
                 'file1' => "Akta notaris atas pendirian asosiasi",
                 'file2' => "Pengesahan badan hukum",
                 'file3' => "Perkumpulan dari Kemenkumham"
@@ -56,7 +56,7 @@ class VerifikasiAkunController extends Controller
 
         if($data->jenis == 3){
             return view('pages.verifikasi.detail', [
-                'data' => DetailInstansi::with(['penanggungjawab', 'provinsi', 'kabKota'])->where('uuid', $uuid)->first(),
+                'data' => $data,
                 'file1' => "Akta notaris atas pendirian asosiasi",
                 'file2' => "Pengesahan badan hukum",
                 'file3' => "Perkumpulan dari Kemenkumham"
@@ -65,7 +65,7 @@ class VerifikasiAkunController extends Controller
 
         if($data->jenis == 4){
             return view('pages.verifikasi.detail', [
-                'data' => DetailInstansi::with(['penanggungjawab', 'provinsi', 'kabKota'])->where('uuid', $uuid)->first(),
+                'data' => $data,
                 'file1' => "Akta notaris atas pendirian asosiasi",
                 'file2' => "Pengesahan badan hukum",
                 'file3' => null,
@@ -74,7 +74,7 @@ class VerifikasiAkunController extends Controller
 
         if($data->jenis == 5){
             return view('pages.verifikasi.detail', [
-                'data' => DetailInstansi::with(['penanggungjawab', 'provinsi', 'kabKota'])->where('uuid', $uuid)->first(),
+                'data' => $data,
                 'file1' => "Data Pokok Pendidikan (Dapodik) untuk lembaga pendidikan",
                 'file2' => "Izin lembaga pelatihan dari dinas terkait untuk lembaga pelatihan",
                 'file3' => "Perkumpulan dari Kemenkumham"
@@ -83,7 +83,7 @@ class VerifikasiAkunController extends Controller
 
         if($data->jenis == 6){
             return view('pages.verifikasi.detail', [
-                'data' => DetailInstansi::with(['penanggungjawab', 'provinsi', 'kabKota'])->where('uuid', $uuid)->first(),
+                'data' => $data,
                 'file1' => "Akta Pendirian Perusahaan",
                 'file2' => "SBU dan/atau IUJK yang masih berlaku",
                 'file3' => null,
@@ -92,7 +92,7 @@ class VerifikasiAkunController extends Controller
 
         if($data->jenis == 7){
             return view('pages.verifikasi.detail', [
-                'data' => DetailInstansi::with(['penanggungjawab', 'provinsi', 'kabKota'])->where('uuid', $uuid)->first(),
+                'data' => $data,
                 'file1' => "Akta Pendirian Perusahaan",
                 'file2' => "SIUP",
                 'file3' => null,
@@ -101,7 +101,7 @@ class VerifikasiAkunController extends Controller
 
         if($data->jenis == 8){
             return view('pages.verifikasi.detail', [
-                'data' => DetailInstansi::with(['penanggungjawab', 'provinsi', 'kabKota'])->where('uuid', $uuid)->first(),
+                'data' => $data,
                 'file1' => "Akta Notaris",
                 'file2' => "SIUP",
                 'file3' => null,

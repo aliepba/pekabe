@@ -17,7 +17,11 @@ class GetKegiatanSetuju
             'kegiatan' => Kegiatan::where('status_permohonan_kegiatan', PermohonanStatus::APPROVE)
                                     ->where('start_kegiatan', '>', Carbon::now())
                                     ->orderBy('start_kegiatan', 'asc')
-                                    ->get()
+                                    ->get(),
+            'done' => Kegiatan::whereNotIn('status_permohonan_kegiatan', ['SUBMIT', 'OPEN', 'TOLAK'])
+                                ->where('start_kegiatan', '<', Carbon::now())
+                                ->orderBy('start_kegiatan', 'asc')
+                                ->get()
         ];
     }
 }

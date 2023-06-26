@@ -36,7 +36,7 @@ class SIJKTService{
         $token = $request->input('t');
         $response = $this->setting("User", "token", "token=" . base64_decode($token));
         $data = json_decode($response, true);
-    
+        
         $userId= $data['payload']['userId'];
 
         if($response['errorCode'] != 0){
@@ -65,7 +65,9 @@ class SIJKTService{
             return $this->ska($request);
         }
 
-        if($cek == 'SKK'){}
+        if($cek == 'SKK'){
+            return $this->skk($request);
+        }
     }
 
     public function ska(Request $request){
@@ -116,5 +118,55 @@ class SIJKTService{
         Auth::login($login, true);
     }
 
+    public function skk(Request $request){
+        $url = 'https://simpan.pu.go.id/simpan-api/pkb/v1/sso';
+        $username = $request->username;
+        $password = $request->password;
+        $id = $request->id;
+        $token = $request->token;
+
+        $response = $this->ssoSiki->setting($username, $password, $url);
+        $dataDecoded = json_decode($response);
+
+        if($response->failed()){
+            return redirect(route('sijkt.siki', ['id' => $id, 'token' => $token]))->with('success', 'Harap Login dengan akun SKA/SKK terlebih dahulu');
+        }
+
+        $data = array(
+            'name' => $dataDecoded->data->nama,
+            'email' => $dataDecoded->data->email,
+            'password' => $password,
+            'nik' => $dataDecoded->data->nik,
+            'jenis' => 'skk',
+            'id_sijkt' => $id
+        );
+
+        $user = User::where('email', $dataDecoded->data->email)->first();
+
+        if(!empty($user)){
+            if($user->sijkt_pkb == $id && $user->$dataDecoded->data->nik == $dataDecoded->data->email){
+                return redirect(route('sijkt.siki', ['id' => $id, 'token' => $token]))->with('success', 'Akun SIKI Anda Sudah Terhubung dengan AKUN SIJKT Lain');
+            }else{
+                $user->update([
+                    'sijkt_pkb' => $id
+                ]);
+            }
+        }
+
+        if(!$user){
+            $this->userService->store($data);
+        }
+
+        $login = User::where('sijkt_pkb', $id)->first();
+
+        //update sijkt_pkb to simpan user_tkk 
+
+        //above 
+
+        $this->setting("User", "grant", "token=".base64_decode($token));
+
+        Auth::login($login, true);
+
+    }
 
 }
