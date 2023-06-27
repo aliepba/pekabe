@@ -42,7 +42,7 @@
                         <td>{{$result = ($d->tingkat_kegiatan == 1) ? 'Nasional' : (($d->tingkat_kegiatan == 2) ? 'Internasional Dalam Negeri' : 'Internasional Luar Negeri')}}</td>
                         @foreach ($data as $item)
                         @if ($d->is_verifikasi == 1)
-                        <td>{{App\Actions\Logbook\GetNilaiLogbook::run($item->id_sub_bidang, $item->tanggal_cetak, $d->uuid)}}</td>
+                        <td>{{App\Actions\Logbook\GetNilaiLogbook::run($item->id_sub_bidang, $item->tanggal_cetak, $d->uuid,$data->unsur, $d->id_unsur)}}</td>
                         @endif
                         @if ($d->is_verifikasi == 0)
                         <td>{{\App\Actions\Logbook\GetNilaiLogbookUnverified::run($item->tanggal_cetak,$d->uuid)}}</td>

@@ -10,7 +10,7 @@ class GetNilaiLogbook
 {
     use AsAction;
 
-    public function handle($idSub, $tgl, $idKegiatan)
+    public function handle($idSub, $tgl, $idKegiatan, $idUnsur)
     {
 
         $nilai = DB::select("SELECT a.angka_kredit FROM pkb_penilaian_peserta a
@@ -18,11 +18,13 @@ class GetNilaiLogbook
                 WHERE a.id_sub_bidang = :idSub
                 AND a.nik = :nik
                 AND b.start_kegiatan > :tgl
+                AND a.id_unsur = :idUnsur
                 AND b.uuid = :idKegiatan", [
                     'idSub' => $idSub,
                     'nik' => Auth::user()->nik,
                     'tgl' => $tgl,
-                    'idKegiatan' => $idKegiatan
+                    'idKegiatan' => $idKegiatan,
+                    'idUnsur' => $idUnsur
             ]);
         
         if (empty($nilai)) {

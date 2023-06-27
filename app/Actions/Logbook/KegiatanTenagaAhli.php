@@ -20,6 +20,7 @@ class KegiatanTenagaAhli
             start_kegiatan,
             end_kegiatan,
             jenis_kegiatan,
+            id_unsur,
             nama_sub_unsur as unsur_kegiatan,
             metode_kegiatan,
             tingkat_kegiatan,
@@ -32,6 +33,7 @@ class KegiatanTenagaAhli
                 b.nama_kegiatan,
                 b.start_kegiatan ,
                 b.end_kegiatan,
+                a.id_unsur,
                 b.jenis_kegiatan,
                 c.nama_sub_unsur ,
                 case
@@ -54,6 +56,7 @@ class KegiatanTenagaAhli
                 x.start_kegiatan,
                 x.end_kegiatan,
                 x.jenis_kegiatan,
+                x.id_unsur_kegiatan as id_unsur,
                 y.nama_sub_unsur ,
                 x.metode_kegiatan,
                 x.tingkat_kegiatan,
