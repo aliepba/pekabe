@@ -24,7 +24,7 @@ class GetNilaiKegiatanSelainNonFormal
 			join pkb_sub_unsur_kegiatan z on x.id_unsur_kegiatan = z.id 
 			where z.id_unsur_kegiatan not in ('2')
 			and x.user_id = '". Auth::user()->id . "'
-            and start_kegiatan = '$tgl'
+            and start_kegiatan >= '$tgl'
             ) as total")[0];
 
         if(empty($sum)){

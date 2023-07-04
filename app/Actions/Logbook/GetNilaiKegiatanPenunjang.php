@@ -26,7 +26,7 @@ class GetNilaiKegiatanPenunjang
 			join pkb_master_unsur_kegiatan z on y.id_unsur_kegiatan = z.id 
 			where z.jenis = 'Kegiatan Penunjang'
 			and w.user_id = '". Auth::user()->id ."'
-            and start_kegiatan = '$tgl'
+            and start_kegiatan >= '$tgl'
         ) as total")[0];
 
         if(empty($sum)){

@@ -117,7 +117,7 @@
                     <td></td>
                     <td></td>
                     <td>{{\helpers\MyHelper::nilaiSyarat(60, $item->kualifikasi)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiKhusus::run($item->id_sub_bidang)}}</td>
+                    <td>{{\App\Actions\Logbook\GetNilaiKhusus::run($item->id_sub_bidang, $item->tanggal_cetak)}}</td>
                     <td>{{\helpers\MyHelper::nilaiSyarat(40, $item->kualifikasi)}}</td>
                     <td>{{\App\Actions\Logbook\GetNilaiUmum::run($item->id_sub_bidang)}}</td>
                     <td>{{\App\Actions\Logbook\GetNilaiUmum::run($item->id_sub_bidang) - \helpers\MyHelper::nilaiSyarat(40, $item->kualifikasi)}}</td>
