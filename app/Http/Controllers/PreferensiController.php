@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Logbook\TenagaAhli;
 use App\Actions\Referensi\Validator;
 use Carbon\Carbon;
 use App\Models\User;
@@ -63,5 +64,12 @@ class PreferensiController extends Controller
             ->markAsRead();
 
         return response()->noContent();
+    }
+
+    public function getSertifikat($nik){
+        return response()->json([
+            'message' => "succes",
+            'data' => TenagaAhli::run($nik)
+        ]);
     }
 }

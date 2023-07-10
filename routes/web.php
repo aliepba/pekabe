@@ -27,6 +27,8 @@ use App\Http\Controllers\SubUnsurKegiatanController;
 use App\Http\Controllers\PenilaianKegiatanController;
 use App\Http\Controllers\VerifikasiKegiatanController;
 use App\Http\Controllers\PenilaianValidatorController;
+use App\Http\Controllers\Pengembangan\KegiatanController as PengembanganController;
+use App\Http\Controllers\Pengembangan\AsosiasiController;
 
 use App\Http\Controllers\SiJKTController;
 
@@ -72,6 +74,14 @@ Route::get('/dashboard-tenaga-ahli', [DashboardController::class, 'dashboardTena
 Route::get('/daftar-kegiatan-disetujui', function(){
     return view('daftar-kegiatan', GetKegiatanSetuju::run());
 })->name('kegiatan.setujui');
+
+Route::prefix('/pengembangan')->middleware(['auth'])->group(function (){
+    Route::get('/kegiatan', [PengembanganController::class, 'index'])->name('pengembangan.index');
+    Route::get('/detail-kegiatan/{uuid}', [PengembanganController::class, 'detail'])->name('pengembangan.detail');
+
+    Route::get('/asosiasi/kegiatan', [AsosiasiController::class, 'index'])->name('asosiasi.index');
+    Route::get('/asosiasi/kegiatan-detail/{uuid}', [AsosiasiController::class, 'detail'])->name('asosiasi.detail');
+});
 
 Route::middleware(['auth'])->group(function () {
     //admin
@@ -183,5 +193,6 @@ Route::get('/detail-asosiasi-bu', [PreferensiController::class, 'getAsosiasiBU']
 Route::get('/detail-instansi/{id}', [PreferensiController::class, 'showInstansi']);
 Route::get('/get-unsur-kegiatan', [PreferensiController::class, 'unsurKegiatan']);
 Route::get('/get-validator', [PreferensiController::class, 'validator']);
+Route::get('/get-sertifikat/{nik}', [PreferensiController::class, 'getSertifikat']);
 
 require __DIR__.'/auth.php';
