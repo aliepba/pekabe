@@ -81,6 +81,7 @@ Route::prefix('/pengembangan')->middleware(['auth'])->group(function (){
 
     Route::get('/asosiasi/kegiatan', [AsosiasiController::class, 'index'])->name('asosiasi.index');
     Route::get('/asosiasi/kegiatan-detail/{uuid}', [AsosiasiController::class, 'detail'])->name('asosiasi.detail');
+    Route::get('/detail-api/{uuid}', [AsosiasiController::class, 'detailApi']);
 });
 
 Route::middleware(['auth'])->group(function () {

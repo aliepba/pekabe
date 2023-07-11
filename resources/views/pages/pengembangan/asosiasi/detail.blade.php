@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    <input value="{{$data->uuid}}" id="idKegiatan" hidden/>
     <div class="card shadow mb-4">
         <div class="card-header py-2 mt-2">
             <h4 class="h4">{{$data->nama_kegiatan}}</h4>
@@ -133,3 +134,25 @@
     </div>
 </div>
 @endsection
+
+@push('addon-script')
+    <script>
+        $(document).ready(function() {
+            var id = $("#idKegiatan").val()
+            $.ajax({
+                url: 'http://localhost:2121/api/v1/kegiatan-detail?id_kegiatan='+id,
+                type: 'GET',
+                dataType: 'json',
+                headers: {
+                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxfQ.GL0GdGvzcw0uA2aGl96jBZXWLsKuXP_jTykJPLJeuuI'
+                },
+                success: function(res) {
+                    console.log(res)
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error:', xhr.error);
+                }
+            });
+            });
+    </script>
+@endpush
