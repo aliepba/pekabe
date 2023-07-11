@@ -11,6 +11,7 @@
                   <th>Laporan Kegiatan</th>
                   <th>Materi Kegiatan</th>
                   <th>Dokumentasi Kegiatan</th>
+                  <th>Status Laporan</th>
                 </tr>
               </thead>
               <tbody>

@@ -111,9 +111,9 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-3">
-                    <a href="{{url('localhost:2121/'.$data->laporan->upload_persyaratan)}}" target="_blank" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>Laporan Kegiatan *</a> <br />
-                    <a href="{{url('localhost:2121/'. $data->laporan->materi_kegiatan)}}" target="_blank" class="btn btn-sm btn-primary rounded-lg mt-2"><i class="flaticon-file"></i>Materi Kegiatan *</a> <br />
-                    <a href="{{url('localhost:2121/'. $data->laporan->dokumentasi_kegiatan)}}" target="_blank" class="btn btn-sm btn-primary rounded-lg mt-2"><i class="flaticon-file"></i>Dokumentasi Kegiatan *</a>
+                    <a href="http://localhost:2121/{{$data->laporan->laporan_kegiatan}}" class="btn btn-sm btn-primary rounded-lg" target="_blank"><i class="flaticon-file"></i>Laporan Kegiatan *</a> <br />
+                    <a href="http://localhost:2121/{{$data->laporan->materi_kegiatan}}" class="btn btn-sm btn-primary rounded-lg mt-2" target="_blank"><i class="flaticon-file"></i>Materi Kegiatan *</a> <br />
+                    <a href="http://localhost:2121/{{$data->laporan->dokumentasi_kegiatan}}" class="btn btn-sm btn-primary rounded-lg mt-2" target="_blank"><i class="flaticon-file"></i>Dokumentasi Kegiatan *</a>
                 </div>
                 <div class="col-md-7">
                     <form action="{{route('pengesahan.selesai', $data->uuid)}}" method="POST">
@@ -130,11 +130,8 @@
     </div>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalPeserta">
-                Tambah Peserta
-            </button>
-          </div>
+            Peserta
+        </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="peserta" width="100%" cellspacing="0">
@@ -151,10 +148,10 @@
                     @foreach ($data->peserta as $item)
                     <tr>
                         <td>{{$loop->iteration}}</td>
-                        <td>{{\App\Actions\Logbook\GetNamaTenagaAhli::run($item->nik_peserta)}}</td>
-                        <td>{{$item->nik_peserta}}</td>
-                        <td>{{$item->metode_peserta}}</td>
-                        <td>{{$item->unsur->nama_sub_unsur}}</td>
+                        <td>{{\App\Actions\Logbook\GetNamaTenagaAhli::run($item->nik)}}</td>
+                        <td>{{$item->nik}}</td>
+                        <td>{{$item->metode}}</td>
+                        <td>{{$item->subUnsur->nama_sub_unsur}}</td>
                     </tr>
                     @endforeach
                   </tbody>
