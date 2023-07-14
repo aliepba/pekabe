@@ -13,7 +13,6 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PelaporanController;
 use App\Http\Controllers\PerbaikanController;
-use App\Http\Controllers\PreferensiController;
 use App\Http\Controllers\PengesahanController;
 use App\Http\Controllers\OldKegiatanController;
 use App\Http\Controllers\UploadPesertaController;
@@ -29,6 +28,7 @@ use App\Http\Controllers\VerifikasiKegiatanController;
 use App\Http\Controllers\PenilaianValidatorController;
 use App\Http\Controllers\Pengembangan\KegiatanController as PengembanganController;
 use App\Http\Controllers\Pengembangan\AsosiasiController;
+use App\Http\Controllers\KegiatanSahController;
 
 use App\Http\Controllers\SiJKTController;
 
@@ -78,6 +78,7 @@ Route::get('/daftar-kegiatan-disetujui', function(){
 Route::prefix('/pengembangan')->middleware(['auth'])->group(function (){
     Route::get('/kegiatan', [PengembanganController::class, 'index'])->name('pengembangan.index');
     Route::get('/detail-kegiatan/{uuid}', [PengembanganController::class, 'detail'])->name('pengembangan.detail');
+    Route::put('/pengesahan/{uuid}', [PengembanganController::class, 'pengesahan'])->name('pengembangan.sah');
 
     Route::get('/asosiasi/kegiatan', [AsosiasiController::class, 'index'])->name('asosiasi.index');
     Route::get('/asosiasi/kegiatan-detail/{uuid}', [AsosiasiController::class, 'detail'])->name('asosiasi.detail');
@@ -115,6 +116,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/detail-pengesahan/{uuid}', [PengesahanController::class, 'detail'])->name('pengesahan.detail');
     Route::put('/pengesahan/{uuid}', [PengesahanController::class, 'sah'])->name('pengesahan.selesai');
     Route::get('/berita-acara-pengesahan/{uuid}', [PengesahanController::class, 'ba'])->name('pengesahan.ba');
+
+    Route::get('/kegiatan-sah', [KegiatanSahController::class, 'index'])->name('kegiatan.sah');
+    Route::get('/kegiatan-sah-detail/{uuid}', [KegiatanSahController::class, 'detail'])->name('kegiatan.sah.detail');
 
     Route::get('/upload-excel/{uuid}', [UploadPesertaController::class, 'index'])->name('excel');
     Route::post('/import-excel/{uuid}', [UploadPesertaController::class, 'import'])->name('excel.import');
@@ -166,7 +170,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/get-peserta/{id}', [PesertaKegiatanController::class, 'getPeserta'])->name('peserta.get');
     Route::delete('/hapus-peserta/{id}', [PesertaKegiatanController::class, 'deletePeserta'])->name('peserta.hapus');
 
-    Route::post('/mark-as-read', [PreferensiController::class, 'markNotif'])->name('markNotification');
     Route::get('kegiatan-pkb-terverifikasi', [Pkbv1Controller::class, 'kegiatanTerverifikasi'])->name('pkb.lama');
 
     //tenaga ahli
@@ -188,12 +191,5 @@ Route::middleware(['auth'])->group(function () {
 });
 
 //referensi
-Route::get('/kab-kota', [PreferensiController::class, 'getKabKota']);
-Route::get('/detail-asosiasi-profesi', [PreferensiController::class, 'getAsosiasiProfesi']);
-Route::get('/detail-asosiasi-bu', [PreferensiController::class, 'getAsosiasiBU']);
-Route::get('/detail-instansi/{id}', [PreferensiController::class, 'showInstansi']);
-Route::get('/get-unsur-kegiatan', [PreferensiController::class, 'unsurKegiatan']);
-Route::get('/get-validator', [PreferensiController::class, 'validator']);
-Route::get('/get-sertifikat/{nik}', [PreferensiController::class, 'getSertifikat']);
-
 require __DIR__.'/auth.php';
+require __DIR__.'/referensi.php';

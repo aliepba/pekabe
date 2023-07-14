@@ -4,7 +4,7 @@
 <div class="container">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h5 class="h5">List Penilaian Validator Kegiatan</h5>
+            <h5 class="h5">List Pengesahan Kegiatan</h5>
         </div>
         <div class="card-body">
           <div class="table-responsive">
@@ -12,6 +12,7 @@
               <thead>
                 <tr>
                     <th>No</th>
+                    <th>Penyelenggara</th>
                     <th>Kegiatan</th>
                     <th>Status</th>
                     <th>Tanggal Pengajuan</th>
@@ -28,6 +29,7 @@
                     ?>
                     <tr>
                         <td>{{$loop->iteration}}</td>
+                        <td>{{$item->user->name}}</td>
                         <td>{{$item->nama_kegiatan}}</td>
                         <td>{{$item->status_permohonan_kegiatan}}</td>
                         <td>{{$item->tgl_pengajuan}}</td>
@@ -38,7 +40,7 @@
                             @endfor
                         </td>
                         <td>
-                            <a href="{{route('penilaian.detail', $item->uuid)}}" class="btn btn-sm btn-primary">Detail</a>
+                            <a href="{{route('kegiatan.sah.detail', $item->uuid)}}" class="btn btn-sm btn-primary">Proses</a>
                         </td>
                     </tr>
                 @endforeach

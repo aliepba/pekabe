@@ -192,7 +192,11 @@
                     <textarea rows="5" class="form-control" name="keterangan_pengesahan"></textarea>
                 </div>
                 <div class="col-md-2">
+                    @if ($data->status_permohonan_kegiatan == 'VALIDASI')
                     <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                    @else
+                    <span class="badge badge-success">Sudah Disahkan</span>
+                    @endif
                 </div>
                 </form>
             </div>

@@ -63,9 +63,7 @@ class SIJKTService{
 
         if($cek == 'SKA'){
             return $this->ska($request);
-        }
-
-        if($cek == 'SKK'){
+        }else{
             return $this->skk($request);
         }
     }

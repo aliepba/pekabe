@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 
 class UserService {
+    
     public function store($data){
         DB::transaction(function () use($data) {
             $user = User::query()->create([

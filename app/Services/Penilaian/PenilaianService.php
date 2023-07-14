@@ -22,6 +22,9 @@ use App\Actions\Logbook\TenagaAhli;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\PengesahanNotification;
 use App\Notifications\PerbaikanPelaporanNotification;
+use App\Models\Pengembangan\Kegiatan as KegiatanAPI;
+use App\Models\Pengembangan\PenilaianAPI;
+use App\Notifications\ValidasiNotification;
 
 class PenilaianService{
 
@@ -177,8 +180,9 @@ class PenilaianService{
     }
 
     public function validasiKegiatan(Request $request, $uuid){
-        $kegiatan = Kegiatan::where('uuid', $uuid)->first();
-        DB::transaction(function () use($request, $kegiatan){
+        $kegiatan = Kegiatan::with(['user','nilaiPelaporan', 'nilaiPelaporan.unsur' ,'jenis', 'unsurKegiatan', 'unsurKegiatan.unsur'])->where('uuid', $uuid)->first();
+        $user = User::find($kegiatan->user_id);
+        DB::transaction(function () use($request, $kegiatan, $user){
              $kegiatan->update([
                 'status_permohonan_kegiatan' => PermohonanStatus::VALIDASI,
                 'keterangan_verifikasi' => $request->keterangan_verifikasi
@@ -190,6 +194,8 @@ class PenilaianService{
                 'keterangan' => 'kegiatan terverifikasi',
                 'user' => 1
             ]);
+
+            Notification::send($user, new ValidasiNotification($kegiatan));
         });
     }
 
@@ -216,7 +222,7 @@ class PenilaianService{
 
             Notification::send($user, new PerbaikanPelaporanNotification($item));
         });
-     }
+    }
 
     public function pengesahan(Request $request, $uuid){
         $kegiatan = Kegiatan::where('uuid', $uuid)->first();
@@ -242,5 +248,47 @@ class PenilaianService{
         });
     }
 
-}
+    public function penilaianAPI(Request $request, $uuid){
+        $kegiatan = KegiatanAPI::with(['peserta'])->where('uuid', $uuid)->first();
 
+        DB::transaction(function () use($request, $kegiatan){           
+            $kegiatan->update([
+                'status_permohonan' => PermohonanStatus::PENGESAHAN,
+                'keterangan' => $request->keterangan_pengesahan
+            ]);
+
+            foreach($kegiatan->peserta as $item){
+                $unsurKegiatan = MtSubUnsurKegiatan::with(['bobot'])->find($item->unsur);
+
+                $tingkat = 1;
+                $jenis = 1;
+                $metode = $item->metode == 'Tatap Muka' ? $unsurKegiatan->bobot->tatap_muka : $unsurKegiatan->bobot->daring;
+                $sifat = $unsurKegiatan->bobot->khusus;
+
+                if($kegiatan->tingkat_kegiatan === "1"){
+                    $tingkat = $unsurKegiatan->bobot->nasional;
+                }elseif($kegiatan->tingkat_kegiatan === "2"){
+                    $tingkat = $unsurKegiatan->bobot->internasional_dalam_negeri;
+                }else{
+                    $tingkat = $unsurKegiatan->bobot->internasional_luar_negeri;
+                }
+            }
+
+            foreach(TenagaAhli::run($item->nik) as $sub){
+                foreach($sub as $s){
+                    PenilaianAPI::query()->create([
+                        'id_kegiatan' => $kegiatan->uuid,
+                        'id_unsur' => $item->unsur,
+                        'nik' => $item->nik,
+                        'id_sub_bidang' => $s->id_sub_bidang,
+                        'is_jenis' => $jenis,
+                        'is_sifat' => $sifat,
+                        'is_metode' => $metode,
+                        'is_tingkat' => $tingkat,
+                        'angka_kredit' => $unsurKegiatan->nilai_skpk * ($jenis == null ? 1 : (float)$jenis) * ($sifat == null ? 1 : (float)$sifat) * ($metode == null ? 1 : (float)$metode) * ($tingkat == null ? 1 : (float)$tingkat)
+                    ]);
+                }
+            }
+        });
+    }
+}
