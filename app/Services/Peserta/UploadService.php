@@ -31,9 +31,11 @@ class UploadService
            $peserta->update([
                 'nik' => $request->nik,
                 'unsur_peserta' => $request->unsur,
-                'metode' => $request->metode,
+                'metode' => $request->metode == null ? $peserta->metode : $request->metode,
            ]);
         });
+
+        return $peserta;
     }
 
     public function delete($id){

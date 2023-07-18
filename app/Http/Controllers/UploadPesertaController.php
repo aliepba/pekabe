@@ -31,6 +31,16 @@ class UploadPesertaController extends Controller
         return redirect(route('excel', $idKegiatan))->with('success', 'Import Peserta Berhasil harap lakukan edit');
     }
 
+    public function show($id){
+        $data = UploadPeserta::with(['unsur'])->find($id);
+
+        return response()->json([
+            'message' => 'Success',
+            'data' => $data,
+            'kegiatan' => Kegiatan::with('unsurKegiatan', 'unsurKegiatan.unsur')->where('uuid', $data->id_kegiatan)->first()
+        ]);
+    }
+
     public function edit($id){
         $data = UploadPeserta::with(['unsur'])->find($id);
         return view('pages.peserta.excel.edit', [
@@ -55,5 +65,20 @@ class UploadPesertaController extends Controller
         $idKegiatan = $request->uuid;
         $this->uploadService->acc($id);
         return redirect(route('excel', $idKegiatan))->with('success', 'Peserta Berhasil diimport');
+    }
+
+    public function updated(Request $request){
+        $id = $request->id;
+        $data = $this->uploadService->update($request, $id);
+        return response()->json([
+            'message' => 'Success update peserta',
+            'data' => $data
+        ]);
+    }
+
+    public function data($uuid){
+        return view('pages.peserta.excel.data', [
+            'data' => Kegiatan::with(['excelPeserta'])->where('uuid', $uuid)->first()
+        ]);
     }
 }

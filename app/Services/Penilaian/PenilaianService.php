@@ -24,6 +24,7 @@ use App\Notifications\PengesahanNotification;
 use App\Notifications\PerbaikanPelaporanNotification;
 use App\Models\Pengembangan\Kegiatan as KegiatanAPI;
 use App\Models\Pengembangan\PenilaianAPI;
+use App\Notifications\TerverifikasiNotification;
 use App\Notifications\ValidasiNotification;
 
 class PenilaianService{
@@ -244,7 +245,7 @@ class PenilaianService{
                 'user' => Auth::user()->id
             ]);
 
-            Notification::send($user, new PengesahanNotification($kegiatan));
+            Notification::send($user, new TerverifikasiNotification($kegiatan));
         });
     }
 

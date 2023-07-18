@@ -126,6 +126,9 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/excel-peserta/{id}/{uuid}', [UploadPesertaController::class, 'update'])->name('excel.update');
     Route::get('/excel-peserta/accept/{id}/{uuid}', [UploadPesertaController::class, 'acc'])->name('excel.acc');
     Route::delete('/excel-peserta/delete/{id}/{uuid}', [UploadPesertaController::class, 'destroy'])->name('excel.destroy');
+    Route::get('/detail-peserta/{id}', [UploadPesertaController::class, 'show'])->name('detail.peserta.excel');
+    Route::put('/peserta-updated/{id}', [UploadPesertaController::class, 'updated'])->name('detail.peserta.updated');
+    Route::get('/data-excel/{uuid}', [UploadPesertaController::class, 'data'])->name('data.excel');
 
     //export excel
     Route::get('/export-kegiatan', [VerifikasiKegiatanController::class, 'export'])->name('export.kegiatan');

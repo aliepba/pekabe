@@ -122,7 +122,11 @@
                     <textarea rows="5" class="form-control" name="keterangan_pengesahan"></textarea>
                 </div>
                 <div class="col-md-2">
+                    @if ($data->status_permohonan != 'PENGESAHAN')
                     <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                    @else
+                    <span class="badge badge-success">Kegiatan Sudah Disahkan</span>
+                    @endif
                 </div>
                 </form>
             </div>
