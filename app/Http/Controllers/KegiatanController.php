@@ -57,7 +57,7 @@ class KegiatanController extends Controller
         return view('pages.kegiatan.create', [
             'subklas' => MtSubklasifikasi::all(),
             'profesi' => MtAsosiasiProfesi::all(),
-            'jenis' => MtUnsurKegiatan::all(),
+            'jenis' => MtUnsurKegiatan::whereNotIn('id', [7,8])->get(),
             'unsur' => MtSubUnsurKegiatan::all(),
             'penyelenggara' => DetailInstansi::where('status_permohonan', 'APPROVE')->get()
         ]);
@@ -115,7 +115,7 @@ class KegiatanController extends Controller
             'metode' => $metode,
             'subklas' => MtSubklasifikasi::all(),
             'profesi' => MtAsosiasiProfesi::all(),
-            'jenis' => MtUnsurKegiatan::all(),
+            'jenis' => MtUnsurKegiatan::whereNotIn('id', [7,8])->get(),
             'unsur' => MtSubUnsurKegiatan::all(),
             'jenisKegiatan' => $jenis,
             'penyelenggara' => DetailInstansi::where('status_permohonan', 'APPROVE')->get()
