@@ -16,7 +16,7 @@
                   <th>No</th>
                   <th>Asosiasi</th>
                   <th>Kegiatan</th>
-                  <th>Status</th>
+                  <th>Jumlah Peserta</th>
                   <th>Tanggal Pengajuan</th>
                   <th>Tanggal Kegiatan</th>
                   <th>Action</th>
@@ -28,7 +28,7 @@
                         <td>{{$loop->iteration}}</td>
                         <td>{{$item->asosiasi->name}}</td>
                         <td>{{$item->nama_kegiatan}}</td>
-                        <td>{{$item->status_permohonan}}</td>
+                        <td>{{count($item->peserta)}}</td>
                         <td>{{$item->created_at}}</td>
                         <td>{{$item->start_kegiatan}} <br/> {{$item->end_kegiatan}}</td>
                         <td>

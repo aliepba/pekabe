@@ -24,6 +24,7 @@ use App\Notifications\PengesahanNotification;
 use App\Notifications\PerbaikanPelaporanNotification;
 use App\Models\Pengembangan\Kegiatan as KegiatanAPI;
 use App\Models\Pengembangan\PenilaianAPI;
+use App\Models\Pengembangan\PesertaAPI;
 use App\Notifications\TerverifikasiNotification;
 use App\Notifications\ValidasiNotification;
 
@@ -253,16 +254,18 @@ class PenilaianService{
         $kegiatan = KegiatanAPI::with(['peserta'])->where('uuid', $uuid)->first();
 
         DB::transaction(function () use($request, $kegiatan){           
-            $kegiatan->update([
-                'status_permohonan' => PermohonanStatus::PENGESAHAN,
-                'keterangan' => $request->keterangan_pengesahan
-            ]);
-
             foreach($kegiatan->peserta as $item){
+
+                $peserta = PesertaAPI::find($item->id);
+
+                $peserta->update([
+                    'is_sah' => true
+                ]);
+
                 $unsurKegiatan = MtSubUnsurKegiatan::with(['bobot'])->find($item->unsur);
 
                 $tingkat = 1;
-                $jenis = 1;
+                $jenis = 0;
                 $metode = $item->metode == 'Tatap Muka' ? $unsurKegiatan->bobot->tatap_muka : $unsurKegiatan->bobot->daring;
                 $sifat = $unsurKegiatan->bobot->khusus;
 
@@ -273,23 +276,24 @@ class PenilaianService{
                 }else{
                     $tingkat = $unsurKegiatan->bobot->internasional_luar_negeri;
                 }
-            }
 
-            foreach(TenagaAhli::run($item->nik) as $sub){
-                foreach($sub as $s){
-                    PenilaianAPI::query()->create([
-                        'id_kegiatan' => $kegiatan->uuid,
-                        'id_unsur' => $item->unsur,
-                        'nik' => $item->nik,
-                        'id_sub_bidang' => $s->id_sub_bidang,
-                        'is_jenis' => $jenis,
-                        'is_sifat' => $sifat,
-                        'is_metode' => $metode,
-                        'is_tingkat' => $tingkat,
-                        'angka_kredit' => $unsurKegiatan->nilai_skpk * ($jenis == null ? 1 : (float)$jenis) * ($sifat == null ? 1 : (float)$sifat) * ($metode == null ? 1 : (float)$metode) * ($tingkat == null ? 1 : (float)$tingkat)
-                    ]);
+                foreach(TenagaAhli::run($item->nik) as $sub){
+                    foreach($sub as $s){
+                        PenilaianAPI::query()->create([
+                            'id_kegiatan' => $kegiatan->uuid,
+                            'id_unsur' => $item->unsur,
+                            'nik' => $item->nik,
+                            'id_sub_bidang' => $s->id_sub_bidang,
+                            'is_jenis' => $jenis,
+                            'is_sifat' => $sifat,
+                            'is_metode' => $metode,
+                            'is_tingkat' => $tingkat,
+                            'angka_kredit' => $unsurKegiatan->nilai_skpk * ($jenis == null ? 1 : (float)$jenis) * ($sifat == null ? 1 : (float)$sifat) * ($metode == null ? 1 : (float)$metode) * ($tingkat == null ? 1 : (float)$tingkat)
+                        ]);
+                    }
                 }
             }
         });
     }
+    
 }

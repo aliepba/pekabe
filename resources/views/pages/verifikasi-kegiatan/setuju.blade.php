@@ -40,7 +40,7 @@
                         ?>
                         <tr>
                             <td>{{$loop->iteration}}</td>
-                            <td>{{$item->user->name}}</td>
+                            <td>{{$item->user->name ?? "-"}}</td>
                             <td>{{$item->nama_kegiatan}}</td>
                             <td>{{$item->status_permohonan_kegiatan}}
                                 @if ($item->status_permohonan_kegiatan == 'APPROVE')

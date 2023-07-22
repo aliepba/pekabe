@@ -41,7 +41,7 @@
             <span class="badge badge-success">Mohon Edit dan Submit untuk Peserta untuk pelaporan</span>
             <div class="table-responsive mt-5">
                 <div id="data"></div>
-              </div>
+            </div>
         </div>
     </div>
 </div>

@@ -31,7 +31,7 @@
                     </td>
                     <td>{{$data->laporan->status_laporan}}</td>
                     <td>
-                        @if ($data->laporan->status_laporan == 'OPEN')
+                        @if ($data->laporan->status_laporan == 'OPEN' || $data->laporan->status_laporan == 'PERBAIKAN PELAPORAN')
                         <a href="{{route('pelaporan.edit', $data->laporan->id)}}" class="btn btn-sm btn-primary">Edit</a>
                         <a href="{{route('pelaporan.submit', $data->laporan->id)}}" class="btn btn-sm btn-success">Submit</a>
                         @else
