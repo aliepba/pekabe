@@ -91,7 +91,13 @@
                     <td>{{$item->kualifikasi}}</td>
                     <td>-</td>
                     <td>{{$item->tanggal_cetak}}</td>
-                    <td>{{date('Y-m-d', strtotime('+3 year', strtotime($item->tanggal_cetak)))}}</td>
+                    <td>
+                        @if ($item->kualifikasi <= 9)
+                        {{date('Y-m-d', strtotime('+5 year', strtotime($item->tanggal_cetak)))}}
+                        @else
+                        {{date('Y-m-d', strtotime('+3 year', strtotime($item->tanggal_cetak)))}}
+                        @endif
+                    </td>
                     <td>{{\helpers\MyHelper::nilaiSyarat(75, $item->kualifikasi)}}</td>
                     <td>{{\App\Actions\Logbook\GetNilaiKegiatanUtama::run($item->id_sub_bidang, $item->tanggal_cetak)}}</td>
                     <td>{{\helpers\MyHelper::nilaiSyarat(25, $item->kualifikasi)}}</td>
