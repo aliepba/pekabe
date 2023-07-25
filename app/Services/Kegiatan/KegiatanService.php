@@ -20,6 +20,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\UnsurKegiatanPenyelenggara;
 use App\Notifications\KegiatanNotification;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Intervention\Image\Facades\Image;
+
 
 class KegiatanService {
      public function store(Request $request){
@@ -153,11 +156,14 @@ class KegiatanService {
         $data = Kegiatan::find($request->id);
         $user = User::find($data->user_id);
         DB::transaction(function () use($request, $data, $user){
+            $qr = $this->generateQR($data->uuid);
             $data->update([
                 'status_permohonan_kegiatan' => $request->status_permohonan,
                 'status_permohonan_penyelenggara' => $request->status_permohonan,
                 'tgl_proses' => Carbon::now(),
-                'keterangan' => $request->keterangan
+                'keterangan' => $request->keterangan,
+                'link_form' => "http://pekabe.test/form-absen-kegiatan/$data->uuid",
+                'qrcode' => $qr
             ]);
 
             LogKegiatan::query()->create([
@@ -166,6 +172,9 @@ class KegiatanService {
                 'keterangan' => $request->status_permohonan,
                 'user' => Auth::user()->id
             ]);
+
+
+
 
             Notification::send($user, new KegiatanNotification($data));
 
@@ -225,8 +234,7 @@ class KegiatanService {
         });
      }
 
-     public function updateKegiatanUnverified(Request $request, $id)
-     {
+     public function updateKegiatanUnverified(Request $request, $id){
         $kegiatan = KegiatanUnverified::find($id);
         DB::transaction(function () use($request, $kegiatan){
             $kegiatan->update([
@@ -281,12 +289,19 @@ class KegiatanService {
         });
      }
 
-     public function deleteKegiatanUnverified($id)
-     {
+     public function deleteKegiatanUnverified($id){
         $kegiatan = KegiatanUnverified::find($id);
         DB::transaction(function () use($kegiatan){
             $kegiatan->forceDelete();
             $kegiatan->penilaian->forceDelete();
         });
+     }
+
+     private function generateQR($uuid){        
+        $url = "http://pekabe.test/form-absen-kegiatan/$uuid";
+        $qrCode = QrCode::size(300)->generate($url);
+        $base64 = 'data:image/svg+xml;base64,' . base64_encode($qrCode);
+
+        return $base64;
      }
 }

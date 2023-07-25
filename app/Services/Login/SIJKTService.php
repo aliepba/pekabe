@@ -3,6 +3,7 @@
 namespace App\Services\Login;
 
 use App\Enums\SiJKT;
+use App\Models\SIJKT as ModelsSIJKT;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\User\UserService;
@@ -94,7 +95,7 @@ class SIJKTService{
         $user = User::where('email', $dataDecoded->data->email)->first();
 
         if(!empty($user)){
-            if($user->sijkt_pkb == $id && $user->$dataDecoded->data->nik == $dataDecoded->data->email){
+            if(($user->sijkt_pkb == $id) && ($user->nik == $dataDecoded->data->nik)){
                 return redirect(route('sijkt.siki', ['id' => $id, 'token' => $token]))->with('success', 'Akun SIKI Anda Sudah Terhubung dengan AKUN SIJKT Lain');
             }else{
                 $user->update([
@@ -142,7 +143,7 @@ class SIJKTService{
         $user = User::where('email', $dataDecoded->data->email)->first();
 
         if(!empty($user)){
-            if($user->sijkt_pkb == $id && $user->$dataDecoded->data->nik == $dataDecoded->data->email){
+            if(($user->sijkt_pkb == $id) && ($user->nik == $dataDecoded->data->nik)){
                 return redirect(route('sijkt.siki', ['id' => $id, 'token' => $token]))->with('success', 'Akun SIKI Anda Sudah Terhubung dengan AKUN SIJKT Lain');
             }else{
                 $user->update([
@@ -150,7 +151,7 @@ class SIJKTService{
                 ]);
             }
         }
-
+        DB::beginTransaction();
         if(!$user){
             $this->userService->store($data);
         }
@@ -158,13 +159,39 @@ class SIJKTService{
         $login = User::where('sijkt_pkb', $id)->first();
 
         //update sijkt_pkb to simpan user_tkk 
-
+        $cek = substr($username, 0, 3);
+        $this->sijkt($cek, $username, $id);
         //above 
-
+        DB::commit();
         $this->setting("User", "grant", "token=".base64_decode($token));
 
         Auth::login($login, true);
+    }
 
+    private function sijkt($cek, $username,  $id_user){
+        if($cek == 'SKK'){
+            $skk = DB::connection('simpan')->table('user_tk')->where('username', $username)->first(); 
+            DB::beginTransaction();
+            ModelsSIJKT::create([
+                'user_sijkt' => $id_user,
+                'akun_jenis' => "SIMPAN",
+                'akun_subjenis' => "SKK",
+                'user_id' => $skk->id ,
+                'username' => $username
+            ]);
+            DB::commit();
+        }else{
+            $nik = DB::connection('simpan')->table('user_nik')->where('username', $username)->first();
+            DB::beginTransaction();
+            ModelsSIJKT::create([
+                'user_sijkt' => $id_user,
+                'akun_jenis' => "SIMPAN",
+                'akun_subjenis' => "NIK",
+                'user_id' => $nik->id ,
+                'username' => $username
+            ]);
+            DB::commit();
+        }
     }
 
 }

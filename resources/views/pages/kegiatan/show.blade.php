@@ -106,6 +106,14 @@
                         <span class="nav-text">Berkas Laporan Kegiatan</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="qr" data-toggle="tab" href="#tab-qr" aria-controls="qr">
+                        <span class="nav-icon">
+                            <i class="flaticon2-layers-1"></i>
+                        </span>
+                        <span class="nav-text">QRCode Absen Peserta </span>
+                    </a>
+                </li>
                 @endif
             @endif
             @if ($setting->is_active == 0 && (Auth::user()->id == $data->user_id) && ($data->status_permohonan_kegiatan == 'APPROVE' || $data->status_permohonan_kegiatan == 'PERBAIKAN PELAPORAN'))
@@ -123,6 +131,14 @@
                         <i class="flaticon2-layers-1"></i>
                     </span>
                     <span class="nav-text">Berkas Laporan Kegiatan</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="qr" data-toggle="tab" href="#tab-qr" aria-controls="qr">
+                    <span class="nav-icon">
+                        <i class="flaticon2-layers-1"></i>
+                    </span>
+                    <span class="nav-text">QRCode Absen Peserta </span>
                 </a>
             </li>
             @endif
@@ -147,6 +163,9 @@
         </div>
         <div class="tab-pane fade" id="tab-pelaporan" role="tabpanel" aria-labelledby="profile-tab-1">
             @include('pages.kegiatan.pelaporan.create')
+        </div>
+        <div class="tab-pane fade" id="tab-qr" role="tabpanel" aria-labelledby="qr">
+            @include('pages.kegiatan.qr-code')
         </div>
         @if ($data->status_permohonan_kegiatan == 'VALIDASI' || $data->status_permohonan_kegiatan == 'PENGESAHAN')
         <div class="tab-pane fade" id="tab-penilaian" role="tabpanel" aria-labelledby="profile-tab-1">

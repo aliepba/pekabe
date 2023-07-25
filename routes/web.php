@@ -196,3 +196,4 @@ Route::middleware(['auth'])->group(function () {
 //referensi
 require __DIR__.'/auth.php';
 require __DIR__.'/referensi.php';
+require __DIR__.'/public.php';

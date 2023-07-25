@@ -19,6 +19,8 @@ use App\Models\PenilaianValidator;
 use Illuminate\Support\Facades\DB;
 use App\Models\MtSubUnsurKegiatan;
 use App\Actions\Logbook\TenagaAhli;
+use App\Actions\Referensi\GetSKA;
+use App\Actions\Referensi\GetSKK;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\PengesahanNotification;
 use App\Notifications\PerbaikanPelaporanNotification;
@@ -161,7 +163,26 @@ class PenilaianService{
                     $tingkat = $unsurKegiatan->bobot->internasional_luar_negeri;
                 }
 
-                foreach(TenagaAhli::run($item->nik_peserta) as $sub){
+                $subklas = explode(',', $kegiatan->subklasifikasi);
+
+                foreach(GetSKK::run($item->nik_peserta) as $skk){
+                    foreach($skk as $kk){
+                        $jenis = in_array($kk->subklasifikasi, $subklas) == true ? 1 : 0.8;
+                        PenilaianPeserta::query()->create([
+                            'id_kegiatan' => $kegiatan->uuid,
+                            'id_unsur' => $item->unsur_peserta,
+                            'nik' => $item->nik_peserta,
+                            'id_sub_bidang' => $kk->id_sub_bidang,
+                            'is_jenis' => $jenis,
+                            'is_sifat' => $sifat,
+                            'is_metode' => $metode,
+                            'is_tingkat' => $tingkat,
+                            'angka_kredit' => $unsurKegiatan->nilai_skpk * ($jenis == null ? 1 : (float)$jenis) * ($sifat == null ? 1 : (float)$sifat) * ($metode == null ? 1 : (float)$metode) * ($tingkat == null ? 1 : (float)$tingkat)
+                        ]);
+                    }
+                }
+
+                foreach(GetSKA::run($item->nik_peserta) as $sub){
                     foreach($sub as $s){
                         PenilaianPeserta::query()->create([
                             'id_kegiatan' => $kegiatan->uuid,
@@ -176,7 +197,7 @@ class PenilaianService{
                         ]);
                     }
                 }
-
+                
             }
         });
     }
@@ -265,7 +286,7 @@ class PenilaianService{
                 $unsurKegiatan = MtSubUnsurKegiatan::with(['bobot'])->find($item->unsur);
 
                 $tingkat = 1;
-                $jenis = 0;
+                $jenis = 1;
                 $metode = $item->metode == 'Tatap Muka' ? $unsurKegiatan->bobot->tatap_muka : $unsurKegiatan->bobot->daring;
                 $sifat = $unsurKegiatan->bobot->khusus;
 
@@ -277,7 +298,26 @@ class PenilaianService{
                     $tingkat = $unsurKegiatan->bobot->internasional_luar_negeri;
                 }
 
-                foreach(TenagaAhli::run($item->nik) as $sub){
+                $subklas = explode(',', $kegiatan->subklasifikasi);
+
+                foreach(GetSKK::run($item->nik) as $skk){
+                    foreach($skk as $kk){
+                        $jenis = in_array($kk->subklafikasi, $subklas) == true ? 1 : 0.8;
+                        PenilaianAPI::query()->create([
+                            'id_kegiatan' => $kegiatan->uuid,
+                            'id_unsur' => $item->unsur,
+                            'nik' => $item->nik,
+                            'id_sub_bidang' => $kk->id_sub_bidang,
+                            'is_jenis' => $jenis,
+                            'is_sifat' => $sifat,
+                            'is_metode' => $metode,
+                            'is_tingkat' => $tingkat,
+                            'angka_kredit' => $unsurKegiatan->nilai_skpk * ($jenis == null ? 1 : (float)$jenis) * ($sifat == null ? 1 : (float)$sifat) * ($metode == null ? 1 : (float)$metode) * ($tingkat == null ? 1 : (float)$tingkat)
+                        ]);
+                    }
+                }
+
+                foreach(GetSKA::run($item->nik) as $sub){
                     foreach($sub as $s){
                         PenilaianAPI::query()->create([
                             'id_kegiatan' => $kegiatan->uuid,
