@@ -299,7 +299,10 @@ class KegiatanService {
 
      private function generateQR($uuid){        
         $url = "http://pekabe.test/form-absen-kegiatan/$uuid";
-        $qrCode = QrCode::size(300)->generate($url);
+        $qrCode = QrCode::size(300)->color(3, 4, 94)
+                        ->style('round', 0.9)
+                        ->eyeColor(0, 235, 155, 0, 0, 0, 0)
+                        ->generate($url);
         $base64 = 'data:image/svg+xml;base64,' . base64_encode($qrCode);
 
         return $base64;

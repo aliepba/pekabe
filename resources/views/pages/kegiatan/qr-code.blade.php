@@ -19,7 +19,7 @@
                     <td>1</td>
                     <td><img src="{{$data->qrcode}}" alt="qr-code"></td>
                     <td>
-                        <span class="badge badge-success">https://siki.pu.go.id/pkb-v2{{$data->link_form}}</span>
+                        <a href="{{$data->link_form}}" class="badge badge-success">{{$data->link_form}}</a>
                     </td>
                 </tr>
               </tbody>
