@@ -146,6 +146,7 @@
                         <th>NIK</th>
                         <th>Metode</th>
                         <th>Unsur</th>
+                        <th>Nilai</th>
                       </tr>
                   </thead>
                   <tbody>
@@ -156,6 +157,7 @@
                         <td>{{$item->nik}}</td>
                         <td>{{$item->metode}}</td>
                         <td>{{$item->subUnsur->nama_sub_unsur}}</td>
+                        <td>{{\App\Actions\Referensi\GetNilaiPengembangan::run($item->id_kegiatan, $item->nik, $item->unsur)}}</td>
                     </tr>
                     @endforeach
                   </tbody>

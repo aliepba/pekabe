@@ -25,7 +25,7 @@ class KegiatanController extends Controller
 
     public function detail($uuid){
         return view('pages.pengembangan.detail', [
-            'data' => dd(Kegiatan::with(['asosiasi', 'laporan', 'peserta', 'unsurKegiatan', 'unsurKegiatan.unsur'])->where('uuid', $uuid)->first())
+            'data' => Kegiatan::with(['asosiasi', 'laporan', 'peserta', 'unsurKegiatan', 'unsurKegiatan.unsur'])->where('uuid', $uuid)->first()
         ]);
     }
     
