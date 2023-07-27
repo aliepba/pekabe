@@ -302,7 +302,7 @@ class PenilaianService{
 
                 foreach(GetSKK::run($item->nik) as $skk){
                     foreach($skk as $kk){
-                        $jenis = in_array($kk->subklafikasi, $subklas) == true ? 1 : 0.8;
+                        $jenis = in_array($kk->subklasifikasi, $subklas) == true ? 1 : 0.8;
                         PenilaianAPI::query()->create([
                             'id_kegiatan' => $kegiatan->uuid,
                             'id_unsur' => $item->unsur,

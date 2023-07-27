@@ -2,6 +2,8 @@
 
 namespace App\Actions\Logbook;
 
+use App\Models\Pengembangan\PenilaianAPI;
+use App\Models\PenilaianPeserta;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Lorisleiva\Actions\Concerns\AsAction;
@@ -12,25 +14,32 @@ class GetNilaiLogbook
 
     public function handle($idSub, $tgl, $idKegiatan, $idUnsur)
     {
+        $nik = Auth::user()->nik;
 
-        $nilai = DB::select("SELECT a.angka_kredit FROM pkb_penilaian_peserta a
-                JOIN pkb_kegiatan_penyelenggara b ON a.id_kegiatan = b.uuid 
-                WHERE a.id_sub_bidang = :idSub
-                AND a.nik = :nik
-                AND b.start_kegiatan > :tgl
-                AND a.id_unsur = :idUnsur
-                AND b.uuid = :idKegiatan", [
-                    'idSub' => $idSub,
-                    'nik' => Auth::user()->nik,
-                    'tgl' => $tgl,
-                    'idKegiatan' => $idKegiatan,
-                    'idUnsur' => $idUnsur
-            ]);
-        
-        if (empty($nilai)) {
+        $nilaiPeserta = PenilaianPeserta::join('pkb_kegiatan_penyelenggara as b', 'pkb_penilaian_peserta.id_kegiatan', '=', 'b.uuid')
+            ->where('pkb_penilaian_peserta.id_sub_bidang', $idSub)
+            ->where('pkb_penilaian_peserta.nik', $nik)
+            ->where('b.start_kegiatan', '>', $tgl)
+            ->where('pkb_penilaian_peserta.id_unsur', $idUnsur)
+            ->where('b.uuid', $idKegiatan)
+            ->select('pkb_penilaian_peserta.angka_kredit')
+            ->first();
+
+        $nilaiApi = PenilaianAPI::join('pkb_kegiatan_api as b', 'pkb_penilaian_api.id_kegiatan', '=', 'b.uuid')
+            ->where('pkb_penilaian_api.id_sub_bidang', $idSub)
+            ->where('pkb_penilaian_api.nik', $nik)
+            ->where('pkb_penilaian_api.created_at', '>', $tgl)
+            ->where('pkb_penilaian_api.id_unsur', $idUnsur)
+            ->where('b.uuid', $idKegiatan)
+            ->select('pkb_penilaian_api.angka_kredit')
+            ->first();
+
+            // dd($nilaiApi->angka_kredit);
+
+        if (!$nilaiPeserta && !$nilaiApi) {
             $nilai = '-';
         } else {
-            $nilai = $nilai[0]->angka_kredit ?? '-';
+            $nilai = $nilaiPeserta ? $nilaiPeserta->angka_kredit : $nilaiApi->angka_kredit;
         }
 
         return strval($nilai);
