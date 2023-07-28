@@ -2,6 +2,7 @@
 
 namespace App\Services\User;
 
+use App\Models\DetailInstansi;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -64,6 +65,12 @@ class UserService {
                 'email' => $request->email,
                 'role' => $request->input('role'),
                 'jenis_penyelenggara' => $request->jenis_penyelenggara
+            ]);
+
+            $instansi = DetailInstansi::where('email_instansi', $user->email)->first();
+
+            $instansi->update([
+                'email_instansi' => $request->email
             ]);
 
             $user->syncRoles($request->role);

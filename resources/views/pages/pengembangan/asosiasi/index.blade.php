@@ -16,21 +16,24 @@
                   <th>No</th>
                   <th>Asosiasi</th>
                   <th>Kegiatan</th>
-                  <th>Status</th>
                   <th>Tanggal Pengajuan</th>
-                  <th>Tanggal Kegiatan</th>
+                  <th>Jumlah Peserta</th>
+                  <th>Status Pengesahan</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
                 @foreach ($data as $item)
                     <tr>
-                        <td>{{$loop->iteration}}</td>
-                        <td>{{$item->asosiasi->name}}</td>
-                        <td>{{$item->nama_kegiatan}}</td>
-                        <td>{{$item->status_permohonan}}</td>
-                        <td>{{$item->created_at}}</td>
-                        <td>{{$item->start_kegiatan}} <br/> {{$item->end_kegiatan}}</td>
+                      <td>{{$loop->iteration}}</td>
+                      <td>{{$item->asosiasi->name}}</td>
+                      <td>{{$item->nama_kegiatan}}</td>
+                      <td>{{$item->created_at}}</td>
+                      <td>{{count($item->peserta)}}</td>
+                      <td>
+                        <span class="badge badge-success">Sudah di Sahkan : {{count($item->peserta()->where('is_sah', 1)->get())}}</span><br/>
+                        <span class="badge badge-warning mt-2">Belum di Sahkan : {{count($item->peserta()->whereNull('is_sah')->get())}}</span>
+                      </td>
                         <td>
                           <a href="{{route('asosiasi.detail',$item->uuid)}}" class="btn btn-sm btn-primary">Detail</a>
                         </td>

@@ -167,7 +167,7 @@ class PenilaianService{
 
                 foreach(GetSKK::run($item->nik_peserta) as $skk){
                     foreach($skk as $kk){
-                        $jenis = in_array($kk->subklasifikasi, $subklas) == true ? 1 : 0.8;
+                        $sifat = in_array($kk->subklasifikasi, $subklas) == true ? 1 : 0.8;
                         PenilaianPeserta::query()->create([
                             'id_kegiatan' => $kegiatan->uuid,
                             'id_unsur' => $item->unsur_peserta,
@@ -302,7 +302,7 @@ class PenilaianService{
 
                 foreach(GetSKK::run($item->nik) as $skk){
                     foreach($skk as $kk){
-                        $jenis = in_array($kk->subklasifikasi, $subklas) == true ? 1 : 0.8;
+                        $sifat = in_array($kk->subklasifikasi, $subklas) == true ? 1 : 0.8;
                         PenilaianAPI::query()->create([
                             'id_kegiatan' => $kegiatan->uuid,
                             'id_unsur' => $item->unsur,
@@ -335,5 +335,59 @@ class PenilaianService{
             }
         });
     }
+
+    public function allNilai(){
+        $data = PesertaAPI::whereNull('is_sah')->get();
+
+        foreach($data as $item){
+            $item->update([
+                'is_sah' => true
+            ]);
+
+            $unsurKegiatan = MtSubUnsurKegiatan::with(['bobot'])->find($item->unsur);
+            $kegiatan = KegiatanAPI::find($item->id_peserta);
+
+            $tingkat = 1;
+            $jenis = 1;
+            $metode = $item->metode == 'Tatap Muka' ? $unsurKegiatan->bobot->tatap_muka : $unsurKegiatan->bobot->daring;
+            $sifat = $unsurKegiatan->bobot->khusus;
+
+            $subklas = explode(',', $kegiatan->subklasifikasi);
+
+            foreach(GetSKK::run($item->nik) as $skk){
+                foreach($skk as $kk){
+                    $sifat = in_array($kk->subklasifikasi, $subklas) == true ? 1 : 0.8;
+                    PenilaianAPI::query()->create([
+                        'id_kegiatan' => $kegiatan->uuid,
+                        'id_unsur' => $item->unsur,
+                        'nik' => $item->nik,
+                        'id_sub_bidang' => $kk->id_sub_bidang,
+                        'is_jenis' => $jenis,
+                        'is_sifat' => $sifat,
+                        'is_metode' => $metode,
+                        'is_tingkat' => $tingkat,
+                        'angka_kredit' => $unsurKegiatan->nilai_skpk * ($jenis == null ? 1 : (float)$jenis) * ($sifat == null ? 1 : (float)$sifat) * ($metode == null ? 1 : (float)$metode) * ($tingkat == null ? 1 : (float)$tingkat)
+                    ]);
+                }
+            }
+
+            foreach(GetSKA::run($item->nik) as $sub){
+                foreach($sub as $s){
+                    PenilaianAPI::query()->create([
+                        'id_kegiatan' => $kegiatan->uuid,
+                        'id_unsur' => $item->unsur,
+                        'nik' => $item->nik,
+                        'id_sub_bidang' => $s->id_sub_bidang,
+                        'is_jenis' => $jenis,
+                        'is_sifat' => $sifat,
+                        'is_metode' => $metode,
+                        'is_tingkat' => $tingkat,
+                        'angka_kredit' => $unsurKegiatan->nilai_skpk * ($jenis == null ? 1 : (float)$jenis) * ($sifat == null ? 1 : (float)$sifat) * ($metode == null ? 1 : (float)$metode) * ($tingkat == null ? 1 : (float)$tingkat)
+                    ]);
+                }
+            }
+        }
+    }
+
     
 }
