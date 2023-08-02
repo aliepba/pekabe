@@ -153,7 +153,7 @@
                         <td>{{$item->nik}}</td>
                         <td>{{$item->metode}}</td>
                         <td>{{$item->subUnsur->nama_sub_unsur}}</td>
-                        <td>{{\App\Actions\Referensi\GetNilaiPengembangan::run($item->id_kegiatan, $item->nik, $item->unsur)}}</td>
+                        <td>{{$item->subUnsur->nilai_skpk}}</td>
                     </tr>
                     @endforeach
                   </tbody>

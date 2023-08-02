@@ -114,22 +114,11 @@
                     <span class="nav-text">Peserta Kegiatan</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" id="profile-tab-1" data-toggle="tab" href="#tab-pelaporan" aria-controls="profile">
-                    <span class="nav-icon">
-                        <i class="flaticon2-layers-1"></i>
-                    </span>
-                    <span class="nav-text">Berkas Laporan Kegiatan</span>
-                </a>
-            </li>
         </ul>
     </div>
     <div class="tab-content mt-5" id="myTabContent1">
         <div class="tab-pane fade show active" id="tab-peserta" role="tabpanel" aria-labelledby="profile-tab-1">
             @include('pages.pengembangan.asosiasi.table-peserta')
-        </div>
-        <div class="tab-pane fade" id="tab-pelaporan" role="tabpanel" aria-labelledby="profile-tab-1">
-            @include('pages.pengembangan.asosiasi.table-laporan')
         </div>
     </div>
 </div>
