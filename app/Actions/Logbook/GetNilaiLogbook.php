@@ -28,7 +28,7 @@ class GetNilaiLogbook
         $nilaiApi = PenilaianAPI::join('pkb_kegiatan_api as b', 'pkb_penilaian_api.id_kegiatan', '=', 'b.uuid')
             ->where('pkb_penilaian_api.id_sub_bidang', $idSub)
             ->where('pkb_penilaian_api.nik', $nik)
-            ->where('pkb_penilaian_api.created_at', '>', $tgl)
+            ->where('pkb_penilaian_api.created_at', '>=', $tgl)
             ->where('pkb_penilaian_api.id_unsur', $idUnsur)
             ->where('b.uuid', $idKegiatan)
             ->select('pkb_penilaian_api.angka_kredit')

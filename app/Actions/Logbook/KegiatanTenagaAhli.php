@@ -72,13 +72,16 @@ class KegiatanTenagaAhli
                         b.id,
                         b.uuid ,
                         b.nama_kegiatan ,
-                        b.start_kegiatan,
-                        d.created_at as start_kegiatan,
-            	        d.created_at as end_kegiatan,
+                        b.created_at as start_kegiatan,
+                        d.created_at as end_kegiatan,
+                        case
+                        when a.is_sifat = 1 then 'Khusus'
+                        when a.is_sifat = 0.8 then 'Umum'
+                        end as jenis_kegiatan,
                         a.id_unsur,
                         c.nama_sub_unsur as unsur_kegiatan,
                         d.metode as metode_kegiatan,
-                        b.tingkat_kegiatan ,
+                        d.is_sah as tingkat_kegiatan,
                         d.is_sah as is_verifikasi,
                         a.angka_kredit 
                     FROM pkb_penilaian_api a
