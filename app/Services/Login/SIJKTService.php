@@ -94,18 +94,20 @@ class SIJKTService{
 
         $user = User::where('email', $dataDecoded->data->email)->first();
 
-        if(!empty($user)){
-            if(($user->sijkt_pkb == $id) && ($user->nik == $dataDecoded->data->nik)){
+        if(empty($user)){
+            $this->userService->store($data);
+        }
+
+        $cekUser = User::where('email', $dataDecoded->data->email)->first();
+
+        if(!empty($cekUser)){
+            if(($cekUser->sijkt_pkb == $id) && ($cekUser->nik == $dataDecoded->data->nik)){
                 return redirect(route('sijkt.siki', ['id' => $id, 'token' => $token]))->with('success', 'Akun SIKI Anda Sudah Terhubung dengan AKUN SIJKT Lain');
             }else{
-                $user->update([
+                $cekUser->update([
                     'sijkt_pkb' => $id
                 ]);
             }
-        }
-
-        if(!$user){
-            $this->userService->store($data);
         }
 
         $login = User::where('sijkt_pkb', $id)->first();

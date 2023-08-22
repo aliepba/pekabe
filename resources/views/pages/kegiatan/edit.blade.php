@@ -181,14 +181,14 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <h5 class="h5">Berkas Persyaratan</h5>
+                        <h5 class="h5">CV Narsum</h5>
                         <div class="form-group">
                             <label>CV</label>
                             <input type="file" name="cv" class="form-control" />
                             <span class="text-muted">Accepted formats: pdf Max file size 1Mb</span>
                         </div>
                         <div class="form-group">
-                            <label>Persyaratan Lain</label>
+                            <label>Surat Undangan</label>
                             <input type="file" name="persyaratan_lain" class="form-control" />
                             <span class="text-muted">Accepted formats: pdf Max file size 1Mb</span>
                         </div>

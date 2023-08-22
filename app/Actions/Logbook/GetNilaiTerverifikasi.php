@@ -12,20 +12,20 @@ class GetNilaiTerverifikasi
 
     public function handle($idSub)
     {
-        $sum = DB::SELECT("SELECT sum(a.angka_kredit) as ak
-                from pkb_penilaian_peserta a
-                where a.id_sub_bidang = '$idSub'
-                and a.nik = '". Auth::user()->nik . "'
-                ")[0];
-
-        if(empty($sum)){
         $ak = 0;
-        }
+        $nik = Auth::user()->nik;
 
-        if(!empty($sum)){
-        $ak = $sum->ak;
-        }
+        $sum = DB::SELECT("SELECT SUM(total.ak) as ak from (
+                            SELECT SUM(a.angka_kredit) as ak
+                                FROM pkb_penilaian_peserta a
+                                WHERE a.id_sub_bidang = '$idSub'
+                                AND a.nik = '$nik'
+                            UNION 
+                            SELECT SUM(a.angka_kredit) as ak FROM pkb_penilaian_api a
+                            WHERE a.id_sub_bidang  = '$idSub'
+                            AND a.nik  = '$nik'
+                            ) as total")[0];
 
-        return $ak;
+        return empty($sum) ? $ak : $ak = $sum->ak;
     }
 }

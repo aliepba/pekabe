@@ -51,7 +51,7 @@ class MyHelper
 
         $status = $ak - $syarat;
 
-        return $status > $syarat ? 'Memenuhi' : "Tidak Memenuhi";
+        return ($status > $syarat) ? 'Memenuhi' : "Tidak Memenuhi";
 
     }
 }

@@ -25,6 +25,10 @@ class GetNilaiKegiatanSelainNonFormal
 			where z.id_unsur_kegiatan not in ('2')
 			and x.user_id = '". Auth::user()->id . "'
             and start_kegiatan >= '$tgl'
+            union
+            SELECT SUM(a.angka_kredit) as ak FROM pkb_penilaian_api a
+            WHERE a.id_sub_bidang  = '$idSub'
+            AND a.nik  = '". Auth::user()->id . "'
             ) as total")[0];
 
         if(empty($sum)){
