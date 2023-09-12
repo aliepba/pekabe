@@ -133,11 +133,6 @@ class PermohonanAkunService
                 return redirect(route('list.permohonan'))->with('errors', 'Akun Dengan Email Tersebut Sudah Terdaftar');
             }
 
-            $permohonan->update([
-                'status_permohonan' => PermohonanStatus::APPROVE,
-                'tgl_proses' => Carbon::now()
-            ]);
-
             LogPermohonan::query()->create([
                 'id_detail_instansi' => $permohonan->uuid,
                 'status_permohonan' => PermohonanStatus::APPROVE,
@@ -152,6 +147,13 @@ class PermohonanAkunService
                 'role' => 'user',
                 'password' => Hash::make($permohonan->penanggungjawab->password),
                 'jenis_penyelenggara' => $permohonan->jenis
+            ]);
+
+
+            $permohonan->update([
+                'status_permohonan' => PermohonanStatus::APPROVE,
+                'tgl_proses' => Carbon::now(),
+                'user_id' => $user->id
             ]);
 
             $user->syncRoles('user');

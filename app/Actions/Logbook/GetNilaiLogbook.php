@@ -19,7 +19,7 @@ class GetNilaiLogbook
         $nilaiPeserta = PenilaianPeserta::join('pkb_kegiatan_penyelenggara as b', 'pkb_penilaian_peserta.id_kegiatan', '=', 'b.uuid')
             ->where('pkb_penilaian_peserta.id_sub_bidang', $idSub)
             ->where('pkb_penilaian_peserta.nik', $nik)
-            ->where('b.start_kegiatan', '>', $tgl)
+            ->where('pkb_penilaian_peserta.created_at', '=', $tgl)
             ->where('pkb_penilaian_peserta.id_unsur', $idUnsur)
             ->where('b.uuid', $idKegiatan)
             ->select('pkb_penilaian_peserta.angka_kredit')
@@ -34,7 +34,6 @@ class GetNilaiLogbook
             ->select('pkb_penilaian_api.angka_kredit')
             ->first();
 
-            // dd($nilaiApi->angka_kredit);
 
         if (!$nilaiPeserta && !$nilaiApi) {
             $nilai = '-';

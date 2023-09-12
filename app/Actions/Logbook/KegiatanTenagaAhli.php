@@ -80,7 +80,7 @@ class KegiatanTenagaAhli
                         end as jenis_kegiatan,
                         a.id_unsur,
                         c.nama_sub_unsur as unsur_kegiatan,
-                        d.metode as metode_kegiatan,
+                        d.metode as metode_kegiatan,    
                         d.is_sah as tingkat_kegiatan,
                         d.is_sah as is_verifikasi,
                         a.angka_kredit 
@@ -88,7 +88,7 @@ class KegiatanTenagaAhli
                     JOIN pkb_kegiatan_api b ON a.id_kegiatan = b.uuid
                     JOIN pkb_sub_unsur_kegiatan c ON a.id_unsur = c.id 
                     JOIN pkb_peserta_api d ON a.id_kegiatan = d.id_kegiatan 
-                    WHERE a.nik = '". Auth::user()->nik ."' GROUP BY b.uuid");
+                    WHERE a.nik = '". Auth::user()->nik ."' GROUP BY a.id_unsur");
 
         return [
             'kegiatan' => array_merge($regular, $pengembangan)
