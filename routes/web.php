@@ -29,7 +29,8 @@ use App\Http\Controllers\PenilaianValidatorController;
 use App\Http\Controllers\Pengembangan\KegiatanController as PengembanganController;
 use App\Http\Controllers\Pengembangan\AsosiasiController;
 use App\Http\Controllers\KegiatanSahController;
-
+use App\Http\Controllers\IndikatorController;
+use App\Http\Controllers\RollbackController;
 use App\Http\Controllers\SiJKTController;
 
 /*
@@ -86,6 +87,9 @@ Route::prefix('/pengembangan')->middleware(['auth'])->group(function (){
 });
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('profile-pkb', [IndikatorController::class, 'index'])->name('profile.index');
+    Route::get('rollback-kegiatan', [RollbackController::class, 'index'])->name('rollback');
+    Route::post('rollback-proses', [RollbackController::class, 'process'])->name('rollback.proses');
     //admin
     Route::resource('roles', RoleController::class)->except('show');
     Route::resource('users', UserController::class)->except('show');
@@ -197,3 +201,4 @@ Route::middleware(['auth'])->group(function () {
 require __DIR__.'/auth.php';
 require __DIR__.'/referensi.php';
 require __DIR__.'/public.php';
+require __DIR__.'./error.php';
