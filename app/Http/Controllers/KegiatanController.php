@@ -21,15 +21,18 @@ use App\Actions\Kegiatan\GetKegiatanTolak;
 use App\Models\MtSubUnsurKegiatan;
 use App\Models\SettingKegiatan;
 use App\Models\SettingPelaporan;
+use App\Services\Log\LogService;
 
 class KegiatanController extends Controller
 {
 
     private $kegiatanService;
+    private $logError;
 
-    public function __construct(KegiatanService $kegiatanService)
+    public function __construct(KegiatanService $kegiatanService, LogService $logError)
     {
         $this->kegiatanService = $kegiatanService;
+        $this->logError = $logError;
     }
 
     /**
@@ -72,8 +75,13 @@ class KegiatanController extends Controller
     public function store(PermohonanKegiatanRequest $request)
     {
         $this->authorize('create-kegiatan', Kegiatan::class);
-        $this->kegiatanService->store($request);
-        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'Kegiatan berhasil dibuat!');
+        try{
+            $this->kegiatanService->store($request);
+            return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'Kegiatan berhasil dibuat!');
+        }catch (\Exception $e) {
+            $this->logError->store($request, $e->getMessage(), url()->current());
+            return redirect(route('error.page'))->with('errro', 'Error');
+        }
     }
 
     /**
@@ -105,6 +113,7 @@ class KegiatanController extends Controller
     {
         $this->authorize('edit-kegiatan', Kegiatan::class);
         $data = Kegiatan::with(['validator', 'jenis', 'unsurKegiatan', 'unsurKegiatan.unsur', 'penyelenggaraLain', 'penyelenggaraLain.userPenyelenggara'])->find($id);
+        if(!$data){return redirect(route('error.page'));}
         $subklas = explode(',', $data->subklasifikasi);
         $metode = explode(',', $data->metode_kegiatan);
         $jenis = explode(',', $data->jenis_kegiatan);
@@ -132,8 +141,13 @@ class KegiatanController extends Controller
     public function update(Request $request, $id)
     {
         $this->authorize('update-kegiatan', Kegiatan::class);
-        $this->kegiatanService->update($request, $id);
-        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'kegiatan berhasil diedit!');
+        try{
+            $this->kegiatanService->update($request, $id);
+            return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'kegiatan berhasil diedit!');
+        }catch (\Exception $e) {
+            $this->logError->store($request, $e->getMessage(), url()->current());
+            return redirect(route('error.page'))->with('errro', 'Error');
+        } 
     }
 
     /**
@@ -142,10 +156,15 @@ class KegiatanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        $this->kegiatanService->delete($id);
-        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'kegiatan berhasil dihapus!');
+    public function destroy(Request $request, $id)
+    { 
+        try{
+            $this->kegiatanService->delete($id);
+            return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'kegiatan berhasil dihapus!');
+        }catch (\Exception $e) {
+            $this->logError->store($request, $e->getMessage(), url()->current());
+            return redirect(route('error.page'))->with('errro', 'Error');
+        } 
     }
 
     public function submit($uuid)

@@ -68,27 +68,23 @@ class KegiatanTenagaAhli
                     where x.user_id = '". Auth::user()->id ."') a
                     ");
 
-    $pengembangan = DB::SELECT("SELECT 
-                        b.id,
-                        b.uuid ,
-                        b.nama_kegiatan ,
-                        b.created_at as start_kegiatan,
-                        d.created_at as end_kegiatan,
-                        case
-                        when a.is_sifat = 1 then 'Khusus'
-                        when a.is_sifat = 0.8 then 'Umum'
-                        end as jenis_kegiatan,
-                        a.id_unsur,
-                        c.nama_sub_unsur as unsur_kegiatan,
-                        d.metode as metode_kegiatan,    
-                        d.is_sah as tingkat_kegiatan,
-                        d.is_sah as is_verifikasi,
-                        a.angka_kredit 
-                    FROM pkb_penilaian_api a
-                    JOIN pkb_kegiatan_api b ON a.id_kegiatan = b.uuid
-                    JOIN pkb_sub_unsur_kegiatan c ON a.id_unsur = c.id 
-                    JOIN pkb_peserta_api d ON a.id_kegiatan = d.id_kegiatan 
-                    WHERE a.nik = '". Auth::user()->nik ."' GROUP BY a.id_unsur");
+    $pengembangan = DB::SELECT("SELECT
+                        a.id,
+                        a.uuid ,
+                        a.nama_kegiatan ,
+                        a.start_kegiatan,
+                        b.created_at AS start_kegiatan ,
+                        b.created_at AS end_kegiatan ,
+                        b.unsur AS id_unsur,
+                        c.nama_sub_unsur AS unsur_kegiatan,
+                        b.metode AS metode_kegiatan,
+                        b.is_sah  AS tingkat_kegiatan ,
+                        b.is_sah AS is_verifikasi,
+                        c.nilai_skpk AS angka_kredit
+                    FROM pkb_kegiatan_api a
+                    JOIN pkb_peserta_api b ON a.uuid = b.id_kegiatan 
+                    JOIN pkb_sub_unsur_kegiatan c ON c.id = b.unsur 
+                    WHERE b.nik = '". Auth::user()->nik ."'");
 
         return [
             'kegiatan' => array_merge($regular, $pengembangan)

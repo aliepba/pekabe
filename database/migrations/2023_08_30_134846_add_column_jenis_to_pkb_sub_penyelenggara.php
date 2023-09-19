@@ -14,7 +14,7 @@ class AddColumnJenisToPkbSubPenyelenggara extends Migration
     public function up()
     {
         Schema::table('pkb_sub_penyelenggara', function (Blueprint $table) {
-            //
+            $table->unsignedBigInteger('jenis');
         });
     }
 
@@ -26,7 +26,7 @@ class AddColumnJenisToPkbSubPenyelenggara extends Migration
     public function down()
     {
         Schema::table('pkb_sub_penyelenggara', function (Blueprint $table) {
-            //
+            $table->unsignedBigInteger('jenis');
         });
     }
 }

@@ -12,7 +12,7 @@ class GetListRole
     public function handle()
     {
         return [
-            'roles' => Role::with('permissions')->orderByDesc('id')->paginate(5)
+            'roles' => Role::with('permissions')->orderByDesc('id')->paginate(10)
         ];
     }
 }

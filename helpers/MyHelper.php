@@ -3,6 +3,8 @@
 namespace helpers;
 
 use App\Actions\Logbook\GetNilaiByIDSub;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class MyHelper
 {
@@ -46,6 +48,16 @@ class MyHelper
 
     public static function status($jenjang, $idSub, $tgl){
         $syarat = self::syarat($jenjang);
+
+        $verified  = DB::select("select sum(a.angka_kredit) as ak  from pkb_penilaian_peserta a
+                            join pkb_sub_unsur_kegiatan b on a.id_unsur = b.id
+                            join pkb_master_unsur_kegiatan c on b.id_unsur_kegiatan = c.id
+                            where a.id_sub_bidang = '$idSub'
+                            and a.nik  = '". Auth::user()->nik . "'")[0];
+        
+        if($syarat > $verified){
+            return 'Tidak Memenuh';
+        }
 
         $ak = GetNilaiByIDSub::run($idSub, $tgl);
 

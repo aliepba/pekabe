@@ -27,8 +27,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        // dd(Auth::user()->roles->first()->name);
-        $this->authorize('view-users', User::class);
+        // $this->authorize('view-users', User::class);
+        dd(Auth::user()->roles);
         return view('pages.users.index', [
             'users' => new UserCollection(User::query()->with(['roles', 'penyelenggara'])->get())
         ]);

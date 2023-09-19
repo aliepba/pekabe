@@ -69,9 +69,11 @@ class UserService {
 
             $instansi = DetailInstansi::where('email_instansi', $user->email)->first();
 
-            $instansi->update([
-                'email_instansi' => $request->email
-            ]);
+            if($instansi){
+                $instansi->update([
+                    'email_instansi' => $request->email
+                ]);
+            }
 
             $user->syncRoles($request->role);
         });

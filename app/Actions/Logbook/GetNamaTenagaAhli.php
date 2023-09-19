@@ -11,17 +11,27 @@ class GetNamaTenagaAhli
 
     public function handle($nik):string
     {
-        $data = DB::SELECT("SELECT p.Nama as nama  FROM personal p WHERE p.id_personal = '$nik'
-                            UNION
-                            SELECT lp.nama  as nama FROM lsp_personal lp WHERE lp.nik = '$nik'");
+
+        $data = array();
+
+        $ska = DB::SELECT("SELECT p.Nama as nama  FROM personal p WHERE p.id_personal = '$nik'");
+
+        if(!$ska){
+            $skk = DB::SELECT("SELECT lp.nama as nama FROM lsp_personal lp WHERE lp.nik = '$nik'");
+
+            if(!empty($skk)){
+                array_push($data, $skk[0]);
+            }
+        }else{
+            array_push($data, $ska[0]);
+        }
 
         if(empty($data)){
             $nama = "Tidak Memiliki SKA/SKT/SKK";
         }
 
         if(!empty($data)){
-            $response = $data[0];
-            $nama = $response->nama;
+            $nama = $data[0]->nama;
         }
 
         return $nama;

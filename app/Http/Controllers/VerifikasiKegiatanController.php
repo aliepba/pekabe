@@ -32,7 +32,7 @@ class VerifikasiKegiatanController extends Controller
     }
 
     public function detail($uuid)
-    {
+    {   
         $this->authorize('detail-permohonan-kegiatan', Kegiatan::class);
         return view('pages.verifikasi-kegiatan.detail', GetDetailKegiatan::run($uuid));
     }

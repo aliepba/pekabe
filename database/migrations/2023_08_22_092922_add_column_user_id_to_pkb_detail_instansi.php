@@ -14,7 +14,7 @@ class AddColumnUserIdToPkbDetailInstansi extends Migration
     public function up()
     {
         Schema::table('pkb_detail_instansi', function (Blueprint $table) {
-            //
+            $table->unsignedBigInteger('user_id');
         });
     }
 
@@ -26,7 +26,7 @@ class AddColumnUserIdToPkbDetailInstansi extends Migration
     public function down()
     {
         Schema::table('pkb_detail_instansi', function (Blueprint $table) {
-            //
+            $table->unsignedBigInteger('user_id');
         });
     }
 }
