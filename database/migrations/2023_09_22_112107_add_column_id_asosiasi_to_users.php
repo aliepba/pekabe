@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSettingPelaporanTable extends Migration
+class AddColumnIdAsosiasiToUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class CreateSettingPelaporanTable extends Migration
      */
     public function up()
     {
-        Schema::create('pkb_setting_pelaporan', function (Blueprint $table) {
-            $table->id();
-            $table->boolean('is_active')->default(0);
-            $table->timestamps();
+        Schema::table('pkb_users', function (Blueprint $table) {
+            $table->integer('id_asosiasi')->nullable();
         });
     }
 
@@ -27,6 +25,8 @@ class CreateSettingPelaporanTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pkb_setting_pelaporan');
+        Schema::table('pkb_users', function (Blueprint $table) {
+            $table->integer('id_asosiasi')->nullable();
+        });
     }
 }
