@@ -12,6 +12,10 @@ class DetailInstansi extends Model
     protected $table = 'pkb_detail_instansi';
 
     protected $guarded = [];
+    
+    public function Jenispenyelenggara(){
+        return $this->belongsTo(MtPenyelenggara::class, 'jenis', 'id');
+    }
 
     public function penanggungjawab(){
         return $this->hasOne(PenanggungJawab::class, 'id_detail_instansi', 'uuid');
@@ -25,9 +29,6 @@ class DetailInstansi extends Model
         return $this->hasOne(MtKabKota::class, 'id_kabupaten_dagri', 'kab_kota');
     }
 
-    public function penyelenggara(){
-        return $this->belongsTo(MtPenyelenggara::class, 'id', 'jenis');
-    }
 
     public function asosiasiProfesi(){
         return $this->hasOne(MtAsosiasiProfesi::class, 'ID_Asosiasi_Profesi', 'penyelenggara');

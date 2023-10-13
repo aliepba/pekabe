@@ -7,12 +7,12 @@
             <div class="card-title">
                 <h4 class="h4">List Kegiatan Penyelenggara</h4>
             </div>
-            {{-- <div class="card-toolbar">
-                <a href="{{route('kegiatan-penyelenggara.create')}}" class="btn btn-sm btn-primary">
+            <div class="card-toolbar">
+                <a href="{{route('export.kegiatan')}}" class="btn btn-sm btn-primary">
                     <i class="flaticon-plus"></i>
-                    Tambah Kegiatan
+                    Export Kegiatan
                   </a>
-            </div> --}}
+            </div>
         </div>
         <div class="card-body">
           <div class="table">
@@ -20,6 +20,7 @@
               <thead>
                 <tr>
                   <th>No</th>
+                  <th>Penyelenggara</th>
                   <th>Kegiatan</th>
                   <th>Status</th>
                   <th>Tanggal Pengajuan</th>
@@ -39,6 +40,7 @@
                         ?>
                         <tr>
                             <td>{{$loop->iteration}}</td>
+                            <td>{{$item->user->name ?? "-"}}</td>
                             <td>{{$item->nama_kegiatan}}</td>
                             <td>{{$item->status_permohonan_kegiatan}}
                                 @if ($item->status_permohonan_kegiatan == 'APPROVE')

@@ -22,7 +22,8 @@ class SubPenyelenggaraService {
                 'id_propinsi' => $request->id_propinsi,
                 'password' => $request->password,
                 'is_active' => 1,
-                'user_id' => Auth::user()->id
+                'user_id' => Auth::user()->id,
+                'jenis' => Auth::user()->jenis_penyelenggara
             ]);
 
             $user = User::query()->create([

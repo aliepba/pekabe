@@ -1,6 +1,6 @@
 <div class="card card-custom mt-5">
     <div class="card-body pt-0 table-responsive scroller">
-        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
+        <table class="table align-middle table-bordered fs-6 gy-5" id="kt_table_users">
             <!--begin::Table head-->
             <thead>
                 <tr>
@@ -91,43 +91,49 @@
                     <td>{{$item->kualifikasi}}</td>
                     <td>-</td>
                     <td>{{$item->tanggal_cetak}}</td>
-                    <td>{{date('Y-m-d', strtotime('+3 year', strtotime($item->tanggal_cetak)))}}</td>
+                    <td>
+                        @if ($item->kualifikasi <= 9)
+                        {{date('Y-m-d', strtotime('+5 year', strtotime($item->tanggal_cetak)))}}
+                        @else
+                        {{date('Y-m-d', strtotime('+3 year', strtotime($item->tanggal_cetak)))}}
+                        @endif
+                    </td>
                     <td>{{\helpers\MyHelper::nilaiSyarat(75, $item->kualifikasi)}}</td>
-                    <td>{{dd(\App\Actions\Logbook\GetNilaiKegiatanUtama::run($item->id_sub_bidang))}}</td>
+                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanUtama::run($item->id_sub_bidang, $item->tanggal_cetak)}}</td>
                     <td>{{\helpers\MyHelper::nilaiSyarat(25, $item->kualifikasi)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanPenunjang::run($item->id_sub_bidang)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanPenunjang::run($item->id_sub_bidang) - \helpers\MyHelper::nilaiSyarat(25, $item->kualifikasi)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanUtama::run($item->id_sub_bidang) - \helpers\MyHelper::nilaiSyarat(75, $item->kualifikasi)}}</td>
+                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanPenunjang::run($item->id_sub_bidang, $item->tanggal_cetak)}}</td>
+                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanPenunjang::run($item->id_sub_bidang, $item->tanggal_cetak) - \helpers\MyHelper::nilaiSyarat(25, $item->kualifikasi) < 0 ? '0' : \App\Actions\Logbook\GetNilaiKegiatanPenunjang::run($item->id_sub_bidang, $item->tanggal_cetak) - \helpers\MyHelper::nilaiSyarat(25, $item->kualifikasi)}}</td>
+                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanUtama::run($item->id_sub_bidang, $item->tanggal_cetak) - \helpers\MyHelper::nilaiSyarat(75, $item->kualifikasi) < 0 ? '0' : \App\Actions\Logbook\GetNilaiKegiatanUtama::run($item->id_sub_bidang, $item->tanggal_cetak) - \helpers\MyHelper::nilaiSyarat(75, $item->kualifikasi) }}</td>
                     <td></td>
                     <td></td>
                     <td>{{\helpers\MyHelper::nilaiSyarat(75, $item->kualifikasi)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanSelainNonFormal::run($item->id_sub_bidang)}}</td>
+                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanSelainNonFormal::run($item->id_sub_bidang, $item->tanggal_cetak)}}</td>
                     <td>{{\helpers\MyHelper::nilaiSyarat(25, $item->kualifikasi)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanNonFormal::run($item->id_sub_bidang)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanNonFormal::run($item->id_sub_bidang) - \helpers\MyHelper::nilaiSyarat(25, $item->kualifikasi)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanSelainNonFormal::run($item->id_sub_bidang) - \helpers\MyHelper::nilaiSyarat(75, $item->kualifikasi)}}</td>
+                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanNonFormal::run($item->id_sub_bidang, $item->tanggal_cetak)}}</td>
+                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanNonFormal::run($item->id_sub_bidang, $item->tanggal_cetak) - \helpers\MyHelper::nilaiSyarat(25, $item->kualifikasi) < 0 ? '0' : \App\Actions\Logbook\GetNilaiKegiatanNonFormal::run($item->id_sub_bidang, $item->tanggal_cetak) - \helpers\MyHelper::nilaiSyarat(25, $item->kualifikasi)}}</td>
+                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanSelainNonFormal::run($item->id_sub_bidang, $item->tanggal_cetak) - \helpers\MyHelper::nilaiSyarat(75, $item->kualifikasi) <0 ? '0' : \App\Actions\Logbook\GetNilaiKegiatanSelainNonFormal::run($item->id_sub_bidang, $item->tanggal_cetak) - \helpers\MyHelper::nilaiSyarat(75, $item->kualifikasi)}}</td>
                     <td></td>
                     <td></td>
                     <td>{{\helpers\MyHelper::nilaiSyarat(60, $item->kualifikasi)}}</td>
                     <td>{{\App\Actions\Logbook\GetNilaiTerverifikasi::run($item->id_sub_bidang)}}</td>
                     <td>{{\helpers\MyHelper::nilaiSyarat(40, $item->kualifikasi)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiUnverifikasi::run()}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiUnverifikasi::run() - \helpers\MyHelper::nilaiSyarat(40, $item->kualifikasi)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiTerverifikasi::run($item->id_sub_bidang) - \helpers\MyHelper::nilaiSyarat(60, $item->kualifikasi)}}</td>
+                    <td>{{\App\Actions\Logbook\GetNilaiUnverifikasi::run($item->tanggal_cetak)}}</td>
+                    <td>{{\App\Actions\Logbook\GetNilaiUnverifikasi::run($item->tanggal_cetak) - \helpers\MyHelper::nilaiSyarat(40, $item->kualifikasi) < 0 ? '0' : \App\Actions\Logbook\GetNilaiUnverifikasi::run($item->tanggal_cetak) - \helpers\MyHelper::nilaiSyarat(40, $item->kualifikasi)}}</td>
+                    <td>{{\App\Actions\Logbook\GetNilaiTerverifikasi::run($item->id_sub_bidang) - \helpers\MyHelper::nilaiSyarat(60, $item->kualifikasi) < 0 ? '0' : \App\Actions\Logbook\GetNilaiTerverifikasi::run($item->id_sub_bidang) - \helpers\MyHelper::nilaiSyarat(60, $item->kualifikasi)}}</td>
                     <td></td>
                     <td></td>
                     <td>{{\helpers\MyHelper::nilaiSyarat(60, $item->kualifikasi)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiKhusus::run($item->id_sub_bidang)}}</td>
+                    <td>{{\App\Actions\Logbook\GetNilaiKhusus::run($item->id_sub_bidang, $item->tanggal_cetak)}}</td>
                     <td>{{\helpers\MyHelper::nilaiSyarat(40, $item->kualifikasi)}}</td>
                     <td>{{\App\Actions\Logbook\GetNilaiUmum::run($item->id_sub_bidang)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiUmum::run($item->id_sub_bidang) - \helpers\MyHelper::nilaiSyarat(40, $item->kualifikasi)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiKhusus::run($item->id_sub_bidang) - \helpers\MyHelper::nilaiSyarat(60, $item->kualifikasi)}}</td>
+                    <td>{{\App\Actions\Logbook\GetNilaiUmum::run($item->id_sub_bidang) - \helpers\MyHelper::nilaiSyarat(40, $item->kualifikasi) < 0 ? '0' : \App\Actions\Logbook\GetNilaiUmum::run($item->id_sub_bidang) - \helpers\MyHelper::nilaiSyarat(40, $item->kualifikasi)}}</td>
+                    <td>{{\App\Actions\Logbook\GetNilaiKhusus::run($item->id_sub_bidang, $item->tanggal_cetak) - \helpers\MyHelper::nilaiSyarat(60, $item->kualifikasi) < 0 ? '0' : \App\Actions\Logbook\GetNilaiKhusus::run($item->id_sub_bidang, $item->tanggal_cetak) - \helpers\MyHelper::nilaiSyarat(60, $item->kualifikasi)}}</td>
                     <td></td>
                     <td></td>
                     <td>{{\helpers\MyHelper::syarat($item->kualifikasi)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiByIDSub::run($item->id_sub_bidang)}}</td>
+                    <td>{{\App\Actions\Logbook\GetNilaiByIDSub::run($item->id_sub_bidang, $item->tanggal_cetak)}}</td>
                     <td></td>
-                    <td></td>
+                    <td>{{\helpers\MyHelper::status($item->kualifikasi, $item->id_sub_bidang, $item->tanggal_cetak)}}</td>
                 </tr>
                 @endforeach
             </tbody>

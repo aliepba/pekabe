@@ -38,7 +38,7 @@
                             @endfor
                         </td>
                         <td>
-                            <a href="{{route('penilaian.detail', $item->uuid)}}" class="btn btn-sm btn-primary">Proses</a>
+                            <a href="{{route('penilaian.detail', $item->uuid)}}" class="btn btn-sm btn-primary">Detail</a>
                         </td>
                     </tr>
                 @endforeach

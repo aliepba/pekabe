@@ -9,8 +9,9 @@ use App\Services\Kegiatan\KegiatanService;
 use App\Actions\VerifikasiKegiatan\GetAll;
 use App\Actions\VerifikasiKegiatan\GetDetailKegiatan;
 use App\Actions\VerifikasiKegiatan\GetByApt;
+use App\Exports\KegiatanExport;
 use App\Services\Perbaikan\PerbaikanService;
-
+use Maatwebsite\Excel\Facades\Excel;
 
 class VerifikasiKegiatanController extends Controller
 {
@@ -31,7 +32,7 @@ class VerifikasiKegiatanController extends Controller
     }
 
     public function detail($uuid)
-    {
+    {   
         $this->authorize('detail-permohonan-kegiatan', Kegiatan::class);
         return view('pages.verifikasi-kegiatan.detail', GetDetailKegiatan::run($uuid));
     }
@@ -63,5 +64,9 @@ class VerifikasiKegiatanController extends Controller
     public function addKomen(Request $request)
     {
         $this->perbaikanService->addKomen($request);
+    }
+
+    public function export(){
+        return Excel::download(new KegiatanExport, 'kegiatan.xlsx');
     }
 }

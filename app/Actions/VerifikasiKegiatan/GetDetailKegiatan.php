@@ -3,7 +3,9 @@
 namespace App\Actions\VerifikasiKegiatan;
 
 use App\Models\Kegiatan;
+use App\Models\PesertaKegiatan;
 use Lorisleiva\Actions\Concerns\AsAction;
+use Illuminate\Support\Facades\Cache;
 
 class GetDetailKegiatan
 {
@@ -13,10 +15,11 @@ class GetDetailKegiatan
     {
         return [
             'data' => Kegiatan::with(['validator',
-                                'unsurKegiatan',
-                                'unsurKegiatan.unsur',
-                                'user', 'penyelenggaraLain', 'penyelenggaraLain.userPenyelenggara'])
-                                ->where('uuid', $uuid)->first()
+                                        'unsurKegiatan',
+                                        'unsurKegiatan.unsur',
+                                        'user', 'penyelenggaraLain', 'penyelenggaraLain.userPenyelenggara'])
+                                        ->where('uuid', $uuid)->first(),
+            'peserta' => PesertaKegiatan::where('id_kegiatan', $uuid)->get()          
         ];
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Actions\Kegiatan\GetKegiatanSetuju;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SSOController;
 use App\Http\Controllers\UserController;
@@ -8,23 +9,29 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\Pkbv1Controller;
 use App\Http\Controllers\LogBookController;
 use App\Http\Controllers\KegiatanController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PelaporanController;
 use App\Http\Controllers\PerbaikanController;
-use App\Http\Controllers\PreferensiController;
+use App\Http\Controllers\PengesahanController;
 use App\Http\Controllers\OldKegiatanController;
+use App\Http\Controllers\UploadPesertaController;
 use App\Http\Controllers\UnsurKegiatanController;
 use App\Http\Controllers\PermohonanAkunController;
 use App\Http\Controllers\VerifikasiAkunController;
 use App\Http\Controllers\BobotPenilaianController;
-use App\Http\Controllers\PengesahanController;
-use App\Http\Controllers\UploadPesertaController;
-use App\Http\Controllers\PenilaianKegiatanController;
 use App\Http\Controllers\PesertaKegiatanController;
-use App\Http\Controllers\SubUnsurKegiatanController;
 use App\Http\Controllers\SubPenyelenggaraController;
+use App\Http\Controllers\SubUnsurKegiatanController;
+use App\Http\Controllers\PenilaianKegiatanController;
 use App\Http\Controllers\VerifikasiKegiatanController;
 use App\Http\Controllers\PenilaianValidatorController;
+use App\Http\Controllers\Pengembangan\KegiatanController as PengembanganController;
+use App\Http\Controllers\Pengembangan\AsosiasiController;
+use App\Http\Controllers\KegiatanSahController;
+use App\Http\Controllers\IndikatorController;
+use App\Http\Controllers\RollbackController;
+use App\Http\Controllers\SiJKTController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +51,11 @@ Route::post('/login-siki', [SSOController::class, 'login'])->name('login.sso');
 Route::get('/pkb-simpan-login', [SSOController::class, 'loginSKK'])->name('skk');
 Route::post('/login-simpan', [SSOController::class, 'skk'])->name('login.skk');
 
+Route::get('/sijkt', [SiJKTController::class, 'sijkt'])->name('sijkt');
+Route::get('/sijkt-proses', [SiJKTController::class, 'proses'])->name('sijkt.proses');
+Route::get('/login-siki-simpan/{id}/{token}', [SiJKTController::class, 'login'])->name('sijkt.siki');
+Route::post('/connect-sijkt', [SiJKTController::class, 'connect'])->name('sijkt.connect');
+
 //index
 Route::get('/', [IndexController::class, 'index'])->name('indexing');
 
@@ -60,7 +72,24 @@ Route::get('/permohonan-akun/perbaikan/{uuid}', [PermohonanAkunController::class
 Route::put('/permohonan-akun/update/{uuid}', [PermohonanAkunController::class, 'update'])->name('form.update.perbaikan');
 Route::get('/dashboard-tenaga-ahli', [DashboardController::class, 'dashboardTenagaAhli'])->name('dashboard.tenaga.ahli');
 
+Route::get('/daftar-kegiatan-disetujui', function(){
+    return view('daftar-kegiatan', GetKegiatanSetuju::run());
+})->name('kegiatan.setujui');
+
+Route::prefix('/pengembangan')->middleware(['auth'])->group(function (){
+    Route::get('/kegiatan', [PengembanganController::class, 'index'])->name('pengembangan.index');
+    Route::get('/detail-kegiatan/{uuid}', [PengembanganController::class, 'detail'])->name('pengembangan.detail');
+    Route::put('/pengesahan/{uuid}', [PengembanganController::class, 'pengesahan'])->name('pengembangan.sah');
+
+    Route::get('/asosiasi/kegiatan', [AsosiasiController::class, 'index'])->name('asosiasi.index');
+    Route::get('/asosiasi/kegiatan-detail/{uuid}', [AsosiasiController::class, 'detail'])->name('asosiasi.detail');
+    Route::get('/detail-api/{uuid}', [AsosiasiController::class, 'detailApi']);
+});
+
 Route::middleware(['auth'])->group(function () {
+    Route::get('profile-pkb', [IndikatorController::class, 'index'])->name('profile.index');
+    Route::get('rollback-kegiatan', [RollbackController::class, 'index'])->name('rollback');
+    Route::post('rollback-proses', [RollbackController::class, 'process'])->name('rollback.proses');
     //admin
     Route::resource('roles', RoleController::class)->except('show');
     Route::resource('users', UserController::class)->except('show');
@@ -76,6 +105,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/permohonan-perbaikan/{uuid}', [VerifikasiAkunController::class, 'perbaikanPermohonan'])->name('permohonan.perbaikan');
     Route::get('/permohonan-approve/{uuid}', [VerifikasiAkunController::class, 'approvePermohonan'])->name('permohonan.approve');
     Route::get('/akun-setujui', [VerifikasiAkunController::class, 'setuju'])->name('akun.setuju');
+    Route::get('/akun-tolak', [VerifikasiAkunController::class, 'tolak'])->name('akun.tolak');
     Route::get('/list-verifikasi', [VerifikasiKegiatanController::class, 'list'])->name('list.kegiatan');
     Route::get('/detail-verifikasi/{uuid}', [VerifikasiKegiatanController::class, 'detail'])->name('verifikasi.kegiatan');
     Route::get('/kegiatan-setuju', [VerifikasiKegiatanController::class, 'setuju'])->name('setuju.kegiatan');
@@ -91,12 +121,26 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/pengesahan/{uuid}', [PengesahanController::class, 'sah'])->name('pengesahan.selesai');
     Route::get('/berita-acara-pengesahan/{uuid}', [PengesahanController::class, 'ba'])->name('pengesahan.ba');
 
+    Route::get('/kegiatan-sah', [KegiatanSahController::class, 'index'])->name('kegiatan.sah');
+    Route::get('/kegiatan-sah-detail/{uuid}', [KegiatanSahController::class, 'detail'])->name('kegiatan.sah.detail');
+
     Route::get('/upload-excel/{uuid}', [UploadPesertaController::class, 'index'])->name('excel');
     Route::post('/import-excel/{uuid}', [UploadPesertaController::class, 'import'])->name('excel.import');
     Route::get('/excel-peserta/edit/{id}', [UploadPesertaController::class, 'edit'])->name('excel.edit');
     Route::put('/excel-peserta/{id}/{uuid}', [UploadPesertaController::class, 'update'])->name('excel.update');
     Route::get('/excel-peserta/accept/{id}/{uuid}', [UploadPesertaController::class, 'acc'])->name('excel.acc');
     Route::delete('/excel-peserta/delete/{id}/{uuid}', [UploadPesertaController::class, 'destroy'])->name('excel.destroy');
+    Route::get('/detail-peserta/{id}', [UploadPesertaController::class, 'show'])->name('detail.peserta.excel');
+    Route::put('/peserta-updated/{id}', [UploadPesertaController::class, 'updated'])->name('detail.peserta.updated');
+    Route::get('/data-excel/{uuid}', [UploadPesertaController::class, 'data'])->name('data.excel');
+
+    //export excel
+    Route::get('/export-kegiatan', [VerifikasiKegiatanController::class, 'export'])->name('export.kegiatan');
+
+    //setting
+    Route::get('/settings', [SettingsController::class, 'index'])->name('setting.pelaporan');
+    Route::get('/change-status-setting', [SettingsController::class, 'statusPelaporan'])->name('setting.update');
+    Route::get('/change-status-kegiatan', [SettingsController::class, 'pengajuanKegiatan'])->name('setting.kegiatan');
 
     //penyelenggara
     Route::get('/dashboard-user', [DashboardController::class, 'dashboardUser'])->name('dashboard.user');
@@ -127,14 +171,21 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/peserta-kegiatan/create/{uuid}', [PesertaKegiatanController::class, 'create'])->name('peserta.create');
     Route::post('/peserta-kegiatan', [PesertaKegiatanController::class, 'store'])->name('peserta.store');
     Route::resource('/peserta', PesertaKegiatanController::class)->only(['edit', 'update', 'destroy']);
-    Route::post('/mark-as-read', [PreferensiController::class, 'markNotif'])->name('markNotification');
+    Route::put('/peserta-update/{id}/{kegiatan?}', [PesertaKegiatanController::class, 'updateValidasi'])->name('peserta.validasi');
+
+    Route::post('/add-peserta', [PesertaKegiatanController::class, 'addPeserta'])->name('peserta.add');
+    Route::get('/get-peserta/{id}', [PesertaKegiatanController::class, 'getPeserta'])->name('peserta.get');
+    Route::delete('/hapus-peserta/{id}', [PesertaKegiatanController::class, 'deletePeserta'])->name('peserta.hapus');
 
     Route::get('kegiatan-pkb-terverifikasi', [Pkbv1Controller::class, 'kegiatanTerverifikasi'])->name('pkb.lama');
 
     //tenaga ahli
     Route::get('/daftar-kegiatan', [LogBookController::class, 'index'])->name('logbook.index');
     Route::get('/kegiatan-tidak-terverifikasi', [LogBookController::class, 'unverified'])->name('kegiatan.unverified');
+    Route::get('/kegiatan-tidak-terverifikasi/{id}', [LogBookController::class, 'edit'])->name('unverified.edit');
+    Route::put('/kegiatan-unverified/update/{id}', [LogBookController::class, 'update'])->name('unverified.update');
     Route::post('/unverified', [LogBookController::class, 'store'])->name('unverified.store');
+    Route::delete('/unverified-delete/{id}', [LogBookController::class, 'delete'])->name('unverified.delete');
     Route::resource('/kegiatan-terdaftar', OldKegiatanController::class)->only(['create', 'store']);
     Route::get('/kegiatan-skpk', [LogBookController::class, 'listSkpk'])->name('kegiatan.skpk');
     Route::get('/summary-spkp/{sub}', [LogBookController::class, 'export'])->name('summary');
@@ -143,14 +194,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard-apt', [DashboardController::class, 'dashboardApt'])->name('dashboard.apt');
     Route::get('/list-verifikasi-apt', [VerifikasiKegiatanController::class, 'apt'])->name('verifikasi.apt');
     Route::get('/list-validasi-apt', [PenilaianValidatorController::class, 'apt'])->name('validator.apt');
+    
 });
 
 //referensi
-Route::get('/kab-kota', [PreferensiController::class, 'getKabKota']);
-Route::get('/detail-asosiasi-profesi', [PreferensiController::class, 'getAsosiasiProfesi']);
-Route::get('/detail-asosiasi-bu', [PreferensiController::class, 'getAsosiasiBU']);
-Route::get('/detail-instansi/{id}', [PreferensiController::class, 'showInstansi']);
-Route::get('/get-unsur-kegiatan', [PreferensiController::class, 'unsurKegiatan']);
-Route::get('/get-validator', [PreferensiController::class, 'validator']);
-
 require __DIR__.'/auth.php';
+require __DIR__.'/referensi.php';
+require __DIR__.'/public.php';
+require __DIR__.'./error.php';

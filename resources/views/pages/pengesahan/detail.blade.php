@@ -192,7 +192,11 @@
                     <textarea rows="5" class="form-control" name="keterangan_pengesahan"></textarea>
                 </div>
                 <div class="col-md-2">
+                    @if ($data->status_permohonan_kegiatan == 'VALIDASI')
                     <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                    @else
+                    <span class="badge badge-success">Sudah Disahkan</span>
+                    @endif
                 </div>
                 </form>
             </div>
@@ -200,10 +204,10 @@
     </div>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <a href="{{route('peserta.create', $data->uuid)}}" class="btn btn-sm btn-primary">
-              <i class="flaticon-plus"></i>
-              Tambah Peserta
-            </a>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalPeserta">
+                Tambah Peserta
+            </button>
           </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -228,11 +232,7 @@
                         <td>{{$item->unsur->nama_sub_unsur}}</td>
                         <td>
                             <a href="{{route('peserta.edit', $item->id)}}" class="btn btn-sm btn-primary">Edit</a>
-                            <form action="{{route('peserta.destroy', $item->id)}}" method="post">
-                                @csrf
-                                @method('delete')
-                            <button class="btn btn-danger btn-sm mt-5">Hapus</button>
-                            </form>
+                            <button class="btn btn-danger delete-btn btn-sm" data-id="{{ $item->id }}">Delete</button>
                         </td>
                     </tr>
                     @endforeach
@@ -246,27 +246,36 @@
 @endsection
 
 @push('addon-script')
+
+@include('components.modal.add-peserta')
+
 <script>
-         $(document).ready(function () {
-        $('#peserta').DataTable();
-    });
-    
-    document.getElementById('checkSurat').onchange = function() {
-            document.getElementById('keterangan_surat').disabled = !this.checked;
-        };
-
-        document.getElementById('checkTor').onchange = function() {
-            document.getElementById('tor_kak').disabled = !this.checked;
-        };
-
-        document.getElementById('checkCV').onchange = function() {
-            document.getElementById('cv').disabled = !this.checked;
-        };
-
     $(document).ready(function () {
         $('#peserta').DataTable();
     });
 
+    $(document).on('click', '.delete-btn', function (event) {
+    event.preventDefault();
 
+    var dataId = $(this).data('id');
+
+    console.log(dataId)
+
+    $.ajax({
+        url: '/hapus-peserta/' + dataId,
+        type: 'DELETE',
+        data: {
+            _token: '{{ csrf_token() }}'
+        },
+        success: function (data) {
+            alert("peserta berhasil dihhapus")
+            location.reload();
+        },
+        error: function (xhr) {
+            console.log(xhr.responseText);
+            alert("delete peserta gagal")
+        }
+    });
+});
 </script>
 @endpush

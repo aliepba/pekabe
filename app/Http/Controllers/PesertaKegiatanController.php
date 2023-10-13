@@ -8,6 +8,9 @@ use App\Services\Peserta\PesertaService;
 use App\Http\Resources\Peserta\PesertaResource;
 use App\Http\Resources\Peserta\PesertaCollection;
 use App\Models\PesertaKegiatan;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Stmt\TryCatch;
 
 class PesertaKegiatanController extends Controller
 {
@@ -91,10 +94,14 @@ class PesertaKegiatanController extends Controller
     public function update(Request $request, $id)
     {
         $this->authorize('update-peserta', PesertaKegiatan::class);
+        $kegiatan = PesertaKegiatan::find($id);
+        if(Auth::user()->role == 'root' || Auth::user()->role == 'admin'){
+            $this->pesertaService->update($request, $id);
+            return redirect(route('verifikasi-validasi.show', $kegiatan->id_kegiatan))->with('success', 'berhasil diupdate');
+        }
         $this->pesertaService->update($request, $id);
-        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'berhasil diupdate!');
+        return redirect(route('kegiatan-penyelenggara.show', $kegiatan->id_kegiatan))->with('success', 'berhasil diupdate!');
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -106,4 +113,25 @@ class PesertaKegiatanController extends Controller
         $this->pesertaService->delete($id);
         return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'peserta berhasil dihapus');
     }
+
+    public function getPeserta($id){
+        $peserta = PesertaKegiatan::find($id);
+        return response()->json($peserta);
+    }
+
+    public function addPeserta(Request $request){
+        $this->pesertaService->store($request);
+        return response()->json([
+            "message" => "success"
+        ]);
+    }
+
+    public function deletePeserta($id){
+        $this->pesertaService->delete($id);
+        
+        return response()->json([
+            "message" => "success"
+        ]);
+    }
+    
 }

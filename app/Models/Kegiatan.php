@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Services\Peserta\PesertaService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Crypt;
 
 class Kegiatan extends Model
 {
@@ -13,6 +14,17 @@ class Kegiatan extends Model
     protected $table= 'pkb_kegiatan_penyelenggara';
 
     protected $guarded = [];
+
+    protected $appends = ['id_hash'];
+
+    public function getIdHashAttribute(){
+        return Crypt::encrypt($this->id);
+    }
+
+    public function scopeDecrypt($query, $id_hash){
+        $id = Crypt::decrypt($id_hash);
+        return $id;
+    }
 
     public function user(){
         return $this->belongsTo(User::class, 'user_id', 'id');

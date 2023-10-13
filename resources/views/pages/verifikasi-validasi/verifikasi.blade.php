@@ -182,18 +182,61 @@
             <div class="row">
                 <div class="col-lg-3">
                     <a href="{{asset('storage/'. $data->laporan->upload_persyaratan)}}" target="_blank" class="btn btn-sm btn-primary rounded-lg"><i class="flaticon-file"></i>Laporan Kegiatan *</a> <br />
+                </div>
+                <div class="col-lg-6">
+                    <span class="switch switch-icon">
+                        <label>
+                        <input type="checkbox" name="select" id="checklain2"/>
+                        <span></span>
+                        </label>
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
                     <a href="{{asset('storage/'. $data->laporan->materi_kegiatan)}}" target="_blank" class="btn btn-sm btn-primary rounded-lg mt-2"><i class="flaticon-file"></i>Materi Kegiatan *</a> <br />
+                </div>
+                <div class="col-lg-6">
+                    <span class="switch switch-icon">
+                        <label>
+                        <input type="checkbox" name="select" id="checklain2"/>
+                        <span></span>
+                        </label>
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
                     <a href="{{asset('storage/'. $data->laporan->dokumentasi_kegiatan)}}" target="_blank" class="btn btn-sm btn-primary rounded-lg mt-2"><i class="flaticon-file"></i>Dokumentasi Kegiatan *</a>
                 </div>
-                <div class="col-md-7">
+                <div class="col-lg-6">
+                    <span class="switch switch-icon">
+                        <label>
+                        <input type="checkbox" name="select" id="checklain2"/>
+                        <span></span>
+                        </label>
+                    </span>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-md-12">
                     <form action="{{route('validasi.kegiatan', $data->uuid)}}" method="POST">
                     @method('PUT')
                     @csrf
-                    <textarea rows="5" class="form-control" name="keterangan_verifikasi"></textarea>
+                    <div class="form-group">
+                        <label>Keterangan</label>
+                        <textarea rows="5" class="form-control" name="keterangan"></textarea>
+                        <input value="{{$data->id}}" id="idKegiatan" name="id" hidden/>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" name="status_permohonan_kegiatan">
+                            <option value="VALIDASI">APPROVE</option>
+                            <option value="PERBAIKAN PELAPORAN">PERBAIKAN</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="col-md-2">
-                    <button type="submit" class="btn btn-sm btn-primary">Submit</button>
-                </div>
+                    <button type="submit" class="btn btn-block btn-primary">Submit</button>
                 </form>
             </div>
         </div>

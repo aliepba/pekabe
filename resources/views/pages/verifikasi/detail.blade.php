@@ -47,6 +47,8 @@
                                 <a href="#" class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
                                 <i class="flaticon2-new-email mr-2 font-size-lg"></i>{{$data->email_instansi}}</a>
                                 <a href="#" class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
+                                <a href="#" class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
+                                <i class="flaticon2-new-email mr-2 font-size-lg"></i>{{$data->Jenispenyelenggara->jenis_penyelenggara}}</a>
                                 <i class="flaticon2-calendar-3 mr-2 font-size-lg"></i>{{$data->telepon}}</a>
                                 <a href="#" class="text-dark-50 text-hover-primary font-weight-bold">
                                 <i class="flaticon2-placeholder mr-2 font-size-lg"></i>{{$data->provinsi->Nama. ' , '. $data->kabKota->nama_kabupaten_dagri. ' , ' .$data->alamat}}</a>

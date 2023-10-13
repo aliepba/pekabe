@@ -18,6 +18,10 @@
       .gradient {
         background: linear-gradient(90deg, #d53369 0%, #daae51 100%);
       }
+
+      .dropdown:hover .dropdown-menu {
+        display: block;
+      }    
     </style>
   </head>
   <body class="leading-normal tracking-normal text-white gradient" style="font-family: 'Source Sans Pro', sans-serif;">
@@ -48,6 +52,23 @@
         <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 bg-white lg:bg-transparent text-black p-4 lg:p-0 z-20" id="nav-content">
           <ul class="list-reset lg:flex justify-end flex-1 items-center">
             @guest
+            <div class="dropdown inline-block relative">
+              <button class="font-semibold py-2 px-4 rounded inline-flex items-center">
+                <span class="mr-1">Pengembangan PKB</span>
+                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" 
+                  viewBox="0 0 20 20">
+                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/> 
+                  </svg>
+              </button>
+              <ul class="dropdown-menu absolute hidden text-gray-700 pt-1">
+                <li class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="https://www.diklatkerja.com/">Diklat Kerja (Asdamkindo)</a></li>
+                <li class=""><a class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="https://www.ruangkonstruksi.com/">Ruang Konstruksi (ATAKI)</a></li>
+              </ul>
+            </div>
+            {{--  --}}
+            <li class="mr-3">
+              <a class="inline-block py-2 px-4 text-black font-bold no-underline" href="{{route('kegiatan.setujui')}}">Daftar Kegiatan</a>
+            </li>
             <li class="mr-3">
               <a class="inline-block py-2 px-4 text-black font-bold no-underline" href="#">Panduan</a>
             </li>
@@ -63,6 +84,9 @@
             <li class="mr-3">
                 <a class="inline-block py-2 px-4 text-black font-bold no-underline" href="{{route('login')}}">LPJK</a>
             </li>
+            <li class="mr-3">
+              <a class="inline-block py-2 px-4 text-black font-bold no-underline" href="{{route('sijkt')}}">SIJKT</a>
+          </li>
             @endguest
             @auth
             <li class="mr-3">
@@ -822,6 +846,8 @@
         }
         return false;
       }
+    </script>
+    <script>
     </script>
   </body>
 </html>

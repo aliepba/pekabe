@@ -4,10 +4,6 @@
 <div class="container">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-          <a href="{{route('roles.create')}}" class="btn btn-sm btn-primary">
-            <i class="flaticon-plus"></i>
-            Add Role
-          </a>
         </div>
         <div class="card-body">
           <div class="table-responsive">

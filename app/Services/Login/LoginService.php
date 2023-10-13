@@ -19,7 +19,7 @@ class LoginService{
 
     public function setting($username, $password, $url){
         $token = env('TOKEN_SSO', '4bd75cf32d6dc78801c58f2a6862b3d1202f20282f4b0c9a061772481ba2e8fa77264fd8be894eeb');
-        $response = Http::withHeaders([
+        $response = Http::withoutVerifying()->withHeaders([
             'Content-Type' => 'application/json',
             'token' => $token
         ])->post($url, [
@@ -48,7 +48,8 @@ class LoginService{
                 'email' => $dataDecoded->data->email,
                 'password' => $password,
                 'nik' => $dataDecoded->data->nik,
-                'jenis' => 'ska'
+                'jenis' => 'ska',
+                'id_sijkt' => null
             );
 
             $user = User::where('email', $dataDecoded->data->email)->first();
@@ -70,7 +71,9 @@ class LoginService{
         $url = 'https://simpan.pu.go.id/simpan-api/pkb/v1/sso';
         $username = $request->username;
         $password = $request->password;
+        
         try {
+            
             $response = $this->setting($username,$password, $url);
             $dataDecoded = json_decode($response);
 

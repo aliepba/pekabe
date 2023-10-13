@@ -10,7 +10,7 @@ class GetNilaiKegiatanSelainNonFormal
 {
     use AsAction;
 
-    public function handle($idSub)
+    public function handle($idSub, $tgl)
     {
         $sum = DB::SELECT("SELECT sum(total.ak) as ak from (
             select sum(a.angka_kredit) as ak from pkb_penilaian_peserta a
@@ -19,11 +19,16 @@ class GetNilaiKegiatanSelainNonFormal
             and a.id_sub_bidang = '$idSub'
             and a.nik = '". Auth::user()->nik . "'
             union
-            select sum(x.angka_kredit) as ak from pkb_penilaian_kegiatan x
-            join pkb_sub_unsur_kegiatan y on x.id_unsur = y.id
-            join pkb_kegiatan_unverified z on x.uuid = z.uuid
-            where y.id_unsur_kegiatan not in ('2')
-            and z.user_id = '". Auth::user()->id . "'
+            select sum(y.angka_kredit) from pkb_kegiatan_unverified x
+			join pkb_penilaian_kegiatan y on x.uuid = y.uuid 
+			join pkb_sub_unsur_kegiatan z on x.id_unsur_kegiatan = z.id 
+			where z.id_unsur_kegiatan not in ('2')
+			and x.user_id = '". Auth::user()->id . "'
+            and start_kegiatan >= '$tgl'
+            union
+            SELECT SUM(a.angka_kredit) as ak FROM pkb_penilaian_api a
+            WHERE a.id_sub_bidang  = '$idSub'
+            AND a.nik  = '". Auth::user()->id . "'
             ) as total")[0];
 
         if(empty($sum)){

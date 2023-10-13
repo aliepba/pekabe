@@ -2,6 +2,7 @@
 
 namespace App\Services\User;
 
+use App\Models\DetailInstansi;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 
 class UserService {
+    
     public function store($data){
         DB::transaction(function () use($data) {
             $user = User::query()->create([
@@ -19,7 +21,8 @@ class UserService {
                 'role' => 'skk-ska',
                 'nik' => $data['nik'],
                 'jenis' => $data['jenis'],
-                'jenis_penyelenggara' => 99
+                'jenis_penyelenggara' => 99,
+                'sijkt_pkb' => $data['id_sijkt']
             ]);
 
             $user->assignRole('skk-ska');
@@ -63,6 +66,14 @@ class UserService {
                 'role' => $request->input('role'),
                 'jenis_penyelenggara' => $request->jenis_penyelenggara
             ]);
+
+            $instansi = DetailInstansi::where('email_instansi', $user->email)->first();
+
+            if($instansi){
+                $instansi->update([
+                    'email_instansi' => $request->email
+                ]);
+            }
 
             $user->syncRoles($request->role);
         });

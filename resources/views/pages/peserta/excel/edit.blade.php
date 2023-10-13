@@ -19,11 +19,11 @@
                         <div class="form-group">
                             <label>Unsur Kegiatan</label>
                             <select class="form-control" name="unsur">
-                                <option value="">Pilih Unsur</option>
-                            @foreach ($kegiatan->unsurKegiatan as $unsurKegiatan)
-                            <option value="{{$unsurKegiatan->id_unsur}}" @if ($unsurKegiatan->id_unsur == $data->unsur_peserta)
-                                selected
-                            @endif>
+                                @foreach ($kegiatan->unsurKegiatan as $unsurKegiatan)
+                                <option value="{{$unsurKegiatan->id_unsur}}" 
+                                    @if($unsurKegiatan->id_unsur == 16)
+                                    selected
+                                @endif>
                                 {{$unsurKegiatan->unsur->nama_sub_unsur}}
                             </option>
                             @endforeach

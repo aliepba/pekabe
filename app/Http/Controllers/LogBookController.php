@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
 use App\Models\LogBook;
 use Illuminate\Http\Request;
 use App\Models\MtKlasifikasi;
 use App\Models\MtUnsurKegiatan;
-use PDF;
+use App\Models\KegiatanUnverified;
 use App\Actions\Logbook\TenagaAhli;
 use Illuminate\Support\Facades\Auth;
 use App\Actions\Logbook\GetRekapSKPK;
@@ -41,6 +42,24 @@ class LogBookController extends Controller
             'jenis' => MtUnsurKegiatan::all(),
             'klas' => MtKlasifikasi::all()
         ]);
+    }
+
+    public function edit($id){
+        return view('pages.logbook.edit', [
+            'data' => KegiatanUnverified::with(['jenis', 'unsur'])->find($id),
+            'jenis' => MtUnsurKegiatan::all(),
+            'klas' => MtKlasifikasi::all()
+        ]);
+    }
+
+    public function update(Request $request, $id){
+        $this->kegiatanService->updateKegiatanUnverified($request, $id);
+        return redirect(route('logbook.index'))->with('success', 'berhasil diupdate');
+    }
+
+    public function delete($id){
+        $this->kegiatanService->deleteKegiatanUnverified($id);
+        return redirect(route('logbook.index'))->with('success', 'berhasil dihapus');
     }
 
     public function store(Request $request)

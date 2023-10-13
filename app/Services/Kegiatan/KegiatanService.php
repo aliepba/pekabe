@@ -2,6 +2,7 @@
 
 namespace App\Services\Kegiatan;
 
+use App\Notifications\PerbaikanPelaporanNotification;
 use Notification;
 use Carbon\Carbon;
 use App\Models\User;
@@ -19,6 +20,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\UnsurKegiatanPenyelenggara;
 use App\Notifications\KegiatanNotification;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Intervention\Image\Facades\Image;
+
 
 class KegiatanService {
      public function store(Request $request){
@@ -34,6 +38,8 @@ class KegiatanService {
                 'tempat_kegiatan' => $request->tempat_kegiatan,
                 'start_kegiatan' => $request->start_kegiatan,
                 'end_kegiatan' => $request->end_kegiatan,
+                'contact_person' => $request->cp,
+                'link_kegiatan' => $request->link_kegiatan,
                 'tor_kak' => $request->file('tor_kak')->store('file/tor_kak', 'public'),
                 'sk_panitia' => $request->hasFile('sk_panitia') ? $request->file('sk_panitia')->store('file/sk_panitia', 'public') : null,
                 'cv' => $request->hasFile('cv') ? $request->file('cv')->store('file/cv', 'public') : null,
@@ -85,6 +91,8 @@ class KegiatanService {
                 'tempat_kegiatan' => $request->tempat_kegiatan,
                 'start_kegiatan' => $request->start_kegiatan,
                 'end_kegiatan' => $request->end_kegiatan,
+                'contact_person' => $request->cp,
+                'link_kegiatan' => $request->link_kegiatan,
                 'tor_kak' => $request->hasFile('tor_kak') ? $request->file('tor_kak')->store('file/tor_kak', 'public') : $data->tor_kak,
                 'sk_panitia' => $request->hasFile('sk_panitia') ? $request->file('sk_panitia')->store('file/sk_panitia', 'public') : $data->sk_panitia,
                 'cv' => $request->hasFile('cv') ? $request->file('cv')->store('file/cv', 'public') : $data->cv,
@@ -148,11 +156,14 @@ class KegiatanService {
         $data = Kegiatan::find($request->id);
         $user = User::find($data->user_id);
         DB::transaction(function () use($request, $data, $user){
+            $qr = $this->generateQR($data->uuid);
             $data->update([
                 'status_permohonan_kegiatan' => $request->status_permohonan,
                 'status_permohonan_penyelenggara' => $request->status_permohonan,
                 'tgl_proses' => Carbon::now(),
-                'keterangan' => $request->keterangan
+                'keterangan' => $request->keterangan,
+                'link_form' => "http://pekabe.test/form-absen-kegiatan/$data->uuid",
+                'qrcode' => $qr
             ]);
 
             LogKegiatan::query()->create([
@@ -161,6 +172,9 @@ class KegiatanService {
                 'keterangan' => $request->status_permohonan,
                 'user' => Auth::user()->id
             ]);
+
+
+
 
             Notification::send($user, new KegiatanNotification($data));
 
@@ -218,5 +232,79 @@ class KegiatanService {
             ]);
 
         });
+     }
+
+     public function updateKegiatanUnverified(Request $request, $id){
+        $kegiatan = KegiatanUnverified::find($id);
+        DB::transaction(function () use($request, $kegiatan){
+            $kegiatan->update([
+                'nama_kegiatan' => $request->nama_kegiatan,
+                'jenis_kegiatan' => $request->jenis_kegiatan,
+                'id_unsur_kegiatan' => $request->id_unsur_kegiatan,
+                'nama_penyelenggara' => $request->nama_penyelenggara,
+                'tempat_kegiatan' => $request->tempat_kegiatan,
+                'start_kegiatan' => $request->start_kegiatan,
+                'end_kegiatan' => $request->end_kegiatan,
+                'id_klasifikasi' => $request->id_klasifikasi,
+                'metode_kegiatan' => $request->metode,
+                'tingkat_kegiatan' => $request->tingkat_kegiatan,
+                'upload_persyaratan' =>$request->hasFile('upload_persyaratan') ? $request->file('upload_persyaratan')->store('file/bukti-kegiatan', 'public') : $kegiatan->upload_persyaratan
+            ]);
+
+            $kegiatan->penilaian->forceDelete();
+
+            LogKegiatan::query()->create([
+                'id_kegiatan' => $kegiatan->uuid,
+                'status_permohonan' => PermohonanStatus::UPDATE,
+                'keterangan' => 'created',
+                'user' => Auth::user()->id
+            ]);
+
+            $unsurKegiatan = MtSubUnsurKegiatan::with(['bobot'])->find($kegiatan->id_unsur_kegiatan);
+            $tingkat = 1;
+            $metode = $kegiatan->metode_kegiatan == 'Tatap Muka' ? $unsurKegiatan->bobot->tatap_muka : $unsurKegiatan->bobot->daring;
+            $jenis = $unsurKegiatan->bobot->not_verif_penyelenggara != null ? $unsurKegiatan->bobot->not_verif_penyelenggara : $unsurKegiatan->bobot->mandiri;
+            $sifat = $unsurKegiatan->bobot->khusus;
+
+            if($kegiatan->tingkat_kegiatan == 1){
+                $tingkat = $unsurKegiatan->bobot->nasional;
+            }elseif($kegiatan->tingkat_kegiatan == 2){
+                $tingkat = $unsurKegiatan->bobot->internasional_dalam_negeri;
+            }else{
+                $tingkat = $unsurKegiatan->bobot->internasional_luar_negeri;
+            }
+
+            PenilaianKegiatan::query()->create([
+                'uuid' => $kegiatan->uuid,
+                'nilai_skpk' => $unsurKegiatan->nilai_skpk,
+                'is_jenis' => $jenis,
+                'is_sifat' => $unsurKegiatan->bobot->khusus,
+                'is_metode' => $metode,
+                'is_tingkat' => $tingkat,
+                'angka_kredit' => $unsurKegiatan->nilai_skpk * ($jenis == null ? 1 : (float)$jenis) * ($sifat == null ? 1 : (float)$sifat) * ($metode == null ? 1 : (float)$metode) * ($tingkat == null ? 1 : (float)$tingkat)
+
+            ]);
+
+
+        });
+     }
+
+     public function deleteKegiatanUnverified($id){
+        $kegiatan = KegiatanUnverified::find($id);
+        DB::transaction(function () use($kegiatan){
+            $kegiatan->forceDelete();
+            $kegiatan->penilaian->forceDelete();
+        });
+     }
+
+     private function generateQR($uuid){        
+        $url = "http://pekabe.test/form-absen-kegiatan/$uuid";
+        $qrCode = QrCode::size(300)->color(3, 4, 94)
+                        ->style('round', 0.9)
+                        ->eyeColor(0, 235, 155, 0, 0, 0, 0)
+                        ->generate($url);
+        $base64 = 'data:image/svg+xml;base64,' . base64_encode($qrCode);
+
+        return $base64;
      }
 }

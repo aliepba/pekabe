@@ -8,6 +8,7 @@
 <script src="{{asset('assets/js/scripts.bundle.js')}}"></script>
 <!--end::Global Theme Bundle-->
 <!--begin::Page Vendors(used by this page)-->
+<script src="{{asset('assets/js/pages/crud/forms/widgets/select2.js')}}"></script>
 <script src="{{asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.js')}}"></script>
 <!--end::Page Vendors-->
 <!--begin::Page Scripts(used by this page)-->

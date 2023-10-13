@@ -19,7 +19,7 @@ class PengesahanNotification extends Notification
      */
     public function __construct($data)
     {
-        $this->item = $data;
+        $this->data = $data;
     }
 
     /**
@@ -43,8 +43,8 @@ class PengesahanNotification extends Notification
     {
         return (new MailMessage)
                         ->line('Dengan Hormat, ')
-                        ->line('Sesuai dengan permohonan pendaftaran akun sebagai penyelenggara kegiatan Pengembangan Keprofesian berkelanjutan (PKB) di LPJK PUPR,  dapat kami sampaikan bahwa permohonannya sudah kami proses dengan status : sudah disahkan')
-                        ->line('Dengan keterangan : '. $this->item['keterangan_pengesahan'])
+                        ->line('Sesuai dengan pelaporan kegiatan Pengembangan Keprofesian berkelanjutan (PKB) di LPJK PUPR,  dapat kami sampaikan bahwa permohonannya sudah kami proses dengan status : sudah disahkan')
+                        ->line('Dengan keterangan : '. $this->data['keterangan_pengesahan'])
                         ->line('Terima Kaih,')
                         ->line('Pengelola PKB')
                         ->line('LPJK PUPR')

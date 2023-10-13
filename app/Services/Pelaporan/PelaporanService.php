@@ -32,7 +32,9 @@ class PelaporanService{
         $pelaporanKegiatan = PelaporanKegiatan::find($id);
         DB::transaction(function () use($request, $pelaporanKegiatan){
             $pelaporanKegiatan->update([
-                'upload_persyaratan' => $request->file('upload_persyaratan')->store('file/pelaporan', 'public'),
+                'upload_persyaratan' => $request->hasFile('upload_persyaratan') ? $request->file('upload_persyaratan')->store('file/pelaporan', 'public') : $pelaporanKegiatan->upload_persyaratan,
+                'materi_kegiatan' => $request->hasFile('materi_kegiatan') ?  $request->file('materi_kegiatan')->store('file/pelaporan/materi-kegiatan', 'public') :  $pelaporanKegiatan->materi_kegiatan,
+                'dokumentasi_kegiatan' => $request->hasFile('dokumentasi_kegiatan') ? $request->file('dokumentasi_kegiatan')->store('file/pelaporan/materi-dokumentasi_kegiatan', 'public') : $pelaporanKegiatan->dokumentasi_kegiatan,
             ]);
         });
     }
