@@ -17,7 +17,9 @@
               <tbody>
                 <tr>
                     <td>1</td>
-                    <td><img src="{{$data->qrcode}}" alt="qr-code"></td>
+                    <td>
+                      <img src="{{$data->qrcode}}">
+                    </td>
                     <td>
                         <a href="{{$data->link_form}}" class="badge badge-success">{{$data->link_form}}</a>
                     </td>
