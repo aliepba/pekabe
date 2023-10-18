@@ -14,7 +14,7 @@ class AddColumnQrcodeToPkbKegiatanPenyelenggara extends Migration
     public function up()
     {
         Schema::table('pkb_kegiatan_penyelenggara', function (Blueprint $table) {
-            $table->string('qrcode')->nullable();
+            $table->text('qrcode')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddColumnQrcodeToPkbKegiatanPenyelenggara extends Migration
     public function down()
     {
         Schema::table('pkb_kegiatan_penyelenggara', function (Blueprint $table) {
-            $table->string('qrcode')->nullable();
+            $table->text('qrcode')->nullable();
         });
     }
 }
