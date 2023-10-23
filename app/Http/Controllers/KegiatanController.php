@@ -22,6 +22,7 @@ use App\Models\MtSubUnsurKegiatan;
 use App\Models\SettingKegiatan;
 use App\Models\SettingPelaporan;
 use App\Services\Log\LogService;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class KegiatanController extends Controller
 {
@@ -80,7 +81,7 @@ class KegiatanController extends Controller
             return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'Kegiatan berhasil dibuat!');
         }catch (\Exception $e) {
             $this->logError->store($request, $e->getMessage(), url()->current());
-            return redirect(route('error.page'))->with('errro', 'Error');
+            return redirect(route('error.page'))->with('error', 'Error');
         }
     }
 
@@ -93,13 +94,16 @@ class KegiatanController extends Controller
     public function show($uuid)
     {
         $this->authorize('submit-kegiatan', Kegiatan::class);
+        $kegiatan = Kegiatan::with(['validator', 'timeline', 'peserta', 'laporan',
+        'penyelenggaraLain', 'penyelenggaraLain.userPenyelenggara' ,
+        'jenis', 'nilaiPelaporan', 'nilaiValidasi', 'unsurKegiatan' ,
+        'unsurKegiatan.unsur', 'peserta.unsur'])->where('uuid', $uuid)->first();
+
+
         return view('pages.kegiatan.show', [
-            'data' => Kegiatan::with(['validator', 'timeline', 'peserta', 'laporan',
-                                    'penyelenggaraLain', 'penyelenggaraLain.userPenyelenggara' ,
-                                    'jenis', 'nilaiPelaporan', 'nilaiValidasi', 'unsurKegiatan' ,
-                                    'unsurKegiatan.unsur', 'peserta.unsur'])
-                                ->where('uuid', $uuid)->first(),
-            'setting' => SettingPelaporan::first()
+            'data' => $kegiatan,
+            'setting' => SettingPelaporan::first(),
+            'qrcode' => QrCode::format('svg')->size(200)->generate($kegiatan->link_form)
         ]);
     }
 
@@ -146,7 +150,7 @@ class KegiatanController extends Controller
             return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'kegiatan berhasil diedit!');
         }catch (\Exception $e) {
             $this->logError->store($request, $e->getMessage(), url()->current());
-            return redirect(route('error.page'))->with('errro', 'Error');
+            return redirect(route('error.page'))->with('error', 'Error');
         } 
     }
 
@@ -163,26 +167,41 @@ class KegiatanController extends Controller
             return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'kegiatan berhasil dihapus!');
         }catch (\Exception $e) {
             $this->logError->store($request, $e->getMessage(), url()->current());
-            return redirect(route('error.page'))->with('errro', 'Error');
+            return redirect(route('error.page'))->with('error', 'Error');
         } 
     }
 
-    public function submit($uuid)
+    public function submit(Request $request, $uuid)
     {
         $this->authorize('submit-kegiatan', Kegiatan::class);
-        $this->kegiatanService->submit($uuid);
-        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'kegiatan berhasil disubmit!');
+        try{
+            $this->kegiatanService->submit($uuid);
+            return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'kegiatan berhasil disubmit!');
+        }catch (\Exception $e) {
+            $this->logError->store($request, $e->getMessage(), url()->current());
+            return redirect(route('error.page'))->with('error', 'Error');
+        } 
     }
 
-    public function setuju()
+    public function setuju(Request $request)
     {
-        $this->authorize('list-setuju', Kegiatan::class);
-        return view('pages.kegiatan.setuju', GetKegiatanByUser::run());
+        try{
+            $this->authorize('list-setuju', Kegiatan::class);
+            return view('pages.kegiatan.setuju', GetKegiatanByUser::run());
+        }catch (\Exception $e) {
+            $this->logError->store($request, $e->getMessage(), url()->current());
+            return redirect(route('error.page'))->with('error', 'Error');
+        } 
     }
 
-    public function tolak()
+    public function tolak(Request $request)
     {
-        $this->authorize('list-tolak', Kegiatan::class);
-        return view('pages.kegiatan.tolak', GetKegiatanTolak::run());
+        try{
+            $this->authorize('list-tolak', Kegiatan::class);
+            return view('pages.kegiatan.tolak', GetKegiatanTolak::run());
+        }catch (\Exception $e) {
+            $this->logError->store($request, $e->getMessage(), url()->current());
+            return redirect(route('error.page'))->with('error', 'Error');
+        } 
     }
 }

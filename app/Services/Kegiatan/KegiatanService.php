@@ -21,7 +21,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\UnsurKegiatanPenyelenggara;
 use App\Notifications\KegiatanNotification;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
-use Intervention\Image\Facades\Image;
 
 
 class KegiatanService {
