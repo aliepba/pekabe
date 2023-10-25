@@ -45,7 +45,7 @@ class RollbackController extends Controller
     {
         return [
             [
-                'value' => PermohonanStatus::SUBMIT,
+                'value' => PermohonanStatus::OPEN,
                 'desc' => "Batal Setujui"
             ],
         ];

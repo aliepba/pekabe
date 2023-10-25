@@ -31,7 +31,7 @@
                                     <option value="{{$item['value']}}">{{$item['desc']}}</option>
                                 @endforeach
                             </select>
-                        </div>/
+                        </div>
                     </div>
                 </div>
                 <div class="row">
