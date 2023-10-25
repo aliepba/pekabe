@@ -54,10 +54,13 @@ class MyHelper
                             join pkb_master_unsur_kegiatan c on b.id_unsur_kegiatan = c.id
                             where a.id_sub_bidang = '$idSub'
                             and a.nik  = '". Auth::user()->nik . "'")[0];
+         
+                            
         
-        if($syarat > $verified){
+        if(intval($syarat) > intval($verified->ak)){
             return 'Tidak Memenuh';
         }
+                    
 
         $ak = GetNilaiByIDSub::run($idSub, $tgl);
 

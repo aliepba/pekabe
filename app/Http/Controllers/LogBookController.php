@@ -15,15 +15,19 @@ use App\Actions\Logbook\GetLogKegiatan;
 use App\Actions\Logbook\GetRekapExport;
 use App\Services\Kegiatan\KegiatanService;
 use App\Actions\Logbook\KegiatanTenagaAhli;
+use App\Services\Log\LogService;
+use Illuminate\Support\Facades\DB;
 
 class LogBookController extends Controller
 {
 
     private $kegiatanService;
+    private $logService;
 
-    public function __construct(KegiatanService $kegiatanService)
+    public function __construct(KegiatanService $kegiatanService, LogService $logService)
     {
         $this->kegiatanService = $kegiatanService;
+        $this->logService = $logService;
     }
 
     public function index()
@@ -53,19 +57,37 @@ class LogBookController extends Controller
     }
 
     public function update(Request $request, $id){
-        $this->kegiatanService->updateKegiatanUnverified($request, $id);
-        return redirect(route('logbook.index'))->with('success', 'berhasil diupdate');
+        try{
+            $this->kegiatanService->updateKegiatanUnverified($request, $id);
+            return redirect(route('logbook.index'))->with('success', 'berhasil diupdate');
+        }catch (\Exception $e) {
+            DB::rollback();
+            $this->logService->store($request, $e->getMessage(), url()->current());
+            return redirect(route('error.page'))->with('errro', 'Error');
+        }
     }
 
-    public function delete($id){
-        $this->kegiatanService->deleteKegiatanUnverified($id);
-        return redirect(route('logbook.index'))->with('success', 'berhasil dihapus');
+    public function delete(Request $request, $id){
+        try{
+            $this->kegiatanService->deleteKegiatanUnverified($id);
+            return redirect(route('logbook.index'))->with('success', 'berhasil dihapus');
+        }catch (\Exception $e) {
+            DB::rollback();
+            $this->logService->store($request, $e->getMessage(), url()->current());
+            return redirect(route('error.page'))->with('errro', 'Error');
+        }
     }
 
     public function store(Request $request)
     {
-        $this->kegiatanService->unverified($request);
-        return redirect(route('kegiatan.unverified'))->with('success', 'berhasil disimpan!');
+        try{
+            $this->kegiatanService->unverified($request);
+            return redirect(route('kegiatan.unverified'))->with('success', 'berhasil disimpan!');
+        }catch (\Exception $e) {
+            DB::rollback();
+            $this->logService->store($request, $e->getMessage(), url()->current());
+            return redirect(route('error.page'))->with('errro', 'Error');
+        }
     }
 
     public function listSkpk(){
