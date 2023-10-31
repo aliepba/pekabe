@@ -340,6 +340,7 @@ class PenilaianService{
         $data = PesertaAPI::whereNull('is_sah')->get();
 
         foreach($data as $item){
+            
             $item->update([
                 'is_sah' => true
             ]);
