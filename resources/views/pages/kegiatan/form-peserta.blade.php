@@ -110,12 +110,16 @@
                                                         <label>NIK</label>
                                                         <input type="number" class="form-control" name="nik" maxlength="16" placeholder="nik" required>
                                                         <input type="text" name="id_kegiatan" value="{{$data->uuid}}" hidden/>
+                                                        <input type="text" name="user_id" value="{{$data->user_id}}" hidden/>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Unsur Kegiatan</label>
                                                         <select class="form-control" name="unsur">
                                                             @foreach ($data->unsurKegiatan as $unsurKegiatan)
-                                                            <option value="{{$unsurKegiatan->id_unsur}}" selected>{{$unsurKegiatan->unsur->nama_sub_unsur}}</option>
+                                                            <option value="{{$unsurKegiatan->id_unsur}}" 
+																@if ($unsurKegiatan->id_unsur == 16)
+																selected
+																@endif>{{$unsurKegiatan->unsur->nama_sub_unsur}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>

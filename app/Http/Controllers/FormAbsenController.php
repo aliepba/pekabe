@@ -6,6 +6,7 @@ use App\Models\Kegiatan;
 use App\Services\Log\LogService;
 use Illuminate\Http\Request;
 use App\Services\Peserta\PesertaService;
+use Carbon\Carbon;
 
 class FormAbsenController extends Controller
 {
@@ -23,6 +24,11 @@ class FormAbsenController extends Controller
 
         $data = Kegiatan::with('unsurKegiatan', 'unsurKegiatan.unsur')->where('uuid', $uuid)->first();
         if(!$data){return redirect(route('error.page'));}
+
+        if($data->end_kegiatan > Carbon::now()){
+            return view('Form Absen Kegiatan Sudah Expired');
+        }
+        
         return view('pages.kegiatan.form-peserta', [
             'data' => $data
         ]);

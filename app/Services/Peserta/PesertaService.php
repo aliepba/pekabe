@@ -25,7 +25,7 @@ class PesertaService
                 'nik_peserta' => $request->nik,
                 'unsur_peserta' => $request->unsur,
                 'metode_peserta' => $request->metode,
-                'user_id' => Auth::user()->id
+                'user_id' => Auth::user()->id ?? $request->user_id
             ]);
         });
     }
