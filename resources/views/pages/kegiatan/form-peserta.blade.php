@@ -104,7 +104,8 @@
                                              </div>
                                             </div>
                                             <div class="card-body">
-                                                <form action="{{route('peserta.store')}}" method="POST" enctype="multipart/form-data">
+                                                <form action="{{route('absen.store')}}" method="POST" enctype="multipart/form-data">
+													@csrf
                                                     <div class="form-group">
                                                         <label>NIK</label>
                                                         <input type="number" class="form-control" name="nik" maxlength="16" placeholder="nik" required>
