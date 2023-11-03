@@ -23,6 +23,7 @@ use App\Models\SettingKegiatan;
 use App\Models\SettingPelaporan;
 use App\Services\Log\LogService;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Facades\DB;
 
 class KegiatanController extends Controller
 {
@@ -99,11 +100,19 @@ class KegiatanController extends Controller
         'jenis', 'nilaiPelaporan', 'nilaiValidasi', 'unsurKegiatan' ,
         'unsurKegiatan.unsur', 'peserta.unsur'])->where('uuid', $uuid)->first();
 
+        if(!$kegiatan){return redirect(route('error.page'));}
+
+        $peserta = DB::SELECT("select a.id, b.nama as skk, c.Nama  as ska, a.nik_peserta, a.unsur_peserta as unsur, a.metode_peserta  from pkb_peserta_kegiatan a
+        left join lsp_personal b on a.nik_peserta = b.nik COLLATE utf8mb4_unicode_ci
+        left join personal c on a.nik_peserta = c.id_personal
+        join pkb_sub_unsur_kegiatan d on a.unsur_peserta = d.id
+        where a.id_kegiatan = '$uuid'");
+
 
         return view('pages.kegiatan.show', [
             'data' => $kegiatan,
+            'peserta' => $peserta,
             'setting' => SettingPelaporan::first(),
-            'qrcode' => QrCode::format('svg')->size(200)->generate($kegiatan->link_form)
         ]);
     }
 
