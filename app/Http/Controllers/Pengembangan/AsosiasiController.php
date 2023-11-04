@@ -16,8 +16,11 @@ class AsosiasiController extends Controller
     }
 
     public function detail($uuid){
+        $data = Kegiatan::with(['asosiasi', 'laporan', 'peserta', 'unsurKegiatan', 'unsurKegiatan.unsur', 'peserta.subUnsur'])
+                        ->where('uuid', $uuid)->first();
+        if(!$data){return redirect(route('error.page'));}
         return view('pages.pengembangan.asosiasi.detail', [
-            'data' => Kegiatan::with(['asosiasi', 'laporan', 'peserta', 'unsurKegiatan', 'unsurKegiatan.unsur', 'peserta.subUnsur'])->where('uuid', $uuid)->first()
+            'data' => $data
         ]);
     }
 
