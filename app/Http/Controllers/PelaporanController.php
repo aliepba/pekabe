@@ -8,18 +8,25 @@ use Illuminate\Http\Request;
 use App\Services\Pelaporan\PelaporanService;
 use App\Jobs\isVerifikasi;
 use App\Jobs\Penilaian;
+use App\Services\Log\LogService;
 use App\Services\Penilaian\PenilaianService;
+use Illuminate\Support\Facades\DB;
 
 class PelaporanController extends Controller
 {
 
     private $pelaporanService;
     private $penilaianService;
+    private $logService;
 
-    public function __construct(PelaporanService $pelaporanService, PenilaianService $penilaianService)
+    public function __construct(
+        PelaporanService $pelaporanService, 
+        PenilaianService $penilaianService,
+        LogService $logService)
     {
         $this->pelaporanService = $pelaporanService;
         $this->penilaianService = $penilaianService;
+        $this->logService = $logService;
     }
 
     /**
@@ -50,9 +57,15 @@ class PelaporanController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->authorize('pelaporan', PelaporanKegiatan::class);
-        $this->pelaporanService->store($request);
-        return redirect(route('kegiatan-penyelenggara.show', $request->id_kegiatan))->with('success', 'pengunggahan data laporan kegiatan PKB telah berhasil!');
+        // $this->authorize('pelaporan', PelaporanKegiatan::class);\
+        try{
+            $this->pelaporanService->store($request);
+            return redirect(route('kegiatan-penyelenggara.show', $request->id_kegiatan))->with('success', 'pengunggahan data laporan kegiatan PKB telah berhasil!');
+        }catch (\Exception $e) {
+            DB::rollback();
+            $this->logService->store($request, $e->getMessage(), url()->current());
+            return redirect(route('error.page'))->with('errro', 'Error');
+        }
     }
 
     /**
@@ -89,8 +102,14 @@ class PelaporanController extends Controller
     public function update(Request $request, $id)
     {
         // $this->authorize('pelaporan', PelaporanKegiatan::class);
-        $this->pelaporanService->update($request, $id);
-        return redirect(route('kegiatan-penyelenggara.show', $request->id_kegiatan))->with('success', 'pengunggahan data laporan kegiatan PKB telah berhasil diupdate!');
+        try{
+            $this->pelaporanService->update($request, $id);
+            return redirect(route('kegiatan-penyelenggara.show', $request->id_kegiatan))->with('success', 'pengunggahan data laporan kegiatan PKB telah berhasil diupdate!');
+        }catch (\Exception $e) {
+            DB::rollback();
+            $this->logService->store($request, $e->getMessage(), url()->current());
+            return redirect(route('error.page'))->with('errro', 'Error');
+        }
     }
 
     /**
@@ -104,12 +123,18 @@ class PelaporanController extends Controller
         //
     }
 
-    public function submit($id)
+    public function submit(Request $request,  $id)
     {
         // $this->authorize('submit_pelaporan', PelaporanKegiatan::class);
-        $this->pelaporanService->submit($id);
         // $this->penilaianService->penilaianPeserta($id);
         // dispatch(new Penilaian($id));
-        return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'data laporan kegiatan berhasil disubmit!');
+        try{
+            $this->pelaporanService->submit($id);
+            return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'data laporan kegiatan berhasil disubmit!');
+        }catch (\Exception $e) {
+            DB::rollback();
+            $this->logService->store($request, $e->getMessage(), url()->current());
+            return redirect(route('error.page'))->with('errro', 'Error');
+        }
     }
 }
