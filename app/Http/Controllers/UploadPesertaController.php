@@ -103,7 +103,10 @@ class UploadPesertaController extends Controller
             ]);
         }catch (\Exception $e) {
             $this->logService->store($request, $e->getMessage(), url()->current());
-            return redirect(route('error.page'))->with('error', 'Error');
+            return response()->json([
+                'message' => 'Error update peserta',
+                'data' => null
+            ]);
         } 
     }
 
