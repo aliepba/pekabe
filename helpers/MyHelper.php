@@ -64,9 +64,9 @@ class MyHelper
 
         $ak = GetNilaiByIDSub::run($idSub, $tgl);
 
-        $status = $ak - $syarat;
+        // $status = $ak - $syarat;
 
-        return ($status > $syarat) ? 'Memenuhi' : "Tidak Memenuhi";
+        return ($ak > $syarat) ? 'Memenuhi' : "Tidak Memenuhi";
 
     }
 }
