@@ -25,12 +25,18 @@ class GetNilaiByIDSub
             and start_kegiatan >= '$tgl'
         ) as total")[0];
 
+        $pengembangan = DB::select("select sum(angka_kredit) as jml from pkb_penilaian_api ppa where nik = '". Auth::user()->nik . "'")[0];
+
+        if(empty($pengembangan)){
+            $pengembangan = 0;
+        }
+
         if(empty($sum)){
-            $ak = 0;
+            $ak = 0 + $pengembangan;
         }
 
         if(!empty($sum)){
-            $ak = $sum->ak;
+            $ak = $sum->ak + $pengembangan->jml;
         }
 
         return $ak;

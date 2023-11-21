@@ -57,7 +57,9 @@ class MyHelper
 
         $pengembangan = DB::select("select sum(angka_kredit) as jml from pkb_penilaian_api ppa where = '". Auth::user()->nik . "'")[0];
          
-                            
+        if(!$pengembangan){
+            $pengembangan= 0;
+        }
         
         if(intval($syarat) > intval($verified->ak)){
             return 'Tidak Memenuh';
