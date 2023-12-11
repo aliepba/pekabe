@@ -89,7 +89,7 @@
                 </a>
             </li>
             @if ($setting->is_active == 1)
-                @if (($data->status_permohonan_kegiatan == 'APPROVE' || $data->status_permohonan_kegiatan == 'PERBAIKAN PELAPORAN') && \Carbon\Carbon::parse(\Carbon\Carbon::now())->diffInDays($data->end_kegiatan) <= 14 && (Auth::user()->id == $data->user_id ))
+                @if (($data->status_permohonan_kegiatan == 'APPROVE' || $data->status_permohonan_kegiatan == 'PERBAIKAN PELAPORAN' || $data->is_open == false) && \Carbon\Carbon::parse(\Carbon\Carbon::now())->diffInDays($data->end_kegiatan) <= 14 && (Auth::user()->id == $data->user_id ))
                 <li class="nav-item">
                     <a class="nav-link" id="profile-tab-1" data-toggle="tab" href="#tab-peserta" aria-controls="profile">
                         <span class="nav-icon">
