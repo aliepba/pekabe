@@ -52,6 +52,7 @@ class TenagaAhli
                   AND b.`id_sub_bidang` = f.`ID_Sub_Bidang_Keahlian`
                   AND b.`id_status` = '4'
                   AND b.`id_Kualifikasi_profesi` = e.`ID_Kualifikasi_Profesi`
+                  AND left (b.id_sub_bidang, 2) in ('AA', 'AT')
                   AND a.`id_personal` IN ('$nik')
                 GROUP BY
                   b.`ID_Personal`,
@@ -104,6 +105,7 @@ class TenagaAhli
                   AND b.`Propinsi` = d.`ID_Propinsi`
                   AND b.`id_sub_bidang` = f.`ID_Sub_Bidang_Keahlian`
                   AND b.`id_Kualifikasi_profesi` = e.`ID_Kualifikasi_Profesi`
+                  AND left (b.id_sub_bidang, 2) in ('AA', 'AT')
                 GROUP BY
                   b.`ID_Personal`,
                   b.`id_sub_bidang`
