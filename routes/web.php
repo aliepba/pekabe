@@ -27,6 +27,7 @@ use App\Http\Controllers\KegiatanSahController;
 use App\Http\Controllers\IndikatorController;
 use App\Http\Controllers\RollbackController;
 use App\Http\Controllers\SiJKTController;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,7 +66,9 @@ Route::get('/permohonan-akun/detail', [PermohonanAkunController::class, 'form'])
 Route::post('/permohonan-akun/save', [PermohonanAkunController::class, 'store'])->name('form.akun.save');
 Route::get('/permohonan-akun/perbaikan/{uuid}', [PermohonanAkunController::class, 'edit'])->name('form.perbaikan');
 Route::put('/permohonan-akun/update/{uuid}', [PermohonanAkunController::class, 'update'])->name('form.update.perbaikan');
+
 Route::get('/dashboard-tenaga-ahli', [DashboardController::class, 'dashboardTenagaAhli'])->name('dashboard.tenaga.ahli');
+Route::get('/home', [DashboardController::class, 'indexSKK'])->name('index.skk');
 
 Route::get('/daftar-kegiatan-disetujui', function(){
     return view('daftar-kegiatan', GetKegiatanSetuju::run());
@@ -190,6 +193,3 @@ Route::middleware(['auth'])->group(function () {
 
 //referensi
 require __DIR__.'/auth.php';
-// require __DIR__.'/referensi.php';
-// require __DIR__.'/public.php';
-// require __DIR__.'/error.php';
