@@ -13,7 +13,9 @@ class GetPenilaian
     public function handle()
     {
         return [
-            'data' => Kegiatan::where('status_permohonan_kegiatan', PermohonanStatus::VALIDASI)->get()
+            'data' => Kegiatan::where('status_permohonan_kegiatan', PermohonanStatus::VALIDASI)
+                    ->where('is_open', false)
+                    ->get()
         ];
     }
 }

@@ -15,6 +15,7 @@ class GetPengesahan
         return [
             'data' => Kegiatan::with(['unsurKegiatan', 'unsurKegiatan.unsur', 'user'])
                     ->where('status_permohonan_kegiatan', PermohonanStatus::VALIDASI)
+                    ->where('is_open', false)
                     ->orderBy('updated_at', 'asc')
                     ->get()
         ];
