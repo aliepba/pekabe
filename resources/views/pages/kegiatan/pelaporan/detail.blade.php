@@ -13,6 +13,9 @@
                   <th>File</th>
                   <th>Materi Kegiatan</th>
                   <th>Dokumentasi Kegiatan</th>
+                  <th>Undangan Kegiatan</th>
+                  <th>Daftar Hadir</th>
+                  <th>Link Pelaporan</th>
                   <th>Status Laporan</th>
                   <th>Action</th>
                 </tr>
@@ -28,6 +31,9 @@
                     </td>
                     <td>
                         <a href="{{asset('storage/'. $data->laporan->dokumentasi_kegiatan)}}" class="btn btn-sm btn-primary rounded-lg" target="_blank"><i class="flaticon-file"></i>Dokumentasi Kegiatan</a>
+                    </td>
+                    <td>
+                      <span class="badge badge-primary">{{$data->laporan->link_pelaporan}} </span> 
                     </td>
                     <td>{{$data->laporan->status_laporan}}</td>
                     <td>
