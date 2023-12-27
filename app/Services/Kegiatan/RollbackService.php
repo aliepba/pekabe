@@ -35,6 +35,8 @@ class RollbackService{
         $id = Crypt::decrypt($request->id_hash);
         $kegiatan = Kegiatan::findOrFail($id);
 
+
+        dd($kegiatan);
         DB::beginTransaction();
 
         $kegiatan->is_open = $request->is_open == '1' ? true : false ;

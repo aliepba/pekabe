@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\SettingKegiatan;
 use App\Models\SettingPelaporan;
 use App\Services\Settings\SettingService;
+use Illuminate\Support\Facades\Cache;
 
 class SettingsController extends Controller
 {
@@ -19,8 +20,12 @@ class SettingsController extends Controller
 
     public function index(){
         return view('pages.system.index', [
-            'item' => SettingPelaporan::first(),
-            'kegiatan' => SettingKegiatan::first()
+            'item' => Cache::rememberForever('cache_set_pelaporan', function (){
+                            return SettingPelaporan::first();
+                        }), 
+            'kegiatan' => Cache::rememberForever('cache_set_maks_kegiatan', function () {
+                            return SettingKegiatan::first();
+                        })
         ]);
     }
 
