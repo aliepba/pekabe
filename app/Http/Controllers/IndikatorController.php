@@ -19,6 +19,7 @@ class IndikatorController extends Controller
                                 ->join('pkb_kegiatan_penyelenggara', 'pkb_unsur_kegiatan_penyelenggara.id_kegiatan', '=', 'pkb_kegiatan_penyelenggara.uuid')
                                 ->whereNotIn('status_permohonan_kegiatan', ['PERBAIKAN', 'OPEN', 'SUBMIT', 'TOLAK'])
                                 ->count('pkb_unsur_kegiatan_penyelenggara.id');
+                                
         $totalLain = DB::SELECT("SELECT SUM(jumlah) AS jumlah FROM (
                                 SELECT count(a.id) AS jumlah FROM pkb_kegiatan_penyelenggara a
                                 where status_permohonan_kegiatan NOT IN ('TOLAK', 'OPEN', 'SUBMIT', 'PERBAIKAN')
@@ -61,7 +62,93 @@ class IndikatorController extends Controller
                                 group by c.unsur_kegiatan 
                                 order by c.id");
 
-        return view('pages.indikator.umum', compact('akun', 'unsurSetuju', 'TotalInstansiSetuju', 'totalLain','TotalkegiatanSetuju', 'TotalunsurSetuju', 'TotalunsurPelaporan', 'unsurPelaporan'));
+        $skpk = DB::SELECT("select a.jenjang, b.jumlah_50, c.jumlah_100, d.jumlah_150, e.jumlah_200 , f.jumlah_201, 
+        COALESCE(b.jumlah_50, 0) + COALESCE(c.jumlah_100, 0) + COALESCE(d.jumlah_150, 0) + COALESCE(e.jumlah_200, 0) + COALESCE(f.jumlah_201, 0) AS jumlah_total
+        from 
+        (SELECT a.jenjang_id as jenjang FROM lsp_jabatan_kerja a
+        left JOIN pkb_penilaian_peserta b ON b.id_sub_bidang = a.id_jabatan_kerja COLLATE utf8mb4_unicode_ci
+        where a.jenjang_id in ('7','8', '9') group by a.jenjang_id) a 
+        LEFT JOIN 
+        (SELECT	
+                b.jenjang_id as jenjang,
+                COUNT(DISTINCT a.nik) AS jumlah_50
+            FROM
+                pkb_penilaian_peserta a
+            LEFT JOIN
+                lsp_jabatan_kerja b ON b.id_jabatan_kerja = a.id_sub_bidang COLLATE utf8mb4_unicode_ci
+            WHERE
+                b.jenjang_id in ('7', '8', '9')
+            GROUP BY
+                a.id_sub_bidang , b.jenjang_id 
+            HAVING
+                SUM(a.angka_kredit) <= 50) b on a.jenjang = b.jenjang
+        LEFT JOIN(
+        SELECT	
+                b.jenjang_id as jenjang,
+                COUNT(DISTINCT a.nik) AS jumlah_100
+            FROM
+                pkb_penilaian_peserta a
+            LEFT JOIN
+                lsp_jabatan_kerja b ON b.id_jabatan_kerja = a.id_sub_bidang COLLATE utf8mb4_unicode_ci
+            WHERE
+                b.jenjang_id in ('7', '8', '9')
+            GROUP BY
+                a.id_sub_bidang , b.jenjang_id 
+            HAVING
+                SUM(a.angka_kredit) > 50
+                AND SUM(a.angka_kredit) <= 100
+        ) c on a.jenjang = c.jenjang
+        LEFT JOIN(
+        SELECT	
+                b.jenjang_id as jenjang,
+                COUNT(DISTINCT a.nik) AS jumlah_150
+            FROM
+                pkb_penilaian_peserta a
+            LEFT JOIN
+                lsp_jabatan_kerja b ON b.id_jabatan_kerja = a.id_sub_bidang COLLATE utf8mb4_unicode_ci
+            WHERE
+                b.jenjang_id in ('7', '8', '9')
+            GROUP BY
+                a.id_sub_bidang , b.jenjang_id 
+            HAVING
+                SUM(a.angka_kredit) > 100
+                AND SUM(a.angka_kredit) <= 150
+        ) d on a.jenjang = d.jenjang
+        LEFT JOIN(
+        SELECT	
+                b.jenjang_id as jenjang,
+                COUNT(DISTINCT a.nik) AS jumlah_200
+            FROM
+                pkb_penilaian_peserta a
+            LEFT JOIN
+                lsp_jabatan_kerja b ON b.id_jabatan_kerja = a.id_sub_bidang COLLATE utf8mb4_unicode_ci
+            WHERE
+                b.jenjang_id in ('7', '8', '9')
+            GROUP BY
+                a.id_sub_bidang , b.jenjang_id 
+            HAVING
+                SUM(a.angka_kredit) > 150
+                AND SUM(a.angka_kredit) <= 200
+        ) e on a.jenjang = e.jenjang
+        LEFT JOIN(
+        SELECT	
+                b.jenjang_id as jenjang,
+                COUNT(DISTINCT a.nik) AS jumlah_201
+            FROM
+                pkb_penilaian_peserta a
+            LEFT JOIN
+                lsp_jabatan_kerja b ON b.id_jabatan_kerja = a.id_sub_bidang COLLATE utf8mb4_unicode_ci
+            WHERE
+                b.jenjang_id in ('7', '8', '9')
+            GROUP BY
+                a.id_sub_bidang , b.jenjang_id 
+            HAVING
+                SUM(a.angka_kredit) > 200
+        ) f on a.jenjang = f.jenjang
+                group by a.jenjang 
+                order by a.jenjang asc");
+
+        return view('pages.indikator.umum', compact('akun', 'skpk' ,'unsurSetuju', 'TotalInstansiSetuju', 'totalLain','TotalkegiatanSetuju', 'TotalunsurSetuju', 'TotalunsurPelaporan', 'unsurPelaporan'));
     }
 
     public function khusus(){

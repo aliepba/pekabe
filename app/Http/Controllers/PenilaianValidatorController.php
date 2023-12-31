@@ -54,9 +54,9 @@ class PenilaianValidatorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($uuid)
+    public function show($id_hash)
     {
-        return view('pages.verifikasi-validasi.verifikasi', GetDetailPenilaianValidator::run($uuid));
+        return view('pages.verifikasi-validasi.verifikasi', GetDetailPenilaianValidator::run($id_hash));
     }
 
     /**

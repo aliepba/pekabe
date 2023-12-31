@@ -156,6 +156,14 @@ class KegiatanController extends Controller
         $this->authorize('update-kegiatan', Kegiatan::class);
         try{
             $this->kegiatanService->update($request, $id);
+
+            if(Auth::user()->role == 'root' || Auth::user()->role == 'admin'){
+                $data = Kegiatan::with(['validator', 'jenis', 'unsurKegiatan', 'unsurKegiatan.unsur', 'penyelenggaraLain', 'penyelenggaraLain.userPenyelenggara'])->find($id);
+                if(!$data){return redirect(route('error.page'));}
+                return redirect(route('verifikasi.kegiatan', $data->uuid))->with('success', 'kegiatan berhasil diedit');
+            }
+
+
             return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'kegiatan berhasil diedit!');
         }catch (\Exception $e) {
             $this->logError->store($request, $e->getMessage(), url()->current());
