@@ -66,4 +66,22 @@ class PelaporanService{
             ]);
         });
     }
+
+    public function submitUnverified($id){
+        $pelaporanKegiatan = PelaporanKegiatan::find($id);
+        $kegiatan = Kegiatan::where('uuid', $pelaporanKegiatan->id_kegiatan)->first();
+        DB::beginTransaction();
+
+        $pelaporanKegiatan->status_laporan = PermohonanStatus::SUBMIT;
+        $kegiatan->status_permohonan_kegiatan = PermohonanStatus::UNVERIFIED;
+
+        LogKegiatan::query()->create([
+            'id_kegiatan' => $pelaporanKegiatan->id_kegiatan,
+            'status_permohonan' => PermohonanStatus::PELAPORAN,
+            'keterangan' => 'laporan sudah disubmit',
+            'user' => Auth::user()->id
+        ]);
+
+        DB::commit();
+    }
 }

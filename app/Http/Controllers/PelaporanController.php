@@ -137,4 +137,16 @@ class PelaporanController extends Controller
             return redirect(route('error.page'))->with('errro', 'Error');
         }
     }
+
+    public function submitUnverified(Request $request, $id)
+    {
+        try{
+            $this->pelaporanService->submitUnverified($id);
+            return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'data laporan kegiatan berhasil disubmit!');
+        }catch (\Exception $e) {
+            DB::rollback();
+            $this->logService->store($request, $e->getMessage(), url()->current());
+            return redirect(route('error.page'))->with('errro', 'Error');
+        }
+    }
 }
