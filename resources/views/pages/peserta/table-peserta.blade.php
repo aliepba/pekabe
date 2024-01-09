@@ -1,11 +1,13 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
+          @if (($data->status_permohonan_kegiatan == 'APPROVE' || $data->is_open == true || $data->status_permohonan_kegiatan == 'PERBAIKAN PELAPORAN' || $data->is_open == false) && \Carbon\Carbon::parse(\Carbon\Carbon::now())->diffInDays($data->end_kegiatan) <= 14 && (Auth::user()->id == $data->user_id ) )    
           <a href="{{route('peserta.create', $data->uuid)}}" class="btn btn-sm btn-primary">
             <i class="flaticon-plus"></i>
             Tambah Peserta
           </a>
           <a href="{{route('excel', $data->uuid)}}" class="btn btn-sm btn-info">Upload Excel</a>
           <br/>
+          @endif
           <span class="badge badge-danger mt-2">
             *) Disclamer!, Dengan menyetujui ketentuan ini kami sepenuhnya bertanggungjawab terhadap segala resiko sebagai akibat dari pelaporan kegiatan PKB,
              termasuk bukti laporan yang disampaikan <br/> beserta daftar peserta kegiatan yang
@@ -26,13 +28,22 @@
                   </tr>
               </thead>
               <tbody>
-                @foreach ($data->peserta as $item)
+                @foreach ($peserta as $item)
                 <tr>
                     <td>{{$loop->iteration}}</td>
-                    <td>{{\App\Actions\Logbook\GetNamaTenagaAhli::run($item->nik_peserta)}}</td>
+                    {{-- <td>{{\App\Actions\Logbook\GetNamaTenagaAhli::run($item->nik_peserta)}}</td> --}}
+                    <td>
+                      @if ($item->ska != null)
+                      {{$item->ska}}
+                      @elseif($item->skk != null)
+                      {{$item->skk}}
+                      @else
+                      Tidak Memiliki SKA/SKK
+                      @endif
+                    </td>
                     <td>{{$item->nik_peserta}}</td>
                     <td>{{$item->metode_peserta}}</td>
-                    <td>{{$item->unsur->nama_sub_unsur}}</td>
+                    <td>{{$item->unsur}}</td>
                     <td>
                         <a href="{{route('peserta.edit', $item->id)}}" class="btn btn-sm btn-primary">Edit</a>
                         <form action="{{route('peserta.destroy', $item->id)}}" method="post">

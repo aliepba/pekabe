@@ -214,7 +214,33 @@
                         <label>
                         <input type="checkbox" name="select" id="checklain2"/>
                         <span></span>
-                        </label>
+                        </label>d
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <a href="{{asset('storage/'. $data->laporan->undangan_kegiatan)}}" target="_blank" class="btn btn-sm btn-primary rounded-lg mt-2"><i class="flaticon-file"></i>Dokumentasi Kegiatan *</a>
+                </div>
+                <div class="col-lg-6">
+                    <span class="switch switch-icon">
+                        <label>
+                        <input type="checkbox" name="select" id="checklain2"/>
+                        <span></span>
+                        </label>d
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <a href="{{asset('storage/'. $data->laporan->daftar_hadir)}}" target="_blank" class="btn btn-sm btn-primary rounded-lg mt-2"><i class="flaticon-file"></i>Dokumentasi Kegiatan *</a>
+                </div>
+                <div class="col-lg-6">
+                    <span class="switch switch-icon">
+                        <label>
+                        <input type="checkbox" name="select" id="checklain2"/>
+                        <span></span>
+                        </label>d
                     </span>
                 </div>
             </div>
@@ -262,13 +288,21 @@
                       </tr>
                   </thead>
                   <tbody>
-                    @foreach ($data->peserta as $item)
+                    @foreach ($peserta as $item)
                     <tr>
                         <td>{{$loop->iteration}}</td>
-                        <td>{{\App\Actions\Logbook\GetNamaTenagaAhli::run($item->nik_peserta)}}</td>
+                        <td>
+                            @if ($item->ska != null)
+                            {{$item->ska}}
+                            @elseif($item->skk != null)
+                            {{$item->skk}}
+                            @else
+                            Tidak Memiliki SKA/SKK
+                            @endif
+                        </td>
                         <td>{{$item->nik_peserta}}</td>
                         <td>{{$item->metode_peserta}}</td>
-                        <td>{{$item->unsur->nama_sub_unsur}}</td>
+                        <td>{{$item->unsur}}</td>
                         <td>
                             <a href="{{route('peserta.edit', $item->id)}}" class="btn btn-sm btn-primary">Edit</a>
                             <form action="{{route('peserta.destroy', $item->id)}}" method="post">
