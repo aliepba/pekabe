@@ -6,15 +6,18 @@ use App\Actions\Logbook\TenagaAhli;
 use App\Models\MtProvinsi;
 use Illuminate\Http\Request;
 use App\Services\Kegiatan\OldKegiatanService;
+use App\Services\Log\LogService;
 use Illuminate\Support\Facades\Auth;
 
 class OldKegiatanController extends Controller
 {
     private $oldKegiatanService;
+    private $logError;
 
-    public function __construct(OldKegiatanService $oldKegiatanService)
+    public function __construct(OldKegiatanService $oldKegiatanService, LogService $logError)
     {
         $this->OldKegiatanService = $oldKegiatanService;
+        $this->logError = $logError;
     }
 
     /**
@@ -48,8 +51,13 @@ class OldKegiatanController extends Controller
      */
     public function store(Request $request)
     {
-        $this->oldKegiatanService->store($request);
-        return redirect(route('kegiatan.unverified'))->with('success', 'berhasil disimpan!');
+        try{
+            $this->oldKegiatanService->store($request);
+            return redirect(route('kegiatan.unverified'))->with('success', 'berhasil disimpan!');
+        }catch (\Exception $e) {
+            $this->logError->store($request, $e->getMessage(), url()->current());
+            return redirect(route('error.page'))->with('error', 'Error');
+        }
     }
 
     /**

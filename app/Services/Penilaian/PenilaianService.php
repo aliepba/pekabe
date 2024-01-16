@@ -152,7 +152,7 @@ class PenilaianService{
 
                 $tingkat = 1;
                 $jenis = 1;
-                $metode = $item->metode_peserta == 'Tatap Muka' ? $unsurKegiatan->bobot->tatap_muka : $unsurKegiatan->bobot->daring;
+                $metode = ($item->metode_peserta == 'Tatap Muka' || $item->metode_peserta == 'Tatap muka') ? $unsurKegiatan->bobot->tatap_muka : $unsurKegiatan->bobot->daring;
                 $sifat = $unsurKegiatan->bobot->khusus;
 
                 if($kegiatan->tingkat_kegiatan === "1"){
@@ -340,6 +340,7 @@ class PenilaianService{
         $data = PesertaAPI::whereNull('is_sah')->get();
 
         foreach($data as $item){
+            
             $item->update([
                 'is_sah' => true
             ]);

@@ -146,7 +146,8 @@ class PermohonanAkunService
                 'email_verified_at' => Carbon::now(),
                 'role' => 'user',
                 'password' => Hash::make($permohonan->penanggungjawab->password),
-                'jenis_penyelenggara' => $permohonan->jenis
+                'jenis_penyelenggara' => $permohonan->jenis,
+                'id_asosiasi' => $permohonan->jenis_penyelenggara
             ]);
 
 

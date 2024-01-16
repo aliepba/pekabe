@@ -4,16 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\MtBobotPenilaian;
+use App\Services\Log\LogService;
 use App\Services\UnsurKegiatan\BobotPenilaianService;
 
 class BobotPenilaianController extends Controller
 {
 
     private $bobotPenilaianService;
+    private $logService;
 
-    public function __construct(BobotPenilaianService $bobotPenilaianService)
+    public function __construct(BobotPenilaianService $bobotPenilaianService, LogService $logService)
     {
         $this->bobotPenilaianService = $bobotPenilaianService;
+        $this->logService = $logService;
     }
     /**
      * Display a listing of the resource.
@@ -48,8 +51,13 @@ class BobotPenilaianController extends Controller
     public function store(Request $request)
     {
         $this->authorize('create-bobot');
-        $this->bobotPenilaianService->store($request);
-        return redirect()->route('bobot-penilaian.index')->with(['success', 'berhasil']);
+        try{
+            $this->bobotPenilaianService->store($request);
+            return redirect()->route('bobot-penilaian.index')->with(['success', 'berhasil']);
+        }catch (\Exception $e) {
+            $this->logService->store($request, $e->getMessage(), url()->current());
+            return redirect(route('error.page'))->with('error', 'Error');
+        } 
     }
 
     /**
@@ -84,8 +92,13 @@ class BobotPenilaianController extends Controller
     public function update(Request $request, $id)
     {
         $this->authorize('edit-bobot');
-        $this->bobotPenilaianService->update($request, $id);
-        return redirect()->route('bobot-penilaian.index')->with(['success', 'berhasil']);
+        try{
+            $this->bobotPenilaianService->update($request, $id);
+            return redirect()->route('bobot-penilaian.index')->with(['success', 'berhasil']);
+        }catch (\Exception $e) {
+            $this->logService->store($request, $e->getMessage(), url()->current());
+            return redirect(route('error.page'))->with('error', 'Error');
+        } 
     }
 
     /**

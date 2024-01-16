@@ -8,15 +8,18 @@ use App\Models\MtPenyelenggara;
 use App\Actions\Asosiasi\AsosiasiList;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\PermohonanAkunRequest;
+use App\Services\Log\LogService;
 use App\Services\PermohonanAkun\PermohonanAkunService;
 
 class PermohonanAkunController extends Controller
 {
     private $permohonanAkunService;
+    private $logError;
 
-    public function __construct(PermohonanAkunService $permohonanAkunService)
+    public function __construct(PermohonanAkunService $permohonanAkunService, LogService $logService)
     {
         $this->permohonanAkunService = $permohonanAkunService;
+        $this->logError = $logService;
     }
 
     public function index(){
@@ -79,12 +82,18 @@ class PermohonanAkunController extends Controller
 
 
     public function store(PermohonanAkunRequest $request){
-        $this->permohonanAkunService->store($request);
-        return redirect()->route('permohonan.akun')->with('success', 'Permohonan Berhasil di Ajukan');
+        try{
+            $this->permohonanAkunService->store($request);
+            return redirect()->route('permohonan.akun')->with('success', 'Permohonan Berhasil di Ajukan');
+        }catch (\Exception $e) {
+            $this->logError->store($request, $e->getMessage(), url()->current());
+            return redirect(route('error.page'))->with('error', 'Error');
+        }
     }
 
     public function edit($uuid){
         $data = DetailInstansi::where('uuid', $uuid)->first();
+        if(!$data){return redirect(route('error.page'));}
 
         if($data->status_permohonan == 'SUBMIT' || $data->status_permohonan == 'TOLAK' || $data->status_permohonan == 'APPROVED'){
             return view('errors.419');
@@ -150,7 +159,12 @@ class PermohonanAkunController extends Controller
     }
 
     public function update(Request $request, $uuid){
-        $this->permohonanAkunService->update($request, $uuid);
-        return redirect('/')->with('success', 'Perbaikan Permohonan Akun Berhasil disubmit');
+        try{
+            $this->permohonanAkunService->update($request, $uuid);
+            return redirect('/')->with('success', 'Perbaikan Permohonan Akun Berhasil disubmit');
+        }catch (\Exception $e) {
+            $this->logError->store($request, $e->getMessage(), url()->current());
+            return redirect(route('error.page'))->with('error', 'Error');
+        }
     }
 }

@@ -54,14 +54,21 @@ class MyHelper
                             join pkb_master_unsur_kegiatan c on b.id_unsur_kegiatan = c.id
                             where a.id_sub_bidang = '$idSub'
                             and a.nik  = '". Auth::user()->nik . "'")[0];
+
+        $pengembangan = DB::select("select sum(angka_kredit) as jml from pkb_penilaian_api ppa where = '". Auth::user()->nik . "'")[0];
+         
+        if(!$pengembangan){
+            $pengembangan= 0;
+        }
         
-        if($syarat > $verified){
+        if(intval($syarat) > intval($verified->ak)){
             return 'Tidak Memenuh';
         }
+                    
 
         $ak = GetNilaiByIDSub::run($idSub, $tgl);
 
-        $status = $ak - $syarat;
+        $status = $ak + intval($pengembangan->jml);
 
         return ($status > $syarat) ? 'Memenuhi' : "Tidak Memenuhi";
 

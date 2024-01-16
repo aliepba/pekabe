@@ -14,7 +14,7 @@ class AddColumnLinkFormToPkbKegiatanPenyelenggara extends Migration
     public function up()
     {
         Schema::table('pkb_kegiatan_penyelenggara', function (Blueprint $table) {
-            $table->string('link_form')->nullable();
+            $table->text('link_form')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddColumnLinkFormToPkbKegiatanPenyelenggara extends Migration
     public function down()
     {
         Schema::table('pkb_kegiatan_penyelenggara', function (Blueprint $table) {
-            $table->string('link_form')->nullable();
+            $table->text('link_form')->nullable();
         });
     }
 }

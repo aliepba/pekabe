@@ -10,18 +10,20 @@ use App\Actions\VerifikasiKegiatan\GetAll;
 use App\Actions\VerifikasiKegiatan\GetDetailKegiatan;
 use App\Actions\VerifikasiKegiatan\GetByApt;
 use App\Exports\KegiatanExport;
+use App\Services\Log\LogService;
 use App\Services\Perbaikan\PerbaikanService;
 use Maatwebsite\Excel\Facades\Excel;
 
 class VerifikasiKegiatanController extends Controller
 {
 
-    private $perbaikanService, $kegiatanService;
+    private $perbaikanService, $kegiatanService, $logError;
 
-    public function __construct(PerbaikanService $perbaikanService, KegiatanService $kegiatanService)
+    public function __construct(PerbaikanService $perbaikanService, KegiatanService $kegiatanService, LogService $logService)
     {
         $this->perbaikanService = $perbaikanService;
         $this->kegiatanService = $kegiatanService;
+        $this->logError = $logService;
         $this->middleware('IsLPJK')->only('list');
     }
 
@@ -31,10 +33,10 @@ class VerifikasiKegiatanController extends Controller
         return view('pages.verifikasi-kegiatan.list', GetAll::run());
     }
 
-    public function detail($uuid)
+    public function detail($id_hash)
     {   
         $this->authorize('detail-permohonan-kegiatan', Kegiatan::class);
-        return view('pages.verifikasi-kegiatan.detail', GetDetailKegiatan::run($uuid));
+        return view('pages.verifikasi-kegiatan.detail', GetDetailKegiatan::run($id_hash));
     }
 
     public function apt(){
@@ -44,8 +46,13 @@ class VerifikasiKegiatanController extends Controller
 
     public function updateStatus(Request $request){
         $this->authorize('status-permohonan-kegiatan', Kegiatan::class);
-        $this->kegiatanService->verifikasi($request);
-        return redirect()->route('list.kegiatan')->with('success', 'Permohonan kegiatan berhasil di update');
+        try{
+            $this->kegiatanService->verifikasi($request);
+            return redirect()->route('list.kegiatan')->with('success', 'Permohonan kegiatan berhasil di update');
+        }catch (\Exception $e) {
+            $this->logError->store($request, $e->getMessage(), url()->current());
+            return redirect(route('error.page'))->with('error', 'Error');
+        } 
     }
 
     public function detailKegiatan($id){

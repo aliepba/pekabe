@@ -3,8 +3,6 @@
 use App\Actions\Kegiatan\GetKegiatanSetuju;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SSOController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\RoleController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\Pkbv1Controller;
 use App\Http\Controllers\LogBookController;
@@ -16,13 +14,10 @@ use App\Http\Controllers\PerbaikanController;
 use App\Http\Controllers\PengesahanController;
 use App\Http\Controllers\OldKegiatanController;
 use App\Http\Controllers\UploadPesertaController;
-use App\Http\Controllers\UnsurKegiatanController;
 use App\Http\Controllers\PermohonanAkunController;
 use App\Http\Controllers\VerifikasiAkunController;
-use App\Http\Controllers\BobotPenilaianController;
 use App\Http\Controllers\PesertaKegiatanController;
 use App\Http\Controllers\SubPenyelenggaraController;
-use App\Http\Controllers\SubUnsurKegiatanController;
 use App\Http\Controllers\PenilaianKegiatanController;
 use App\Http\Controllers\VerifikasiKegiatanController;
 use App\Http\Controllers\PenilaianValidatorController;
@@ -32,6 +27,7 @@ use App\Http\Controllers\KegiatanSahController;
 use App\Http\Controllers\IndikatorController;
 use App\Http\Controllers\RollbackController;
 use App\Http\Controllers\SiJKTController;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,7 +66,9 @@ Route::get('/permohonan-akun/detail', [PermohonanAkunController::class, 'form'])
 Route::post('/permohonan-akun/save', [PermohonanAkunController::class, 'store'])->name('form.akun.save');
 Route::get('/permohonan-akun/perbaikan/{uuid}', [PermohonanAkunController::class, 'edit'])->name('form.perbaikan');
 Route::put('/permohonan-akun/update/{uuid}', [PermohonanAkunController::class, 'update'])->name('form.update.perbaikan');
+
 Route::get('/dashboard-tenaga-ahli', [DashboardController::class, 'dashboardTenagaAhli'])->name('dashboard.tenaga.ahli');
+Route::get('/home', [DashboardController::class, 'indexSKK'])->name('index.skk');
 
 Route::get('/daftar-kegiatan-disetujui', function(){
     return view('daftar-kegiatan', GetKegiatanSetuju::run());
@@ -88,14 +86,13 @@ Route::prefix('/pengembangan')->middleware(['auth'])->group(function (){
 
 Route::middleware(['auth'])->group(function () {
     Route::get('profile-pkb', [IndikatorController::class, 'index'])->name('profile.index');
+    Route::get('profile-pkb-khusus', [IndikatorController::class, 'khusus'])->name('profile.khusus');
     Route::get('rollback-kegiatan', [RollbackController::class, 'index'])->name('rollback');
     Route::post('rollback-proses', [RollbackController::class, 'process'])->name('rollback.proses');
+    
+    Route::get('open-pelaporan', [RollbackController::class, 'openPelaporan'])->name('rollback.pelaporan');
+    Route::post('open-proses', [RollbackController::class, 'prosesPelaporan'])->name('rollback.pelaporan.proses');
     //admin
-    Route::resource('roles', RoleController::class)->except('show');
-    Route::resource('users', UserController::class)->except('show');
-    Route::resource('unsur-kegiatan', UnsurKegiatanController::class);
-    Route::resource('bobot-penilaian', BobotPenilaianController::class);
-    Route::resource('sub-unsur-kegiatan', SubUnsurKegiatanController::class);
     Route::resource('verifikasi-validasi', PenilaianValidatorController::class)->only(['index', 'show']);
     Route::put('/verifikasi-validasi/{uuid}', [PenilaianValidatorController::class, 'validasi'])->name('validasi.kegiatan');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -138,9 +135,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/export-kegiatan', [VerifikasiKegiatanController::class, 'export'])->name('export.kegiatan');
 
     //setting
-    Route::get('/settings', [SettingsController::class, 'index'])->name('setting.pelaporan');
-    Route::get('/change-status-setting', [SettingsController::class, 'statusPelaporan'])->name('setting.update');
-    Route::get('/change-status-kegiatan', [SettingsController::class, 'pengajuanKegiatan'])->name('setting.kegiatan');
 
     //penyelenggara
     Route::get('/dashboard-user', [DashboardController::class, 'dashboardUser'])->name('dashboard.user');
@@ -190,7 +184,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/kegiatan-skpk', [LogBookController::class, 'listSkpk'])->name('kegiatan.skpk');
     Route::get('/summary-spkp/{sub}', [LogBookController::class, 'export'])->name('summary');
 
-    //apt
+    //aptdada
     Route::get('/dashboard-apt', [DashboardController::class, 'dashboardApt'])->name('dashboard.apt');
     Route::get('/list-verifikasi-apt', [VerifikasiKegiatanController::class, 'apt'])->name('verifikasi.apt');
     Route::get('/list-validasi-apt', [PenilaianValidatorController::class, 'apt'])->name('validator.apt');
@@ -199,6 +193,3 @@ Route::middleware(['auth'])->group(function () {
 
 //referensi
 require __DIR__.'/auth.php';
-require __DIR__.'/referensi.php';
-require __DIR__.'/public.php';
-require __DIR__.'./error.php';

@@ -29,6 +29,21 @@
                             <input type="file" class="form-control" name="dokumentasi_kegiatan" required />
                             <span class="text-muted">Accepted formats: pdf Max file size 1Mb</span>
                         </div>
+                        <div class="form-group">
+                            <label>Undangan Kegiatan</label>
+                            <input type="file" class="form-control" name="undangan_kegiatan" required />
+                            <span class="text-muted">Accepted formats: pdf Max file size 1Mb</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Daftar Hadir Kegiatan</label>
+                            <input type="file" class="form-control" name="daftar_hadir" required />
+                            <span class="text-muted">Accepted formats: pdf Max file size 1Mb</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Link Pelaporan *)</label>
+                            <input type="text" class="form-control" name="link_pelaporan" value="{{$item->link_pelaporan}}"/>
+                            <span class="text-muted">*) Jika ada File Pelaporan dengan size terlalu besar dan melebihi yang dimintakan</span>
+                        </div>
                     </div>
                 </div>
                 <div class="row">

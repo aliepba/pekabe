@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KweweController;
+use App\Http\Controllers\APIAkreditasi\IndexController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/job-penilaian', KweweController::class);
+
+Route::get('/kegiatan-profesi/{idAsosiasi}', [IndexController::class, 'getKegiatanProfesi']);
+Route::get('/kegiatan-badan-usaha/{idAsosiasi}', [IndexController::class, 'getKegiatanBU']);
+Route::get('/detail-kegiatan/{idKegiatan}', [IndexController::class, 'getDetail']);

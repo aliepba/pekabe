@@ -14,6 +14,9 @@
                       <th>File</th>
                       <th>Materi Kegiatan</th>
                       <th>Dokumentasi Kegiatan</th>
+                      <th>Undangan Kegiatan</th>
+                      <th>Daftar Hadir</th>
+                      <th>Link Pelaporan</th>
                       <th>Status Laporan</th>
                       <th>Action</th>
                     </tr>
@@ -29,6 +32,15 @@
                         </td>
                         <td>
                             <a href="{{asset('storage/'. $data->laporan->dokumentasi_kegiatan)}}" class="btn btn-sm btn-primary rounded-lg" target="_blank"><i class="flaticon-file"></i>Dokumentasi Kegiatan</a>
+                        </td>
+                        <td>
+                            <a href="{{asset('storage/'. $data->laporan->undangan_Kegiatan)}}" class="btn btn-sm btn-primary rounded-lg" target="_blank"><i class="flaticon-file"></i>Undangan Kegiatan</a>
+                        </td>
+                        <td>
+                            <a href="{{asset('storage/'. $data->laporan->daftar_hadir)}}" class="btn btn-sm btn-primary rounded-lg" target="_blank"><i class="flaticon-file"></i>Daftar Hadir</a>
+                        </td>
+                        <td>
+                            <span class="badge badge-primary">{{$data->link_pelaporan}}</span>
                         </td>
                         <td>{{$data->laporan->status_laporan}}</td>
                         <td>
@@ -67,6 +79,22 @@
                             <input type="file" class="form-control" name="dokumentasi_kegiatan" required />
                             <span class="text-muted">Accepted formats: pdf Max file size 1Mb</span>
                         </div>
+                        <div class="form-group">
+                            <label>Undangan Kegiatan</label>
+                            <input type="file" class="form-control" name="undangan_kegiatan" required />
+                            <span class="text-muted">Accepted formats: pdf Max file size 1Mb</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Daftar Hadir Kegiatan</label>
+                            <input type="file" class="form-control" name="daftar_hadir" required />
+                            <span class="text-muted">Accepted formats: pdf Max file size 1Mb</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Link Pelaporan *)</label>
+                            <input type="text" class="form-control" name="link_pelaporan"/>
+                            <span class="text-muted">*) Jika ada File Pelaporan dengan size terlalu besar dan melebihi yang dimintakan</span>
+                        </div>
+                       
                     </div>
                     <div class="col-md-6">
                         <h5 class="h5">Format Laporan Kegiatan</h5>

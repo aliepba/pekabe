@@ -26,7 +26,7 @@ class PermohonanAkunRequest extends FormRequest
         return [
             'jenis_penyelenggara' => 'required',
             'nama_instansi' => 'required',
-            'email_instansi' => ['required', 'string', 'email', 'max:255', 'unique:pkb_users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:pkb_users'],
             'alamat' => 'required',
             'telepon' => 'required',
             'provinsi' => 'required',

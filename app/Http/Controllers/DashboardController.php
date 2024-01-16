@@ -16,7 +16,7 @@ class DashboardController extends Controller
     {
         $this->middleware('isAdmin')->only('index');
         $this->middleware('isPenyelenggara')->only('dashboardUser');
-        $this->middleware(['isSKA', 'isTenagaAhli'])->only('dashboardTenagaAhli');
+        $this->middleware(['isSKA', 'isTenagaAhli'])->only(['dashboardTenagaAhli','indexSKK']);
         $this->middleware('isAPT')->only('dashboardApt');
     }
 
@@ -29,11 +29,16 @@ class DashboardController extends Controller
         return view('pages.dashboard.dashboard-user', CountKegiatanByPenyelenggara::run());
     }
 
-    public function dashboardTenagaAhli(){
+    public function indexSKK(){
         return view('pages.dashboard.dashboard-ska', TenagaAhli::run(Auth::user()->nik),GetAngkaKreditTerverifikasi::run());
     }
 
     public function dashboardApt(){
         return view('pages.dashboard.dashboard-apt', CountKegiatanByPenyelenggara::run());
     }
+
+    public function dashboardTenagaAhli(){
+        return view('pages.dashboard.index-ska');
+    }
+
 }

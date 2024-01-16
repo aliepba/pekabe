@@ -180,12 +180,28 @@
             <div class="card card-custom">
                 <div class="card-header">
                     <div class="card-title">
-                        Jumlah Kegiatan Per Unsur
+                        Jumlah Kegiatan Per Unsur Setujui
                     </div>
                 </div>
                 <!--begin::Body-->
                 <div class="card-body">
                     <div id="pieUnsur"></div>
+                </div>
+                <!--end::Body-->
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card card-custom">
+                <div class="card-header">
+                    <div class="card-title">
+                        Jumlah Kegiatan Per Unsur Pelaporan
+                    </div>
+                </div>
+                <!--begin::Body-->
+                <div class="card-body">
+                    <div id="pieUnsurPelaporan"></div>
                 </div>
                 <!--end::Body-->
             </div>
@@ -199,76 +215,18 @@
     $(document).ready(function(){
         let akunData = @json($akun); 
         let unsurData = @json($unsurSetuju);
+        let unsurPelaporan = @json($unsurPelaporan);
     
         let labelsAkun = akunData.map(item => item.jenis_penyelenggara);
         let seriesAkun = akunData.map(item => item.jumlah);
 
         let labelsUnsur = unsurData.map(item => item.unsur);
         let seriesUnsur = unsurData.map(item => item.jumlah);
+
+        let labelUnsurPelaporan = unsurPelaporan.map(item => item.unsur)
+        let seriesUnsurPelaporan = unsurPelaporan.map(item => item.jumlah)
     
         type = $('#chartType').val()
-
-        let pieOptions = {
-                series: seriesAkun,
-                chart: {
-                    width: 640,
-                    type: 'pie',
-                },
-                labels: labelsAkun,
-                responsive: [{
-                    breakpoint: 720,
-                    options: {
-                        chart: {
-                            width: 200
-                        },
-                        legend: {
-                            position: 'center'
-                        }
-                    }
-                }],
-                colors: ['#5C8374', '#435334', '#141E46', '#FFC436', '#191D88', '#40F8FF', '#614BC3', '#98346BU'],
-                dataLabels: {
-                    enabled: true,
-                    style: {
-                        fontSize: '12px',
-                    },
-                },
-                legend: {
-                    position: 'bottom', 
-                    horizontalAlign: 'left', 
-                }
-        };
-
-        let pieUnsur = {
-                series: seriesUnsur,
-                chart: {
-                    width: 640,
-                    type: 'pie',
-                },
-                labels: labelsUnsur,
-                responsive: [{
-                    breakpoint: 720,
-                    options: {
-                        chart: {
-                            width: 200
-                        },
-                        legend: {
-                            position: 'center'
-                        }
-                    }
-                }],
-                colors: ['#5C8374', '#435334', '#141E46', '#FFC436', '#191D88', '#40F8FF', '#614BC3', '#98346BU'],
-                dataLabels: {
-                    enabled: true,
-                    style: {
-                        fontSize: '12px',
-                    },
-                },
-                legend: {
-                    position: 'bottom', 
-                    horizontalAlign: 'left', 
-                }
-        };
 
         let barOptions = {
             series: [{
@@ -302,61 +260,77 @@
             },
         };
 
-        let barUnsur = {
-            series: [{
-                name: 'Jumlah',
-                data: seriesAkun,
-            }],
-            chart: {
-                height: 380,
-                type: 'bar',
-            },
-            xaxis: {
-                categories: labelsAkun,
-                labels: {
-                    style: {
-                        fontSize: '6px' 
-                    },
-                    rotate : 315
-                }
-            },
-            yaxis: {
-                title: {
-                    text: 'Jumlah'
-                }
-            },
-            colors: ['#FF5733'],
-            dataLabels: {
-                enabled: true,
-                style: {
-                    fontSize: '10px',
+        let pieUnsur = {
+                series: seriesUnsur,
+                chart: {
+                    width: 640,
+                    type: 'pie',
                 },
-            },
+                labels: labelsUnsur,
+                responsive: [{
+                    breakpoint: 720,
+                    options: {
+                        chart: {
+                            width: 200
+                        },
+                        legend: {
+                            position: 'center'
+                        }
+                    }
+                }],
+                colors: ['#5C8374', '#D83F31', '#141E46', '#F4E869', '#191D88', '#40F8FF', '#614BC3', '#98346BU'],
+                dataLabels: {
+                    enabled: true,
+                    style: {
+                        fontSize: '12px',
+                    },
+                },
+                legend: {
+                    position: 'bottom', 
+                    horizontalAlign: 'left', 
+                }
         };
+
+        let pieUnsurPelaporan = {
+                series: seriesUnsurPelaporan,
+                chart: {
+                    width: 640,
+                    type: 'pie',
+                },
+                labels: labelUnsurPelaporan,
+                responsive: [{
+                    breakpoint: 720,
+                    options: {
+                        chart: {
+                            width: 200
+                        },
+                        legend: {
+                            position: 'center'
+                        }
+                    }
+                }],
+                colors: ['#5C8374', '#D83F31', '#141E46', '#F4E869', '#191D88', '#40F8FF', '#614BC3', '#98346BU'],
+                dataLabels: {
+                    enabled: true,
+                    style: {
+                        fontSize: '12px',
+                    },
+                },
+                legend: {
+                    position: 'bottom', 
+                    horizontalAlign: 'left', 
+                }
+        };
+        
   
         let chartType = $('#chartType');
-        let pieChart = new ApexCharts(document.querySelector("#pie"), pieOptions);
         let barChart = new ApexCharts(document.querySelector("#bar"), barOptions);
         let chartUnsur = new ApexCharts(document.querySelector("#pieUnsur"), pieUnsur);
-
-        function updateCharts() {
-            var type = chartType.val();
-
-            if (type == 'pie') {
-                pieChart.render();
-                document.querySelector("#pie").style.display = "block";
-                document.querySelector("#bar").style.display = "none";
-            } else if (type == 'bar') {
-                barChart.render();
-                document.querySelector("#pie").style.display = "none";
-                document.querySelector("#bar").style.display = "block";
-            }
-        }
+        let piePelaporanUnsur = new ApexCharts(document.querySelector("#pieUnsurPelaporan"), pieUnsurPelaporan);
         
         chartUnsur.render()
-        chartType.on('change', updateCharts);
-        updateCharts();
-
+        barChart.render()
+        piePelaporanUnsur.render()
         
     })
 

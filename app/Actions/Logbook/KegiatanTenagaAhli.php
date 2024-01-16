@@ -37,9 +37,8 @@ class KegiatanTenagaAhli
                         b.jenis_kegiatan,
                         c.nama_sub_unsur ,
                         case
-                            when a.is_metode is null then '-'
+                            when a.is_metode = 0.8 null then 'Daring'
                             when a.is_metode = 1 then 'Tatap Muka'
-                            else 'Daring'
                         end as metode_kegiatan,
                         b.tingkat_kegiatan,
                         b.is_verifikasi,
