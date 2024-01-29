@@ -71,6 +71,20 @@ class MyHelper
         $status = $ak + intval($pengembangan->jml);
 
         return ($status > $syarat) ? 'Memenuhi' : "Tidak Memenuhi";
+    }
 
+    public static function getNilaiRekap($nik, $idSub, $tgl){
+
+        $pengembangan = DB::select("select sum(angka_kredit) as jml from pkb_penilaian_api ppa where = '". $nik . "'")[0];
+         
+        if(!$pengembangan){
+            $pengembangan= 0;
+        }
+
+        $ak = GetNilaiByIDSub::run($idSub, $tgl);
+
+        $status = $ak + intval($pengembangan->jml);
+
+        return $status;
     }
 }

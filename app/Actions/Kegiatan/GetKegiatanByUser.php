@@ -14,7 +14,7 @@ class GetKegiatanByUser
 
     public function handle():array
     {
-        $subUser = SubPenyelenggara::where('user_id', Auth::user()->id)->get('id');
+        $subUser = SubPenyelenggara::where('user_id', Auth::user()->id)->pluck('email')->toArray();
         $detailIntasi = DetailInstansi::where('email_instansi', Auth::user()->email)->first();
         if(empty($detailIntasi)){
             $idPenyelenggara = 0;
@@ -92,9 +92,10 @@ class GetKegiatanByUser
             a.is_verifikasi,
 	        a.tgl_penilaian
         FROM pkb_kegiatan_penyelenggara a
+        JOIN pkb_users x on a.user_id = x.id
         JOIN personal_profesi_ta_detail b on a.penilai = b.ID_Asosiasi_Profesi
         WHERE a.status_permohonan_kegiatan IN ('SUBMIT', 'APPROVE', 'PELAPORAN', 'PENGESAHAN', 'VALIDASI')
-        AND a.user_id in ('". $subUser ."')
+        AND x.email in ('" . implode("','", $subUser) . "')
         ) q")
         ];
     }

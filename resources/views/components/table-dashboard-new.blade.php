@@ -84,56 +84,102 @@
                 </tr>
             </thead>
             <tbody>
+              {{-- @for ($i = 0; $i < count($data); $i+++) --}}
+                {{-- <tr class="text-center">
+                    <td>{{$i}}</td>
+                    <td>{{}}</td> --}}
+                    {{-- <td>{{$data[$i]->kualifikasi}}</td>
+                    <td>{{$data[$i]->sub}}</td>
+                    <td>{{$data[$i]->tanggal_cetak}}</td>
+                    <td>{{$data[$i]->berlaku}}</td>
+                    <td>{{$data[$i]->syarat1}}</td>
+                    <td>{{$data[$i]->utama}}</td>
+                    <td>{{$data[$i]->syarat2}}</td>
+                    <td>{{$data[$i]->penunjang}}</td>
+                    <td>{{$data[$i]->penunjang1}}</td>
+                    <td>{{$data[$i]->utama1}}</td>
+                    <td></td>
+                    <td></td>
+                    <td>{{$data[$i]->syarat1}}</td>
+                    <td>{{$data[$i]->selainNon}}</td>
+                    <td>{{$data[$i]->syarat2}}</td>
+                    <td>{{$data[$i]->non}}</td>
+                    <td>{{$data[$i]->non1}}</td>
+                    <td>{{$data[$i]->selainNon1}}</td>
+                    <td></td>
+                    <td></td>
+                    <td>{{$data[$i]->syarat3}}</td>
+                    <td>{{$data[$i]->terverifikasi}}</td>
+                    <td>{{$data[$i]->syarat4}}</td>
+                    <td>{{$data[$i]->unverifed}}</td>
+                    <td>{{$data[$i]->unverifed1}}</td>
+                    <td>{{$data[$i]->terverifikasi1}}</td>
+                    <td></td>
+                    <td></td>
+                    <td>{{$data[$i]->syarat3}}</td>
+                    <td>{{$data[$i]->khusus}}</td>
+                    <td>{{$data[$i]->syarat4}}</td>
+                    <td>{{$data[$i]->umum}}</td>
+                    <td>{{$data[$i]->umum}}</td>
+                    <td>{{$data[$i]->khusus1}}</td>
+                    <td></td>
+                    <td></td>
+                    <td>{{$data[$i]->syarat}}</td>
+                    <td>{{$data[$i]->all}}</td>
+                    <td></td>
+                    <td>{{$data[$i]->status}}</td> --}}
+                {{-- </tr>   --}}
+              {{-- @endfor --}}
                 @foreach ($data as $item)
                 <tr class="text-center">
                     <td>{{$loop->iteration}}</td>
-                    <td>{{$item->id_sub_bidang}} - {{$item->des_sub_klas}}</td>
-                    <td>{{$item->kualifikasi}}</td>
+                    <td>{{$item['jabatan_kerja']}}</td>
+                    <td>{{$item['kualifikasi']}}</td>
                     <td>-</td>
-                    <td>{{$item->tanggal_cetak}}</td>
+                    <td>{{$item['berlaku']}}</td>
                     <td>
-                        @if ($item->kualifikasi <= 9)
-                        {{date('Y-m-d', strtotime('+5 year', strtotime($item->tanggal_cetak)))}}
-                        @else
-                        {{date('Y-m-d', strtotime('+3 year', strtotime($item->tanggal_cetak)))}}
-                        @endif
+                    @if ($item['kualifikasi'] <= 9)
+                        {{date('Y-m-d', strtotime('+5 year', strtotime($item['berlaku'])))}}
+                    @else
+                    {{date('Y-m-d', strtotime('+3 year', strtotime($item['berlaku'])))}}
+                    @endif
                     </td>
-                    <td>{{\helpers\MyHelper::nilaiSyarat(75, $item->kualifikasi)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanUtama::run($item->id_sub_bidang, $item->tanggal_cetak)}}</td>
-                    <td>{{\helpers\MyHelper::nilaiSyarat(25, $item->kualifikasi)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanPenunjang::run($item->id_sub_bidang, $item->tanggal_cetak)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanPenunjang::run($item->id_sub_bidang, $item->tanggal_cetak) - \helpers\MyHelper::nilaiSyarat(25, $item->kualifikasi) < 0 ? '0' : \App\Actions\Logbook\GetNilaiKegiatanPenunjang::run($item->id_sub_bidang, $item->tanggal_cetak) - \helpers\MyHelper::nilaiSyarat(25, $item->kualifikasi)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanUtama::run($item->id_sub_bidang, $item->tanggal_cetak) - \helpers\MyHelper::nilaiSyarat(75, $item->kualifikasi) < 0 ? '0' : \App\Actions\Logbook\GetNilaiKegiatanUtama::run($item->id_sub_bidang, $item->tanggal_cetak) - \helpers\MyHelper::nilaiSyarat(75, $item->kualifikasi) }}</td>
+                    <td>{{$item['syarat1']}}</td>
+                    <td>{{$item['utama']}}</td>
+                    <td>{{$item['syarat2']}}</td>
+                    <td>{{$item['penunjang']}}</td>
+                    <td>{{$item['penunjang1']}}</td>
+                    <td>{{$item['utama1'] }}</td>
                     <td></td>
                     <td></td>
-                    <td>{{\helpers\MyHelper::nilaiSyarat(75, $item->kualifikasi)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanSelainNonFormal::run($item->id_sub_bidang, $item->tanggal_cetak)}}</td>
-                    <td>{{\helpers\MyHelper::nilaiSyarat(25, $item->kualifikasi)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanNonFormal::run($item->id_sub_bidang, $item->tanggal_cetak)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanNonFormal::run($item->id_sub_bidang, $item->tanggal_cetak) - \helpers\MyHelper::nilaiSyarat(25, $item->kualifikasi) < 0 ? '0' : \App\Actions\Logbook\GetNilaiKegiatanNonFormal::run($item->id_sub_bidang, $item->tanggal_cetak) - \helpers\MyHelper::nilaiSyarat(25, $item->kualifikasi)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiKegiatanSelainNonFormal::run($item->id_sub_bidang, $item->tanggal_cetak) - \helpers\MyHelper::nilaiSyarat(75, $item->kualifikasi) <0 ? '0' : \App\Actions\Logbook\GetNilaiKegiatanSelainNonFormal::run($item->id_sub_bidang, $item->tanggal_cetak) - \helpers\MyHelper::nilaiSyarat(75, $item->kualifikasi)}}</td>
+                    <td>{{$item['syarat1']}}</td>
+                    <td>{{$item['selainNon']}}</td>
+                    <td>{{$item['syarat2']}}</td>
+                    <td>{{$item['non']}}</td>
+                    <td>{{$item['non1']}}</td>
+                    <td>{{$item['selainNon1'] }}</td>
                     <td></td>
                     <td></td>
-                    <td>{{\helpers\MyHelper::nilaiSyarat(60, $item->kualifikasi)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiTerverifikasi::run($item->id_sub_bidang)}}</td>
-                    <td>{{\helpers\MyHelper::nilaiSyarat(40, $item->kualifikasi)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiUnverifikasi::run($item->tanggal_cetak)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiUnverifikasi::run($item->tanggal_cetak) - \helpers\MyHelper::nilaiSyarat(40, $item->kualifikasi) < 0 ? '0' : \App\Actions\Logbook\GetNilaiUnverifikasi::run($item->tanggal_cetak) - \helpers\MyHelper::nilaiSyarat(40, $item->kualifikasi)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiTerverifikasi::run($item->id_sub_bidang) - \helpers\MyHelper::nilaiSyarat(60, $item->kualifikasi) < 0 ? '0' : \App\Actions\Logbook\GetNilaiTerverifikasi::run($item->id_sub_bidang) - \helpers\MyHelper::nilaiSyarat(60, $item->kualifikasi)}}</td>
+                    <td>{{$item['syarat3']}}</td>
+                    <td>{{$item['terverifikasi']}}</td>
+                    <td>{{$item['syarat4']}}</td>
+                    <td>{{$item['unverifed']}}</td>
+                    <td>{{$item['unverifed1'] }}</td>
+                    <td>{{$item['terverifikasi1']}}</td>
                     <td></td>
                     <td></td>
-                    <td>{{\helpers\MyHelper::nilaiSyarat(60, $item->kualifikasi)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiKhusus::run($item->id_sub_bidang, $item->tanggal_cetak)}}</td>
-                    <td>{{\helpers\MyHelper::nilaiSyarat(40, $item->kualifikasi)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiUmum::run($item->id_sub_bidang)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiUmum::run($item->id_sub_bidang) - \helpers\MyHelper::nilaiSyarat(40, $item->kualifikasi) < 0 ? '0' : \App\Actions\Logbook\GetNilaiUmum::run($item->id_sub_bidang) - \helpers\MyHelper::nilaiSyarat(40, $item->kualifikasi)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiKhusus::run($item->id_sub_bidang, $item->tanggal_cetak) - \helpers\MyHelper::nilaiSyarat(60, $item->kualifikasi) < 0 ? '0' : \App\Actions\Logbook\GetNilaiKhusus::run($item->id_sub_bidang, $item->tanggal_cetak) - \helpers\MyHelper::nilaiSyarat(60, $item->kualifikasi)}}</td>
+                    <td>{{$item['syarat3']}}</td>
+                    <td>{{$item['khusus']}}</td>
+                    <td>{{$item['syarat4']}}</td>
+                    <td>{{$item['umum']}}</td>
+                    <td>{{$item['umum1'] }}</td>
+                    <td>{{$item['khusus1']}}</td>
                     <td></td>
                     <td></td>
-                    <td>{{\helpers\MyHelper::syarat($item->kualifikasi)}}</td>
-                    <td>{{\App\Actions\Logbook\GetNilaiByIDSub::run($item->id_sub_bidang, $item->tanggal_cetak)}}</td>
+                    <td>{{$item['syarat']}}</td>
+                    <td>{{$item['all']}}</td>
                     <td></td>
-                    <td>{{\helpers\MyHelper::status($item->kualifikasi, $item->id_sub_bidang, $item->tanggal_cetak)}}</td>
+                    <td colspan="2">{{$item['status']}}</td>
                 </tr>
                 @endforeach
             </tbody>
