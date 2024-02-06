@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\SiJKT;
+use App\Services\Log\LogService;
 use Illuminate\Http\Request;
 use App\Services\Login\SIJKTService;
 use Illuminate\Support\Facades\Http;
@@ -11,10 +12,12 @@ use Illuminate\Support\Facades\DB;
 class SiJKTController extends Controller
 {
     private $sijktService;
+    private $logService;
 
-    public function __construct(SIJKTService $sijktService)
+    public function __construct(SIJKTService $sijktService, LogService $logService)
     {
         $this->sijktService = $sijktService;
+        $this->logService = $logService;
     }
 
     public function login($id, $token){
@@ -35,8 +38,13 @@ class SiJKTController extends Controller
     }
 
     public function connect(Request $request){
-        $this->sijktService->connect($request);
-        return redirect(route('dashboard.tenaga.ahli'))->with('success', 'Login Berhasil');
+        try{
+            $this->sijktService->connect($request);
+            return redirect(route('dashboard.tenaga.ahli'))->with('success', 'Login Berhasil');
+        }catch(\Exception $e){
+            $this->logService->store($request, $e->getMessage(), url()->current());
+            return redirect(route('sijkt'))->with('success', 'Harap Login SIJKT Terlebih dahulu');
+        }
     }
 
 }
