@@ -22,7 +22,7 @@ class RoleMenuController extends Controller
     public function index(Request $request)
     {
         try{
-            $data = Role::with(['menus', 'menus.menu'])->get();
+            $data = Role::with(['mns', 'mns.menu'])->get();
             return view('settings.role-menu.index', compact('data'));
         }catch (\Exception $e) {
             $this->logService->store($request, $e->getMessage(), url()->current());
@@ -79,7 +79,10 @@ class RoleMenuController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Role::with(['mns', 'mns.menu'])->find($id);
+        $mtmenu = MtMenu::all();
+        $roles = Role::all();
+        return view('settings.role-menu.edit', compact('data', 'mtmenu', 'roles'));
     }
 
     /**
@@ -91,7 +94,14 @@ class RoleMenuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try{
+            $this->roleMenuService->save($request, $id);
+            return redirect(route('setting.role-menu.list'))->with('success', 'successfully update role menu');
+        }catch (\Exception $e) {
+            DB::rollBack();
+            $this->logService->store($request, $e->getMessage(), url()->current());
+            return redirect(route('error.page'))->with('error', 'Error');
+        } 
     }
 
     /**

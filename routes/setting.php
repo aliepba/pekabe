@@ -13,7 +13,7 @@ Route::middleware(['auth'])->group(function(){
             Route::get('create', [RoleMenuController::class, 'create'])->name('create');
             Route::post('store', [RoleMenuController::class, 'store'])->name('store');
             Route::get('edit/{id}', [RoleMenuController::class, 'edit'])->name('edit');
-            Route::post('update/{id}', [RoleMenuController::class, 'update'])->name('update');
+            Route::put('update/{id}', [RoleMenuController::class, 'update'])->name('update');
             Route::post('delete/{id}', [RoleMenuController::class, 'delete'])->name('delete');
         });
     });
