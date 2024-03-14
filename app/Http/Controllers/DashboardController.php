@@ -57,7 +57,6 @@ class DashboardController extends Controller
                 $syarat3 = MyHelper::nilaiSyarat(60, $item->kualifikasi);
                 $syarat4 = MyHelper::nilaiSyarat(40, $item->kualifikasi);
 
-
                 $utama = $this->logbookService->AKKegiatanUtama($nik, $userId, $item->id_sub_bidang, $item->tanggal_cetak);
                 $penunjang = $this->logbookService->AKKegiatanPenunjang($nik, $userId, $item->id_sub_bidang, $item->tanggal_cetak);
                 $selainNon = $this->logbookService->AKKegiatanSelainNonFormal($nik, $userId, $item->id_sub_bidang, $item->tanggal_cetak);
