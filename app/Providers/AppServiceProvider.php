@@ -12,6 +12,7 @@ use Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use App\Models\Kegiatan;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,6 +33,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        
+        Paginator::useBootstrap();
 
         View::composer('*', function ($view) {
             // Check if the current view is not 'indexing'
