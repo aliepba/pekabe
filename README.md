@@ -36,3 +36,12 @@ php artisan migrate:fresh --seed
 ```bash
 php artisan serve
 ```
+
+## Noted Aplikasi
+
+-branching menggunakan prefix (bugfix / feature) kemudian diikuti dengan nama menu atau nomer tiket
+contoh : bugfix/pos atau feature/OPS-1
+-proses insert, update dan delete wajib diawali dengan database transaction dan try catch fungsinya untuk mencegah terjadinya kerusakan data
+-logic ditaro service bukan di controller
+-gunakan findOrFail atau firstOrFail jika ada pengambilan data menggunakan looping untuk insert ke table detail, fungsinya untuk menjaga data agar tetap konsisten
+-tambah autocomplete off di atribut input atau form agar tidak menampilkan data history browser
