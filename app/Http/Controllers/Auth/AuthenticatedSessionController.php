@@ -10,9 +10,18 @@ use Illuminate\Support\Facades\Auth;
 use App\Jobs\isVerifikasi;
 use App\Jobs\PengembanganJob;
 use App\Jobs\PersetujuanKegiatan;
+use App\Services\Log\LogService;
+use Illuminate\Validation\ValidationException;
 
 class AuthenticatedSessionController extends Controller
-{
+{   
+
+    private $logService;
+
+   public function __construct(LogService $logService)
+    {
+        $this->logService = $logService;
+    }
     /**
      * Display the login view.
      *
@@ -31,13 +40,20 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
-        $request->authenticate();
-        $request->session()->regenerate();
+        try{
+            $request->authenticate();
+            $request->session()->regenerate();
+            return redirect()->intended(RouteServiceProvider::HOME);
+        }catch (ValidationException $e){
+            $this->logService->store($request, $e->getMessage(), url()->current());
+        }catch (\Exception $e) {
+            $this->logService->store($request, $e->getMessage(), url()->current());
+        }
+        
         // isVerifikasi::dispatch();
         // PersetujuanKegiatan::dispatch();
-        PengembanganJob::dispatch();
-        return redirect()->intended(RouteServiceProvider::HOME);
-    }
+        // PengembanganJob::dispatch();
+    } 
 
     /**
      * Destroy an authenticated session.

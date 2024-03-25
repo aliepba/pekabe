@@ -47,6 +47,11 @@ class UploadService
 
     public function acc($id){
         $peserta = UploadPeserta::find($id);
+
+        if (preg_match('/[a-zA-Z\p{P}]/u', $peserta->nik)) {
+            return redirect(route('excel', $peserta->id_kegiatan))->with('error', 'Harap input NIK bukan Nama.');
+        }
+
         DB::transaction(function () use($peserta){
             $peserta->update([
                 'acc' => 1

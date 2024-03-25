@@ -142,7 +142,7 @@ class PelaporanController extends Controller
     {
         try{
             $this->pelaporanService->submitUnverified($id);
-            return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'data laporan kegiatan berhasil disubmit!');
+            return redirect(route('kegiatan-penyelenggara.index'))->with('success', 'data laporan kegiatan berhasil disubmit sebagai kegiatan unverified!');
         }catch (\Exception $e) {
             DB::rollback();
             $this->logService->store($request, $e->getMessage(), url()->current());

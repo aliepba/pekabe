@@ -28,6 +28,7 @@ use App\Http\Controllers\IndikatorController;
 use App\Http\Controllers\RollbackController;
 use App\Http\Controllers\SiJKTController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\Http\Controllers\SearchingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,6 +71,8 @@ Route::put('/permohonan-akun/update/{uuid}', [PermohonanAkunController::class, '
 Route::get('/dashboard-tenaga-ahli', [DashboardController::class, 'dashboardTenagaAhli'])->name('dashboard.tenaga.ahli');
 Route::get('/home', [DashboardController::class, 'indexSKK'])->name('index.skk');
 
+Route::post('/get-rekap', [DashboardController::class, 'getRekap'])->name('getRekap');
+
 Route::get('/daftar-kegiatan-disetujui', function(){
     return view('daftar-kegiatan', GetKegiatanSetuju::run());
 })->name('kegiatan.setujui');
@@ -87,6 +90,7 @@ Route::prefix('/pengembangan')->middleware(['auth'])->group(function (){
 Route::middleware(['auth'])->group(function () {
     Route::get('profile-pkb', [IndikatorController::class, 'index'])->name('profile.index');
     Route::get('profile-pkb-khusus', [IndikatorController::class, 'khusus'])->name('profile.khusus');
+    Route::get('rekapitulasi-skk', [IndikatorController::class, 'rekapSKK'])->name('rekap.skk');
     Route::get('rollback-kegiatan', [RollbackController::class, 'index'])->name('rollback');
     Route::post('rollback-proses', [RollbackController::class, 'process'])->name('rollback.proses');
     
@@ -134,14 +138,14 @@ Route::middleware(['auth'])->group(function () {
     //export excel
     Route::get('/export-kegiatan', [VerifikasiKegiatanController::class, 'export'])->name('export.kegiatan');
 
-    //setting
-
     //penyelenggara
     Route::get('/dashboard-user', [DashboardController::class, 'dashboardUser'])->name('dashboard.user');
     Route::resource('kegiatan-penyelenggara', KegiatanController::class);
     Route::get('/kegiatan/submit/{uuid}', [KegiatanController::class, 'submit'])->name('submit.kegiatan');
     Route::get('/kegiatan/setujui', [KegiatanController::class, 'setuju'])->name('kegiatan.setuju');
     Route::get('/kegiatan/tolak', [KegiatanController::class, 'tolak'])->name('kegiatan.tolak');
+    Route::get('/kegiatan/terverifikasi', [KegiatanController::class, 'terverifikasi'])->name('kegiatan.terverifikasi');
+    Route::get('/kegiatan/tidak-terverifikasi', [KegiatanController::class, 'unverified'])->name('kegiatan.unverif');
 
     Route::get('/surat/{uuid}', [PerbaikanController::class, 'surat'])->name('edit.surat');
     Route::get('/tor-kak/{uuid}', [PerbaikanController::class, 'tor'])->name('edit.tor');
@@ -159,6 +163,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('/pelaporan', PelaporanController::class)->only(['store', 'edit', 'update']);
     Route::get('/pelaporan/submit/{id}', [PelaporanController::class, 'submit'])->name('pelaporan.submit');
+    Route::get('/pelaporan/unverifed/{id}', [PelaporanController::class, 'submitUnverified'])->name('pelaporan.unverified');
 
     Route::resource('/sub-penyelenggara', SubPenyelenggaraController::class)->except('show');
     Route::get('/sub-penyelenggara/change-status/{id}', [SubPenyelenggaraController::class, 'change'])->name('change.status');
@@ -188,7 +193,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard-apt', [DashboardController::class, 'dashboardApt'])->name('dashboard.apt');
     Route::get('/list-verifikasi-apt', [VerifikasiKegiatanController::class, 'apt'])->name('verifikasi.apt');
     Route::get('/list-validasi-apt', [PenilaianValidatorController::class, 'apt'])->name('validator.apt');
-    
+
+    //searching
+    Route::get('/cek-skpk', [SearchingController::class, 'cekSkpk'])->name('cek.skpk');
+    Route::post('/get-sertifikat', [SearchingController::class, 'getSertifikat'])->name('get.sertifikat');
 });
 
 //referensi

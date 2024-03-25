@@ -6,6 +6,7 @@ use App\Models\DetailInstansi;
 use App\Models\Kegiatan;
 use Illuminate\Support\Facades\DB;
 use App\Models\MtAsosiasiProfesi;
+use App\Models\PenilaianPeserta;
 use Illuminate\Support\Facades\Redis;
 
 class IndikatorController extends Controller
@@ -170,5 +171,70 @@ class IndikatorController extends Controller
         ORDER BY a.id_asosiasi ASC");
 
         return view('pages.indikator.khusus', compact('asosiasi'));
+    }
+
+    public function rekapSKK()
+    {
+        $rekapAK = PenilaianPeserta::select('nik', 'id_sub_bidang', DB::raw('SUM(angka_kredit) as total_angka_kredit'))
+                                    ->groupBy('nik', 'id_sub_bidang')
+                                    ->get();
+        
+        $data = [];
+                    
+        foreach($rekapAK as $item){
+            $getSKK = DB::SELECT("select jabatan_kerja , jenjang , year(tanggal_ditetapkan) as tahun 
+                        from lsp_pencatatan lp where jenjang in(7,8,9) and valid = 1  and nik = '$item->nik' and id_jabatan_kerja='$item->id_sub_bidang'");
+            
+            if(!empty($getSKK)){
+                array_push($data, [
+                    'nik' => $item->nik,
+                    'id_sub_bidang' => $item->id_sub_bidang,
+                    'ak' => $item->total_angka_kredit,
+                    'jenjang' => $getSKK[0]->jenjang,
+                    'tahun_terbit' => $getSKK[0]->tahun,
+                ]);
+            }
+        }
+
+        $resultArray = [];
+
+        foreach ($data as $entry) {
+            $year = $entry["tahun_terbit"];
+            $jenjang = $entry["jenjang"];
+            $ak = $entry["ak"];
+        
+            if (!isset($resultArray[$year])) {
+                $resultArray[$year] = [];
+            }
+
+            if (!isset($resultArray[$year][$jenjang])) {
+                $resultArray[$year][$jenjang] = [
+                    "below100" => 0, 
+                    "above100" => 0, 
+                    "above150" => 0,
+                    "above200" => 0
+                ];
+            }
+            //cek angka kredit per jabatan kerja
+            if (is_numeric($ak)) {
+                if ($ak < 100) {
+                    $resultArray[$year][$jenjang]["below100"]++;
+                } 
+                
+                if($ak > 100 && $ak <= 150){
+                    $resultArray[$year][$jenjang]["above100"]++;
+                }
+
+                if($ak > 150 && $ak <= 200){
+                    $resultArray[$year][$jenjang]["above150"]++;
+                }
+                if($ak > 200){
+                    $resultArray[$year][$jenjang]["above200"]++;
+                }
+                
+            }
+        }
+        
+        return view('pages.indikator.rekapitulasi-skk', compact('resultArray'));
     }
 }

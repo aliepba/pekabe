@@ -18,6 +18,8 @@ use App\Models\DetailInstansi;
 use App\Actions\Kegiatan\GetKegiatanByUser;
 use App\Actions\Kegiatan\GetKegiatanPenyelenggara;
 use App\Actions\Kegiatan\GetKegiatanTolak;
+use App\Actions\Kegiatan\KegiatanTerverifikasi;
+use App\Actions\Kegiatan\KegiatanUnverified;
 use App\Models\MtSubUnsurKegiatan;
 use App\Models\SettingKegiatan;
 use App\Models\SettingPelaporan;
@@ -216,6 +218,26 @@ class KegiatanController extends Controller
         try{
             $this->authorize('list-tolak', Kegiatan::class);
             return view('pages.kegiatan.tolak', GetKegiatanTolak::run());
+        }catch (\Exception $e) {
+            $this->logError->store($request, $e->getMessage(), url()->current());
+            return redirect(route('error.page'))->with('error', 'Error');
+        } 
+    }
+
+    public function terverifikasi(Request $request)
+    {
+        try{
+            return view('pages.kegiatan.terverifikasi', KegiatanTerverifikasi::run());
+        }catch (\Exception $e) {
+            $this->logError->store($request, $e->getMessage(), url()->current());
+            return redirect(route('error.page'))->with('error', 'Error');
+        } 
+    }
+
+    public function unverified(Request $request)
+    {
+        try{
+            return view('pages.kegiatan.unverified', KegiatanUnverified::run());
         }catch (\Exception $e) {
             $this->logError->store($request, $e->getMessage(), url()->current());
             return redirect(route('error.page'))->with('error', 'Error');

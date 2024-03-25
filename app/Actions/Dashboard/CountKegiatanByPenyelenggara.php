@@ -21,7 +21,6 @@ class CountKegiatanByPenyelenggara
             'tolakByUser' => Kegiatan::where('status_permohonan_kegiatan', PermohonanStatus::TOLAK)->where('user_id', Auth::user()->id)->count(),
             'pelaporanByUser' => DB::select("SELECT COUNT(a.uuid) AS jumlah FROM pkb_kegiatan_penyelenggara a
                                             JOIN pkb_pelaporan_kegiatan b on a.uuid = b.id_kegiatan
-                                            WHERE b.status_laporan = 'SUBMIT'
                                             AND a.user_id =" . Auth::user()->id. ""),
             'unverified' => Kegiatan::where('is_verifikasi', 0)->where('user_id', Auth::user()->id)->count(),
         ];

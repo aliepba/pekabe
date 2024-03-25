@@ -8,6 +8,7 @@ use App\Models\SettingPelaporan;
 use Illuminate\Support\Facades\DB;
 
 class SettingService {
+    
     public function statusPelaporan(){
         $item = SettingPelaporan::first();
         DB::transaction(function () use ($item){
