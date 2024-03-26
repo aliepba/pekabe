@@ -56,7 +56,7 @@
                                 Internasion Luar Negeri
                             @endif</a>
                                 <a href="#" class="text-dark-50 text-hover-primary font-weight-bold">
-                                <i class="flaticon-calendar-with-a-clock-time-tools mr-2 font-size-lg"></i>{{$data->start_kegiatan}} s/d {{$data->end_kegiatan}}</a>
+                                <i class="flaticon-calendar-with-a-clock-time-tools mr-2 font-size-lg"></i>{{date('d F Y', $data->start_kegiatan)}} s/d {{date('d F Y', $data->end_kegiatan)}}</a>
                             </div>
                             <div class="row">
                             {{-- <a href="" class="btn btn-sm btn-primary rounded-lg col-md-3" target="_blank"><i class="flaticon-file"></i>{{$file1 != null ? $file1 : 'upload persyaratan'}}</a>

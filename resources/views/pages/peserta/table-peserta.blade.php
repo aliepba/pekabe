@@ -31,16 +31,7 @@
                 @foreach ($peserta as $item)
                 <tr>
                     <td>{{$loop->iteration}}</td>
-                    {{-- <td>{{\App\Actions\Logbook\GetNamaTenagaAhli::run($item->nik_peserta)}}</td> --}}
-                    <td>
-                      @if ($item->ska != null)
-                      {{$item->ska}}
-                      @elseif($item->skk != null)
-                      {{$item->skk}}
-                      @else
-                      Tidak Memiliki SKA/SKK
-                      @endif
-                    </td>
+                    <td>{{\App\Actions\Logbook\GetNamaTenagaAhli::run($item->nik_peserta)}}</td>
                     <td>{{$item->nik_peserta}}</td>
                     <td>{{$item->metode_peserta}}</td>
                     <td>{{$item->unsur}}</td>
@@ -57,5 +48,6 @@
               </tbody>
             </table>
           </div>
+          {{ $peserta->links() }}
         </div>
       </div>

@@ -21,6 +21,7 @@ use App\Actions\Kegiatan\GetKegiatanTolak;
 use App\Actions\Kegiatan\KegiatanTerverifikasi;
 use App\Actions\Kegiatan\KegiatanUnverified;
 use App\Models\MtSubUnsurKegiatan;
+use App\Models\PesertaKegiatan;
 use App\Models\SettingKegiatan;
 use App\Models\SettingPelaporan;
 use App\Services\Log\LogService;
@@ -104,11 +105,7 @@ class KegiatanController extends Controller
 
         if(!$kegiatan){return redirect(route('error.page'));}
 
-        $peserta = DB::SELECT("select a.id, b.nama as skk, c.Nama  as ska, a.nik_peserta, a.unsur_peserta as unsur, a.metode_peserta  from pkb_peserta_kegiatan a
-        left join lsp_personal b on a.nik_peserta = b.nik COLLATE utf8mb4_unicode_ci
-        left join personal c on a.nik_peserta = c.id_personal
-        join pkb_sub_unsur_kegiatan d on a.unsur_peserta = d.id
-        where a.id_kegiatan = '$uuid'");
+        $peserta = PesertaKegiatan::where('id_kegiatan', $kegiatan->uuid)->paginate(10);
 
 
         return view('pages.kegiatan.show', [

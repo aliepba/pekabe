@@ -51,7 +51,7 @@
                                 <i class="flaticon2-new-email mr-2 font-size-lg"></i>{{$data->Jenispenyelenggara->jenis_penyelenggara}}</a>
                                 <i class="flaticon2-calendar-3 mr-2 font-size-lg"></i>{{$data->telepon}}</a>
                                 <a href="#" class="text-dark-50 text-hover-primary font-weight-bold">
-                                <i class="flaticon2-placeholder mr-2 font-size-lg"></i>{{$data->provinsi->Nama. ' , '. $data->kabKota->nama_kabupaten_dagri. ' , ' .$data->alamat}}</a>
+                                <i class="flaticon2-placeholder mr-2 font-size-lg"></i>{{$data->provinsi->Nama. ' , '. $data->kabKota->nama_kabupaten_dagri ?? '-'. ' , ' .$data->alamat}}</a>
                             </div>
                             <div class="row">
                             <a href="{{asset('storage/'. $data->file1)}}" class="btn btn-sm btn-primary rounded-lg col-md-3" target="_blank"><i class="flaticon-file"></i>{{$file1 != null ? $file1 : 'upload persyaratan'}}</a>

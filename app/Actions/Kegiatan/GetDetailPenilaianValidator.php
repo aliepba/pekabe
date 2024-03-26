@@ -29,9 +29,9 @@ class GetDetailPenilaianValidator
         // }
         return [
             'data' => $kegiatan,
-            'peserta' => $peserta
+            // 'peserta' => $peserta
             // 'bobot' => MtBobotPenilaian::whereIn('id', $idUnsur)->get(),
-            // 'peserta' => PesertaKegiatan::where('id_kegiatan', $uuid)->get()
+            'peserta' => PesertaKegiatan::where('id_kegiatan', $kegiatan->uuid)->paginate(10)
         ];
     }
 }
