@@ -7,7 +7,9 @@ use App\Models\Kegiatan;
 use Illuminate\Support\Facades\DB;
 use App\Models\MtAsosiasiProfesi;
 use App\Models\PenilaianPeserta;
-use Illuminate\Support\Facades\Redis;
+use App\Models\RekapSKK;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
 
 class IndikatorController extends Controller
 {
@@ -175,12 +177,21 @@ class IndikatorController extends Controller
 
     public function rekapSKK()
     {
-        $rekapAK = PenilaianPeserta::select('nik', 'id_sub_bidang', DB::raw('SUM(angka_kredit) as total_angka_kredit'))
-                                    ->groupBy('nik', 'id_sub_bidang')
-                                    ->get();
-        
+        $date = Carbon::now()->format('Y-m-d');
+        $cek = RekapSKK::where('date', $date)->first();
+        $resultArray = json_decode($cek->rekap, true);
+        return view('pages.indikator.rekapitulasi-skk', compact('resultArray', 'cek'));
+    }
+
+    public function saveData(){
+        $rekapAK = Cache::remember('all_nilai',1800, function () {
+            return PenilaianPeserta::select('nik', 'id_sub_bidang', DB::raw('SUM(angka_kredit) as total_angka_kredit'))
+            ->groupBy('nik', 'id_sub_bidang')
+            ->get();
+        });
+    
         $data = [];
-                    
+                
         foreach($rekapAK as $item){
             $getSKK = DB::SELECT("select jabatan_kerja , jenjang , year(tanggal_ditetapkan) as tahun 
                         from lsp_pencatatan lp where jenjang in(7,8,9) and valid = 1  and nik = '$item->nik' and id_jabatan_kerja='$item->id_sub_bidang'");
@@ -209,6 +220,7 @@ class IndikatorController extends Controller
 
             if (!isset($resultArray[$year][$jenjang])) {
                 $resultArray[$year][$jenjang] = [
+                    "below50" => 0,
                     "below100" => 0, 
                     "above100" => 0, 
                     "above150" => 0,
@@ -217,24 +229,43 @@ class IndikatorController extends Controller
             }
             //cek angka kredit per jabatan kerja
             if (is_numeric($ak)) {
-                if ($ak < 100) {
+                if($ak < 50){
+                    $resultArray[$year][$jenjang]["below50"]++;
+                }
+
+                if ($ak >= 50 && $ak <= 99) {
                     $resultArray[$year][$jenjang]["below100"]++;
                 } 
                 
-                if($ak > 100 && $ak <= 150){
+                if($ak >= 100 && $ak <= 149){
                     $resultArray[$year][$jenjang]["above100"]++;
                 }
 
-                if($ak > 150 && $ak <= 200){
+                if($ak >= 150 && $ak <= 199){
                     $resultArray[$year][$jenjang]["above150"]++;
                 }
-                if($ak > 200){
+                if($ak >= 200){
                     $resultArray[$year][$jenjang]["above200"]++;
-                }
-                
+                }  
             }
         }
         
-        return view('pages.indikator.rekapitulasi-skk', compact('resultArray'));
+        $date = Carbon::now()->format('Y-m-d');
+        $cek = RekapSKK::where('date', $date)->first();
+
+        DB::beginTransaction();
+        if(!$cek){
+            $rekap = new RekapSKK();
+            $rekap->date = Carbon::now();
+            $rekap->rekap = json_encode($resultArray);
+            $rekap->save();
+        }else{
+            $cek->rekap = json_encode($resultArray);
+            $cek->save();       
+        }
+        DB::commit();
+
+
+        return response()->json('success');
     }
 }
